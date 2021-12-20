@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Syncfusion.Maui.Core</id>
+    <title>Syncfusion Core for .Net MAUI</title>
+    <version>19.3.35-preview</version>
+    <authors>Syncfusion Inc.</authors>
+    <licenseUrl>http://www.syncfusion.com/nuget/license</licenseUrl>
+    <iconUrl>https://www.syncfusion.com/content/images/nuget/sync_logo_icon.png</iconUrl>
+    <projectUrl>https://www.syncfusion.com/maui/?utm_source=nuget&amp;utm_medium=listing</projectUrl>
+    <description>This package contains common classes and interfaces that are used in other Syncfusion MAUI controls.</description>
+    <releaseNotes>https://help.syncfusion.com/maui/release-notes/v19.2.0.56?utm_source=nuget&amp;amp;utm_medium=listing</releaseNotes>
+    <copyright>Copyright 2001 - 2021 Syncfusion Inc.</copyright>
+    <tags>syncfusion maui ios android maccatalyst dotnet-maui syncfusion-maui</tags>
+    <dependencies>
+      <group targetFramework="net6.0-android30.0">
+        <dependency id="Microsoft.Maui.Dependencies" version="*" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net6.0-ios13.6">
+        <dependency id="Microsoft.Maui.Dependencies" version="*" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net6.0-maccatalyst13.5">
+        <dependency id="Microsoft.Maui.Dependencies" version="*" exclude="Build,Analyzers" />
+      </group>
+	  <group targetFramework="net6.0-windows10.0.19041">
+        <dependency id="Microsoft.Maui.Dependencies" version="*" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

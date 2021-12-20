@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syncfusion.Maui.Core", "Syncfusion.Maui.Core.csproj", "{F93F07B7-B00C-42AA-B11C-268010BC9722}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Release-Xml|Any CPU = Release-Xml|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F93F07B7-B00C-42AA-B11C-268010BC9722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F93F07B7-B00C-42AA-B11C-268010BC9722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F93F07B7-B00C-42AA-B11C-268010BC9722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F93F07B7-B00C-42AA-B11C-268010BC9722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F93F07B7-B00C-42AA-B11C-268010BC9722}.Release-Xml|Any CPU.ActiveCfg = Release-Xml|Any CPU
+		{F93F07B7-B00C-42AA-B11C-268010BC9722}.Release-Xml|Any CPU.Build.0 = Release-Xml|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64E7209C-61CF-4645-BDDA-741B6EED379C}
+	EndGlobalSection
+EndGlobal
