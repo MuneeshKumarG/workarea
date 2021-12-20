@@ -1,0 +1,16 @@
+{
+  "Name": "maui-core",
+  "Platforms": [
+    {
+      "Name": "MAUI",
+      "Assemblies": [
+        {
+          "Name": "Syncfusion.Maui.Core",
+          "EnableFxCopAnalyzer": false,
+          "EnableStyleCopAnalyzer": false,
+          "TreatWarningsAsErrors": false
+        }
+      ]
+    }    
+  ]
+}

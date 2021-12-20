@@ -1,0 +1,16 @@
+{
+  "Name": "maui-gauges",
+  "Platforms": [
+    {
+      "Name": "MAUI",
+      "Assemblies": [
+        {
+          "Name": "Syncfusion.Maui.Gauges",
+          "EnableFxCopAnalyzer": false,
+          "EnableStyleCopAnalyzer": false,
+          "TreatWarningsAsErrors": false
+        }
+      ]
+    }
+  ]
+}
