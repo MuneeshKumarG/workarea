@@ -49,12 +49,12 @@
    <None Remove="Syncfusion.Maui.Gauges.CI.nuspec" />
 	</ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Syncfusion.Maui.Core" Version="*" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="" />
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
 		<None Include="syncfusion_logo.png" Pack="true" PackagePath="" />
 	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core_src\maui\src\core\Syncfusion.Maui.Core.csproj" />
+  </ItemGroup>
   <Import Project="..\targets\MultiTargeting.targets" />
 </Project>
