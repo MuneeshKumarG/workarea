@@ -3,9 +3,12 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Layouts;
 using Syncfusion.Maui.Core.Internals;
+using Syncfusion.Maui.Graphics.Internals;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Linq;
 
 namespace Syncfusion.Maui.Gauges
@@ -13,7 +16,7 @@ namespace Syncfusion.Maui.Gauges
     /// <summary>
     /// The linear gauge is a data visualization control that can be used to display data on a linear scale in either horizontal or vertical orientation.
     /// </summary>
-    public class SfLinearGauge : View, IContentView, IVisualTreeElement
+    public class SfLinearGauge : View, IContentView
     {
         #region Bindable properties
 
@@ -71,14 +74,14 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty LabelFormatProperty =
             BindableProperty.Create(nameof(LabelFormat), typeof(string), typeof(SfLinearGauge), null, propertyChanged: OnLabelFormatPropertyChanged);
 
-        /// <summary>
-        /// Identifies the <see cref="LabelTemplate"/> bindable property.
-        /// </summary>
-        /// <value>
-        /// The identifier for <see cref="LabelTemplate"/> bindable property.
-        /// </value>
-        public static readonly BindableProperty LabelTemplateProperty =
-            BindableProperty.Create(nameof(LabelTemplate), typeof(string), typeof(SfLinearGauge), null);
+        ///// <summary>
+        ///// Identifies the <see cref="LabelTemplate"/> bindable property.
+        ///// </summary>
+        ///// <value>
+        ///// The identifier for <see cref="LabelTemplate"/> bindable property.
+        ///// </value>
+        //public static readonly BindableProperty LabelTemplateProperty =
+        //    BindableProperty.Create(nameof(LabelTemplate), typeof(string), typeof(SfLinearGauge), null);
 
         /// <summary>
         /// Identifies the <see cref="LabelPosition"/> bindable property.
@@ -209,22 +212,63 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty UseRangeColorForAxisProperty =
             BindableProperty.Create(nameof(UseRangeColorForAxis), typeof(bool), typeof(SfLinearGauge), false, propertyChanged: OnInvalidatePropertyChanged);
 
-        ///// <summary>
-        ///// Identifies the <see cref="Orientation"/> bindable property.
-        ///// </summary>
-        ///// <value>
-        ///// The identifier for <see cref="Orientation"/> bindable property.
-        ///// </value>
-        //public static readonly BindableProperty OrientationProperty =
-        //    BindableProperty.Create(nameof(Orientation), typeof(Orientation), typeof(SfLinearGauge), false, propertyChanged: OnInvalidatePropertyChanged);
+        /// <summary>
+        /// Identifies the <see cref="Orientation"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="Orientation"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty OrientationProperty =
+            BindableProperty.Create(nameof(Orientation), typeof(ItemsLayoutOrientation), typeof(SfLinearGauge), ItemsLayoutOrientation.Horizontal, propertyChanged: OnInvalidatePropertyChanged);
 
 
         #endregion
 
         #region Fields
 
-        internal Grid parentGrid;
-        private LinearScaleView linearScaleView { get; set; }
+        private Grid parentGrid;
+        private LinearScaleView linearScaleView;
+        private PathF? axisLinePath;
+
+        /// <summary>
+        /// Gets or sets the available size of <see cref="SfLinearGauge"/>.
+        /// </summary>
+        internal Size ScaleAvailableSize;
+
+        /// <summary>
+        /// Gets or sets the visible labels in Axis.
+        /// </summary>
+        internal List<GaugeLabelInfo> VisibleLabels;
+
+        /// <summary>
+        /// Gets or sets minor tick points. 
+        /// </summary>
+        internal List<AxisTickInfo> MinorTickPoints;
+
+        /// <summary>
+        /// Gets or sets the actual minimum value of the axis.
+        /// </summary>
+        internal double ActualMinimum;
+
+        /// <summary>
+        /// Gets or sets the actual maximum value of the axis.
+        /// </summary>
+        internal double ActualMaximum;
+
+        /// <summary>
+        /// Gets or sets the actual interval of the Axis.
+        /// </summary>
+        internal double ActualInterval;
+
+        /// <summary>
+        /// Gets or sets the maximum label size.
+        /// </summary>
+        internal Size LabelMaximumSize;
+
+        /// <summary>
+        /// Gets or sets the axis line start position.
+        /// </summary>
+        internal Point AxisLinePosition;
 
         #endregion
 
@@ -238,6 +282,13 @@ namespace Syncfusion.Maui.Gauges
             this.linearScaleView = new LinearScaleView(this);
             this.parentGrid = new Grid();
             this.parentGrid.Children.Add(this.linearScaleView);
+            this.AxisLineStyle=new RadialLineStyle();
+            this.MajorTickStyle=new RadialTickStyle();
+            this.MinorTickStyle=new RadialTickStyle();
+            this.ActualInterval = this.Interval;
+            this.ActualMaximum = this.Minimum;
+            this.ActualMaximum = this.Maximum;
+            this.MinorTickPoints = new List<AxisTickInfo>();
         }
 
         #endregion
@@ -280,11 +331,11 @@ namespace Syncfusion.Maui.Gauges
             set { this.SetValue(LabelFormatProperty, value); }
         }
 
-        public DataTemplate LabelTemplate
-        {
-            get { return (DataTemplate)this.GetValue(LabelTemplateProperty); }
-            set { this.SetValue(LabelTemplateProperty, value); }
-        }
+        //public DataTemplate LabelTemplate
+        //{
+        //    get { return (DataTemplate)this.GetValue(LabelTemplateProperty); }
+        //    set { this.SetValue(LabelTemplateProperty, value); }
+        //}
 
         public GaugeLabelsPosition LabelPosition
         {
@@ -370,11 +421,11 @@ namespace Syncfusion.Maui.Gauges
             set { this.SetValue(UseRangeColorForAxisProperty, value); }
         }
 
-        //public Orientation Orientation
-        //{
-        //    get { return (bool)this.GetValue(OrientationProperty); }
-        //    set { this.SetValue(OrientationProperty, value); }
-        //}
+        public ItemsLayoutOrientation Orientation
+        {
+            get { return (ItemsLayoutOrientation)this.GetValue(OrientationProperty); }
+            set { this.SetValue(OrientationProperty, value); }
+        }
 
         /// <summary>
         /// Gets the root content.
@@ -408,6 +459,84 @@ namespace Syncfusion.Maui.Gauges
                 return new Thickness(0);
             }
         }
+
+        #endregion
+
+        #region Override methods
+
+        protected override Size MeasureOverride(double widthConstraint, double heightConstraint)
+        {
+            base.MeasureOverride(widthConstraint, heightConstraint);
+
+            if (this.Orientation == ItemsLayoutOrientation.Horizontal && double.IsInfinity(widthConstraint))
+            {
+                widthConstraint = 350d;
+            }
+            else if (this.Orientation == ItemsLayoutOrientation.Vertical && double.IsInfinity(heightConstraint))
+            {
+                heightConstraint = 350d;
+            }
+
+            this.ScaleAvailableSize = new Size(widthConstraint, heightConstraint);
+
+            if ((this.Orientation == ItemsLayoutOrientation.Horizontal && double.IsNaN(this.HeightRequest))
+                || (this.Orientation == ItemsLayoutOrientation.Vertical && double.IsNaN(this.WidthRequest)))
+            {
+                //this.ScaleAvailableSize = this.GetAxisSize();
+            }
+
+            this.UpdateAxis();
+            
+            return ScaleAvailableSize;
+        }
+
+        #endregion
+
+        #region Public virtual methods
+
+
+        public virtual List<GaugeLabelInfo> GenerateVisibleLabels()
+        {
+            this.MinorTickPoints.Clear();
+            List<GaugeLabelInfo> visibleLabels = new List<GaugeLabelInfo>();
+            this.ActualInterval = this.GetNiceInterval();
+            if (this.ActualInterval != 0 && this.ActualMinimum != this.ActualMaximum)
+            {
+                for (double i = this.ActualMinimum; i <= this.ActualMaximum; i += this.ActualInterval)
+                {
+                    GaugeLabelInfo currentLabel = this.GetAxisLabel(i);
+                    visibleLabels.Add(currentLabel);
+                    if (this.MinorTicksPerInterval > 0)
+                    {
+                        this.AddMinorTicksPoint(i);
+                    }
+                }
+
+                GaugeLabelInfo label = visibleLabels[visibleLabels.Count - 1];
+                if (label.Value != this.ActualMaximum && label.Value < this.ActualMaximum)
+                {
+                    GaugeLabelInfo currentLabel = this.GetAxisLabel(this.ActualMaximum);
+                    visibleLabels.Add(currentLabel);
+                }
+            }
+
+            return visibleLabels;
+        }
+
+        #endregion
+
+        #region Internal methods
+
+        internal void Draw(ICanvas canvas)
+        {
+            //this.AxisPanel.ArrangeAxisLine();
+            //    this.AxisPanel.ArrangeTicks();
+            //    this.AxisPanel.ArrangeLabels();
+
+            canvas.FillColor = Colors.LightGray;
+            canvas.FillPath(axisLinePath);
+        }
+
 
         #endregion
 
@@ -532,15 +661,390 @@ namespace Syncfusion.Maui.Gauges
 
         #region Private methods
 
+        /// <summary>
+        /// To update the axis elements
+        /// </summary>
+        private void UpdateAxis()
+        {
+            if (!this.ScaleAvailableSize.IsZero)
+            {
+                this.UpdateAxisElements();
+                //this.CreateRanges();
+                //this.CreateBarPointers();
+                //this.CreateMarkerPointers();
+            }
+        }
+
+        /// <summary>
+        /// To update axis line, ticks and labels axis elements.
+        /// </summary>
+        private void UpdateAxisElements()
+        {
+            if (!this.ScaleAvailableSize.IsZero)
+            {
+                this.VisibleLabels = this.GenerateVisibleLabels();
+                this.MeasureLabels();
+                this.CalculateAxisLineLength();
+            }
+        }
+
+        /// <summary>
+        /// Calculate the interval based on <see cref="Minimum"/> and <see cref="Maximum"/>.
+        /// </summary>
+        /// <returns>Auto interval based on <see cref="Minimum"/> and <see cref="Maximum"/>.</returns>
+        private double GetNiceInterval()
+        {
+            if (double.IsNaN(this.Interval) || this.Interval == 0)
+            {
+                return this.CalculateAxisInterval();
+            }
+
+            return this.Interval;
+        }
+
+        /// <summary>
+        /// To calculate the axis interval based on the maximum axis label count.
+        /// </summary>
+        /// <returns>Returns the interval based on the maximum number of labels for 100 labels</returns>
+        private double CalculateAxisInterval()
+        {
+            double delta = Math.Abs(this.ActualMaximum - this.ActualMinimum);
+            double area = this.Orientation == ItemsLayoutOrientation.Horizontal ? this.ScaleAvailableSize.Width : 
+                this.ScaleAvailableSize.Height;
+            double actualDesiredIntervalsCount = Math.Max((area * this.MaximumLabelsCount) / 100, 1.0);
+            double niceInterval = delta / actualDesiredIntervalsCount;
+            double minInterval = Math.Pow(10, Math.Floor(Math.Log10(niceInterval)));
+            List<double> intervalDivisions = new List<double>() { 10, 5, 2, 1 };
+            
+            foreach (int intervalDivision in intervalDivisions)
+            {
+                double currentInterval = minInterval * intervalDivision;
+                if (actualDesiredIntervalsCount < (delta / currentInterval))
+                {
+                    break;
+                }
+
+                niceInterval = currentInterval;
+            }
+
+            return niceInterval;
+        }
+
+        /// <summary>
+        /// Gets the current axis labels
+        /// </summary>
+        /// <param name="value">The value of the label.</param>
+        /// <returns>The corresponding axis label of given value.</returns>
+        private GaugeLabelInfo GetAxisLabel(double value)
+        {
+            GaugeLabelInfo label = new GaugeLabelInfo
+            {
+                Value = value
+            };
+            string labelText = value.ToString(this.LabelFormat, CultureInfo.CurrentCulture);
+            label.Text = labelText;
+            return label;
+        }
+
+        /// <summary>
+        /// To add minor tick points
+        /// </summary>
+        /// <param name="position">The position</param>
+        private void AddMinorTicksPoint(double position)
+        {
+            var tickInterval = this.ActualInterval / (this.MinorTicksPerInterval + 1);
+            var tickPosition = position + tickInterval;
+            position += this.ActualInterval;
+            while (tickPosition < position && tickPosition <= this.ActualMaximum)
+            {
+                if (this.ActualMinimum <= tickPosition && tickPosition <= this.ActualMaximum)
+                {
+                    this.MinorTickPoints.Add(new AxisTickInfo() { Value = tickPosition });
+                }
+
+                tickPosition += tickInterval;
+
+                // While adding two decimal digits, some minute difference get added.
+                // For example while adding 0.2 + 0.4 results 0.60000000000000009
+                // Due to this, additional minor ticks get added and overlapped with the major ticks. In order to avoid this rounded the result.
+                tickPosition = Math.Round(tickPosition, 8);
+            }
+        }
+
+        /// <summary>
+        /// To measure the axis labels
+        /// </summary>
+        private void MeasureLabels()
+        {
+            if (this.VisibleLabels != null)
+            {
+                double maximumWidth = 0, maximumHeight = 0;
+
+                foreach (var labelInfo in this.VisibleLabels)
+                {
+                    if (labelInfo.LabelStyle == null && this.AxisLabelStyle != null)
+                    {
+                        labelInfo.LabelStyle = this.AxisLabelStyle;
+                    }
+
+                    if (labelInfo.LabelStyle != null)
+                    {
+                        labelInfo.DesiredSize = labelInfo.Text.Measure(labelInfo.LabelStyle);
+                    }
+
+                    maximumHeight = Math.Max(maximumHeight, labelInfo.DesiredSize.Height);
+                    maximumWidth = Math.Max(maximumWidth, labelInfo.DesiredSize.Width);
+                    this.LabelMaximumSize = new Size(maximumWidth, maximumHeight);
+                }
+            }
+        }
+
+        /// <summary>
+        /// To calculate axis line length.
+        /// </summary>
+        private void CalculateAxisLineLength()
+        {
+            var firstLabelSize = VisibleLabels[0].DesiredSize;
+            var lastLabelSize = VisibleLabels[VisibleLabels.Count-1].DesiredSize;
+            double axisLineLength;
+            if (this.Orientation == ItemsLayoutOrientation.Horizontal)
+            {
+                axisLineLength = this.ShowLabels
+                    ? this.ScaleAvailableSize.Width - (firstLabelSize.Width / 2) - (lastLabelSize.Width / 2)
+                    : this.ScaleAvailableSize.Width;
+            }
+            else
+            {
+                axisLineLength = this.ShowLabels
+                    ? this.ScaleAvailableSize.Height - (firstLabelSize.Height / 2) - (lastLabelSize.Height / 2)
+                    : this.ScaleAvailableSize.Height;
+            }
+
+            this.CalculateAxisLinePosition();
+            double actualAxisLineThickness = this.GetActualAxisLineThickness();
+            double halfAxisThickness = actualAxisLineThickness / 2;
+            double axisLineStartPosition = this.AxisLinePosition.X;
+            double axisLineEndPosition = this.AxisLinePosition.X + axisLineLength;
+            float x,y,width, height;
+            if (this.Orientation == ItemsLayoutOrientation.Horizontal)
+            {
+                x = (float)axisLineStartPosition;
+                y = (float)(this.AxisLinePosition.Y + (actualAxisLineThickness / 2));
+                width = (float)Math.Abs( axisLineEndPosition - axisLineStartPosition);
+                height= (float)Math.Abs(this.AxisLinePosition.Y + (actualAxisLineThickness / 2) -
+                    this.AxisLinePosition.Y + (actualAxisLineThickness / 2));
+            }
+            else
+            {
+                x = (float)(this.AxisLinePosition.Y + (actualAxisLineThickness / 2));
+                y = (float)axisLineStartPosition;
+                width = (float)Math.Abs(this.AxisLinePosition.Y + (actualAxisLineThickness / 2) -
+                   this.AxisLinePosition.Y + (actualAxisLineThickness / 2));
+                height = (float)Math.Abs(axisLineEndPosition - axisLineStartPosition);
+            }
+
+            axisLinePath = new PathF();
+            axisLinePath.AppendRectangle(x,y,width,height);
+        }
+
+        /// <summary>
+        /// To calculate the axis line position.
+        /// </summary>
+        private void CalculateAxisLinePosition()
+        {
+            double maximumTickLength = this.GetActualMaxTickLength();
+            double actualTickOffset = this.GetActualTickOffset();
+            double labelMaximumSize = this.GetLabelMaxLength();
+            double firstLabelSize = this.GetFirstLabelLength();
+            double actualLabelOffset = this.GetActualLabelOffset();
+            double actualAxisLineThickness = this.GetActualAxisLineThickness();
+            GaugeLabelsPosition actualLabelsPosition = this.GetActualLabelPosition();
+            double outsideRangeHeight = 0d, insideRangeHeight = 0d;
+            //this.GetRangeHeights(ref outsideRangeHeight, ref insideRangeHeight);
+            double outsideBarPointerHeight = 0d, insideBarPointerHeight = 0d;
+            //this.GetBarPointersHeight(ref outsideBarPointerHeight, ref insideBarPointerHeight);
+            double outsideMarkerPointerHeight = 0d, insideMarkerPointerHeight = 0d;
+            //this.GetMarkerPointersHeight(ref outsideMarkerPointerHeight, ref insideMarkerPointerHeight);
+            double outsideAxisHeight = Math.Max(Math.Max(outsideRangeHeight, outsideBarPointerHeight), outsideMarkerPointerHeight);
+            double x = firstLabelSize / 2, y = 0d;
+            switch (this.GetActualElementPosition(this.TickPosition))
+            {
+                case GaugeElementPosition.Inside:
+                    switch (actualLabelsPosition)
+                    {
+                        case GaugeLabelsPosition.Inside:
+                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            break;
+                        case GaugeLabelsPosition.Outside:
+                            y = labelMaximumSize + actualLabelOffset;
+                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            break;
+                    }
+
+                    break;
+                case GaugeElementPosition.Outside:
+                    switch (actualLabelsPosition)
+                    {
+                        case GaugeLabelsPosition.Inside:
+                            y = maximumTickLength + actualTickOffset;
+                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            break;
+                        case GaugeLabelsPosition.Outside:
+                            y = maximumTickLength + labelMaximumSize + actualTickOffset + actualLabelOffset;
+                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            break;
+                    }
+
+                    break;
+                case GaugeElementPosition.Cross:
+                    switch (actualLabelsPosition)
+                    {
+                        case GaugeLabelsPosition.Inside:
+                            y = actualAxisLineThickness < maximumTickLength ? (maximumTickLength - actualAxisLineThickness) / 2 : 0d;
+                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            break;
+                        case GaugeLabelsPosition.Outside:
+                            y = (actualAxisLineThickness < maximumTickLength ? (maximumTickLength - actualAxisLineThickness) / 2 : 0d) + actualLabelOffset + labelMaximumSize;
+                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            break;
+                    }
+
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// To get actual maximum tick length.
+        /// </summary>
+        /// <returns>Actual maximum tick length.</returns>
+        private double GetActualMaxTickLength()
+        {
+            if (!this.ShowTicks)
+            {
+                return 0d;
+            }
+
+            var majorTickLength= this.MajorTickStyle!=null? this.MajorTickStyle.Length : 0;
+            var minorTickLength = this.MinorTickStyle != null ? this.MinorTickStyle.Length : 0;
+
+            if (this.MinorTicksPerInterval <= 0)
+            {
+                return majorTickLength;
+            }
+
+            return majorTickLength > minorTickLength ? majorTickLength : minorTickLength;
+        }
+
+        /// <summary>
+        /// To get actual tick offset.
+        /// </summary>
+        /// <returns>The actual tick offset based on ShowTicks property.</returns>
+        private double GetActualTickOffset()
+        {
+            if (this.ShowTicks)
+            {
+                return this.TickOffset > 0d ? this.TickOffset : 0d;
+            }
+
+            return 0d;
+        }
+
+        /// <summary>
+        /// To get the actual linear label position based on IsMirrored property.
+        /// </summary>
+        /// <returns>The actual linear label position value based on IsMirrored property.</returns>
+        private GaugeLabelsPosition GetActualLabelPosition()
+        {
+            if (this.IsMirrored)
+            {
+                return this.LabelPosition == GaugeLabelsPosition.Outside ? GaugeLabelsPosition.Inside : GaugeLabelsPosition.Outside;
+            }
+
+            return this.LabelPosition;
+        }
+
+        /// <summary>
+        /// To get the maximum label length based on Orientation and ShowLabels  property.
+        /// </summary>
+        /// <returns>The maximum label length based on Orientation and ShowLabels  property.</returns>
+        private double GetLabelMaxLength()
+        {
+            if (this.ShowLabels)
+            {
+                return this.Orientation == ItemsLayoutOrientation.Horizontal ? this.LabelMaximumSize.Height : this.LabelMaximumSize.Width;
+            }
+
+            return 0d;
+        }
+
+        /// <summary>
+        /// To get the first label length based on Orientation and ShowLabels  property.
+        /// </summary>
+        /// <returns>The first label length based on Orientation and ShowLabels  property.</returns>
+        private double GetFirstLabelLength()
+        {
+            if (this.ShowLabels && this.VisibleLabels.Count > 0)
+            {
+                var size = this.VisibleLabels[0].DesiredSize;
+                return this.Orientation == ItemsLayoutOrientation.Horizontal ? size.Width : size.Height;
+            }
+
+            return 0d;
+        }
+
+        /// <summary>
+        /// To get the actual label offset based on ShowAxisLine property.
+        /// </summary>
+        /// <returns>The actual label offset based on ShowAxisLine property.</returns>
+        private double GetActualAxisLineThickness()
+        {
+            if (this.ShowAxisLine && this.AxisLineStyle != null)
+            {
+                return Math.Abs(this.AxisLineStyle.Thickness);
+            }
+
+            return 0d;
+        }
+
+        /// <summary>
+        /// To get the actual label offset based on Orientation and ShowLabels property.
+        /// </summary>
+        /// <returns>The actual label offset based on Orientation and ShowLabels property.</returns>
+        private double GetActualLabelOffset()
+        {
+            if (this.ShowLabels)
+            {
+                return this.LabelOffset > 0d ? this.LabelOffset : 0d;
+            }
+
+            return 0d;
+        }
+
+        /// <summary>
+        /// To get the actual element position based on IsMirrored property.
+        /// </summary>
+        /// <param name="gaugeElementPosition">The current linear gauge element position.</param>
+        /// <returns>The actual element position value based on IsMirrored property.</returns>
+        private GaugeElementPosition GetActualElementPosition(GaugeElementPosition gaugeElementPosition)
+        {
+            if (this.IsMirrored)
+            {
+                switch (gaugeElementPosition)
+                {
+                    case GaugeElementPosition.Outside:
+                        return GaugeElementPosition.Inside;
+                    case GaugeElementPosition.Inside:
+                        return GaugeElementPosition.Outside;
+                }
+            }
+
+            return gaugeElementPosition;
+        }
+
+
         private void InvalidateDrawable()
         {
             this.linearScaleView.InvalidateDrawable();
-        }
-
-        internal void Draw(ICanvas canvas)
-        {
-            canvas.FillColor = Colors.Red;
-            canvas.FillRectangle(new Rectangle(10, 10, 100, 10));
         }
 
         /// <summary>
@@ -564,15 +1068,6 @@ namespace Syncfusion.Maui.Gauges
             this.ArrangeContent(bounds);
             this.InvalidateDrawable();
             return bounds.Size;
-        }
-
-        /// <summary>
-        /// Axis collection added in the visual tree elements for hot reload case. 
-        /// </summary>
-        /// <returns></returns>
-        IReadOnlyList<IVisualTreeElement> IVisualTreeElement.GetVisualChildren()
-        {
-            return new List<IVisualTreeElement>();
         }
 
         #endregion
