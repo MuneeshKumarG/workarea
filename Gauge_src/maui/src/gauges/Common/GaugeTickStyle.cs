@@ -46,6 +46,10 @@ namespace Syncfusion.Maui.Gauges
                {
                    return radialTickStyle.IsMajorTicks ? 8d : 4d;
                }
+               else if (bindable is LinearTickStyle linearTickStyle)
+               {
+                   return linearTickStyle.IsMajorTicks ? 8d : 4d;
+               }
                return 0d;
            });
 

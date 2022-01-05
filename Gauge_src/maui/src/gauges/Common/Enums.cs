@@ -146,4 +146,20 @@
         /// </summary>
         End
     }
+
+    /// <summary>
+    /// Specifies the horizontal or vertical orientation.
+    /// </summary>
+    public enum GaugeOrientation
+    {
+        /// <summary>
+        /// Aligns the gauge elements in horizontal orientation.
+        /// </summary>
+        Horizontal,
+
+        /// <summary>
+        /// Aligns the gauge elements in vertical orientation.
+        /// </summary>
+        Vertical,
+    }
 }

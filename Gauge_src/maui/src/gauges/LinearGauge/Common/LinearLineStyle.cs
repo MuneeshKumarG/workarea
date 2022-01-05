@@ -8,19 +8,6 @@ namespace Syncfusion.Maui.Gauges
     /// <summary>
     /// Represents the style of axis line, that used to customize axis line color, corner style, thickness and dash array.
     /// </summary>
-    /// <example>
-    /// <code><![CDATA[
-    /// <gauge:SfRadialGauge>
-    ///     <gauge:SfRadialGauge.Axes>
-    ///         <gauge:RadialAxis>
-    ///             <gauge:RadialAxis.AxisLineStyle>
-    ///                 <gauge:RadialLineStyle Fill="Red" CornerStyle="BothCurve"/>
-    ///             </gauge:RadialAxis.AxisLineStyle>
-    ///         </gauge:RadialAxis>
-    ///     </gauge:SfRadialGauge.Axes>
-    /// </gauge:SfRadialGauge>
-    /// ]]></code>
-    /// </example>
     public class LinearLineStyle : BindableObject
     {
         #region Bindable properties
