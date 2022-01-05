@@ -1,0 +1,219 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LinearGaugeTestbed.Page1"
+             xmlns:gauge="http://schemas.syncfusion.com/maui"
+             BackgroundColor="{DynamicResource SecondaryColor}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Margin="15">
+            <gauge:SfLinearGauge x:Name="gauge" Background="yellow"/>
+        </Grid>
+        <ScrollView GridLayout.Row="1">
+            <VerticalStackLayout>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Minimum"/>
+                    <Button x:Name="minimumIncrease" GridLayout.Column="1" Text="+" 
+                            Clicked="MinimumIncrease_Clicked" Margin="5"/>
+                    <Button x:Name="minimumDecrease" GridLayout.Column="2" Text="-" 
+                            Clicked="MinimumDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Maximum"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="MaximumIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="MaximumDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Interval"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="IntervalIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="IntervalDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="MinorTicksPerInterval"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="MinorTicksPerIntervalIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="MinorTicksPerIntervalDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="MaximumLabelsCount"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="MaximumLabelsCountIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="MaximumLabelsCountDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="LabelFormat"/>
+                    <Entry Background="yellow" x:Name="labelFormatValue" GridLayout.Column="1" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="Set" 
+                            Clicked="LabelFormatSet_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="LabelPosition"/>
+                    <Button GridLayout.Column="1" Text="Inside" 
+                            Clicked="LabelPositionInside_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="Outside" 
+                            Clicked="LabelPositionOutside_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="LabelsOffset"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="LabelsOffsetIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="LabelsOffsetDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="TickPosition"/>
+                    <Button GridLayout.Column="1" Text="Inside" 
+                            Clicked="TickPositionInside_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="Outside" 
+                            Clicked="TickPositionOutside_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="3" Text="Cross" 
+                            Clicked="TickPositionCross_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="TickOffset"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="TickOffsetIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="TickOffsetDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="IsMirrored"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=IsMirrored}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="IsInversed"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=IsInversed}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="ShowTicks"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=ShowTicks}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="ShowAxisLine"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=ShowAxisLine}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="ShowLabels"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=ShowLabels}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="UseRangeColorForAxis"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=UseRangeColorForAxis}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Orientation"/>
+                    <Button GridLayout.Column="1" Text="Horizontal" 
+                            Clicked="OrientationHorizontal_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="Vertical" 
+                            Clicked="OrientationVertical_Clicked" Margin="5"/>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

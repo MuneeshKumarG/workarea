@@ -44,12 +44,25 @@
 
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<!-- Required - WinUI does not yet have buildTransitive for everything -->
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0-preview3" />
-		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.29-preview3" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
+		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\..\Core_src\maui\src\core\Syncfusion.Maui.Core.csproj" />
+	  <ProjectReference Include="..\..\Core_src\maui\src\core\Syncfusion.Maui.Core.csproj" />
+	  <ProjectReference Include="..\..\Gauge_src\maui\src\gauges\Syncfusion.Maui.Gauges.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Page1.xaml.cs">
+	    <DependentUpon>Page1.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Page1.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
