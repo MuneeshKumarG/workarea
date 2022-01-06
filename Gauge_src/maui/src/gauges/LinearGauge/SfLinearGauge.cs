@@ -2,14 +2,10 @@
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Layouts;
-using Syncfusion.Maui.Core.Internals;
 using Syncfusion.Maui.Graphics.Internals;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Globalization;
-using System.Linq;
 
 namespace Syncfusion.Maui.Gauges
 {
@@ -262,7 +258,6 @@ namespace Syncfusion.Maui.Gauges
             this.MajorTickStyle=new LinearTickStyle();
             this.MinorTickStyle=new LinearTickStyle();
             this.AxisLabelStyle = new GaugeLabelStyle();
-            this.ActualInterval = this.Interval;
             this.ActualMaximum = this.Minimum;
             this.ActualMaximum = this.Maximum;
 
@@ -562,6 +557,63 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
+        /// Called when <see cref="MinorTickStyle"/> property got changed.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The PropertyChangedEventArgs.</param>
+        private void AxisMinorStyle_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != null)
+            {
+                AxisTicStyle_PropertyChanged(e.PropertyName, false);
+            }
+        }
+
+        /// <summary>
+        /// Called when <see cref="MajorTickStyle"/> property got changed.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The PropertyChangedEventArgs.</param>
+        private void AxisMajorStyle_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != null)
+            {
+                AxisTicStyle_PropertyChanged(e.PropertyName, true);
+            }
+        }
+
+        /// <summary>
+        /// Called when <see cref="MajorTickStyle"/> or <see cref="MinorTickStyle"/> property got changed.
+        /// </summary>
+        /// <param name="propertyName">Property name.</param>
+        /// <param name="isMajorTick">Boolean to identify major tick or not.</param>
+        private void AxisTicStyle_PropertyChanged(string propertyName, bool isMajorTick)
+        {
+            if (propertyName == GaugeTickStyle.LengthProperty.PropertyName)
+            {
+                if (this.TickPosition != GaugeElementPosition.Inside)
+                {
+                    this.UpdateAxis();
+                    this.InvalidateAxis();
+                }
+                else
+                {
+                    this.UpdateAxisElements();
+                    this.InvalidateDrawable();
+                }
+            }
+            else if (propertyName == GaugeTickStyle.StrokeThicknessProperty.PropertyName)
+            {
+                this.UpdateAxisElements();
+                this.InvalidateDrawable();
+            }
+            else
+            {
+                this.InvalidateDrawable();
+            }
+        }
+
+        /// <summary>
         /// Called when <see cref="MinorTicksPerInterval"/>, <see cref="Interval"/> and <see cref="MaximumLabelsCount"/> property changed.
         /// </summary>
         /// <param name="bindable">The BindableObject.</param>
@@ -668,7 +720,28 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="newValue">New value.</param>
         private static void OnStylePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
+            if (bindable is SfLinearGauge sfLinearGauge)
+            {
+                if (oldValue is LinearLineStyle oldAxisLineStyle)
+                {
+                    oldAxisLineStyle.PropertyChanged -= sfLinearGauge.AxisLineStyle_PropertyChanged;
+                }
+                else if (oldValue is GaugeLabelStyle oldGaugeLabelStyle)
+                {
+                    oldGaugeLabelStyle.PropertyChanged -= sfLinearGauge.GaugeLabelStyle_PropertyChanged;
+                }
 
+                if (newValue is LinearLineStyle axisLineStyle)
+                {
+                    axisLineStyle.PropertyChanged += sfLinearGauge.AxisLineStyle_PropertyChanged;
+                }
+                else if (newValue is GaugeLabelStyle gaugeLabelStyle)
+                {
+                    gaugeLabelStyle.PropertyChanged += sfLinearGauge.GaugeLabelStyle_PropertyChanged;
+                }
+
+                sfLinearGauge.InvalidateDrawable();
+            }
         }
 
         /// <summary>
@@ -679,7 +752,20 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="newValue">New value.</param>
         private static void OnMinorTickStylePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
+            if (bindable is SfLinearGauge sfLinearGauge)
+            {
+                if (oldValue is LinearTickStyle oldMinorTickStyle)
+                {
+                    oldMinorTickStyle.PropertyChanged -= sfLinearGauge.AxisMinorStyle_PropertyChanged;
+                }
 
+                if (newValue is LinearTickStyle newMinorTickStyle)
+                {
+                    newMinorTickStyle.PropertyChanged += sfLinearGauge.AxisMinorStyle_PropertyChanged;
+                }
+
+                sfLinearGauge.InvalidateDrawable();
+            }
         }
 
         /// <summary>
@@ -690,7 +776,21 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="newValue">New value.</param>
         private static void OnMajorTickStylePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
+            if (bindable is SfLinearGauge sfLinearGauge)
+            {
+                if (oldValue is LinearTickStyle oldMajorTickStyle)
+                {
+                    oldMajorTickStyle.PropertyChanged -= sfLinearGauge.AxisMajorStyle_PropertyChanged;
+                }
 
+                if (newValue is LinearTickStyle newMajorTickStyle)
+                {
+                    newMajorTickStyle.IsMajorTicks = true;
+                    newMajorTickStyle.PropertyChanged += sfLinearGauge.AxisMajorStyle_PropertyChanged;
+                }
+
+                sfLinearGauge.InvalidateDrawable();
+            }
         }
 
         /// <summary>
@@ -703,6 +803,54 @@ namespace Syncfusion.Maui.Gauges
         {
            
         }
+
+        /// <summary>
+        /// Called when <see cref="AxisLineStyle"/> property got changed.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The PropertyChangedEventArgs.</param>
+        private void AxisLineStyle_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == LinearLineStyle.ThicknessProperty.PropertyName)
+            {
+                this.UpdateAxisElements();
+            }
+            else if (e.PropertyName == LinearLineStyle.CornerStyleProperty.PropertyName || 
+                e.PropertyName == LinearLineStyle.DashArrayProperty.PropertyName ||
+                e.PropertyName==LinearLineStyle.CornerRadiusProperty.PropertyName)
+            {
+                this.CalculateAxisLine();
+            }
+
+            this.InvalidateDrawable();
+        }
+
+        /// <summary>
+        /// Called when <see cref="AxisLabelStyle"/> property got changed.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The PropertyChangedEventArgs.</param>
+        private void GaugeLabelStyle_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == GaugeLabelStyle.TextColorProperty.PropertyName)
+            {
+                this.InvalidateDrawable();
+            }
+            else if (e.PropertyName == GaugeLabelStyle.FontAttributesProperty.PropertyName || e.PropertyName == GaugeLabelStyle.FontFamilyProperty.PropertyName || e.PropertyName == GaugeLabelStyle.FontSizeProperty.PropertyName)
+            {
+                if (this.LabelPosition == GaugeLabelsPosition.Inside)
+                {
+                    this.UpdateAxisElements();
+                    this.InvalidateDrawable();
+                }
+                else
+                {
+                    this.UpdateAxis();
+                    this.InvalidateAxis();
+                }
+            }
+        }
+
         #endregion
 
         #region Private methods
@@ -1102,6 +1250,48 @@ namespace Syncfusion.Maui.Gauges
             }
 
             axisLinePath = new PathF();
+
+            if ((this.AxisLineStyle.CornerStyle == CornerStyle.StartCurve && !IsInversed) ||
+                (this.AxisLineStyle.CornerStyle == CornerStyle.EndCurve && IsInversed) ||
+                this.AxisLineStyle.CornerStyle == CornerStyle.BothCurve)
+            {
+                if (Orientation == GaugeOrientation.Horizontal)
+                {
+                    axisLinePath.MoveTo(x + (height / 2), y);
+                    axisLinePath.AddArc(x, y, x + height, y + height, 90, 270, false);
+                    x += height / 2;
+                    width -= height / 2;
+                }
+                else
+                {
+                    axisLinePath.MoveTo(x, y + height - (width / 2));
+                    axisLinePath.AddArc(x, y + height - width, x + width,
+                        y + height, 180, 360, false);
+                    height -= width / 2;
+                }
+                axisLinePath.Close();
+            }
+
+            if ((this.AxisLineStyle.CornerStyle == CornerStyle.EndCurve && !IsInversed) ||
+                (this.AxisLineStyle.CornerStyle == CornerStyle.StartCurve && IsInversed) ||
+                this.AxisLineStyle.CornerStyle == CornerStyle.BothCurve)
+            {
+                if (Orientation == GaugeOrientation.Horizontal)
+                {
+                    axisLinePath.MoveTo(x + width - (height / 2), y);
+                    axisLinePath.AddArc(x + width - height, y, x + width, y + height, 90, 270, true);
+                    axisLinePath.Close();
+                    width -= height / 2;
+                }
+                else
+                {
+                    axisLinePath.MoveTo(x, y + (width / 2));
+                    axisLinePath.AddArc(x, y, x + width, y + width, 0, 180, false);
+                    y += width / 2;
+                    height -= width / 2;
+                }
+            }
+
             double dashLineLength = 0, dashLineGap = 0;
 
             if (this.AxisLineStyle.DashArray != null && this.AxisLineStyle.DashArray.Count > 1)
@@ -1119,8 +1309,14 @@ namespace Syncfusion.Maui.Gauges
 
                 while (dashArrayEndValue <= axisLineEndValue)
                 {
-                    axisLinePath.AppendRectangle(dashArrayStartValue, y, (float)dashLineLength, height);
-
+                    if (Orientation == GaugeOrientation.Horizontal)
+                    {
+                        axisLinePath.AppendRectangle(dashArrayStartValue, y, (float)dashLineLength, height);
+                    }
+                    else
+                    {
+                        axisLinePath.AppendRectangle(dashArrayStartValue, y, width, (float)dashLineLength);
+                    }
                     dashArrayStartValue = dashArrayEndValue + (float)dashLineGap;
                     dashArrayEndValue = dashArrayStartValue + (float)dashLineLength;
                 }
@@ -1128,18 +1324,19 @@ namespace Syncfusion.Maui.Gauges
                 if (dashArrayEndValue != axisLineEndValue)
                 {
                     dashArrayStartValue = (float)axisLineEndValue - 1;
-                    axisLinePath.AppendRectangle(dashArrayStartValue, y, (float)dashLineLength, height);
+
+                    if (Orientation == GaugeOrientation.Horizontal)
+                        axisLinePath.AppendRectangle(dashArrayStartValue, y, (float)dashLineLength, height);
+                    else
+                        axisLinePath.AppendRectangle(dashArrayStartValue, y, width, (float)dashLineLength);
+
                 }
             }
             else
             {
-                axisLinePath.AppendRectangle(x, y, width, height);
-            }
-
-            if (AxisLineStyle.CornerStyle == CornerStyle.StartCurve)
-            {
-                axisLinePath.MoveTo(x, y);
-                axisLinePath.AddArc(x, y, x, y + height, 0, 180, true);
+                Thickness radius = AxisLineStyle.CornerRadius;
+                axisLinePath.AppendRoundedRectangle(x, y, width, height, (float)radius.Left,
+                    (float)radius.Top, (float)radius.Bottom, (float)radius.Right);
             }
         }
 
