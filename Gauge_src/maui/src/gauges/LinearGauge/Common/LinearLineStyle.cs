@@ -68,9 +68,17 @@ namespace Syncfusion.Maui.Gauges
 
         #endregion
 
+        #region Fields
+
+        internal LinearGradientBrush? LinearGradientBrush;
+
+        #endregion
+
         #region Constructor
 
-        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LinearLineStyle"/> class.
+        /// </summary>
         public LinearLineStyle()
         {
             GradientStops = new ObservableCollection<GaugeGradientStop>();
@@ -80,37 +88,54 @@ namespace Syncfusion.Maui.Gauges
 
         #region Properties
 
-        
+        /// <summary>
+        /// Gets or sets color of axis line. 
+        /// </summary>
         public Brush Fill
         {
             get { return (Brush)this.GetValue(FillProperty); }
             set { this.SetValue(FillProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets <see cref="GaugeGradientStop"/> collection, that used to fill axis line in with gradient effect. 
+        /// </summary>
         public ObservableCollection<GaugeGradientStop> GradientStops
         {
             get { return (ObservableCollection<GaugeGradientStop>)this.GetValue(GradientStopsProperty); }
             set { this.SetValue(GradientStopsProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets corner radius value of axis line. 
+        /// </summary>
         public Thickness CornerRadius
         {
             get { return (Thickness)this.GetValue(CornerRadiusProperty); }
             set { this.SetValue(CornerRadiusProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets thickness of axis line. 
+        /// </summary>
         public double Thickness
         {
             get { return (double)this.GetValue(ThicknessProperty); }
             set { this.SetValue(ThicknessProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets corner style of axis line.
+        /// </summary>
         public CornerStyle CornerStyle
         {
             get { return (CornerStyle)this.GetValue(CornerStyleProperty); }
             set { this.SetValue(CornerStyleProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets double collection, that represents dash array of axis line. 
+        /// </summary>
         public DoubleCollection DashArray
         {
             get { return (DoubleCollection)this.GetValue(DashArrayProperty); }

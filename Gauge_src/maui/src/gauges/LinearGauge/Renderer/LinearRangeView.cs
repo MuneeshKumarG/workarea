@@ -5,28 +5,28 @@ using Syncfusion.Maui.Graphics.Internals;
 namespace Syncfusion.Maui.Gauges
 {
     /// <summary>
-    /// Represents a view that used to draw <see cref="SfLinearGauge"/>. 
+    /// Represents a view that used to draw <see cref="LinearRange"/>. 
     /// </summary>
-    internal class LinearScaleView : DrawableView
+    internal class LinearRangeView : DrawableView
     {
         #region Fields
 
         /// <summary>
-        /// Represents <see cref="SfLinearGauge"/> instance.
+        /// Represents <see cref="LinearRange"/> instance.
         /// </summary>
-        private SfLinearGauge linearScale;
+        private LinearRange linearRange;
 
         #endregion
 
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LinearScaleView"/> class.
+        /// Initializes a new instance of the <see cref="LinearRangeView"/> class.
         /// </summary>
-        /// <param name="linearScale">Represents <see cref="SfLinearGauge"/> instance.</param>
-        public LinearScaleView(SfLinearGauge linearScale)
+        /// <param name="linearRange">Represents <see cref="LinearRange"/> instance.</param>
+        public LinearRangeView(LinearRange linearRange)
         {
-            this.linearScale = linearScale;
+            this.linearRange = linearRange;
         }
 
         #endregion
@@ -34,7 +34,7 @@ namespace Syncfusion.Maui.Gauges
         #region Override methods
 
         /// <summary>
-        /// Method used to draw <see cref="SfLinearGauge"/> visual elememts. 
+        /// Method used to draw <see cref="LinearRange"/> visual elememts. 
         /// </summary>
         /// <param name="canvas">Represents rendering canvas.</param>
         /// <param name="dirtyRect">Represents rendering region.</param>
@@ -44,7 +44,7 @@ namespace Syncfusion.Maui.Gauges
 
             canvas.SaveState();
 
-            this.linearScale.Draw(canvas);
+            this.linearRange.DrawRange(canvas);
 
             canvas.RestoreState();
         }

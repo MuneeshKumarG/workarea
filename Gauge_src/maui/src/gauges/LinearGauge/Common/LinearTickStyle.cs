@@ -5,6 +5,7 @@ namespace Syncfusion.Maui.Gauges
 {
     /// <summary>
     /// Represents the style of axis ticks, that used to customize axis ticks color, length, thickness and dash array.
+    /// </summary>
     public class LinearTickStyle : GaugeTickStyle
     {
         #region Fields

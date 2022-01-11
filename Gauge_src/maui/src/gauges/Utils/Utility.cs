@@ -214,5 +214,17 @@ namespace Syncfusion.Maui.Gauges
                 255);
             return gradientColor;
         }
+
+        /// <summary>
+        /// To swap the given values.
+        /// </summary>
+        /// <param name="firstValue">The first value.</param>
+        /// <param name="secondValue">The second value.</param>
+        internal static void Swap(ref double firstValue, ref double secondValue)
+        {
+            double temporary = firstValue;
+            firstValue = secondValue;
+            secondValue = temporary;
+        }
     }
 }
