@@ -1,17 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
+using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Essentials;
+using Microsoft.Maui.Graphics;
 using Syncfusion.Maui.Gauges;
 
 namespace LinearGaugeTestbed
 {
 	public partial class Page1 : ContentPage
 	{
-		public Page1()
+        public List<string> ColorCollection
+        {
+            get
+            {
+                return new List<string>()
+                {
+                    "Red",
+                    "Black",
+                    "Green",
+                    "Blue",
+                    "Transparent",
+                    "Gradient"
+                };
+            }
+        }
+        LinearGradientBrush linearGradientBrush = new LinearGradientBrush();
+
+        public Page1()
 		{
 			InitializeComponent();
+            this.BindingContext = this;
 
-		}
+        }
 
         private void MinimumIncrease_Clicked(object sender, EventArgs e)
         {
@@ -130,6 +151,272 @@ namespace LinearGaugeTestbed
         private void OrientationVertical_Clicked(object sender, EventArgs e)
         {
             gauge.Orientation = GaugeOrientation.Vertical;
+        }
+
+        private void Picker_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+            string color = (sender as Picker).SelectedItem.ToString();
+
+            if (color == "Red")
+                gauge.AxisLineStyle.Fill = new SolidColorBrush(Colors.Red);
+            else if (color == "Black")
+                gauge.AxisLineStyle.Fill = new SolidColorBrush(Colors.Black);
+            else if (color == "Green")
+                gauge.AxisLineStyle.Fill = new SolidColorBrush(Colors.Green);
+            else if (color == "Blue")
+                gauge.AxisLineStyle.Fill = new SolidColorBrush(Colors.Blue);
+            else if (color == "Transparent")
+                gauge.AxisLineStyle.Fill = new SolidColorBrush(Colors.Transparent);
+            else if (color == "Gradient")
+            {
+                linearGradientBrush.StartPoint = new Point(0, 0.5);
+                linearGradientBrush.EndPoint = new Point(1, 0.5);
+                linearGradientBrush.GradientStops.Add(new Microsoft.Maui.Controls.GradientStop(Colors.Red, 0.25f));
+                linearGradientBrush.GradientStops.Add(new Microsoft.Maui.Controls.GradientStop(Colors.Green, 0.75f));
+
+                gauge.AxisLineStyle.Fill = linearGradientBrush;
+            }
+        }
+
+        public List<string> CornerRadiusCollection
+        {
+            get
+            {
+                return new List<string>()
+                {
+                    "0,5,5,5",
+                    "5,0,5,5",
+                    "5,5,0,5",
+                    "5,5,5,0",
+                    "5,5,5,5"
+                };
+            }
+        }
+        private void Picker_SelectedIndexChanged2(object sender, EventArgs e)
+        {
+            string radius = (sender as Picker).SelectedItem.ToString();
+
+            if (radius == "0,5,5,5")
+                gauge.AxisLineStyle.CornerRadius = new Thickness(0, 5, 5, 5);
+            else if (radius == "5,0,5,5")
+                gauge.AxisLineStyle.CornerRadius = new Thickness(5, 0, 5, 5);
+            else if (radius == "5,5,0,5")
+                gauge.AxisLineStyle.CornerRadius = new Thickness(5, 5, 0, 5);
+            else if (radius == "5,5,5,0")
+                gauge.AxisLineStyle.CornerRadius = new Thickness(5, 5, 5, 0);
+            else if (radius == "5,5,5,5")
+                gauge.AxisLineStyle.CornerRadius = new Thickness(5, 5, 5, 5);
+        }
+
+        public Array CornerStyles
+        {
+            get
+            {
+                return Enum.GetValues(typeof(CornerStyle));
+            }
+
+        }
+
+        public Array FontAttributes
+        {
+            get
+            {
+                return Enum.GetValues(typeof(FontAttributes));
+            }
+
+        }
+        private void Picker_SelectedIndexChanged3(object sender, EventArgs e)
+        {
+            gauge.AxisLineStyle.CornerStyle = (CornerStyle)(sender as Picker).SelectedItem;
+        }
+
+        public List<string> DashArrayCollection
+        {
+            get
+            {
+                return new List<string>()
+                {
+                    "2,2",
+                    "4,4",
+                    "Null",
+                };
+            }
+        }
+        private void Picker_SelectedIndexChanged4(object sender, EventArgs e)
+        {
+            string dashArray = (sender as Picker).SelectedItem.ToString();
+
+            if (dashArray == "2,2")
+                gauge.AxisLineStyle.DashArray = new DoubleCollection() {2,2 };
+            else if (dashArray == "4,4")
+                gauge.AxisLineStyle.DashArray = new DoubleCollection() { 4,4};
+            else if (dashArray == "Null")
+                gauge.AxisLineStyle.DashArray = null;
+        }
+
+        private void AxisLineThicknessIncrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.AxisLineStyle.Thickness += 1;
+        }
+
+        private void AxisLineThicknessDecrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.AxisLineStyle.Thickness -= 1;
+        }
+
+        private void Picker_SelectedIndexChanged5(object sender, EventArgs e)
+        {
+            string color = (sender as Picker).SelectedItem.ToString();
+            Brush brush=null;
+
+            if (color == "Red")
+                brush = new SolidColorBrush(Colors.Red);
+            else if (color == "Black")
+                brush = new SolidColorBrush(Colors.Black);
+            else if (color == "Green")
+                brush = new SolidColorBrush(Colors.Green);
+            else if (color == "Blue")
+                brush = new SolidColorBrush(Colors.Blue);
+            else if (color == "Transparent")
+                brush = new SolidColorBrush(Colors.Transparent);
+            else if (color == "Gradient")
+            {
+                linearGradientBrush.StartPoint = new Point(0, 0.5);
+                linearGradientBrush.EndPoint = new Point(1, 0.5);
+                linearGradientBrush.GradientStops.Add(new Microsoft.Maui.Controls.GradientStop(Colors.Red, 0.25f));
+                linearGradientBrush.GradientStops.Add(new Microsoft.Maui.Controls.GradientStop(Colors.Green, 0.75f));
+
+                brush = linearGradientBrush;
+            }
+
+            gauge.MajorTickStyle.Stroke = brush;
+        }
+
+        private void MajorTickThicknessIncrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.MajorTickStyle.StrokeThickness += 1;
+        }
+
+        private void MajorTickThicknessDecrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.MajorTickStyle.StrokeThickness -= 1;
+        }
+
+        private void MajorTickLengthIncrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.MajorTickStyle.Length += 1;
+        }
+
+        private void MajorTickLengthDecrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.MajorTickStyle.Length -= 1;
+        }
+
+        private void Picker_SelectedIndexChanged6(object sender, EventArgs e)
+        {
+            string dashArray = (sender as Picker).SelectedItem.ToString();
+
+            if (dashArray == "2,2")
+                gauge.MajorTickStyle.StrokeDashArray = new DoubleCollection() { 2, 2 };
+            else if (dashArray == "4,4")
+                gauge.MajorTickStyle.StrokeDashArray = new DoubleCollection() { 4, 4 };
+            else if (dashArray == "Null")
+                gauge.MajorTickStyle.StrokeDashArray = null;
+        }
+
+
+        private void Picker_SelectedIndexChanged7(object sender, EventArgs e)
+        {
+            string color = (sender as Picker).SelectedItem.ToString();
+            Brush brush = null;
+
+            if (color == "Red")
+                brush = new SolidColorBrush(Colors.Red);
+            else if (color == "Black")
+                brush= new SolidColorBrush(Colors.Black);
+            else if (color == "Green")
+                brush = new SolidColorBrush(Colors.Green);
+            else if (color == "Blue")
+                brush = new SolidColorBrush(Colors.Blue);
+            else if (color == "Transparent")
+                brush = new SolidColorBrush(Colors.Transparent);
+            else if (color == "Gradient")
+            {
+                linearGradientBrush.StartPoint = new Point(0, 0.5);
+                linearGradientBrush.EndPoint = new Point(1, 0.5);
+                linearGradientBrush.GradientStops.Add(new Microsoft.Maui.Controls.GradientStop(Colors.Red, 0.25f));
+                linearGradientBrush.GradientStops.Add(new Microsoft.Maui.Controls.GradientStop(Colors.Green, 0.75f));
+
+                brush = linearGradientBrush;
+            }
+
+            gauge.MinorTickStyle.Stroke = brush;
+        }
+
+        private void MinorTickThicknessIncrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.MinorTickStyle.StrokeThickness += 1;
+        }
+
+        private void MinorTickThicknessDecrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.MinorTickStyle.StrokeThickness -= 1;
+        }
+
+        private void MinorTickLengthIncrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.MinorTickStyle.Length += 1;
+        }
+
+        private void MinorTickLengthDecrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.MinorTickStyle.Length -= 1;
+        }
+
+        private void Picker_SelectedIndexChanged8(object sender, EventArgs e)
+        {
+            string dashArray = (sender as Picker).SelectedItem.ToString();
+
+            if (dashArray == "2,2")
+                gauge.MinorTickStyle.StrokeDashArray = new DoubleCollection() { 2, 2 };
+            else if (dashArray == "4,4")
+                gauge.MinorTickStyle.StrokeDashArray = new DoubleCollection() { 4, 4 };
+            else if (dashArray == "Null")
+                gauge.MinorTickStyle.StrokeDashArray = null;
+        }
+
+        private void AxisLabelFontSizeIncrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.AxisLabelStyle.FontSize += 1;
+        }
+
+        private void AxisLabelFontSizeDecrease_Clicked(object sender, EventArgs e)
+        {
+            gauge.AxisLabelStyle.FontSize -= 1;
+        }
+
+        private void Picker_SelectedIndexChanged9(object sender, EventArgs e)
+        {
+            string color = (sender as Picker).SelectedItem.ToString();
+            Color brush = null;
+
+            if (color == "Red")
+                brush = Colors.Red;
+            else if (color == "Black")
+                brush = Colors.Black;
+            else if (color == "Green")
+                brush = Colors.Green;
+            else if (color == "Blue")
+                brush = Colors.Blue;
+            else if (color == "Transparent")
+                brush =Colors.Transparent;
+
+            gauge.AxisLabelStyle.TextColor = brush;
+        }
+
+        private void Picker_SelectedIndexChanged10(object sender, EventArgs e)
+        {
+            gauge.AxisLabelStyle.FontAttributes = (FontAttributes)(sender as Picker).SelectedItem;
         }
     }
 }

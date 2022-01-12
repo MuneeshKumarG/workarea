@@ -10,7 +10,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Margin="15">
-            <gauge:SfLinearGauge x:Name="gauge" Background="yellow"/>
+            <gauge:SfLinearGauge x:Name="gauge">
+                <gauge:SfLinearGauge.AxisLineStyle>
+                    <gauge:LinearLineStyle />
+                </gauge:SfLinearGauge.AxisLineStyle>
+            </gauge:SfLinearGauge>
         </Grid>
         <ScrollView GridLayout.Row="1">
             <VerticalStackLayout>
@@ -89,6 +93,19 @@
                     <Entry Background="yellow" x:Name="labelFormatValue" GridLayout.Column="1" Margin="5"/>
                     <Button GridLayout.Column="2" Text="Set" 
                             Clicked="LabelFormatSet_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Orientation"/>
+                    <Button GridLayout.Column="1" Text="Horizontal" 
+                            Clicked="OrientationHorizontal_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="Vertical" 
+                            Clicked="OrientationVertical_Clicked" Margin="5"/>
                 </Grid>
 
                 <Grid Margin="5">
@@ -200,20 +217,192 @@
                     <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=UseRangeColorForAxis}"  Margin="5"/>
                 </Grid>
 
+                <Label Text="AxisLineStyle" FontAttributes="Bold" Margin="0,10,0,10"/>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Fill"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged1"/>
+                </Grid>
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Text="Orientation"/>
-                    <Button GridLayout.Column="1" Text="Horizontal" 
-                            Clicked="OrientationHorizontal_Clicked" Margin="5"/>
-                    <Button GridLayout.Column="2" Text="Vertical" 
-                            Clicked="OrientationVertical_Clicked" Margin="5"/>
+                    <Label Text="Thickness"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="AxisLineThicknessIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="AxisLineThicknessDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Corner Radius"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding CornerRadiusCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged2"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Corner Style"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding CornerStyles}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged3"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Dash Array"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding DashArrayCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged4"/>
+                </Grid>
+
+                <Label Text="MajorTickStyle" FontAttributes="Bold" Margin="0,10,0,10"/>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Stroke"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="StrokeThickness"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="MajorTickThicknessIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="MajorTickThicknessDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Length"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="MajorTickLengthIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="MajorTickLengthDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Dash Array"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding DashArrayCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged6"/>
+                </Grid>
+
+                <Label Text="MinorTickStyle" FontAttributes="Bold" Margin="0,10,0,10"/>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Stroke"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged7"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="StrokeThickness"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="MinorTickThicknessIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="MinorTickThicknessDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Length"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="MinorTickLengthIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="MinorTickLengthDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Dash Array"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding DashArrayCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged8"/>
+                </Grid>
+
+                <Label Text="AxisLabelStyle" FontAttributes="Bold" Margin="0,10,0,10"/>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="FontSize"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="AxisLabelFontSizeIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="AxisLabelFontSizeDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="TextColor"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged9"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="FontAttribute"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding FontAttributes}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged10"/>
                 </Grid>
 
             </VerticalStackLayout>
         </ScrollView>
+       
     </Grid>
 </ContentPage>
