@@ -219,7 +219,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="Orientation"/> bindable property.
         /// </value>
         public static readonly BindableProperty OrientationProperty =
-            BindableProperty.Create(nameof(Orientation), typeof(GaugeOrientation), typeof(SfLinearGauge), GaugeOrientation.Horizontal, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(Orientation), typeof(GaugeOrientation), typeof(SfLinearGauge), GaugeOrientation.Horizontal, propertyChanged: OnOrientationPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="Orientation"/> bindable property.
@@ -351,7 +351,7 @@ namespace Syncfusion.Maui.Gauges
         /// Gets or sets the value that indicates the position of the axis labels inside or outside the axis line.
         /// </summary>
         /// <value>
-        /// One of the enumeration values that specifies the position of labels in the radial gauge.
+        /// One of the enumeration values that specifies the position of labels in the linear gauge.
         /// The registered default is <see cref="GaugeLabelsPosition.Inside"/>.
         /// </value>
         public GaugeLabelsPosition LabelPosition
@@ -376,7 +376,7 @@ namespace Syncfusion.Maui.Gauges
         /// Gets or sets the value that indicates the position of the ticks inside, center, or outside the axis line.
         /// </summary>
         /// <value>
-        /// One of the enumeration values that specifies the position of ticks in the radial gauge.
+        /// One of the enumeration values that specifies the position of ticks in the linear gauge.
         /// The default is <see cref="GaugeElementPosition.Inside"/>.
         /// </value>
         public GaugeElementPosition TickPosition
@@ -714,6 +714,10 @@ namespace Syncfusion.Maui.Gauges
             return gaugeElementPosition;
         }
 
+        internal void ScaleInvalidateMeasureOverride()
+        {
+            this.InvalidateMeasureOverride();
+        }
 
         #endregion
 
@@ -819,6 +823,20 @@ namespace Syncfusion.Maui.Gauges
             {
                 sfLinearGauge.UpdateAxis();
                 sfLinearGauge.InvalidateAxis();
+            }
+        }
+
+        /// <summary>
+        /// Called when axis orientation properties changed.
+        /// </summary>
+        /// <param name="bindable">The BindableObject.</param>
+        /// <param name="oldValue">Old value.</param>
+        /// <param name="newValue">New value.</param>
+        private static void OnOrientationPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is SfLinearGauge sfLinearGauge)
+            {
+                sfLinearGauge.ScaleInvalidateMeasureOverride();
             }
         }
 
@@ -1487,15 +1505,13 @@ namespace Syncfusion.Maui.Gauges
                 x = (float)axisLineStartPosition;
                 y = (float)(this.AxisLinePosition.Y);
                 width = (float)Math.Abs(axisLineEndPosition - axisLineStartPosition);
-                height = (float)Math.Abs(this.AxisLinePosition.Y + (actualAxisLineThickness / 2) -
-                    this.AxisLinePosition.Y + (actualAxisLineThickness / 2));
+                height = (float)actualAxisLineThickness;
             }
             else
             {
                 x = (float)(this.AxisLinePosition.Y);
                 y = (float)axisLineStartPosition;
-                width = (float)Math.Abs(this.AxisLinePosition.Y + (actualAxisLineThickness / 2) -
-                   this.AxisLinePosition.Y + (actualAxisLineThickness / 2));
+                width = (float)actualAxisLineThickness;
                 height = (float)Math.Abs(axisLineEndPosition - axisLineStartPosition);
             }
 
@@ -1693,7 +1709,7 @@ namespace Syncfusion.Maui.Gauges
                     if (this.Orientation == GaugeOrientation.Horizontal)
                     {
                         float labelPosY = (float)this.labelsPanelPosition.Y;
-#if ANDROID || IOS
+#if ANDROID
                         labelPosY += (float)label.DesiredSize.Height;
 #endif
                         label.Position = new PointF((float)(this.labelsPanelPosition.X +
@@ -1701,9 +1717,9 @@ namespace Syncfusion.Maui.Gauges
                     }
                     else
                     {
-                        var y = this.labelsPanelPosition.X + position + (label.DesiredSize.Height / 2);
-#if ANDROID || IOS
-                       // y += (float)label.DesiredSize.Height;
+                        var y = this.labelsPanelPosition.X + position - (label.DesiredSize.Height / 2);
+#if ANDROID
+                        y += (float)label.DesiredSize.Height;
 #endif
                         if ((this.LabelPosition == GaugeLabelsPosition.Outside && !this.IsMirrored)
                             || (this.LabelPosition == GaugeLabelsPosition.Inside && this.IsMirrored))
@@ -2050,7 +2066,7 @@ namespace Syncfusion.Maui.Gauges
                     List<GaugeGradientStop> gradientStopsList = gradientStops.OrderBy(x => x.ActualValue).ToList();
                     if (gradientStopsList[0].Value != startValue)
                     {
-                        gradientStopsList.Add(new GaugeGradientStop
+                        gradientStopsList.Insert(0, new GaugeGradientStop
                         {
                             Color = gradientStopsList[0].Color,
                             Value = this.ActualMinimum
@@ -2187,6 +2203,7 @@ namespace Syncfusion.Maui.Gauges
             }
 
             this.MeasureContent(ScaleAvailableSize.Width, ScaleAvailableSize.Height);
+
             return ScaleAvailableSize;
         }
 
@@ -2198,7 +2215,6 @@ namespace Syncfusion.Maui.Gauges
         Size IContentView.CrossPlatformArrange(Rectangle bounds)
         {
             this.ArrangeContent(bounds);
-            this.InvalidateAxis();
             return bounds.Size;
         }
 

@@ -43,7 +43,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="StartWidth"/> bindable property.
         /// </value>
         public static readonly BindableProperty StartWidthProperty =
-            BindableProperty.Create(nameof(StartWidth), typeof(double), typeof(RadialRange), 10d, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(StartWidth), typeof(double), typeof(LinearRange), 10d, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="MidWidth"/> bindable property.
@@ -52,7 +52,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="MidWidth"/> bindable property.
         /// </value>
         public static readonly BindableProperty MidWidthProperty =
-            BindableProperty.Create(nameof(MidWidth), typeof(double), typeof(RadialRange), 10d, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(MidWidth), typeof(double), typeof(LinearRange), 10d, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="EndWidth"/> bindable property.
@@ -61,7 +61,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="EndWidth"/> bindable property.
         /// </value>
         public static readonly BindableProperty EndWidthProperty =
-            BindableProperty.Create(nameof(EndWidth), typeof(double), typeof(RadialRange), 10d, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(EndWidth), typeof(double), typeof(LinearRange), 10d, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="RangePosition"/> bindable property.
@@ -70,7 +70,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="RangePosition"/> bindable property.
         /// </value>
         public static readonly BindableProperty RangePositionProperty =
-            BindableProperty.Create(nameof(RangePosition), typeof(GaugeElementPosition), typeof(RadialRange), GaugeElementPosition.Outside, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(RangePosition), typeof(GaugeElementPosition), typeof(LinearRange), GaugeElementPosition.Outside, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="Fill"/> bindable property.
@@ -79,7 +79,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="Fill"/> bindable property.
         /// </value>
         public static readonly BindableProperty FillProperty =
-            BindableProperty.Create(nameof(Fill), typeof(Brush), typeof(RadialRange), null, defaultValueCreator: bindable => new SolidColorBrush(Color.FromRgb(67, 160, 71)), propertyChanged: OnFillPropertyChanged);
+            BindableProperty.Create(nameof(Fill), typeof(Brush), typeof(LinearRange), null, defaultValueCreator: bindable => new SolidColorBrush(Color.FromRgb(67, 160, 71)), propertyChanged: OnFillPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="GradientStops"/> bindable property.
@@ -88,7 +88,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="GradientStops"/> bindable property.
         /// </value>
         public static readonly BindableProperty GradientStopsProperty =
-         BindableProperty.Create(nameof(GradientStops), typeof(ObservableCollection<GaugeGradientStop>), typeof(RadialRange), null, propertyChanged: OnGradientStopsPropertyChanged);
+         BindableProperty.Create(nameof(GradientStops), typeof(ObservableCollection<GaugeGradientStop>), typeof(LinearRange), null, propertyChanged: OnGradientStopsPropertyChanged);
 
         #endregion
 
@@ -245,15 +245,8 @@ namespace Syncfusion.Maui.Gauges
                 return;
             }
 
-            double maxRangeWidth;
-            if (double.IsNaN(this.MidWidth))
-            {
-                maxRangeWidth = Math.Max(this.StartWidth, this.EndWidth);
-            }
-            else
-            {
-                maxRangeWidth = Math.Max(Math.Max(this.StartWidth, this.MidWidth), this.EndWidth);
-            }
+            double maxRangeWidth = double.IsNaN(this.MidWidth) ? Math.Max(this.StartWidth, this.EndWidth) :
+                Math.Max(Math.Max(this.StartWidth, this.MidWidth), this.EndWidth);
 
             double actualStartValue = Math.Clamp(this.StartValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
             double actualEndValue = Math.Clamp(this.EndValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
@@ -265,95 +258,106 @@ namespace Syncfusion.Maui.Gauges
             {
                 actualMidWidth = this.MidWidth > 0 ? this.MidWidth : 0d;
             }
-
-            double actualAxisLineThickness = this.LinearGauge.GetActualAxisLineThickness();
+            double lineThickness = this.LinearGauge.GetActualAxisLineThickness();
             double rangeStartPosition = this.LinearGauge.GetPositionFromValue(actualStartValue);
             double rangeEndPosition = this.LinearGauge.GetPositionFromValue(actualEndValue);
             double rangeMidPosition = (rangeStartPosition + rangeEndPosition) / 2;
-            List<Point> points = new List<Point>();
+            double axisLinePositionX = this.LinearGauge.AxisLinePosition.X;
+            double axisLinePositionY = this.LinearGauge.AxisLinePosition.Y;
+            rangePath = new PathF();
+
             switch (this.LinearGauge.GetActualElementPosition(this.RangePosition))
             {
                 case GaugeElementPosition.Outside:
-                    points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeStartPosition, this.LinearGauge.AxisLinePosition.Y));
-                    points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeEndPosition, this.LinearGauge.AxisLinePosition.Y));
-                    points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeEndPosition, this.LinearGauge.AxisLinePosition.Y - actualEndWidth));
+                    MoveToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY);
+                    LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY);
+                    LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY - actualEndWidth);
                     if (!double.IsNaN(this.MidWidth))
                     {
-                        points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeMidPosition, this.LinearGauge.AxisLinePosition.Y - actualMidWidth));
+                        LineToRangePath(axisLinePositionX + rangeMidPosition, axisLinePositionY - actualMidWidth);
                     }
-
-                    points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeStartPosition, this.LinearGauge.AxisLinePosition.Y - actualStartWidth));
+                    LineToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY - actualStartWidth);
                     break;
                 case GaugeElementPosition.Cross:
                     if (this.LinearGauge.IsMirrored)
                     {
-                        points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeStartPosition, 
-                            this.LinearGauge.AxisLinePosition.Y + (actualAxisLineThickness / 2) - (maxRangeWidth / 2)));
-                        points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeEndPosition, 
-                            this.LinearGauge.AxisLinePosition.Y + (actualAxisLineThickness / 2) - (maxRangeWidth / 2)));
-                        points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeEndPosition, 
-                            this.LinearGauge.AxisLinePosition.Y + (actualAxisLineThickness / 2) - (maxRangeWidth / 2) + actualEndWidth));
+                        MoveToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2));
+                        LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2));
+                        LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualEndWidth);
                         if (!double.IsNaN(this.MidWidth))
                         {
-                            points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeMidPosition, 
-                                this.LinearGauge.AxisLinePosition.Y + (actualAxisLineThickness / 2) - (maxRangeWidth / 2) + actualMidWidth));
+                            LineToRangePath(axisLinePositionX + rangeMidPosition, axisLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualMidWidth);
                         }
-
-                        points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeStartPosition, 
-                            this.LinearGauge.AxisLinePosition.Y + (actualAxisLineThickness / 2) - (maxRangeWidth / 2) + actualStartWidth));
+                        LineToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualStartWidth);
                     }
                     else
                     {
-                        points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeStartPosition, 
-                            this.LinearGauge.AxisLinePosition.Y + (actualAxisLineThickness / 2) + (maxRangeWidth / 2) - actualStartWidth));
+                        MoveToRangePath(axisLinePositionX + rangeStartPosition,axisLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualStartWidth);
                         if (!double.IsNaN(this.MidWidth))
                         {
-                            points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeMidPosition, 
-                                this.LinearGauge.AxisLinePosition.Y + (actualAxisLineThickness / 2) + (maxRangeWidth / 2) - actualMidWidth));
+                            LineToRangePath(axisLinePositionX + rangeMidPosition,axisLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualMidWidth);
                         }
-
-                        points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeEndPosition, 
-                            this.LinearGauge.AxisLinePosition.Y + (actualAxisLineThickness / 2) + (maxRangeWidth / 2) - actualEndWidth));
-                        points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeEndPosition, 
-                            this.LinearGauge.AxisLinePosition.Y + (actualAxisLineThickness / 2) + (maxRangeWidth / 2)));
-                        points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeStartPosition, 
-                            this.LinearGauge.AxisLinePosition.Y + (actualAxisLineThickness / 2) + (maxRangeWidth / 2)));
+                        LineToRangePath(axisLinePositionX + rangeEndPosition,axisLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualEndWidth);
+                        LineToRangePath(axisLinePositionX + rangeEndPosition,axisLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2));
+                        LineToRangePath(axisLinePositionX + rangeStartPosition,axisLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2));
                     }
 
                     break;
                 case GaugeElementPosition.Inside:
-                    points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeStartPosition, this.LinearGauge.AxisLinePosition.Y + actualAxisLineThickness));
-                    points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeEndPosition, this.LinearGauge.AxisLinePosition.Y + actualAxisLineThickness));
-                    points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeEndPosition, this.LinearGauge.AxisLinePosition.Y + actualAxisLineThickness + actualEndWidth));
+                    MoveToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY + lineThickness);
+                    LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY + lineThickness);
+                    LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY + lineThickness + actualEndWidth);
                     if (!double.IsNaN(this.MidWidth))
                     {
-                        points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeMidPosition, this.LinearGauge.AxisLinePosition.Y + actualAxisLineThickness + actualMidWidth));
+                        LineToRangePath(axisLinePositionX + rangeMidPosition, axisLinePositionY + lineThickness + actualMidWidth);
                     }
-
-                    points.Add(new Point(this.LinearGauge.AxisLinePosition.X + rangeStartPosition, this.LinearGauge.AxisLinePosition.Y + actualAxisLineThickness + actualStartWidth));
+                    LineToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY + lineThickness + actualStartWidth);
                     break;
             }
-
-            if (this.LinearGauge.Orientation == GaugeOrientation.Vertical)
-            {
-                Point point;
-                for (int i = 0; i < points.Count; i++)
-                {
-                    point = new Point(points[i].Y, points[i].X);
-                    points.RemoveAt(i);
-                    points.Insert(i, point);
-                }
-            }
-
-            rangePath = new PathF();
-
-            rangePath.MoveTo(points[0]);
-            for (int i = 1; i < points.Count; i++)
-            {
-                rangePath.LineTo(points[i]);
-            }
             rangePath.Close();
-            linearGradientBrush = this.LinearGauge.GetLinearGradient(this.GradientStops, actualStartValue, actualEndValue);
+
+            CreateGradient(actualStartValue, actualEndValue);
+        }
+
+        private void MoveToRangePath(double x, double y)
+        {
+            if (this.LinearGauge == null || rangePath == null)
+                return;
+
+            if (this.LinearGauge.Orientation == GaugeOrientation.Horizontal)
+                rangePath.MoveTo((float)x, (float)y);
+            else
+                rangePath.MoveTo((float)y, (float)x);
+        }
+
+        private void LineToRangePath(double x, double y)
+        {
+            if (this.LinearGauge == null || rangePath == null)
+                return;
+
+            if (this.LinearGauge.Orientation == GaugeOrientation.Horizontal)
+                rangePath.LineTo((float)x, (float)y);
+            else
+                rangePath.LineTo((float)y, (float)x);
+        }
+
+        private void CalculateGradient()
+        {
+            if (this.LinearGauge != null)
+            {
+                double actualStartValue = Math.Clamp(this.StartValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
+                double actualEndValue = Math.Clamp(this.EndValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
+                Utility.ValidateMinimumMaximumValue(ref actualStartValue, ref actualEndValue);
+                CreateGradient(actualStartValue, actualEndValue);
+            }
+        }
+
+        private void CreateGradient(double actualStartValue, double actualEndValue)
+        {
+            if (this.LinearGauge != null && this.GradientStops != null)
+            {
+                linearGradientBrush = this.LinearGauge.GetLinearGradient(this.GradientStops, actualStartValue, actualEndValue);
+            }
         }
 
         /// <summary>
@@ -422,8 +426,7 @@ namespace Syncfusion.Maui.Gauges
         {
             if (bindable is LinearRange linearRange && linearRange.LinearGauge != null)
             {
-                linearRange.CreateRangePath();
-
+                linearRange.LinearGauge.ScaleInvalidateMeasureOverride();
                 linearRange.InvalidateDrawable();
             }
         }
@@ -468,7 +471,7 @@ namespace Syncfusion.Maui.Gauges
                         gradientStops.CollectionChanged += linearRange.GradientStops_CollectionChanged;
                 }
 
-                linearRange.CreateRangePath();
+                linearRange.CalculateGradient();
                 linearRange.InvalidateDrawable();
             }
         }
@@ -485,7 +488,7 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="e">The NotifyCollectionChangedEventArgs.</param>
         private void GradientStops_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            this.CreateRangePath();
+            this.CalculateGradient();
             this.InvalidateDrawable();
         }
 
