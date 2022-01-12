@@ -1,0 +1,13 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LinearGaugeTestbed.Page2"
+             xmlns:gauge="http://schemas.syncfusion.com/maui"
+             xmlns:local="clr-namespace:LinearGaugeTestbed"
+             BackgroundColor="{DynamicResource SecondaryColor}">
+
+    <VerticalStackLayout>
+        <Button Text="Orientation" x:Name="orientation"/>
+        <gauge:SfLinearGauge x:Name="gauge" Background="orange" >
+        </gauge:SfLinearGauge>
+    </VerticalStackLayout>
+</ContentPage>

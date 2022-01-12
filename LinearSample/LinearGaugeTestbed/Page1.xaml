@@ -10,10 +10,13 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Margin="15">
-            <gauge:SfLinearGauge x:Name="gauge">
+            <gauge:SfLinearGauge x:Name="gauge" Orientation="Horizontal" Background="yellow">
                 <gauge:SfLinearGauge.AxisLineStyle>
-                    <gauge:LinearLineStyle />
+                    <gauge:LinearLineStyle/>
                 </gauge:SfLinearGauge.AxisLineStyle>
+                <gauge:SfLinearGauge.Ranges>
+                    <gauge:LinearRange x:Name="range" EndValue="50" MidWidth="20"/>
+                </gauge:SfLinearGauge.Ranges>
             </gauge:SfLinearGauge>
         </Grid>
         <ScrollView GridLayout.Row="1">
@@ -234,6 +237,18 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    <Label Text="GradientStops"/>
+                    <Button GridLayout.Column="1" Text="Set" 
+                            Clicked="AxisLineGradientStopsSet_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="Null" 
+                            Clicked="AxisLineGradientStopsSetNull_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
                     <Label Text="Thickness"/>
                     <Button GridLayout.Column="1" Text="+" 
                             Clicked="AxisLineThicknessIncrease_Clicked" Margin="5"/>
@@ -399,6 +414,104 @@
                     <Label Text="FontAttribute"/>
                     <Picker GridLayout.Column="1" ItemsSource="{Binding FontAttributes}"
                             SelectedIndexChanged="Picker_SelectedIndexChanged10"/>
+                </Grid>
+
+                <Label Text="Range" FontAttributes="Bold" Margin="0,10,0,10"/>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Start"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="RangeStartIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="RangeStartDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="End"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="RangeEndIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="RangeEndDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="StartWidth"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="RangeStartWidthIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="RangeStartWidthDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="MidWidth"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="RangeMidWidthIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="RangeMidWidthDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="EndWidth"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="RangeEndWidthIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="RangeEndWidthDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="RangePosition"/>
+                    <Button GridLayout.Column="1" Text="Inside" 
+                            Clicked="RangePositionInside_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="Outside" 
+                            Clicked="RangePositionOutside_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="3" Text="Cross" 
+                            Clicked="RangePositionCross_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Fill"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged11"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="GradientStops"/>
+                    <Button GridLayout.Column="1" Text="Set" 
+                            Clicked="RangeGradientStopsSet_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="Null" 
+                            Clicked="RangeGradientStopsSetNull_Clicked" Margin="5"/>
                 </Grid>
 
             </VerticalStackLayout>

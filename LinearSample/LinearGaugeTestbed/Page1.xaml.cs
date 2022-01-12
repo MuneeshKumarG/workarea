@@ -414,9 +414,138 @@ namespace LinearGaugeTestbed
             gauge.AxisLabelStyle.TextColor = brush;
         }
 
+
         private void Picker_SelectedIndexChanged10(object sender, EventArgs e)
         {
             gauge.AxisLabelStyle.FontAttributes = (FontAttributes)(sender as Picker).SelectedItem;
+        }
+
+
+        private void Picker_SelectedIndexChanged11(object sender, EventArgs e)
+        {
+            string color = (sender as Picker).SelectedItem.ToString();
+            Brush brush = null;
+
+            if (color == "Red")
+                brush = new SolidColorBrush(Colors.Red);
+            else if (color == "Black")
+                brush = new SolidColorBrush(Colors.Black);
+            else if (color == "Green")
+                brush = new SolidColorBrush(Colors.Green);
+            else if (color == "Blue")
+                brush = new SolidColorBrush(Colors.Blue);
+            else if (color == "Transparent")
+                brush = new SolidColorBrush(Colors.Transparent);
+            else if (color == "Gradient")
+            {
+                linearGradientBrush.StartPoint = new Point(0, 0.5);
+                linearGradientBrush.EndPoint = new Point(1, 0.5);
+                linearGradientBrush.GradientStops.Add(new Microsoft.Maui.Controls.GradientStop(Colors.Red, 0.25f));
+                linearGradientBrush.GradientStops.Add(new Microsoft.Maui.Controls.GradientStop(Colors.Green, 0.75f));
+
+                brush = linearGradientBrush;
+            }
+
+            range.Fill = brush;
+        }
+
+        private void AxisLineGradientStopsSet_Clicked(object sender, EventArgs e)
+        {
+            var gradientStops = new System.Collections.ObjectModel.ObservableCollection<GaugeGradientStop>();
+            
+
+            gradientStops.Add(new GaugeGradientStop { Value = 0, Color = Colors.Red });
+            gradientStops.Add(new GaugeGradientStop { Value = 50, Color = Colors.Blue });
+            gradientStops.Add(new GaugeGradientStop { Value = 100, Color = Colors.Green });
+
+           gauge.AxisLineStyle.GradientStops = gradientStops;
+
+        }
+
+        private void AxisLineGradientStopsSetNull_Clicked(object sender, EventArgs e)
+        {
+            gauge.AxisLineStyle.GradientStops = null;
+        }
+
+        private void RangeStartIncrease_Clicked(object sender, EventArgs e)
+        {
+            range.StartValue += 1;
+        }
+
+        private void RangeStartDecrease_Clicked(object sender, EventArgs e)
+        {
+            range.StartValue -= 1;
+        }
+        private void RangeEndIncrease_Clicked(object sender, EventArgs e)
+        {
+            range.EndValue += 1;
+        }
+
+        private void RangeEndDecrease_Clicked(object sender, EventArgs e)
+        {
+            range.EndValue -= 1;
+        }
+
+        private void RangeStartWidthIncrease_Clicked(object sender, EventArgs e)
+        {
+            range.StartWidth += 1;
+        }
+
+        private void RangeStartWidthDecrease_Clicked(object sender, EventArgs e)
+        {
+            range.StartWidth -= 1;
+        }
+
+        private void RangeMidWidthIncrease_Clicked(object sender, EventArgs e)
+        {
+            range.MidWidth += 1;
+        }
+
+        private void RangeMidWidthDecrease_Clicked(object sender, EventArgs e)
+        {
+            range.MidWidth -= 1;
+        }
+
+        private void RangeEndWidthIncrease_Clicked(object sender, EventArgs e)
+        {
+            range.EndWidth += 1;
+        }
+
+        private void RangeEndWidthDecrease_Clicked(object sender, EventArgs e)
+        {
+            range.EndWidth -= 1;
+        }
+
+        private void RangePositionInside_Clicked(object sender, EventArgs e)
+        {
+            range.RangePosition = GaugeElementPosition.Inside;
+        }
+
+        private void RangePositionOutside_Clicked(object sender, EventArgs e)
+        {
+            range.RangePosition = GaugeElementPosition.Outside;
+        }
+
+        private void RangePositionCross_Clicked(object sender, EventArgs e)
+        {
+            range.RangePosition = GaugeElementPosition.Cross;
+        }
+
+        private void RangeGradientStopsSet_Clicked(object sender, EventArgs e)
+        {
+            var gradientStops = new System.Collections.ObjectModel.ObservableCollection<GaugeGradientStop>();
+
+
+            gradientStops.Add(new GaugeGradientStop { Value = 10, Color = Colors.Red });
+            gradientStops.Add(new GaugeGradientStop { Value =25, Color = Colors.Blue });
+            gradientStops.Add(new GaugeGradientStop { Value = 40, Color = Colors.Green });
+
+            range.GradientStops = gradientStops;
+        }
+
+        private void RangeGradientStopsSetNull_Clicked(object sender, EventArgs e)
+        {
+            range.GradientStops = null;
         }
     }
 }
