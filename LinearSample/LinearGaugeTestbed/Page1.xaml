@@ -12,11 +12,14 @@
         <Grid Margin="15">
             <gauge:SfLinearGauge x:Name="gauge" Orientation="Horizontal" Background="yellow">
                 <gauge:SfLinearGauge.AxisLineStyle>
-                    <gauge:LinearLineStyle/>
+                    <gauge:LinearLineStyle />
                 </gauge:SfLinearGauge.AxisLineStyle>
                 <gauge:SfLinearGauge.Ranges>
-                    <gauge:LinearRange x:Name="range" EndValue="50" MidWidth="20"/>
+                    <gauge:LinearRange x:Name="range" StartValue="20" EndValue="50"/>
                 </gauge:SfLinearGauge.Ranges>
+                <gauge:SfLinearGauge.BarPointers>
+                    <gauge:BarPointer x:Name="barPointer" Value="70" EnableAnimation="True"/>
+                </gauge:SfLinearGauge.BarPointers>
             </gauge:SfLinearGauge>
         </Grid>
         <ScrollView GridLayout.Row="1">
@@ -512,6 +515,122 @@
                             Clicked="RangeGradientStopsSet_Clicked" Margin="5"/>
                     <Button GridLayout.Column="2" Text="Null" 
                             Clicked="RangeGradientStopsSetNull_Clicked" Margin="5"/>
+                </Grid>
+
+                <Label Text="Bar Pointer" FontAttributes="Bold" Margin="0,10,0,10"/>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Value"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="BarPointerValueIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="BarPointerValueDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="EnableAnimation"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference barPointer}, 
+                        Path=EnableAnimation}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="IsInteractive"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference barPointer}, 
+                        Path=IsInteractive}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Offset"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="BarPointerOffsetIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="BarPointerOffsetDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Size"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="BarPointerSizeIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="BarPointerSizeDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Corner Style"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding CornerStyles}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged12"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="BorderWidth"/>
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="BarPointerBorderSizeIncrease_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="-" 
+                            Clicked="BarPointerBorderSizeDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Fill"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged13"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Stroke"/>
+                    <Picker GridLayout.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged14"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="GradientStops"/>
+                    <Button GridLayout.Column="1" Text="Set" 
+                            Clicked="BarPointerGradientStopsSet_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="2" Text="Null" 
+                            Clicked="BarPointerGradientStopsSetNull_Clicked" Margin="5"/>
                 </Grid>
 
             </VerticalStackLayout>

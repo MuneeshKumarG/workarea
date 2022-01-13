@@ -449,6 +449,58 @@ namespace LinearGaugeTestbed
             range.Fill = brush;
         }
 
+        private void Picker_SelectedIndexChanged12(object sender, EventArgs e)
+        {
+            barPointer.CornerStyle = (CornerStyle)(sender as Picker).SelectedItem;
+        }
+
+        private void Picker_SelectedIndexChanged13(object sender, EventArgs e)
+        {
+            string color = (sender as Picker).SelectedItem.ToString();
+            Brush brush = null;
+
+            if (color == "Red")
+                brush = new SolidColorBrush(Colors.Red);
+            else if (color == "Black")
+                brush = new SolidColorBrush(Colors.Black);
+            else if (color == "Green")
+                brush = new SolidColorBrush(Colors.Green);
+            else if (color == "Blue")
+                brush = new SolidColorBrush(Colors.Blue);
+            else if (color == "Transparent")
+                brush = new SolidColorBrush(Colors.Transparent);
+            else if (color == "Gradient")
+            {
+                linearGradientBrush.StartPoint = new Point(0, 0.5);
+                linearGradientBrush.EndPoint = new Point(1, 0.5);
+                linearGradientBrush.GradientStops.Add(new Microsoft.Maui.Controls.GradientStop(Colors.Red, 0.25f));
+                linearGradientBrush.GradientStops.Add(new Microsoft.Maui.Controls.GradientStop(Colors.Green, 0.75f));
+
+                brush = linearGradientBrush;
+            }
+
+            barPointer.Fill = brush;
+        }
+
+        private void Picker_SelectedIndexChanged14(object sender, EventArgs e)
+        {
+            string color = (sender as Picker).SelectedItem.ToString();
+            Color brush = null;
+
+            if (color == "Red")
+                brush = Colors.Red;
+            else if (color == "Black")
+                brush = Colors.Black;
+            else if (color == "Green")
+                brush = Colors.Green;
+            else if (color == "Blue")
+                brush = Colors.Blue;
+            else if (color == "Transparent")
+                brush = Colors.Transparent;
+
+           // barPointer.Stroke = brush;
+        }
+
         private void AxisLineGradientStopsSet_Clicked(object sender, EventArgs e)
         {
             var gradientStops = new System.Collections.ObjectModel.ObservableCollection<GaugeGradientStop>();
@@ -536,9 +588,9 @@ namespace LinearGaugeTestbed
             var gradientStops = new System.Collections.ObjectModel.ObservableCollection<GaugeGradientStop>();
 
 
-            gradientStops.Add(new GaugeGradientStop { Value = 10, Color = Colors.Red });
-            gradientStops.Add(new GaugeGradientStop { Value =25, Color = Colors.Blue });
-            gradientStops.Add(new GaugeGradientStop { Value = 40, Color = Colors.Green });
+            gradientStops.Add(new GaugeGradientStop { Value = 20, Color = Colors.Red });
+            gradientStops.Add(new GaugeGradientStop { Value =35, Color = Colors.Blue });
+            gradientStops.Add(new GaugeGradientStop { Value = 50, Color = Colors.Green });
 
             range.GradientStops = gradientStops;
         }
@@ -547,5 +599,64 @@ namespace LinearGaugeTestbed
         {
             range.GradientStops = null;
         }
+
+        private void BarPointerValueIncrease_Clicked(object sender, EventArgs e)
+        {
+            barPointer.Value += 1;
+        }
+
+        private void BarPointerValueDecrease_Clicked(object sender, EventArgs e)
+        {
+            barPointer.Value -= 1;
+        }
+
+        private void BarPointerOffsetIncrease_Clicked(object sender, EventArgs e)
+        {
+            barPointer.Offset += 1;
+        }
+
+        private void BarPointerOffsetDecrease_Clicked(object sender, EventArgs e)
+        {
+            barPointer.Offset -= 1;
+        }
+
+        private void BarPointerSizeIncrease_Clicked(object sender, EventArgs e)
+        {
+            barPointer.PointerSize += 1;
+        }
+
+        private void BarPointerSizeDecrease_Clicked(object sender, EventArgs e)
+        {
+            barPointer.PointerSize -= 1;
+        }
+
+        private void BarPointerBorderSizeIncrease_Clicked(object sender, EventArgs e)
+        {
+           // barPointer.BorderWidth += 1;
+        }
+
+        private void BarPointerBorderSizeDecrease_Clicked(object sender, EventArgs e)
+        {
+           // barPointer.BorderWidth -= 1;
+        }
+
+        private void BarPointerGradientStopsSet_Clicked(object sender, EventArgs e)
+        {
+            var gradientStops = new System.Collections.ObjectModel.ObservableCollection<GaugeGradientStop>();
+
+
+            gradientStops.Add(new GaugeGradientStop { Value = 0, Color = Colors.Red });
+            gradientStops.Add(new GaugeGradientStop { Value = 30, Color = Colors.Blue });
+            gradientStops.Add(new GaugeGradientStop { Value = 70, Color = Colors.Green });
+
+            barPointer.GradientStops = gradientStops;
+
+        }
+
+        private void BarPointerGradientStopsSetNull_Clicked(object sender, EventArgs e)
+        {
+            barPointer.GradientStops = null;
+        }
+
     }
 }
