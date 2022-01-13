@@ -1010,7 +1010,10 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="newValue">New value.</param>
         private static void OnInvalidatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-
+            if (bindable is SfLinearGauge sfLinearGauge)
+            {
+                sfLinearGauge.InvalidateDrawable();
+            }
         }
 
         /// <summary>
@@ -1156,8 +1159,7 @@ namespace Syncfusion.Maui.Gauges
             {
                 AxisTickInfo tick = this.MajorTickPositions[i];
 
-                Color? rangeColor = null;
-                //  Color? rangeColor = GetRangeColor(tick.Value);
+                Color? rangeColor = GetRangeColor(tick.Value);
 
                 if (rangeColor != null)
                 {
@@ -1208,8 +1210,7 @@ namespace Syncfusion.Maui.Gauges
             {
                 AxisTickInfo tick = this.MinorTickPositions[i];
 
-                Color? rangeColor = null;
-                //Color? rangeColor = GetRangeColor(tick.Value);
+                Color? rangeColor = GetRangeColor(tick.Value);
 
                 if (rangeColor != null)
                 {
@@ -1240,9 +1241,8 @@ namespace Syncfusion.Maui.Gauges
 
                     PointF position = label.Position;
 
-                    Color? rangeColor = null;
                     //Setting text color axis labels.
-                    //Color? rangeColor = GetRangeColor(label.Value);
+                    Color? rangeColor = GetRangeColor(label.Value);
                     GaugeLabelStyle? labelStyle = null;
                     if (rangeColor != null)
                     {
@@ -1262,6 +1262,30 @@ namespace Syncfusion.Maui.Gauges
             }
         }
 
+        /// <summary>
+        /// Method used to get value match range color.
+        /// </summary>
+        /// <param name="value">Input axis value</param>
+        /// <returns>Returns range color.</returns>
+        private Color? GetRangeColor(double value)
+        {
+            LinearRange? range = null;
+            if (UseRangeColorForAxis && this.Ranges != null && this.Ranges.Count > 0)
+            {
+                range = this.Ranges.FirstOrDefault(item => value <= item.ActualEndValue &&
+                    value >= item.ActualStartValue);
+            }
+
+            if (range != null)
+            {
+                Paint rangeFillPaint = range.Fill;
+                return rangeFillPaint.ToColor();
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// Method used to invalidate axis. 
@@ -2172,6 +2196,7 @@ namespace Syncfusion.Maui.Gauges
                     break;
             }
         }
+
         #endregion
 
         #region Measure method

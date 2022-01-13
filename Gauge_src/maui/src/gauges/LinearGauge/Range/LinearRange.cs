@@ -100,6 +100,7 @@ namespace Syncfusion.Maui.Gauges
         internal LinearRangeView RangeView;
         internal SfLinearGauge? LinearGauge;
 
+        internal double ActualStartValue, ActualEndValue;
         #endregion
 
         #region Constructor
@@ -248,9 +249,9 @@ namespace Syncfusion.Maui.Gauges
             double maxRangeWidth = double.IsNaN(this.MidWidth) ? Math.Max(this.StartWidth, this.EndWidth) :
                 Math.Max(Math.Max(this.StartWidth, this.MidWidth), this.EndWidth);
 
-            double actualStartValue = Math.Clamp(this.StartValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
-            double actualEndValue = Math.Clamp(this.EndValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
-            Utility.ValidateMinimumMaximumValue(ref actualStartValue, ref actualEndValue);
+            ActualStartValue = Math.Clamp(this.StartValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
+            ActualEndValue = Math.Clamp(this.EndValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
+            Utility.ValidateMinimumMaximumValue(ref ActualStartValue, ref ActualEndValue);
             double actualEndWidth = this.EndWidth > 0 ? this.EndWidth : 0d;
             double actualStartWidth = this.StartWidth > 0 ? this.StartWidth : 0d;
             double actualMidWidth = 0d;
@@ -259,8 +260,8 @@ namespace Syncfusion.Maui.Gauges
                 actualMidWidth = this.MidWidth > 0 ? this.MidWidth : 0d;
             }
             double lineThickness = this.LinearGauge.GetActualAxisLineThickness();
-            double rangeStartPosition = this.LinearGauge.GetPositionFromValue(actualStartValue);
-            double rangeEndPosition = this.LinearGauge.GetPositionFromValue(actualEndValue);
+            double rangeStartPosition = this.LinearGauge.GetPositionFromValue(ActualStartValue);
+            double rangeEndPosition = this.LinearGauge.GetPositionFromValue(ActualEndValue);
             double rangeMidPosition = (rangeStartPosition + rangeEndPosition) / 2;
             double axisLinePositionX = this.LinearGauge.AxisLinePosition.X;
             double axisLinePositionY = this.LinearGauge.AxisLinePosition.Y;
@@ -316,7 +317,7 @@ namespace Syncfusion.Maui.Gauges
             }
             rangePath.Close();
 
-            CreateGradient(actualStartValue, actualEndValue);
+            CreateGradient();
         }
 
         private void MoveToRangePath(double x, double y)
@@ -341,22 +342,11 @@ namespace Syncfusion.Maui.Gauges
                 rangePath.LineTo((float)y, (float)x);
         }
 
-        private void CalculateGradient()
-        {
-            if (this.LinearGauge != null)
-            {
-                double actualStartValue = Math.Clamp(this.StartValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
-                double actualEndValue = Math.Clamp(this.EndValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
-                Utility.ValidateMinimumMaximumValue(ref actualStartValue, ref actualEndValue);
-                CreateGradient(actualStartValue, actualEndValue);
-            }
-        }
-
-        private void CreateGradient(double actualStartValue, double actualEndValue)
+        private void CreateGradient()
         {
             if (this.LinearGauge != null && this.GradientStops != null)
             {
-                linearGradientBrush = this.LinearGauge.GetLinearGradient(this.GradientStops, actualStartValue, actualEndValue);
+                linearGradientBrush = this.LinearGauge.GetLinearGradient(this.GradientStops, ActualStartValue, ActualEndValue);
             }
         }
 
@@ -471,7 +461,7 @@ namespace Syncfusion.Maui.Gauges
                         gradientStops.CollectionChanged += linearRange.GradientStops_CollectionChanged;
                 }
 
-                linearRange.CalculateGradient();
+                linearRange.CreateGradient();
                 linearRange.InvalidateDrawable();
             }
         }
@@ -488,7 +478,7 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="e">The NotifyCollectionChangedEventArgs.</param>
         private void GradientStops_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            this.CalculateGradient();
+            this.CreateGradient();
             this.InvalidateDrawable();
         }
 
