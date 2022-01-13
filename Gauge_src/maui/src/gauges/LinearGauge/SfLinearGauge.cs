@@ -222,7 +222,7 @@ namespace Syncfusion.Maui.Gauges
             BindableProperty.Create(nameof(Orientation), typeof(GaugeOrientation), typeof(SfLinearGauge), GaugeOrientation.Horizontal, propertyChanged: OnOrientationPropertyChanged);
 
         /// <summary>
-        /// Identifies the <see cref="Orientation"/> bindable property.
+        /// Identifies the <see cref="Ranges"/> bindable property.
         /// </summary>
         /// <value>
         /// The identifier for <see cref="Ranges"/> bindable property.
@@ -230,11 +230,20 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty RangesProperty =
             BindableProperty.Create(nameof(Ranges), typeof(ObservableCollection<LinearRange>), typeof(SfLinearGauge), null, propertyChanged: OnRangesPropertyChanged);
 
+        /// <summary>
+        /// Identifies the <see cref="BarPointers"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="BarPointers"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty BarPointersProperty =
+            BindableProperty.Create(nameof(BarPointers), typeof(ObservableCollection<BarPointer>), typeof(SfLinearGauge), null, propertyChanged: OnBarPointersPropertyChanged);
+
         #endregion
 
         #region Fields
 
-        private Grid parentGrid;
+        private Grid parentGrid, rangeGrid, pointerGrid;
         private LinearScaleView linearScaleView;
         private PathF? axisLinePath;
         private double axisLineLength;
@@ -258,6 +267,8 @@ namespace Syncfusion.Maui.Gauges
         {
             this.linearScaleView = new LinearScaleView(this);
             this.parentGrid = new Grid();
+            this.rangeGrid = new Grid();
+            this.pointerGrid = new Grid();
             this.parentGrid.Children.Add(this.linearScaleView);
             this.AxisLineStyle = new LinearLineStyle();
             this.MajorTickStyle = new LinearTickStyle();
@@ -269,6 +280,7 @@ namespace Syncfusion.Maui.Gauges
             this.MajorTickPositions = new List<AxisTickInfo>();
             this.MinorTickPositions = new List<AxisTickInfo>();
             this.Ranges = new ObservableCollection<LinearRange>();
+            this.BarPointers = new ObservableCollection<BarPointer>();
         }
 
         #endregion
@@ -557,6 +569,15 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
+        /// Gets or sets the <see cref="BarPointer"/> collection to the linear gauge.
+        /// </summary>
+        public ObservableCollection<BarPointer> BarPointers
+        {
+            get { return (ObservableCollection<BarPointer>)this.GetValue(BarPointersProperty); }
+            set { this.SetValue(BarPointersProperty, value); }
+        }
+
+        /// <summary>
         /// Gets the root content.
         /// </summary>
         object IContentView.Content
@@ -627,10 +648,10 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Converts axis value to circular factor value.
+        /// Converts axis value to linear factor value.
         /// </summary>
         /// <param name="value">The axis value to convert as factor.</param>
-        /// <returns>Circular factor of the provided value.</returns>
+        /// <returns>Linear factor of the provided value.</returns>
         public virtual double ValueToFactor(double value)
         {
             double factor = (value - this.ActualMinimum) / (this.ActualMaximum - this.ActualMinimum);
@@ -717,6 +738,28 @@ namespace Syncfusion.Maui.Gauges
         internal void ScaleInvalidateMeasureOverride()
         {
             this.InvalidateMeasureOverride();
+        }
+
+        internal void MoveToPath(PathF path, double x, double y)
+        {
+            if (path == null)
+                return;
+
+            if (this.Orientation == GaugeOrientation.Horizontal)
+                path.MoveTo((float)x, (float)y);
+            else
+                path.MoveTo((float)y, (float)x);
+        }
+
+        internal void LineToPath(PathF path, double x, double y)
+        {
+            if (path == null)
+                return;
+
+            if (this.Orientation == GaugeOrientation.Horizontal)
+                path.LineTo((float)x, (float)y);
+            else
+                path.LineTo((float)y, (float)x);
         }
 
         #endregion
@@ -1103,8 +1146,36 @@ namespace Syncfusion.Maui.Gauges
             }
         }
 
-        #nullable enable
-        
+        /// <summary>
+        /// Called when <see cref="BarPointers"/> property changed.
+        /// </summary>
+        /// <param name="bindable">The BindableObject.</param>
+        /// <param name="oldValue">Old value.</param>
+        /// <param name="newValue">New value.</param>
+        private static void OnBarPointersPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is SfLinearGauge linearGauge)
+            {
+                if (oldValue != null)
+                {
+                    if (oldValue is ObservableCollection<BarPointer> barPointers)
+                    {
+                        barPointers.CollectionChanged -= linearGauge.BarPointers_CollectionChanged;
+                    }
+                }
+
+                if (newValue != null)
+                {
+                    if (newValue is ObservableCollection<BarPointer> barPointers)
+                    {
+                        barPointers.CollectionChanged += linearGauge.BarPointers_CollectionChanged;
+                    }
+                }
+            }
+        }
+
+#nullable enable
+
         #endregion
 
         #region Private methods
@@ -1299,10 +1370,10 @@ namespace Syncfusion.Maui.Gauges
                 range.InvalidateDrawable();
             }
 
-            //foreach (var pointer in Pointers)
-            //{
-            //    pointer.InvalidateDrawable();
-            //}
+            foreach (var pointer in BarPointers)
+            {
+                pointer.InvalidateDrawable();
+            }
         }
 
         #endregion
@@ -1318,7 +1389,7 @@ namespace Syncfusion.Maui.Gauges
             {
                 this.UpdateAxisElements();
                 this.CreateRanges();
-                //this.CreateBarPointers();
+                this.CreateBarPointers();
                 //this.CreateMarkerPointers();
             }
         }
@@ -1331,6 +1402,17 @@ namespace Syncfusion.Maui.Gauges
             foreach (LinearRange linearRange in this.Ranges)
             {
                 linearRange.CreateRangePath();
+            }
+        }
+
+        /// <summary>
+        /// To create the bar pointers.
+        /// </summary>
+        private void CreateBarPointers()
+        {
+            foreach (BarPointer barPointer in this.BarPointers)
+            {
+                barPointer.CreatePointer();
             }
         }
 
@@ -1775,7 +1857,7 @@ namespace Syncfusion.Maui.Gauges
             double outsideRangeHeight = 0d, insideRangeHeight = 0d;
             this.GetRangeHeights(ref outsideRangeHeight, ref insideRangeHeight);
             double outsideBarPointerHeight = 0d, insideBarPointerHeight = 0d;
-            //this.GetBarPointersHeight(ref outsideBarPointerHeight, ref insideBarPointerHeight);
+            this.GetBarPointersHeight(ref outsideBarPointerHeight, ref insideBarPointerHeight);
             double outsideMarkerPointerHeight = 0d, insideMarkerPointerHeight = 0d;
             //this.GetMarkerPointersHeight(ref outsideMarkerPointerHeight, ref insideMarkerPointerHeight);
             double outsideAxisHeight = Math.Max(Math.Max(outsideRangeHeight, outsideBarPointerHeight), outsideMarkerPointerHeight);
@@ -1878,55 +1960,6 @@ namespace Syncfusion.Maui.Gauges
                             break;
                     }
                     break;
-            }
-        }
-
-        /// <summary>
-        /// To get the range heights based on positions.
-        /// </summary>
-        /// <param name="outsideRangeHeight">Outside positioned axis height.</param>
-        /// <param name="insideRangeHeight">Inside positioned axis height.</param>
-        internal void GetRangeHeights(ref double outsideRangeHeight, ref double insideRangeHeight)
-        {
-            double fillRangeHeight = 0d;
-            double maxRangeWidth;
-            
-            foreach (LinearRange range in this.Ranges)
-            {
-                if (double.IsNaN(range.MidWidth))
-                {
-                    maxRangeWidth = Math.Max(range.StartWidth, range.EndWidth);
-                }
-                else
-                {
-                    maxRangeWidth = Math.Max(Math.Max(range.StartWidth, range.MidWidth), range.EndWidth);
-                }
-
-                switch (range.RangePosition)
-                {
-                    case GaugeElementPosition.Inside:
-                        insideRangeHeight = Math.Max(insideRangeHeight, maxRangeWidth);
-                        break;
-                    case GaugeElementPosition.Outside:
-                        outsideRangeHeight = Math.Max(outsideRangeHeight, maxRangeWidth);
-                        break;
-                    case GaugeElementPosition.Cross:
-                        fillRangeHeight = Math.Max(fillRangeHeight, maxRangeWidth);
-                        break;
-                }
-            }
-
-            double actualAxisLineThickness = this.GetActualAxisLineThickness();
-            if (fillRangeHeight > actualAxisLineThickness)
-            {
-                double diffWidth = (fillRangeHeight - actualAxisLineThickness) / 2;
-                insideRangeHeight = Math.Max(diffWidth, insideRangeHeight);
-                outsideRangeHeight = Math.Max(diffWidth, outsideRangeHeight);
-            }
-
-            if (this.IsMirrored)
-            {
-                Utility.Swap(ref insideRangeHeight, ref outsideRangeHeight);
             }
         }
 
@@ -2082,7 +2115,7 @@ namespace Syncfusion.Maui.Gauges
                     gradient.GradientStops.Add(new GradientStop()
                     {
                         Color = gradientStops[0].Color,
-                        Offset = (float)this.ValueToFactor(this.ActualMaximum)
+                        Offset = (float)this.ValueToFactor(this.ActualMaximum, startValue, endValue)
                     });
                 }
                 else
@@ -2113,7 +2146,7 @@ namespace Syncfusion.Maui.Gauges
                             gradient.GradientStops.Add(new GradientStop()
                             {
                                 Color = gradientStopsList[i].Color,
-                                Offset = (float)this.ValueToFactor(gradientStopsList[i].ActualValue)
+                                Offset = (float)this.ValueToFactor(gradientStopsList[i].ActualValue, startValue, endValue)
                             });
                         }
                     }
@@ -2127,7 +2160,7 @@ namespace Syncfusion.Maui.Gauges
                                 gradient.GradientStops.Add(new GradientStop()
                                 {
                                     Color = gradientStopsList[i].Color,
-                                    Offset = (float)this.ValueToFactor(this.ActualMaximum)
+                                    Offset = (float)this.ValueToFactor(this.ActualMaximum, startValue, endValue)
                                 });
                                 break;
                             }
@@ -2139,6 +2172,25 @@ namespace Syncfusion.Maui.Gauges
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Converts value to factor value.
+        /// </summary>
+        /// <param name="value">The value to convert as factor.</param>
+        /// <param name="minimum">The minimum value.</param>
+        /// <param name="maximum">The maximum value.</param>
+        /// <returns>Factor of the provided value.</returns>
+        private double ValueToFactor(double value, double minimum, double maximum)
+        {
+            double factor = (value - minimum) / (maximum - minimum);
+
+            if (this.Orientation == GaugeOrientation.Horizontal)
+            {
+                return this.IsInversed ? 1d - factor : factor;
+            }
+
+            return !this.IsInversed ? 1d - factor : factor;
         }
 
         /// <summary>
@@ -2158,13 +2210,18 @@ namespace Syncfusion.Maui.Gauges
                         foreach (LinearRange linearRange in e.NewItems)
                         {
                             linearRange.LinearGauge = this;
-                            if (!this.parentGrid.Contains(linearRange.RangeView))
-                                this.parentGrid.Add(linearRange.RangeView);
+                            if (!this.rangeGrid.Contains(linearRange.RangeView))
+                                this.rangeGrid.Add(linearRange.RangeView);
 
                             if (!this.ScaleAvailableSize.IsZero)
                             {
                                 SetInheritedBindingContext(linearRange, this.BindingContext);
                                 linearRange.CreateRangePath();
+                            }
+
+                            if (this.rangeGrid.Children.Count > 0 && !this.parentGrid.Children.Contains(rangeGrid))
+                            {
+                                this.parentGrid.Children.Add(rangeGrid);
                             }
                         }
                     }
@@ -2175,22 +2232,73 @@ namespace Syncfusion.Maui.Gauges
                         {
                             linearRange.LinearGauge = null;
 
-                            if (this.parentGrid.Children.Contains(linearRange.RangeView))
+                            if (this.rangeGrid.Children.Contains(linearRange.RangeView))
                             {
-                                this.parentGrid.Children.Remove(linearRange.RangeView);
+                                this.rangeGrid.Children.Remove(linearRange.RangeView);
                             }
                         }
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    foreach (var range in Ranges)
+                    this.rangeGrid.Children.Clear();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Called when <see cref="BarPointer"/> collection got changed.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The NotifyCollectionChangedEventArgs.</param>
+        private void BarPointers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                case NotifyCollectionChangedAction.Remove:
+                case NotifyCollectionChangedAction.Replace:
+                    if (e.NewItems != null && e.NewItems.Count > 0)
                     {
-                        if (this.parentGrid.Children.Contains(range.RangeView))
+                        foreach (BarPointer barPointer in e.NewItems)
                         {
-                            this.parentGrid.Children.Remove(range.RangeView);
+                            barPointer.Scale = this;
+                            barPointer.CanAnimate = true;
+
+                            if (!this.pointerGrid.Contains(barPointer.PointerView))
+                                this.pointerGrid.Add(barPointer.PointerView);
+
+                            if (!this.ScaleAvailableSize.IsZero)
+                            {
+                                SetInheritedBindingContext(barPointer, this.BindingContext);
+                                barPointer.CreatePointer();
+                            }
+
+                            if (this.pointerGrid.Children.Count > 0 && !this.parentGrid.Children.Contains(pointerGrid))
+                            {
+                                this.parentGrid.Children.Add(pointerGrid);
+                            }
                         }
                     }
+
+                    if (e.OldItems != null && e.OldItems.Count > 0)
+                    {
+                        foreach (BarPointer barPointer in e.OldItems)
+                        {
+                            barPointer.Scale = null;
+
+                            if (this.pointerGrid.Children.Contains(barPointer.PointerView))
+                            {
+                                this.pointerGrid.Children.Remove(barPointer.PointerView);
+                            }
+                        }
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Reset:
+                    this.pointerGrid.Children.Clear();
                     break;
                 default:
                     break;
@@ -2259,7 +2367,7 @@ namespace Syncfusion.Maui.Gauges
             double axisHeight, outsideRangeHeight = 0d, insideRangeHeight = 0d;
             this.GetRangeHeights(ref outsideRangeHeight, ref insideRangeHeight);
             double outsideBarPointerHeight = 0d, insideBarPointerHeight = 0d;
-            //this.GetBarPointersHeight(ref outsideBarPointerHeight, ref insideBarPointerHeight);
+            this.GetBarPointersHeight(ref outsideBarPointerHeight, ref insideBarPointerHeight);
             double outsideMarkerPointerHeight = 0d, insideMarkerPointerHeight = 0d;
             //this.GetMarkerPointersHeight(ref outsideMarkerPointerHeight, ref insideMarkerPointerHeight);
             double outsideAxisHeight = Math.Max(Math.Max(outsideRangeHeight, outsideBarPointerHeight), outsideMarkerPointerHeight);
@@ -2342,6 +2450,102 @@ namespace Syncfusion.Maui.Gauges
             return this.Orientation == GaugeOrientation.Horizontal
                 ? new Size(this.ScaleAvailableSize.Width, axisHeight)
                 : new Size(axisHeight, this.ScaleAvailableSize.Height);
+        }
+
+
+
+        /// <summary>
+        /// To get the range heights based on positions.
+        /// </summary>
+        /// <param name="outsideRangeHeight">Outside positioned axis height.</param>
+        /// <param name="insideRangeHeight">Inside positioned axis height.</param>
+        private void GetRangeHeights(ref double outsideRangeHeight, ref double insideRangeHeight)
+        {
+            double fillRangeHeight = 0d;
+            double maxRangeWidth;
+
+            foreach (LinearRange range in this.Ranges)
+            {
+                if (double.IsNaN(range.MidWidth))
+                {
+                    maxRangeWidth = Math.Max(range.StartWidth, range.EndWidth);
+                }
+                else
+                {
+                    maxRangeWidth = Math.Max(Math.Max(range.StartWidth, range.MidWidth), range.EndWidth);
+                }
+
+                switch (range.RangePosition)
+                {
+                    case GaugeElementPosition.Inside:
+                        insideRangeHeight = Math.Max(insideRangeHeight, maxRangeWidth);
+                        break;
+                    case GaugeElementPosition.Outside:
+                        outsideRangeHeight = Math.Max(outsideRangeHeight, maxRangeWidth);
+                        break;
+                    case GaugeElementPosition.Cross:
+                        fillRangeHeight = Math.Max(fillRangeHeight, maxRangeWidth);
+                        break;
+                }
+            }
+
+            double actualAxisLineThickness = this.GetActualAxisLineThickness();
+            if (fillRangeHeight > actualAxisLineThickness)
+            {
+                double diffWidth = (fillRangeHeight - actualAxisLineThickness) / 2;
+                insideRangeHeight = Math.Max(diffWidth, insideRangeHeight);
+                outsideRangeHeight = Math.Max(diffWidth, outsideRangeHeight);
+            }
+
+            if (this.IsMirrored)
+            {
+                Utility.Swap(ref insideRangeHeight, ref outsideRangeHeight);
+            }
+        }
+
+        /// <summary>
+        /// To get the range heights based on offset positions.
+        /// </summary>
+        /// <param name="outsidePointerHeight">Outside positioned axis height.</param>
+        /// <param name="insidePointerHeight">Inside positioned axis height.</param>
+        private void GetBarPointersHeight(ref double outsidePointerHeight, ref double insidePointerHeight)
+        {
+            double fillPointerHeight = 0d;
+            double actualAxisLineThickness = this.GetActualAxisLineThickness();
+            foreach (BarPointer barPointer in this.BarPointers)
+            {
+                if (barPointer.Offset == 0)
+                {
+                    fillPointerHeight = Math.Max(barPointer.PointerSize, fillPointerHeight);
+                }
+                else if (barPointer.Offset > 0)
+                {
+                    insidePointerHeight = Math.Max((barPointer.PointerSize / 2) + barPointer.Offset - (actualAxisLineThickness / 2), insidePointerHeight);
+                    if (barPointer.PointerSize > actualAxisLineThickness)
+                    {
+                        if (barPointer.Offset < (barPointer.PointerSize - actualAxisLineThickness))
+                        {
+                            outsidePointerHeight = Math.Max(((barPointer.PointerSize - actualAxisLineThickness) / 2) - barPointer.Offset, outsidePointerHeight);
+                        }
+                    }
+                }
+                else if (barPointer.Offset < 0)
+                {
+                    outsidePointerHeight = Math.Max((barPointer.PointerSize / 2) + Math.Abs(barPointer.Offset) - (actualAxisLineThickness / 2), outsidePointerHeight);
+                }
+            }
+
+            if (fillPointerHeight > actualAxisLineThickness)
+            {
+                double diffWidth = (fillPointerHeight - actualAxisLineThickness) / 2;
+                insidePointerHeight = Math.Max(diffWidth, insidePointerHeight);
+                outsidePointerHeight = Math.Max(diffWidth, outsidePointerHeight);
+            }
+
+            if (this.IsMirrored)
+            {
+                Utility.Swap(ref insidePointerHeight, ref outsidePointerHeight);
+            }
         }
 
         #endregion

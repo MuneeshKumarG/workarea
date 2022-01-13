@@ -75,7 +75,7 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         public LinearPointer()
         {
-            this.PointerView = new PointerView(this);
+            this.PointerView = new LinearPointerView(this);
         }
 
         #endregion
@@ -191,7 +191,7 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// Represents the rendering view of pointer. 
         /// </summary>
-        internal PointerView PointerView { get; set; }
+        internal LinearPointerView PointerView { get; set; }
 
         #endregion
 
