@@ -16,7 +16,7 @@ namespace Syncfusion.Maui.Gauges
     /// <summary>
     /// The linear gauge is a data visualization control that can be used to display data on a linear scale in either horizontal or vertical orientation.
     /// </summary>
-    public class SfLinearGauge : View, IContentView
+    public class SfLinearGauge : View, IContentView, IVisualTreeElement
     {
         #region Bindable properties
 
@@ -45,7 +45,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="Interval"/> bindable property.
         /// </value>
         public static readonly BindableProperty IntervalProperty =
-            BindableProperty.Create(nameof(Interval), typeof(double), typeof(SfLinearGauge), double.NaN, propertyChanged: OnAxisPropertyChanged);
+            BindableProperty.Create(nameof(Interval), typeof(double), typeof(SfLinearGauge), double.NaN, propertyChanged: OnScalePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="MinorTicksPerInterval"/> bindable property.
@@ -54,7 +54,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="MinorTicksPerInterval"/> bindable property.
         /// </value>
         public static readonly BindableProperty MinorTicksPerIntervalProperty =
-            BindableProperty.Create(nameof(MinorTicksPerInterval), typeof(int), typeof(SfLinearGauge), 1, propertyChanged: OnAxisPropertyChanged);
+            BindableProperty.Create(nameof(MinorTicksPerInterval), typeof(int), typeof(SfLinearGauge), 1, propertyChanged: OnScalePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="MaximumLabelsCount"/> bindable property.
@@ -63,7 +63,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="MaximumLabelsCount"/> bindable property.
         /// </value>
         public static readonly BindableProperty MaximumLabelsCountProperty =
-            BindableProperty.Create(nameof(MaximumLabelsCount), typeof(int), typeof(SfLinearGauge), 3, propertyChanged: OnAxisPropertyChanged);
+            BindableProperty.Create(nameof(MaximumLabelsCount), typeof(int), typeof(SfLinearGauge), 3, propertyChanged: OnScalePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="LabelFormat"/> bindable property.
@@ -73,15 +73,6 @@ namespace Syncfusion.Maui.Gauges
         /// </value>
         public static readonly BindableProperty LabelFormatProperty =
             BindableProperty.Create(nameof(LabelFormat), typeof(string), typeof(SfLinearGauge), null, propertyChanged: OnLabelFormatPropertyChanged);
-
-        ///// <summary>
-        ///// Identifies the <see cref="LabelTemplate"/> bindable property.
-        ///// </summary>
-        ///// <value>
-        ///// The identifier for <see cref="LabelTemplate"/> bindable property.
-        ///// </value>
-        //public static readonly BindableProperty LabelTemplateProperty =
-        //    BindableProperty.Create(nameof(LabelTemplate), typeof(string), typeof(SfLinearGauge), null);
 
         /// <summary>
         /// Identifies the <see cref="LabelPosition"/> bindable property.
@@ -122,22 +113,22 @@ namespace Syncfusion.Maui.Gauges
             BindableProperty.Create(nameof(TickOffset), typeof(double), typeof(SfLinearGauge), double.NaN, propertyChanged: OnTickOffsetPropertyChanged);
 
         /// <summary>
-        /// Identifies the <see cref="AxisLineStyle"/> bindable property.
+        /// Identifies the <see cref="LineStyle"/> bindable property.
         /// </summary>
         /// <value>
-        /// The identifier for <see cref="AxisLineStyle"/> bindable property.
+        /// The identifier for <see cref="LineStyle"/> bindable property.
         /// </value>
-        public static readonly BindableProperty AxisLineStyleProperty =
-            BindableProperty.Create(nameof(AxisLineStyle), typeof(LinearLineStyle), typeof(SfLinearGauge), null, propertyChanged: OnStylePropertyChanged);
+        public static readonly BindableProperty LineStyleProperty =
+            BindableProperty.Create(nameof(LineStyle), typeof(LinearLineStyle), typeof(SfLinearGauge), null, propertyChanged: OnStylePropertyChanged);
 
         /// <summary>
-        /// Identifies the <see cref="AxisLabelStyle"/> bindable property.
+        /// Identifies the <see cref="LabelStyle"/> bindable property.
         /// </summary>
         /// <value>
-        /// The identifier for <see cref="AxisLabelStyle"/> bindable property.
+        /// The identifier for <see cref="LabelStyle"/> bindable property.
         /// </value>
-        public static readonly BindableProperty AxisLabelStyleProperty =
-            BindableProperty.Create(nameof(AxisLabelStyle), typeof(GaugeLabelStyle), typeof(SfLinearGauge), null, propertyChanged: OnStylePropertyChanged);
+        public static readonly BindableProperty LabelStyleProperty =
+            BindableProperty.Create(nameof(LabelStyle), typeof(GaugeLabelStyle), typeof(SfLinearGauge), null, propertyChanged: OnStylePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="MajorTickStyle"/> bindable property.
@@ -175,7 +166,6 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty IsInversedProperty =
             BindableProperty.Create(nameof(IsInversed), typeof(bool), typeof(SfLinearGauge), false, propertyChanged: OnPropertyChanged);
 
-
         /// <summary>
         /// Identifies the <see cref="ShowTicks"/> bindable property.
         /// </summary>
@@ -186,13 +176,13 @@ namespace Syncfusion.Maui.Gauges
             BindableProperty.Create(nameof(ShowTicks), typeof(bool), typeof(SfLinearGauge), true, propertyChanged: OnPropertyChanged);
 
         /// <summary>
-        /// Identifies the <see cref="ShowAxisLine"/> bindable property.
+        /// Identifies the <see cref="ShowLine"/> bindable property.
         /// </summary>
         /// <value>
-        /// The identifier for <see cref="ShowAxisLine"/> bindable property.
+        /// The identifier for <see cref="ShowLine"/> bindable property.
         /// </value>
-        public static readonly BindableProperty ShowAxisLineProperty =
-            BindableProperty.Create(nameof(ShowAxisLine), typeof(bool), typeof(SfLinearGauge), true, propertyChanged: OnPropertyChanged);
+        public static readonly BindableProperty ShowLineProperty =
+            BindableProperty.Create(nameof(ShowLine), typeof(bool), typeof(SfLinearGauge), true, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="ShowLabels"/> bindable property.
@@ -239,18 +229,28 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty BarPointersProperty =
             BindableProperty.Create(nameof(BarPointers), typeof(ObservableCollection<BarPointer>), typeof(SfLinearGauge), null, propertyChanged: OnBarPointersPropertyChanged);
 
+        /// <summary>
+        /// Identifies the <see cref="MarkerPointers"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="MarkerPointers"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty MarkerPointersProperty =
+            BindableProperty.Create(nameof(MarkerPointers), typeof(ObservableCollection<LinearMarkerPointer>), typeof(SfLinearGauge), null, propertyChanged: OnMarkerPointersPropertyChanged);
+
         #endregion
 
         #region Fields
 
-        private Grid parentGrid, rangeGrid, pointerGrid;
+        private Grid parentLayout;
+        private AbsoluteLayout rangeLayout, barPointersLayout, shapePointersLayout;
         private LinearScaleView linearScaleView;
-        private PathF? axisLinePath;
-        private double axisLineLength;
-        private Point majorTicksPanelPosition, minorTicksPanelPosition, labelsPanelPosition;
+        private PathF? scaleLinePath;
+        private double scaleLineLength;
+        private PointF majorTicksLayoutPosition, minorTicksLayoutPosition, labelsLayoutPosition;
         private Size firstLabelSize, lastLabelSize;
 
-        internal Point AxisLinePosition;
+        internal Point ScalePosition;
         internal Size ScaleAvailableSize, LabelMaximumSize;
         internal List<GaugeLabelInfo>? VisibleLabels;
         internal List<AxisTickInfo> MajorTickPositions, MinorTickPositions;
@@ -266,14 +266,16 @@ namespace Syncfusion.Maui.Gauges
         public SfLinearGauge()
         {
             this.linearScaleView = new LinearScaleView(this);
-            this.parentGrid = new Grid();
-            this.rangeGrid = new Grid();
-            this.pointerGrid = new Grid();
-            this.parentGrid.Children.Add(this.linearScaleView);
-            this.AxisLineStyle = new LinearLineStyle();
+            this.parentLayout = new Grid();
+            this.rangeLayout = new AbsoluteLayout();
+            this.barPointersLayout = new AbsoluteLayout();
+            this.shapePointersLayout = new AbsoluteLayout();
+            this.parentLayout.Children.Add(this.linearScaleView);
+
+            this.LineStyle = new LinearLineStyle();
             this.MajorTickStyle = new LinearTickStyle();
             this.MinorTickStyle = new LinearTickStyle();
-            this.AxisLabelStyle = new GaugeLabelStyle();
+            this.LabelStyle = new GaugeLabelStyle();
             this.ActualMaximum = this.Minimum;
             this.ActualMaximum = this.Maximum;
 
@@ -281,6 +283,7 @@ namespace Syncfusion.Maui.Gauges
             this.MinorTickPositions = new List<AxisTickInfo>();
             this.Ranges = new ObservableCollection<LinearRange>();
             this.BarPointers = new ObservableCollection<BarPointer>();
+            this.MarkerPointers = new ObservableCollection<LinearMarkerPointer> ();
         }
 
         #endregion
@@ -288,7 +291,7 @@ namespace Syncfusion.Maui.Gauges
         #region Properties
 
         /// <summary>
-        /// Gets or sets the minimum value of the axis. The axis starts from this value.
+        /// Gets or sets the minimum value of the scale. The scale starts from this value.
         /// </summary>
         /// <value>
         /// It defines the minimum values of the <see cref="SfLinearGauge"/>. The default value is <c>0</c>.
@@ -300,7 +303,7 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets the maximum value of the axis. The axis ends at this value.
+        /// Gets or sets the maximum value of the scale. The scale ends at this value.
         /// </summary>
         /// <value>
         /// It defines the maximum value of the <see cref="SfLinearGauge"/>. The default value is <c>100</c>.
@@ -312,7 +315,7 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets the interval value of the axis. Using this, the axis labels can be displayed after a certain interval value.
+        /// Gets or sets the interval value of the scale. Using this, the scale labels can be displayed after a certain interval value.
         /// </summary>
         /// <value>
         /// It defines the interval of the <see cref="SfLinearGauge"/>. The default value is <c>double.NaN</c>.
@@ -336,10 +339,10 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of labels to be displayed in an axis in 100 logical pixels.
+        /// Gets or sets the maximum number of labels to be displayed in an scale in 100 logical pixels.
         /// </summary>
         /// <value>
-        /// Maximum number of labels to be displayed in a axis in 100 logical pixels. Its default value is <c>3</c>. 
+        /// Maximum number of labels to be displayed in a scale in 100 logical pixels. Its default value is <c>3</c>. 
         /// </value>
         public int MaximumLabelsCount
         {
@@ -348,10 +351,10 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets a value to formats the axis labels with globalized string formats.
+        /// Gets or sets a value to formats the scale labels with globalized string formats.
         /// </summary>
         /// <value>
-        /// The string that specifies the globalized string formats for the axis labels. Its default value is <c>string.Empty</c>. 
+        /// The string that specifies the globalized string formats for the scale labels. Its default value is <c>string.Empty</c>. 
         /// </value>
         public string LabelFormat
         {
@@ -360,7 +363,7 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets the value that indicates the position of the axis labels inside or outside the axis line.
+        /// Gets or sets the value that indicates the position of the scale labels inside or outside the scale line.
         /// </summary>
         /// <value>
         /// One of the enumeration values that specifies the position of labels in the linear gauge.
@@ -373,10 +376,10 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets a value to adjusts the axis label position from tick end. Specify value either in logical pixel value.
+        /// Gets or sets a value to adjusts the scale label position from tick end. Specify value either in logical pixel value.
         /// </summary>
         /// <value>
-        /// It defines the offset of the axis labels. The default value is <c>double.NaN</c>.
+        /// It defines the offset of the scale labels. The default value is <c>double.NaN</c>.
         /// </value>
         public double LabelOffset
         {
@@ -385,7 +388,7 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets the value that indicates the position of the ticks inside, center, or outside the axis line.
+        /// Gets or sets the value that indicates the position of the ticks inside, center, or outside the scale line.
         /// </summary>
         /// <value>
         /// One of the enumeration values that specifies the position of ticks in the linear gauge.
@@ -398,7 +401,7 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets the value to adjusts the axis ticks position from the axis lines. Specify value either in logical pixel value.
+        /// Gets or sets the value to adjusts the scale ticks position from the scale line. Specify value either in logical pixel value.
         /// </summary>
         /// <value>
         /// It defines the offset of the ticks. The default value is <c>double.NaN</c>.
@@ -410,21 +413,21 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets a value to customize the axis line.
+        /// Gets or sets a value to customize the scale line.
         /// </summary>
-        public LinearLineStyle AxisLineStyle
+        public LinearLineStyle LineStyle
         {
-            get { return (LinearLineStyle)this.GetValue(AxisLineStyleProperty); }
-            set { this.SetValue(AxisLineStyleProperty, value); }
+            get { return (LinearLineStyle)this.GetValue(LineStyleProperty); }
+            set { this.SetValue(LineStyleProperty, value); }
         }
 
         /// <summary>
-        /// Gets or sets <see cref="GaugeLabelStyle"/>, that used to customize gauge axis labels.
+        /// Gets or sets <see cref="GaugeLabelStyle"/>, that used to customize gauge scale labels.
         /// </summary>
-        public GaugeLabelStyle AxisLabelStyle
+        public GaugeLabelStyle LabelStyle
         {
-            get { return (GaugeLabelStyle)this.GetValue(AxisLabelStyleProperty); }
-            set { this.SetValue(AxisLabelStyleProperty, value); }
+            get { return (GaugeLabelStyle)this.GetValue(LabelStyleProperty); }
+            set { this.SetValue(LabelStyleProperty, value); }
         }
 
         /// <summary>
@@ -446,14 +449,14 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether inverts the axis rendered in opposed view.
+        /// Gets or sets a value indicating whether inverts the scale rendered in opposed view.
         /// </summary>
         /// <value>
-        /// <b>true</b> if axis is mirrored; otherwise, <b>false</b>.The default value is <b>false</b>.
+        /// <b>true</b> if scale is mirrored; otherwise, <b>false</b>.The default value is <b>false</b>.
         /// </value>
         /// <remarks>
-        /// <c>IsInversed</c> decides whether the axis will be inversed or not.
-        /// If <see cref="IsMirrored"/> is <c>true</c>, the axis will be mirrored, otherwise not mirrored.
+        /// <c>IsInversed</c> decides whether the scale will be inversed or not.
+        /// If <see cref="IsMirrored"/> is <c>true</c>, the scale will be mirrored, otherwise not mirrored.
         /// </remarks>
         public bool IsMirrored
         {
@@ -462,14 +465,14 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether inverts the axis direction.
+        /// Gets or sets a value indicating whether inverts the scale direction.
         /// </summary>
         /// <value>
-        /// <b>true</b> if axis is inversed; otherwise, <b>false</b>.The default value is <b>false</b>.
+        /// <b>true</b> if scale is inversed; otherwise, <b>false</b>.The default value is <b>false</b>.
         /// </value>
         /// <remarks>
-        /// <c>IsInversed</c> decides whether the axis will be inversed or not.
-        /// If <see cref="IsInversed"/> is <c>true</c>, the axis will be inversed, otherwise not inversed.
+        /// <c>IsInversed</c> decides whether the scale will be inversed or not.
+        /// If <see cref="IsInversed"/> is <c>true</c>, the scale will be inversed, otherwise not inversed.
         /// </remarks>
         public bool IsInversed
         {
@@ -478,14 +481,14 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to shows or hides the axis tick lines.
+        /// Gets or sets a value indicating whether to shows or hides the scale tick lines.
         /// </summary>
         /// <value>
-        /// <b>true</b> if axis line ticks are displayed; otherwise, <b>false</b>.The default value is <b>true</b>.
+        /// <b>true</b> if scale line ticks are displayed; otherwise, <b>false</b>.The default value is <b>true</b>.
         /// </value>
         /// <remarks>
-        /// It decides whether the axis ticks will be rendered or not.
-        /// If <see cref="ShowTicks"/> is <c>true</c>, the axis ticks will be rendered, otherwise not rendered.
+        /// It decides whether the scale ticks will be rendered or not.
+        /// If <see cref="ShowTicks"/> is <c>true</c>, the scale ticks will be rendered, otherwise not rendered.
         /// </remarks>
         public bool ShowTicks
         {
@@ -494,30 +497,30 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to shows or hides the axis line.
+        /// Gets or sets a value indicating whether to shows or hides the scale line.
         /// </summary>
         /// <value>
-        /// <b>true</b> if axis line is displayed; otherwise, <b>false</b>.The default value is <b>true</b>.
+        /// <b>true</b> if scale line is displayed; otherwise, <b>false</b>.The default value is <b>true</b>.
         /// </value>
         /// <remarks>
-        /// It decides whether the axis line will be rendered or not.
-        /// If <see cref="ShowAxisLine"/> is <c>true</c>, the axis line will be rendered, otherwise not rendered.
+        /// It decides whether the scale line will be rendered or not.
+        /// If <see cref="ShowLine"/> is <c>true</c>, the scale line will be rendered, otherwise not rendered.
         /// </remarks>
-        public bool ShowAxisLine
+        public bool ShowLine
         {
-            get { return (bool)this.GetValue(ShowAxisLineProperty); }
-            set { this.SetValue(ShowAxisLineProperty, value); }
+            get { return (bool)this.GetValue(ShowLineProperty); }
+            set { this.SetValue(ShowLineProperty, value); }
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to shows or hides the axis labels.
+        /// Gets or sets a value indicating whether to shows or hides the scale labels.
         /// </summary>
         /// <value>
-        /// <b>true</b> if axis labels are displayed; otherwise, <b>false</b>.The default value is <b>true</b>.
+        /// <b>true</b> if scale labels are displayed; otherwise, <b>false</b>.The default value is <b>true</b>.
         /// </value>
         /// <remarks>
-        /// It decides whether the axis labels will be rendered or not.
-        /// If <see cref="ShowLabels"/> is <c>true</c>, the axis labels will be rendered, otherwise not rendered.
+        /// It decides whether the scale labels will be rendered or not.
+        /// If <see cref="ShowLabels"/> is <c>true</c>, the scale labels will be rendered, otherwise not rendered.
         /// </remarks>
         public bool ShowLabels
         {
@@ -526,13 +529,13 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to use the range color for axis elements such as labels and ticks.
+        /// Gets or sets a value indicating whether to use the range color for scale elements such as labels and ticks.
         /// </summary>
         /// <value>
         /// <b>true</b> if use range color is enabled; otherwise, <b>false</b>.The default value is <b>false</b>.
         /// </value>
         /// <remarks>
-        /// It decides whether the corresponding range color will be applied to the axis elements like labels and ticks or not.
+        /// It decides whether the corresponding range color will be applied to the scale elements like labels and ticks or not.
         /// If <see cref="UseRangeColorForAxis"/> is <c>true</c>, the corresponding range colors will be applied, otherwise not.
         /// </remarks>
         public bool UseRangeColorForAxis
@@ -560,7 +563,7 @@ namespace Syncfusion.Maui.Gauges
         /// Gets or sets the <see cref="LinearRange"/> collection to the linear gauge.
         /// </summary>
         /// <value>
-        /// The collection of linear range to display the current value of the axis. The default value is empty collection.
+        /// The collection of linear range to display the current value of the scale. The default value is empty collection.
         /// </value>
         public ObservableCollection<LinearRange> Ranges
         {
@@ -578,13 +581,26 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
+        /// Gets or sets the <see cref="MarkerPointers"/> collection to the linear gauge.
+        /// </summary>
+        /// <value>
+        /// The collection of <see cref="MarkerPointers"/> and <see cref="ContentPointer"/> to display the current value of the axis.
+        /// The default value is empty collection.
+        /// </value>
+        public ObservableCollection<LinearMarkerPointer> MarkerPointers
+        {
+            get { return (ObservableCollection<LinearMarkerPointer>)this.GetValue(MarkerPointersProperty); }
+            set { this.SetValue(MarkerPointersProperty, value); }
+        }
+
+        /// <summary>
         /// Gets the root content.
         /// </summary>
         object IContentView.Content
         {
             get
             {
-                return parentGrid;
+                return parentLayout;
             }
         }
 
@@ -595,7 +611,7 @@ namespace Syncfusion.Maui.Gauges
         {
             get
             {
-                return parentGrid;
+                return parentLayout;
             }
         }
 
@@ -612,10 +628,57 @@ namespace Syncfusion.Maui.Gauges
 
         #endregion
 
+        #region Override methods
+
+
+        /// <summary>
+        /// Invoked whenever the binding context of the View changes.
+        /// </summary>
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+
+            if (this.LabelStyle != null)
+            {
+                SetInheritedBindingContext(this.LabelStyle, this.BindingContext);
+            }
+
+            if (this.MajorTickStyle != null)
+            {
+                SetInheritedBindingContext(this.MajorTickStyle, this.BindingContext);
+            }
+
+            if (this.MinorTickStyle != null)
+            {
+                SetInheritedBindingContext(this.MinorTickStyle, this.BindingContext);
+            }
+
+            if (this.LineStyle != null)
+            {
+                SetInheritedBindingContext(this.LineStyle, this.BindingContext);
+            }
+
+            foreach (var range in this.Ranges)
+            {
+                SetInheritedBindingContext(range, this.BindingContext);
+            }
+
+            foreach (var pointer in this.BarPointers)
+            {
+                SetInheritedBindingContext(pointer, this.BindingContext);
+            }
+
+            foreach (var pointer in this.MarkerPointers)
+            {
+                SetInheritedBindingContext(pointer, this.BindingContext);
+            }
+        }
+        #endregion
+
         #region Public virtual methods
 
         /// <summary>
-        /// Calculates the visible labels based on axis interval and range.
+        /// Calculates the visible labels based on scale interval and range.
         /// </summary>
         /// <returns>The visible label collection.</returns>
         public virtual List<GaugeLabelInfo> GenerateVisibleLabels()
@@ -628,7 +691,7 @@ namespace Syncfusion.Maui.Gauges
             {
                 for (double i = this.ActualMinimum; i <= this.ActualMaximum; i += this.ActualInterval)
                 {
-                    GaugeLabelInfo currentLabel = this.GetAxisLabel(i);
+                    GaugeLabelInfo currentLabel = this.GetScaleLabel(i);
                     visibleLabels.Add(currentLabel);
                     if (this.MinorTicksPerInterval > 0)
                     {
@@ -639,7 +702,7 @@ namespace Syncfusion.Maui.Gauges
                 GaugeLabelInfo label = visibleLabels[visibleLabels.Count - 1];
                 if (label.Value != this.ActualMaximum && label.Value < this.ActualMaximum)
                 {
-                    GaugeLabelInfo currentLabel = this.GetAxisLabel(this.ActualMaximum);
+                    GaugeLabelInfo currentLabel = this.GetScaleLabel(this.ActualMaximum);
                     visibleLabels.Add(currentLabel);
                 }
             }
@@ -648,9 +711,9 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Converts axis value to linear factor value.
+        /// Converts scale value to linear factor value.
         /// </summary>
-        /// <param name="value">The axis value to convert as factor.</param>
+        /// <param name="value">The scale value to convert as factor.</param>
         /// <returns>Linear factor of the provided value.</returns>
         public virtual double ValueToFactor(double value)
         {
@@ -670,7 +733,7 @@ namespace Syncfusion.Maui.Gauges
 
         internal void Draw(ICanvas canvas)
         {
-            DrawAxisLine(canvas);
+            DrawScaleLine(canvas);
 
             if (this.ShowTicks)
             {
@@ -680,7 +743,7 @@ namespace Syncfusion.Maui.Gauges
 
             if (this.ShowLabels)
             {
-                this.DrawAxisLabels(canvas);
+                this.DrawScaleLabels(canvas);
             }
         }
 
@@ -692,7 +755,7 @@ namespace Syncfusion.Maui.Gauges
         internal double GetPositionFromValue(double value)
         {
             double factor = this.ValueToFactor(value);
-            return factor * axisLineLength;
+            return factor * scaleLineLength;
         }
 
         internal void InvalidateDrawable()
@@ -701,14 +764,14 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// To get the actual label offset based on ShowAxisLine property.
+        /// To get the actual label offset based on ShowLine property.
         /// </summary>
-        /// <returns>The actual label offset based on ShowAxisLine property.</returns>
-        internal double GetActualAxisLineThickness()
+        /// <returns>The actual label offset based on ShowLine property.</returns>
+        internal double GetActualScaleLineThickness()
         {
-            if (this.ShowAxisLine && this.AxisLineStyle != null)
+            if (this.ShowLine && this.LineStyle != null)
             {
-                return Math.Abs(this.AxisLineStyle.Thickness);
+                return Math.Abs(this.LineStyle.Thickness);
             }
 
             return 0d;
@@ -738,6 +801,7 @@ namespace Syncfusion.Maui.Gauges
         internal void ScaleInvalidateMeasureOverride()
         {
             this.InvalidateMeasureOverride();
+            this.InvalidateScale();
         }
 
         internal void MoveToPath(PathF path, double x, double y)
@@ -762,6 +826,74 @@ namespace Syncfusion.Maui.Gauges
                 path.LineTo((float)y, (float)x);
         }
 
+        internal void BarPointerChildUpdate(object? oldView, object? newView)
+        {
+            if (oldView is View oldChild && this.barPointersLayout.Children.Contains(oldChild))
+            {
+                this.barPointersLayout.Children.Remove(oldChild);
+            }
+
+            if (newView is View newChild && !this.barPointersLayout.Children.Contains(newChild))
+            {
+                this.barPointersLayout.Children.Add(newChild);
+            }
+        }
+
+        internal void ShapePointerChildUpdate(object? oldView, object? newView)
+        {
+            if (oldView is View oldChild && this.shapePointersLayout.Children.Contains(oldChild))
+            {
+                this.shapePointersLayout.Children.Remove(oldChild);
+            }
+
+            if (newView is View newChild && !this.shapePointersLayout.Children.Contains(newChild))
+            {
+                this.shapePointersLayout.Children.Add(newChild);
+            }
+        }
+
+        internal void RangeChildUpdate(object? oldView, object? newView)
+        {
+            if (oldView is View oldChild && this.rangeLayout.Children.Contains(oldChild))
+            {
+                this.rangeLayout.Children.Remove(oldChild);
+            }
+
+            if (newView is View newChild && !this.rangeLayout.Children.Contains(newChild))
+            {
+                this.rangeLayout.Children.Add(newChild);
+            }
+        }
+
+        internal void UpdateChild(View child, RectangleF bounds)
+        {
+            child.Measure(bounds.Width, bounds.Height);
+            AbsoluteLayout.SetLayoutBounds(child, bounds);
+        }
+
+        /// <summary>
+        /// Method used to invalidate scale. 
+        /// </summary>
+        internal void InvalidateScale()
+        {
+            this.InvalidateDrawable();
+
+            foreach (var range in Ranges)
+            {
+                range.InvalidateDrawable();
+            }
+
+            foreach (var pointer in BarPointers)
+            {
+                pointer.InvalidateDrawable();
+            }
+
+            foreach (var pointer in MarkerPointers)
+            {
+                pointer.InvalidateDrawable();
+            }
+        }
+
         #endregion
 
         #region Property changed
@@ -777,8 +909,8 @@ namespace Syncfusion.Maui.Gauges
             if (bindable is SfLinearGauge linearGauge)
             {
                 linearGauge.ValidateMinimumMaximum();
-                linearGauge.UpdateAxis();
-                linearGauge.InvalidateAxis();
+                linearGauge.UpdateScale();
+                linearGauge.InvalidateScale();
             }
         }
 
@@ -787,11 +919,11 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         /// <param name="sender">The sender object.</param>
         /// <param name="e">The PropertyChangedEventArgs.</param>
-        private void AxisMinorStyle_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ScaleMinorStyle_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName != null)
             {
-                AxisTicStyle_PropertyChanged(e.PropertyName, false);
+                ScaleTicStyle_PropertyChanged(e.PropertyName, false);
             }
         }
 
@@ -800,11 +932,11 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         /// <param name="sender">The sender object.</param>
         /// <param name="e">The PropertyChangedEventArgs.</param>
-        private void AxisMajorStyle_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ScaleMajorStyle_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName != null)
             {
-                AxisTicStyle_PropertyChanged(e.PropertyName, true);
+                ScaleTicStyle_PropertyChanged(e.PropertyName, true);
             }
         }
 
@@ -813,24 +945,24 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         /// <param name="propertyName">Property name.</param>
         /// <param name="isMajorTick">Boolean to identify major tick or not.</param>
-        private void AxisTicStyle_PropertyChanged(string propertyName, bool isMajorTick)
+        private void ScaleTicStyle_PropertyChanged(string propertyName, bool isMajorTick)
         {
             if (propertyName == GaugeTickStyle.LengthProperty.PropertyName)
             {
                 if (this.TickPosition != GaugeElementPosition.Inside)
                 {
-                    this.UpdateAxis();
-                    this.InvalidateAxis();
+                    this.UpdateScale();
+                    this.InvalidateScale();
                 }
                 else
                 {
-                    this.UpdateAxisElements();
+                    this.UpdateScaleElements();
                     this.InvalidateDrawable();
                 }
             }
             else if (propertyName == GaugeTickStyle.StrokeThicknessProperty.PropertyName)
             {
-                this.UpdateAxisElements();
+                this.UpdateScaleElements();
                 this.InvalidateDrawable();
             }
             else
@@ -845,17 +977,17 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="bindable">The BindableObject.</param>
         /// <param name="oldValue">Old value.</param>
         /// <param name="newValue">New value.</param>
-        private static void OnAxisPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void OnScalePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (bindable is SfLinearGauge sfLinearGauge)
             {
-                sfLinearGauge.UpdateAxisElements();
+                sfLinearGauge.UpdateScaleElements();
                 sfLinearGauge.InvalidateDrawable();
             }
         }
 
         /// <summary>
-        /// Called when axis properties changed.
+        /// Called when scale properties changed.
         /// </summary>
         /// <param name="bindable">The BindableObject.</param>
         /// <param name="oldValue">Old value.</param>
@@ -864,13 +996,13 @@ namespace Syncfusion.Maui.Gauges
         {
             if (bindable is SfLinearGauge sfLinearGauge)
             {
-                sfLinearGauge.UpdateAxis();
-                sfLinearGauge.InvalidateAxis();
+                sfLinearGauge.UpdateScale();
+                sfLinearGauge.InvalidateScale();
             }
         }
 
         /// <summary>
-        /// Called when axis orientation properties changed.
+        /// Called when scale orientation properties changed.
         /// </summary>
         /// <param name="bindable">The BindableObject.</param>
         /// <param name="oldValue">Old value.</param>
@@ -895,12 +1027,12 @@ namespace Syncfusion.Maui.Gauges
             {
                 if (sfLinearGauge.LabelPosition == GaugeLabelsPosition.Outside)
                 {
-                    sfLinearGauge.UpdateAxis();
-                    sfLinearGauge.InvalidateAxis();
+                    sfLinearGauge.UpdateScale();
+                    sfLinearGauge.InvalidateScale();
                 }
                 else
                 {
-                    sfLinearGauge.UpdateAxisElements();
+                    sfLinearGauge.UpdateScaleElements();
                     sfLinearGauge.InvalidateDrawable();
                 }
             }
@@ -918,12 +1050,12 @@ namespace Syncfusion.Maui.Gauges
             {
                 if (sfLinearGauge.LabelPosition == GaugeLabelsPosition.Outside)
                 {
-                    sfLinearGauge.UpdateAxis();
-                    sfLinearGauge.InvalidateAxis();
+                    sfLinearGauge.UpdateScale();
+                    sfLinearGauge.InvalidateScale();
                 }
                 else
                 {
-                    sfLinearGauge.UpdateAxisElements();
+                    sfLinearGauge.UpdateScaleElements();
                     sfLinearGauge.InvalidateDrawable();
                 }
             }
@@ -941,19 +1073,19 @@ namespace Syncfusion.Maui.Gauges
             {
                 if (sfLinearGauge.TickPosition == GaugeElementPosition.Outside)
                 {
-                    sfLinearGauge.UpdateAxis();
-                    sfLinearGauge.InvalidateAxis();
+                    sfLinearGauge.UpdateScale();
+                    sfLinearGauge.InvalidateScale();
                 }
                 else
                 {
-                    sfLinearGauge.UpdateAxisElements();
+                    sfLinearGauge.UpdateScaleElements();
                     sfLinearGauge.InvalidateDrawable();
                 }
             }
         }
 
         /// <summary>
-        /// Called when <see cref="AxisLabelStyle"/> or property changed.
+        /// Called when <see cref="LabelStyle"/> or property changed.
         /// </summary>
         /// <param name="bindable">The BindableObject.</param>
         /// <param name="oldValue">Old value.</param>
@@ -962,30 +1094,30 @@ namespace Syncfusion.Maui.Gauges
         {
             if (bindable is SfLinearGauge sfLinearGauge)
             {
-                if (oldValue is LinearLineStyle oldAxisLineStyle)
+                if (oldValue is LinearLineStyle oldScaleLineStyle)
                 {
 #nullable disable
-                    if (oldAxisLineStyle.GradientStops is ObservableCollection<GaugeGradientStop> gradientStops)
+                    if (oldScaleLineStyle.GradientStops is ObservableCollection<GaugeGradientStop> gradientStops)
                     {
                         gradientStops.CollectionChanged -= sfLinearGauge.GradientStops_CollectionChanged;
                     }
 #nullable enable
-                    oldAxisLineStyle.PropertyChanged -= sfLinearGauge.AxisLineStyle_PropertyChanged;
+                    oldScaleLineStyle.PropertyChanged -= sfLinearGauge.ScaleLineStyle_PropertyChanged;
                 }
                 else if (oldValue is GaugeLabelStyle oldGaugeLabelStyle)
                 {
                     oldGaugeLabelStyle.PropertyChanged -= sfLinearGauge.GaugeLabelStyle_PropertyChanged;
                 }
 
-                if (newValue is LinearLineStyle axisLineStyle)
+                if (newValue is LinearLineStyle scaleLineStyle)
                 {
 #nullable disable
-                    if (axisLineStyle.GradientStops is ObservableCollection<GaugeGradientStop> gradientStops)
+                    if (scaleLineStyle.GradientStops is ObservableCollection<GaugeGradientStop> gradientStops)
                     {
                         gradientStops.CollectionChanged += sfLinearGauge.GradientStops_CollectionChanged;
                     }
 #nullable enable
-                    axisLineStyle.PropertyChanged += sfLinearGauge.AxisLineStyle_PropertyChanged;
+                    scaleLineStyle.PropertyChanged += sfLinearGauge.ScaleLineStyle_PropertyChanged;
                 }
                 else if (newValue is GaugeLabelStyle gaugeLabelStyle)
                 {
@@ -1008,12 +1140,12 @@ namespace Syncfusion.Maui.Gauges
             {
                 if (oldValue is LinearTickStyle oldMinorTickStyle)
                 {
-                    oldMinorTickStyle.PropertyChanged -= sfLinearGauge.AxisMinorStyle_PropertyChanged;
+                    oldMinorTickStyle.PropertyChanged -= sfLinearGauge.ScaleMinorStyle_PropertyChanged;
                 }
 
                 if (newValue is LinearTickStyle newMinorTickStyle)
                 {
-                    newMinorTickStyle.PropertyChanged += sfLinearGauge.AxisMinorStyle_PropertyChanged;
+                    newMinorTickStyle.PropertyChanged += sfLinearGauge.ScaleMinorStyle_PropertyChanged;
                 }
 
                 sfLinearGauge.InvalidateDrawable();
@@ -1032,13 +1164,13 @@ namespace Syncfusion.Maui.Gauges
             {
                 if (oldValue is LinearTickStyle oldMajorTickStyle)
                 {
-                    oldMajorTickStyle.PropertyChanged -= sfLinearGauge.AxisMajorStyle_PropertyChanged;
+                    oldMajorTickStyle.PropertyChanged -= sfLinearGauge.ScaleMajorStyle_PropertyChanged;
                 }
 
                 if (newValue is LinearTickStyle newMajorTickStyle)
                 {
                     newMajorTickStyle.IsMajorTicks = true;
-                    newMajorTickStyle.PropertyChanged += sfLinearGauge.AxisMajorStyle_PropertyChanged;
+                    newMajorTickStyle.PropertyChanged += sfLinearGauge.ScaleMajorStyle_PropertyChanged;
                 }
 
                 sfLinearGauge.InvalidateDrawable();
@@ -1046,7 +1178,7 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Called when axis drawing related properties changed.
+        /// Called when scale drawing related properties changed.
         /// </summary>
         /// <param name="bindable">The BindableObject.</param>
         /// <param name="oldValue">Old value.</param>
@@ -1060,38 +1192,38 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Called when <see cref="AxisLineStyle"/> property got changed.
+        /// Called when <see cref="LineStyle"/> property got changed.
         /// </summary>
         /// <param name="sender">The sender object.</param>
         /// <param name="e">The PropertyChangedEventArgs.</param>
-        private void AxisLineStyle_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ScaleLineStyle_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == LinearLineStyle.ThicknessProperty.PropertyName)
             {
-                this.UpdateAxisElements();
+                this.ScaleInvalidateMeasureOverride();
             }
             else if (e.PropertyName == LinearLineStyle.CornerStyleProperty.PropertyName ||
                 e.PropertyName == LinearLineStyle.DashArrayProperty.PropertyName ||
                 e.PropertyName == LinearLineStyle.CornerRadiusProperty.PropertyName)
             {
-                this.CalculateAxisLine();
+                this.CalculateScaleLine();
             }
             else if (e.PropertyName == LinearLineStyle.GradientStopsProperty.PropertyName)
             {
 #nullable disable
-                if (this.AxisLineStyle.GradientStops is ObservableCollection<GaugeGradientStop> gradientStops)
+                if (this.LineStyle.GradientStops is ObservableCollection<GaugeGradientStop> gradientStops)
                 {
                     gradientStops.CollectionChanged += this.GradientStops_CollectionChanged;
                 }
 #nullable enable
-                this.CalculateAxisLine();
+                this.CalculateScaleLine();
             }
 
             this.InvalidateDrawable();
         }
 
         /// <summary>
-        /// Called when <see cref="AxisLabelStyle"/> property got changed.
+        /// Called when <see cref="LabelStyle"/> property got changed.
         /// </summary>
         /// <param name="sender">The sender object.</param>
         /// <param name="e">The PropertyChangedEventArgs.</param>
@@ -1105,19 +1237,19 @@ namespace Syncfusion.Maui.Gauges
             {
                 if (this.LabelPosition == GaugeLabelsPosition.Inside)
                 {
-                    this.UpdateAxisElements();
+                    this.UpdateScaleElements();
                     this.InvalidateDrawable();
                 }
                 else
                 {
-                    this.UpdateAxis();
-                    this.InvalidateAxis();
+                    this.UpdateScale();
+                    this.InvalidateScale();
                 }
             }
         }
 
-        #nullable disable
-        
+#nullable disable
+
         /// <summary>
         /// Called when <see cref="Ranges"/> property changed.
         /// </summary>
@@ -1174,6 +1306,34 @@ namespace Syncfusion.Maui.Gauges
             }
         }
 
+        /// <summary>
+        /// Called when <see cref="MarkerPointers"/> property changed.
+        /// </summary>
+        /// <param name="bindable">The BindableObject.</param>
+        /// <param name="oldValue">Old value.</param>
+        /// <param name="newValue">New value.</param>
+        private static void OnMarkerPointersPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is SfLinearGauge linearGauge)
+            {
+                if (oldValue != null)
+                {
+                    if (oldValue is ObservableCollection<LinearMarkerPointer> markerPointers)
+                    {
+                        markerPointers.CollectionChanged -= linearGauge.MarkerPointers_CollectionChanged;
+                    }
+                }
+
+                if (newValue != null)
+                {
+                    if (newValue is ObservableCollection<LinearMarkerPointer> markerPointers)
+                    {
+                        markerPointers.CollectionChanged += linearGauge.MarkerPointers_CollectionChanged;
+                    }
+                }
+            }
+        }
+
 #nullable enable
 
         #endregion
@@ -1182,17 +1342,17 @@ namespace Syncfusion.Maui.Gauges
 
         #region Drawing methods
 
-        private void DrawAxisLine(ICanvas canvas)
+        private void DrawScaleLine(ICanvas canvas)
         {
-            if (this.AxisLineStyle != null && this.axisLinePath != null)
+            if (this.LineStyle != null && this.scaleLinePath != null)
             {
-                if (this.AxisLineStyle.LinearGradientBrush != null)
-                    canvas.SetFillPaint(this.AxisLineStyle.LinearGradientBrush, axisLinePath.Bounds);
+                if (this.LineStyle.LinearGradientBrush != null)
+                    canvas.SetFillPaint(this.LineStyle.LinearGradientBrush, scaleLinePath.Bounds);
                 else
-                    canvas.SetFillPaint(this.AxisLineStyle.Fill, axisLinePath.Bounds);
+                    canvas.SetFillPaint(this.LineStyle.Fill, scaleLinePath.Bounds);
             }
 
-            canvas.FillPath(axisLinePath);
+            canvas.FillPath(scaleLinePath);
         }
 
         private void DrawMajorTicks(ICanvas canvas)
@@ -1207,7 +1367,7 @@ namespace Syncfusion.Maui.Gauges
                     canvas.StrokeSize = (float)this.MajorTickStyle.StrokeThickness;
                 }
 
-                //Setting axis major tick line dash array.
+                //Setting scale major tick line dash array.
                 if (this.MajorTickStyle.StrokeDashArray?.Count > 0)
                 {
                     canvas.StrokeDashPattern = this.MajorTickStyle.StrokeDashArray.ToFloatArray();
@@ -1259,7 +1419,7 @@ namespace Syncfusion.Maui.Gauges
                     canvas.StrokeSize = (float)this.MinorTickStyle.StrokeThickness;
                 }
 
-                //Setting axis major tick line dash array.
+                //Setting scale major tick line dash array.
                 if (this.MinorTickStyle.StrokeDashArray?.Count > 0)
                 {
                     canvas.StrokeDashPattern = this.MinorTickStyle.StrokeDashArray.ToFloatArray();
@@ -1298,7 +1458,7 @@ namespace Syncfusion.Maui.Gauges
             }
         }
 
-        private void DrawAxisLabels(ICanvas canvas)
+        private void DrawScaleLabels(ICanvas canvas)
         {
             if (this.VisibleLabels != null && this.VisibleLabels.Count > 0)
             {
@@ -1312,7 +1472,7 @@ namespace Syncfusion.Maui.Gauges
 
                     PointF position = label.Position;
 
-                    //Setting text color axis labels.
+                    //Setting text color scale labels.
                     Color? rangeColor = GetRangeColor(label.Value);
                     GaugeLabelStyle? labelStyle = null;
                     if (rangeColor != null)
@@ -1327,7 +1487,7 @@ namespace Syncfusion.Maui.Gauges
 
                     }
 
-                    //Drawing axis labels.
+                    //Drawing scale labels.
                     canvas.DrawText(label.Text, position.X, position.Y, labelStyle ?? label.LabelStyle);
                 }
             }
@@ -1336,44 +1496,21 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// Method used to get value match range color.
         /// </summary>
-        /// <param name="value">Input axis value</param>
+        /// <param name="value">Input scale value</param>
         /// <returns>Returns range color.</returns>
         private Color? GetRangeColor(double value)
         {
-            LinearRange? range = null;
             if (UseRangeColorForAxis && this.Ranges != null && this.Ranges.Count > 0)
             {
-                range = this.Ranges.FirstOrDefault(item => value <= item.ActualEndValue &&
+                LinearRange? range = this.Ranges.FirstOrDefault(item => value <= item.ActualEndValue &&
                     value >= item.ActualStartValue);
+                if (range != null)
+                {
+                    Paint rangeFillPaint = range.Fill;
+                    return rangeFillPaint.ToColor();
+                }
             }
-
-            if (range != null)
-            {
-                Paint rangeFillPaint = range.Fill;
-                return rangeFillPaint.ToColor();
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Method used to invalidate axis. 
-        /// </summary>
-        private void InvalidateAxis()
-        {
-            this.InvalidateDrawable();
-
-            foreach (var range in Ranges)
-            {
-                range.InvalidateDrawable();
-            }
-
-            foreach (var pointer in BarPointers)
-            {
-                pointer.InvalidateDrawable();
-            }
+            return null;
         }
 
         #endregion
@@ -1381,16 +1518,29 @@ namespace Syncfusion.Maui.Gauges
         #region Calculation methods
 
         /// <summary>
-        /// To update the axis elements
+        /// To update the scale elements
         /// </summary>
-        private void UpdateAxis()
+        private void UpdateScale()
         {
             if (!this.ScaleAvailableSize.IsZero)
             {
-                this.UpdateAxisElements();
+                this.UpdateScaleElements();
                 this.CreateRanges();
                 this.CreateBarPointers();
-                //this.CreateMarkerPointers();
+                this.CreateMarkerPointers();
+
+                foreach (var range in Ranges)
+                {
+                    AbsoluteLayout.SetLayoutBounds(range.RangeView, new Rectangle(0, 0, ScaleAvailableSize.Width, ScaleAvailableSize.Height));
+                }
+                foreach (var pointer in BarPointers)
+                {
+                    AbsoluteLayout.SetLayoutBounds(pointer.PointerView, new Rectangle(0, 0, ScaleAvailableSize.Width, ScaleAvailableSize.Height));
+                }
+                foreach (var pointer in MarkerPointers)
+                {
+                    AbsoluteLayout.SetLayoutBounds(pointer.PointerView, new Rectangle(0, 0, ScaleAvailableSize.Width, ScaleAvailableSize.Height));
+                }
             }
         }
 
@@ -1417,16 +1567,27 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// To update axis line, ticks and labels axis elements.
+        /// To create the markers pointers.
         /// </summary>
-        private void UpdateAxisElements()
+        private void CreateMarkerPointers()
+        {
+            foreach (LinearMarkerPointer pointer in this.MarkerPointers)
+            {
+                pointer.CreatePointer();
+            }
+        }
+
+        /// <summary>
+        /// To update scale line, ticks and labels scale elements.
+        /// </summary>
+        private void UpdateScaleElements()
         {
             if (!this.ScaleAvailableSize.IsZero)
             {
                 this.VisibleLabels = this.GenerateVisibleLabels();
                 this.MeasureLabels();
-                this.CalculateAxisElementsPosition();
-                this.CalculateAxisLine();
+                this.CalculateScaleElementsPosition();
+                this.CalculateScaleLine();
 
                 if (this.ShowTicks)
                 {
@@ -1439,7 +1600,7 @@ namespace Syncfusion.Maui.Gauges
                 }
                 if (this.ShowLabels)
                 {
-                    this.CalculateAxisLabelsPosition();
+                    this.CalculateScaleLabelsPosition();
                 }
             }
         }
@@ -1452,17 +1613,17 @@ namespace Syncfusion.Maui.Gauges
         {
             if (double.IsNaN(this.Interval) || this.Interval == 0)
             {
-                return this.CalculateAxisInterval();
+                return this.CalculateScaleInterval();
             }
 
             return this.Interval;
         }
 
         /// <summary>
-        /// To calculate the axis interval based on the maximum axis label count.
+        /// To calculate the scale interval based on the maximum scale label count.
         /// </summary>
         /// <returns>Returns the interval based on the maximum number of labels for 100 labels</returns>
-        private double CalculateAxisInterval()
+        private double CalculateScaleInterval()
         {
             double delta = Math.Abs(this.ActualMaximum - this.ActualMinimum);
             double area = this.Orientation == GaugeOrientation.Horizontal ? this.ScaleAvailableSize.Width :
@@ -1487,11 +1648,11 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets the current axis labels
+        /// Gets the current scale labels
         /// </summary>
         /// <param name="value">The value of the label.</param>
-        /// <returns>The corresponding axis label of given value.</returns>
-        private GaugeLabelInfo GetAxisLabel(double value)
+        /// <returns>The corresponding scale label of given value.</returns>
+        private GaugeLabelInfo GetScaleLabel(double value)
         {
             GaugeLabelInfo label = new GaugeLabelInfo
             {
@@ -1499,7 +1660,7 @@ namespace Syncfusion.Maui.Gauges
             };
             string labelText = value.ToString(this.LabelFormat, CultureInfo.CurrentCulture);
             label.Text = labelText;
-            label.LabelStyle = this.AxisLabelStyle;
+            label.LabelStyle = this.LabelStyle;
 
             return label;
         }
@@ -1530,7 +1691,7 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// To measure the axis labels
+        /// To measure the scale labels
         /// </summary>
         private void MeasureLabels()
         {
@@ -1541,9 +1702,9 @@ namespace Syncfusion.Maui.Gauges
 
                 foreach (var labelInfo in this.VisibleLabels)
                 {
-                    if (labelInfo.LabelStyle == null && this.AxisLabelStyle != null)
+                    if (labelInfo.LabelStyle == null && this.LabelStyle != null)
                     {
-                        labelInfo.LabelStyle = this.AxisLabelStyle;
+                        labelInfo.LabelStyle = this.LabelStyle;
                     }
 
                     if (labelInfo.LabelStyle != null)
@@ -1583,143 +1744,144 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// To calculate axis line.
+        /// To calculate scale line.
         /// </summary>
-        private void CalculateAxisLine()
+        private void CalculateScaleLine()
         {
-            if (VisibleLabels == null) return;
-
             if (this.Orientation == GaugeOrientation.Horizontal)
             {
-                axisLineLength = this.ShowLabels
+                scaleLineLength = this.ShowLabels
                     ? this.ScaleAvailableSize.Width - (firstLabelSize.Width / 2) - (lastLabelSize.Width / 2)
                     : this.ScaleAvailableSize.Width;
             }
             else
             {
-                axisLineLength = this.ShowLabels
+                scaleLineLength = this.ShowLabels
                     ? this.ScaleAvailableSize.Height - (firstLabelSize.Height / 2) - (lastLabelSize.Height / 2)
                     : this.ScaleAvailableSize.Height;
             }
 
-            double actualAxisLineThickness = this.GetActualAxisLineThickness();
-            double axisLineStartPosition = this.AxisLinePosition.X;
-            double axisLineEndPosition = this.AxisLinePosition.X + axisLineLength;
+            float actualScaleLineThickness = (float)this.GetActualScaleLineThickness();
+            float scaleLineStartPosition = (float)this.ScalePosition.X;
+            float scaleLineEndPosition = (float)(this.ScalePosition.X + scaleLineLength);
             float x, y, width, height;
             if (this.Orientation == GaugeOrientation.Horizontal)
             {
-                x = (float)axisLineStartPosition;
-                y = (float)(this.AxisLinePosition.Y);
-                width = (float)Math.Abs(axisLineEndPosition - axisLineStartPosition);
-                height = (float)actualAxisLineThickness;
+                x = scaleLineStartPosition;
+                y = (float)this.ScalePosition.Y;
+                width = Math.Abs(scaleLineEndPosition - scaleLineStartPosition);
+                height = actualScaleLineThickness;
             }
             else
             {
-                x = (float)(this.AxisLinePosition.Y);
-                y = (float)axisLineStartPosition;
-                width = (float)actualAxisLineThickness;
-                height = (float)Math.Abs(axisLineEndPosition - axisLineStartPosition);
+                x = (float)this.ScalePosition.Y;
+                y = (float)scaleLineStartPosition;
+                width = actualScaleLineThickness;
+                height = Math.Abs(scaleLineEndPosition - scaleLineStartPosition);
             }
 
-            axisLinePath = new PathF();
+            scaleLinePath = new PathF();
 
-            if ((this.AxisLineStyle.CornerStyle == CornerStyle.StartCurve && !IsInversed) ||
-                (this.AxisLineStyle.CornerStyle == CornerStyle.EndCurve && IsInversed) ||
-                this.AxisLineStyle.CornerStyle == CornerStyle.BothCurve)
+            if ((this.LineStyle.CornerStyle == CornerStyle.StartCurve && !IsInversed) ||
+                (this.LineStyle.CornerStyle == CornerStyle.EndCurve && IsInversed) ||
+                this.LineStyle.CornerStyle == CornerStyle.BothCurve)
             {
                 if (Orientation == GaugeOrientation.Horizontal)
                 {
-                    axisLinePath.MoveTo(x + (height / 2), y);
-                    axisLinePath.AddArc(x, y, x + height, y + height, 90, 270, false);
+                    scaleLinePath.MoveTo(x + (height / 2), y);
+                    scaleLinePath.AddArc(x, y, x + height, y + height, 90, 270, false);
                     x += height / 2;
                     width -= height / 2;
                 }
                 else
                 {
-                    axisLinePath.MoveTo(x, y + height - (width / 2));
-                    axisLinePath.AddArc(x, y + height - width, x + width,
+                    scaleLinePath.MoveTo(x, y + height - (width / 2));
+                    scaleLinePath.AddArc(x, y + height - width, x + width,
                         y + height, 180, 360, false);
                     height -= width / 2;
                 }
-                axisLinePath.Close();
+                scaleLinePath.Close();
             }
 
-            if ((this.AxisLineStyle.CornerStyle == CornerStyle.EndCurve && !IsInversed) ||
-                (this.AxisLineStyle.CornerStyle == CornerStyle.StartCurve && IsInversed) ||
-                this.AxisLineStyle.CornerStyle == CornerStyle.BothCurve)
+            if ((this.LineStyle.CornerStyle == CornerStyle.EndCurve && !IsInversed) ||
+                (this.LineStyle.CornerStyle == CornerStyle.StartCurve && IsInversed) ||
+                this.LineStyle.CornerStyle == CornerStyle.BothCurve)
             {
                 if (Orientation == GaugeOrientation.Horizontal)
                 {
-                    axisLinePath.MoveTo(x + width - (height / 2), y);
-                    axisLinePath.AddArc(x + width - height, y, x + width, y + height, 90, 270, true);
-                    axisLinePath.Close();
+                    scaleLinePath.MoveTo(x + width - (height / 2), y);
+                    scaleLinePath.AddArc(x + width - height, y, x + width, y + height, 90, 270, true);
+                    scaleLinePath.Close();
                     width -= height / 2;
                 }
                 else
                 {
-                    axisLinePath.MoveTo(x, y + (width / 2));
-                    axisLinePath.AddArc(x, y, x + width, y + width, 0, 180, false);
+                    scaleLinePath.MoveTo(x, y + (width / 2));
+                    scaleLinePath.AddArc(x, y, x + width, y + width, 0, 180, false);
                     y += width / 2;
                     height -= width / 2;
                 }
             }
 
-            double dashLineLength = 0, dashLineGap = 0;
-
-            if (this.AxisLineStyle.DashArray != null && this.AxisLineStyle.DashArray.Count > 1)
+            if (this.LineStyle.DashArray != null && this.LineStyle.DashArray.Count > 1)
             {
-                dashLineLength = this.AxisLineStyle.DashArray[0];
-                dashLineGap = this.AxisLineStyle.DashArray[1];
-            }
-
-            if (dashLineLength > 0 && dashLineGap > 0)
-            {
-                float dashArrayStartValue, dashArrayEndValue;
-                float axisLineEndValue = Orientation == GaugeOrientation.Horizontal ? x + width : y + height;
-                dashArrayStartValue = Orientation == GaugeOrientation.Horizontal ? x : y;
-                dashArrayEndValue = dashArrayStartValue + (float)dashLineLength;
-
-                while (dashArrayEndValue <= axisLineEndValue)
-                {
-                    if (Orientation == GaugeOrientation.Horizontal)
-                    {
-                        axisLinePath.AppendRectangle(dashArrayStartValue, y, (float)dashLineLength, height);
-                        dashArrayStartValue = dashArrayEndValue + (float)dashLineGap;
-                        dashArrayEndValue = dashArrayStartValue + (float)dashLineLength;
-                    }
-                    else
-                    {
-                        axisLinePath.AppendRectangle(x, dashArrayStartValue, width, (float)dashLineLength);
-                        dashArrayStartValue = dashArrayEndValue + (float)dashLineGap;
-                        dashArrayEndValue = dashArrayStartValue + (float)dashLineLength;
-                    }
-                }
-
-                if (dashArrayEndValue != axisLineEndValue)
-                {
-                    dashArrayStartValue = (float)axisLineEndValue - 1;
-
-                    if (Orientation == GaugeOrientation.Horizontal)
-                        axisLinePath.AppendRectangle(dashArrayStartValue, y, 1, height);
-                    else
-                        axisLinePath.AppendRectangle(x, dashArrayStartValue, width, 1);
-                }
+                //Calculate dashed scale line.
+                this.CalculateDashedScaleLine(x, y, width, height);
             }
             else
             {
-                Thickness radius = AxisLineStyle.CornerRadius;
+                Thickness radius = LineStyle.CornerRadius;
 
-                if (AxisLineStyle.CornerStyle != CornerStyle.BothFlat)
+                if (LineStyle.CornerStyle != CornerStyle.BothFlat)
                     radius = Thickness.Zero;
 
-                axisLinePath.AppendRoundedRectangle(x, y, width, height, (float)radius.Left,
+                scaleLinePath.AppendRoundedRectangle(x, y, width, height, (float)radius.Left,
                     (float)radius.Top, (float)radius.Bottom, (float)radius.Right);
             }
 
-            if (AxisLineStyle.GradientStops != null && AxisLineStyle.GradientStops.Count > 0)
-                AxisLineStyle.LinearGradientBrush = GetLinearGradient(AxisLineStyle.GradientStops, Minimum, Maximum);
+            if (LineStyle.GradientStops != null && LineStyle.GradientStops.Count > 0)
+                LineStyle.LinearGradientBrush = GetLinearGradient(LineStyle.GradientStops, Minimum, Maximum);
             else
-                AxisLineStyle.LinearGradientBrush = null;
+                LineStyle.LinearGradientBrush = null;
+        }
+
+        private void CalculateDashedScaleLine(float x, float y, float width, float height)
+        {
+            double dashLineLength = this.LineStyle.DashArray[0];
+            double dashLineGap = this.LineStyle.DashArray[1];
+            if (dashLineLength > 0 && dashLineGap > 0 && scaleLinePath != null)
+            {
+                float dashArrayStartValue, dashArrayEndValue;
+                float scaleLineEndValue = Orientation == GaugeOrientation.Horizontal ? x + width : y + height;
+                dashArrayStartValue = Orientation == GaugeOrientation.Horizontal ? x : y;
+                dashArrayEndValue = dashArrayStartValue + (float)dashLineLength;
+
+                while (dashArrayEndValue <= scaleLineEndValue)
+                {
+                    if (Orientation == GaugeOrientation.Horizontal)
+                    {
+                        scaleLinePath.AppendRectangle(dashArrayStartValue, y, (float)dashLineLength, height);
+                        dashArrayStartValue = dashArrayEndValue + (float)dashLineGap;
+                        dashArrayEndValue = dashArrayStartValue + (float)dashLineLength;
+                    }
+                    else
+                    {
+                        scaleLinePath.AppendRectangle(x, dashArrayStartValue, width, (float)dashLineLength);
+                        dashArrayStartValue = dashArrayEndValue + (float)dashLineGap;
+                        dashArrayEndValue = dashArrayStartValue + (float)dashLineLength;
+                    }
+                }
+
+                if (dashArrayEndValue != scaleLineEndValue)
+                {
+                    dashArrayStartValue = (float)scaleLineEndValue - 1;
+
+                    if (Orientation == GaugeOrientation.Horizontal)
+                        scaleLinePath.AppendRectangle(dashArrayStartValue, y, 1, height);
+                    else
+                        scaleLinePath.AppendRectangle(x, dashArrayStartValue, width, 1);
+                }
+            }
         }
 
         private void CalculateMajorTickPosition()
@@ -1749,29 +1911,29 @@ namespace Syncfusion.Maui.Gauges
                         adjustment *= -1;
                     }
 
-                    AxisTickInfo axisTickInfo = new AxisTickInfo();
+                    AxisTickInfo tickInfo = new AxisTickInfo();
                     valuePosition = GetPositionFromValue(VisibleLabels[i].Value) + adjustment;
                     if (Orientation == GaugeOrientation.Horizontal)
                     {
-                        axisTickInfo.StartPoint = new PointF((float)(this.majorTicksPanelPosition.X +
-                            valuePosition), (float)this.majorTicksPanelPosition.Y);
+                        tickInfo.StartPoint = new PointF(this.majorTicksLayoutPosition.X +
+                            (float)valuePosition, this.majorTicksLayoutPosition.Y);
 
-                        axisTickInfo.EndPoint = new PointF(axisTickInfo.StartPoint.X,
-                            (float)(this.majorTicksPanelPosition.Y + this.MajorTickStyle.Length));
+                        tickInfo.EndPoint = new PointF(tickInfo.StartPoint.X,
+                            this.majorTicksLayoutPosition.Y + (float)this.MajorTickStyle.Length);
 
-                        axisTickInfo.Value = VisibleLabels[i].Value;
-                        MajorTickPositions.Add(axisTickInfo);
+                        tickInfo.Value = VisibleLabels[i].Value;
+                        MajorTickPositions.Add(tickInfo);
                     }
                     else
                     {
-                        axisTickInfo.StartPoint = new PointF((float)(this.majorTicksPanelPosition.Y),
-                            (float)(this.majorTicksPanelPosition.X + valuePosition));
+                        tickInfo.StartPoint = new PointF(this.majorTicksLayoutPosition.Y,
+                            this.majorTicksLayoutPosition.X + (float)valuePosition);
 
-                        axisTickInfo.EndPoint = new PointF((float)(this.majorTicksPanelPosition.Y +
-                            this.MajorTickStyle.Length), (float)(this.majorTicksPanelPosition.X + valuePosition));
+                        tickInfo.EndPoint = new PointF(this.majorTicksLayoutPosition.Y +
+                            (float)this.MajorTickStyle.Length, this.majorTicksLayoutPosition.X + (float)valuePosition);
 
-                        axisTickInfo.Value = VisibleLabels[i].Value;
-                        MajorTickPositions.Add(axisTickInfo);
+                        tickInfo.Value = VisibleLabels[i].Value;
+                        MajorTickPositions.Add(tickInfo);
                     }
                 }
             }
@@ -1782,29 +1944,29 @@ namespace Syncfusion.Maui.Gauges
             double valuePosition;
             for (int i = 0; i < MinorTickPositions.Count; i++)
             {
-                AxisTickInfo axisTickInfo = MinorTickPositions[i];
-                valuePosition = this.GetPositionFromValue(axisTickInfo.Value);
+                AxisTickInfo tickInfo = MinorTickPositions[i];
+                valuePosition = this.GetPositionFromValue(tickInfo.Value);
 
                 if (this.Orientation == GaugeOrientation.Horizontal)
                 {
-                    axisTickInfo.StartPoint = new PointF((float)(this.minorTicksPanelPosition.X + valuePosition),
-                        (float)this.minorTicksPanelPosition.Y);
+                    tickInfo.StartPoint = new PointF(this.minorTicksLayoutPosition.X + (float)valuePosition,
+                        (float)this.minorTicksLayoutPosition.Y);
 
-                    axisTickInfo.EndPoint = new PointF((float)(this.minorTicksPanelPosition.X + valuePosition),
-                        (float)(this.minorTicksPanelPosition.Y + this.MinorTickStyle.Length));
+                    tickInfo.EndPoint = new PointF(this.minorTicksLayoutPosition.X + (float)valuePosition,
+                        this.minorTicksLayoutPosition.Y + (float)this.MinorTickStyle.Length);
                 }
                 else
                 {
-                    axisTickInfo.StartPoint = new PointF((float)(this.minorTicksPanelPosition.Y),
-                        (float)(this.minorTicksPanelPosition.X + valuePosition));
+                    tickInfo.StartPoint = new PointF(this.minorTicksLayoutPosition.Y,
+                        this.minorTicksLayoutPosition.X + (float)valuePosition);
 
-                    axisTickInfo.EndPoint = new PointF((float)(this.minorTicksPanelPosition.Y + this.MinorTickStyle.Length),
-                        (float)(this.minorTicksPanelPosition.X + valuePosition));
+                    tickInfo.EndPoint = new PointF(this.minorTicksLayoutPosition.Y + (float)this.MinorTickStyle.Length,
+                        this.minorTicksLayoutPosition.X + (float)valuePosition);
                 }
             }
         }
 
-        private void CalculateAxisLabelsPosition()
+        private void CalculateScaleLabelsPosition()
         {
             if (VisibleLabels != null)
             {
@@ -1814,28 +1976,28 @@ namespace Syncfusion.Maui.Gauges
 
                     if (this.Orientation == GaugeOrientation.Horizontal)
                     {
-                        float labelPosY = (float)this.labelsPanelPosition.Y;
+                        float labelPosY = this.labelsLayoutPosition.Y;
 #if ANDROID
                         labelPosY += (float)label.DesiredSize.Height;
 #endif
-                        label.Position = new PointF((float)(this.labelsPanelPosition.X +
+                        label.Position = new PointF((float)(this.labelsLayoutPosition.X +
                             position - (label.DesiredSize.Width / 2)), labelPosY);
                     }
                     else
                     {
-                        var y = this.labelsPanelPosition.X + position - (label.DesiredSize.Height / 2);
+                        var y = this.labelsLayoutPosition.X + position - (label.DesiredSize.Height / 2);
 #if ANDROID
                         y += (float)label.DesiredSize.Height;
 #endif
                         if ((this.LabelPosition == GaugeLabelsPosition.Outside && !this.IsMirrored)
                             || (this.LabelPosition == GaugeLabelsPosition.Inside && this.IsMirrored))
                         {
-                            label.Position = new PointF((float)(this.labelsPanelPosition.Y +
+                            label.Position = new PointF((float)(this.labelsLayoutPosition.Y +
                                 this.LabelMaximumSize.Width - label.DesiredSize.Width), (float)y);
                         }
                         else
                         {
-                            label.Position = new PointF((float)this.labelsPanelPosition.Y, (float)y);
+                            label.Position = new PointF(this.labelsLayoutPosition.Y, (float)y);
                         }
                     }
                 }
@@ -1843,24 +2005,24 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// To calculate the axis line position.
+        /// To calculate the scale line position.
         /// </summary>
-        private void CalculateAxisElementsPosition()
+        private void CalculateScaleElementsPosition()
         {
             double maximumTickLength = this.GetActualMaxTickLength();
             double actualTickOffset = this.GetActualTickOffset();
             double labelMaximumSize = this.GetLabelMaxLength();
             double firstLabelSize = this.GetFirstLabelLength();
             double actualLabelOffset = this.GetActualLabelOffset();
-            double actualAxisLineThickness = this.GetActualAxisLineThickness();
+            double actualScaleLineThickness = this.GetActualScaleLineThickness();
             GaugeLabelsPosition actualLabelsPosition = this.GetActualLabelPosition();
             double outsideRangeHeight = 0d, insideRangeHeight = 0d;
             this.GetRangeHeights(ref outsideRangeHeight, ref insideRangeHeight);
             double outsideBarPointerHeight = 0d, insideBarPointerHeight = 0d;
             this.GetBarPointersHeight(ref outsideBarPointerHeight, ref insideBarPointerHeight);
             double outsideMarkerPointerHeight = 0d, insideMarkerPointerHeight = 0d;
-            //this.GetMarkerPointersHeight(ref outsideMarkerPointerHeight, ref insideMarkerPointerHeight);
-            double outsideAxisHeight = Math.Max(Math.Max(outsideRangeHeight, outsideBarPointerHeight), outsideMarkerPointerHeight);
+            this.GetMarkerPointersHeight(ref outsideMarkerPointerHeight, ref insideMarkerPointerHeight);
+            double outsideScaleHeight = Math.Max(Math.Max(outsideRangeHeight, outsideBarPointerHeight), outsideMarkerPointerHeight);
             double x = firstLabelSize / 2, y = 0d;
 
             switch (this.GetActualElementPosition(this.TickPosition))
@@ -1869,26 +2031,26 @@ namespace Syncfusion.Maui.Gauges
                     switch (actualLabelsPosition)
                     {
                         case GaugeLabelsPosition.Inside:
-                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            this.ScalePosition = new Point(x, y > outsideScaleHeight ? y : outsideScaleHeight);
 
-                            var tickYPos = actualAxisLineThickness + actualTickOffset + outsideAxisHeight;
-                            this.majorTicksPanelPosition = new Point(AxisLinePosition.X, tickYPos);
-                            this.minorTicksPanelPosition = new Point(AxisLinePosition.X, tickYPos);
+                            var tickYPos = actualScaleLineThickness + actualTickOffset + outsideScaleHeight;
+                            this.majorTicksLayoutPosition = new Point(ScalePosition.X, tickYPos);
+                            this.minorTicksLayoutPosition = new Point(ScalePosition.X, tickYPos);
 
-                            var labelYPos = this.majorTicksPanelPosition.Y + maximumTickLength + actualLabelOffset;
-                            this.labelsPanelPosition = new Point(AxisLinePosition.X, labelYPos);
+                            var labelYPos = this.majorTicksLayoutPosition.Y + maximumTickLength + actualLabelOffset;
+                            this.labelsLayoutPosition = new Point(ScalePosition.X, labelYPos);
                             break;
                         case GaugeLabelsPosition.Outside:
                             y = labelMaximumSize + actualLabelOffset;
-                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            this.ScalePosition = new Point(x, y > outsideScaleHeight ? y : outsideScaleHeight);
 
-                            tickYPos = this.AxisLinePosition.Y + actualAxisLineThickness + actualTickOffset;
-                            this.majorTicksPanelPosition = new Point(AxisLinePosition.X, tickYPos);
-                            this.minorTicksPanelPosition = new Point(AxisLinePosition.X, tickYPos);
+                            tickYPos = this.ScalePosition.Y + actualScaleLineThickness + actualTickOffset;
+                            this.majorTicksLayoutPosition = new Point(ScalePosition.X, tickYPos);
+                            this.minorTicksLayoutPosition = new Point(ScalePosition.X, tickYPos);
 
-                            labelYPos = outsideAxisHeight - labelMaximumSize - actualLabelOffset;
+                            labelYPos = outsideScaleHeight - labelMaximumSize - actualLabelOffset;
                             labelYPos = labelYPos < 0d ? 0d : labelYPos;
-                            this.labelsPanelPosition = new Point(AxisLinePosition.X, labelYPos);
+                            this.labelsLayoutPosition = new Point(ScalePosition.X, labelYPos);
                             break;
                     }
                     break;
@@ -1897,66 +2059,66 @@ namespace Syncfusion.Maui.Gauges
                     {
                         case GaugeLabelsPosition.Inside:
                             y = maximumTickLength + actualTickOffset;
-                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            this.ScalePosition = new Point(x, y > outsideScaleHeight ? y : outsideScaleHeight);
 
-                            var labelYPos = this.AxisLinePosition.Y + actualAxisLineThickness + actualLabelOffset;
-                            this.labelsPanelPosition = new Point(AxisLinePosition.X, labelYPos);
+                            var labelYPos = this.ScalePosition.Y + actualScaleLineThickness + actualLabelOffset;
+                            this.labelsLayoutPosition = new Point(ScalePosition.X, labelYPos);
                             break;
                         case GaugeLabelsPosition.Outside:
                             y = maximumTickLength + labelMaximumSize + actualTickOffset + actualLabelOffset;
-                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            this.ScalePosition = new Point(x, y > outsideScaleHeight ? y : outsideScaleHeight);
 
-                            labelYPos = outsideAxisHeight - labelMaximumSize - actualLabelOffset - maximumTickLength - actualTickOffset;
+                            labelYPos = outsideScaleHeight - labelMaximumSize - actualLabelOffset - maximumTickLength - actualTickOffset;
                             labelYPos = labelYPos < 0d ? 0d : labelYPos;
-                            this.labelsPanelPosition = new Point(AxisLinePosition.X, labelYPos);
+                            this.labelsLayoutPosition = new Point(ScalePosition.X, labelYPos);
                             break;
                     }
 
-                    var majorTickY = this.AxisLinePosition.Y - (actualTickOffset + this.MajorTickStyle.Length);
-                    this.majorTicksPanelPosition = new Point(AxisLinePosition.X, majorTickY);
+                    var majorTickY = this.ScalePosition.Y - (actualTickOffset + this.MajorTickStyle.Length);
+                    this.majorTicksLayoutPosition = new Point(ScalePosition.X, majorTickY);
 
-                    var minorTicky = this.AxisLinePosition.Y - (actualTickOffset + this.MinorTickStyle.Length);
-                    this.minorTicksPanelPosition = new Point(AxisLinePosition.X, minorTicky);
+                    var minorTicky = this.ScalePosition.Y - (actualTickOffset + this.MinorTickStyle.Length);
+                    this.minorTicksLayoutPosition = new Point(ScalePosition.X, minorTicky);
                     break;
                 case GaugeElementPosition.Cross:
                     switch (actualLabelsPosition)
                     {
                         case GaugeLabelsPosition.Inside:
-                            y = actualAxisLineThickness < maximumTickLength ? (maximumTickLength - actualAxisLineThickness) / 2 : 0d;
-                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            y = actualScaleLineThickness < maximumTickLength ? (maximumTickLength - actualScaleLineThickness) / 2 : 0d;
+                            this.ScalePosition = new Point(x, y > outsideScaleHeight ? y : outsideScaleHeight);
 
-                            majorTickY = this.AxisLinePosition.Y + (actualAxisLineThickness / 2) -
+                            majorTickY = this.ScalePosition.Y + (actualScaleLineThickness / 2) -
                                 (this.MajorTickStyle.Length / 2);
-                            this.majorTicksPanelPosition = new Point(AxisLinePosition.X, majorTickY);
+                            this.majorTicksLayoutPosition = new Point(ScalePosition.X, majorTickY);
 
-                            minorTicky = this.AxisLinePosition.Y + (actualAxisLineThickness / 2) -
+                            minorTicky = this.ScalePosition.Y + (actualScaleLineThickness / 2) -
                                 (this.MinorTickStyle.Length / 2);
-                            this.minorTicksPanelPosition = new Point(AxisLinePosition.X, minorTicky);
+                            this.minorTicksLayoutPosition = new Point(ScalePosition.X, minorTicky);
 
-                            var labelYPos = this.AxisLinePosition.Y + actualLabelOffset;
-                            labelYPos += maximumTickLength > actualAxisLineThickness ?
-                                (actualAxisLineThickness / 2) + (maximumTickLength / 2) :
-                                actualAxisLineThickness;
-                            this.labelsPanelPosition = new Point(AxisLinePosition.X, labelYPos);
+                            var labelYPos = this.ScalePosition.Y + actualLabelOffset;
+                            labelYPos += maximumTickLength > actualScaleLineThickness ?
+                                (actualScaleLineThickness / 2) + (maximumTickLength / 2) :
+                                actualScaleLineThickness;
+                            this.labelsLayoutPosition = new Point(ScalePosition.X, labelYPos);
                             break;
                         case GaugeLabelsPosition.Outside:
-                            y = (actualAxisLineThickness < maximumTickLength ? (maximumTickLength - actualAxisLineThickness) / 2 : 0d) + actualLabelOffset + labelMaximumSize;
-                            this.AxisLinePosition = new Point(x, y > outsideAxisHeight ? y : outsideAxisHeight);
+                            y = (actualScaleLineThickness < maximumTickLength ? (maximumTickLength - actualScaleLineThickness) / 2 : 0d) + actualLabelOffset + labelMaximumSize;
+                            this.ScalePosition = new Point(x, y > outsideScaleHeight ? y : outsideScaleHeight);
 
-                            majorTickY = this.AxisLinePosition.Y + (actualAxisLineThickness / 2) -
+                            majorTickY = this.ScalePosition.Y + (actualScaleLineThickness / 2) -
                                 (this.MajorTickStyle.Length / 2);
-                            this.majorTicksPanelPosition = new Point(AxisLinePosition.X, majorTickY);
+                            this.majorTicksLayoutPosition = new Point(ScalePosition.X, majorTickY);
 
-                            minorTicky = this.AxisLinePosition.Y + (actualAxisLineThickness / 2) -
+                            minorTicky = this.ScalePosition.Y + (actualScaleLineThickness / 2) -
                                (this.MinorTickStyle.Length / 2);
-                            this.minorTicksPanelPosition = new Point(AxisLinePosition.X, minorTicky);
+                            this.minorTicksLayoutPosition = new Point(ScalePosition.X, minorTicky);
 
-                            labelYPos = this.AxisLinePosition.Y - actualLabelOffset - labelMaximumSize;
-                            labelYPos -= maximumTickLength > actualAxisLineThickness ?
-                                (actualAxisLineThickness / 2) + (maximumTickLength / 2) :
-                                actualAxisLineThickness;
+                            labelYPos = this.ScalePosition.Y - actualLabelOffset - labelMaximumSize;
+                            labelYPos -= maximumTickLength > actualScaleLineThickness ?
+                                (actualScaleLineThickness / 2) + (maximumTickLength / 2) :
+                                actualScaleLineThickness;
                             labelYPos = labelYPos < 0d ? 0d : labelYPos;
-                            this.labelsPanelPosition = new Point(AxisLinePosition.X, labelYPos);
+                            this.labelsLayoutPosition = new Point(ScalePosition.X, labelYPos);
                             break;
                     }
                     break;
@@ -2081,7 +2243,7 @@ namespace Syncfusion.Maui.Gauges
         {
             if (!this.ScaleAvailableSize.IsZero)
             {
-                this.CalculateAxisLine();
+                this.CalculateScaleLine();
                 this.InvalidateDrawable();
             }
         }
@@ -2193,6 +2355,8 @@ namespace Syncfusion.Maui.Gauges
             return !this.IsInversed ? 1d - factor : factor;
         }
 
+        #region Ranges collection changed
+
         /// <summary>
         /// Called when <see cref="Ranges"/> collection got changed.
         /// </summary>
@@ -2200,53 +2364,75 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="e">The NotifyCollectionChangedEventArgs.</param>
         private void Ranges_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+            e.ApplyCollectionChanges((obj, index, _) => AddRange(obj, index), (obj, index) => RemoveRange(obj, index), ResetRanges);
+        }
+
+        /// <summary>
+        /// Add/insert the axis to the ranges collection. 
+        /// </summary>
+        /// <param name="range"></param>
+        /// <param name="index"></param>
+        private void AddRange(object range, int index)
+        {
+            if (range is LinearRange linearRange)
             {
-                case NotifyCollectionChangedAction.Add:
-                case NotifyCollectionChangedAction.Remove:
-                case NotifyCollectionChangedAction.Replace:
-                    if (e.NewItems != null && e.NewItems.Count > 0)
-                    {
-                        foreach (LinearRange linearRange in e.NewItems)
-                        {
-                            linearRange.LinearGauge = this;
-                            if (!this.rangeGrid.Contains(linearRange.RangeView))
-                                this.rangeGrid.Add(linearRange.RangeView);
+                linearRange.Scale = this;
 
-                            if (!this.ScaleAvailableSize.IsZero)
-                            {
-                                SetInheritedBindingContext(linearRange, this.BindingContext);
-                                linearRange.CreateRangePath();
-                            }
+                if (!this.rangeLayout.Contains(linearRange.RangeView))
+                    this.rangeLayout.Insert(index, linearRange.RangeView);
 
-                            if (this.rangeGrid.Children.Count > 0 && !this.parentGrid.Children.Contains(rangeGrid))
-                            {
-                                this.parentGrid.Children.Add(rangeGrid);
-                            }
-                        }
-                    }
+                if (linearRange.Child != null)
+                {
+                    linearRange.Child.BindingContext = linearRange;
+                    this.RangeChildUpdate(null, linearRange.Child);
+                }
 
-                    if (e.OldItems != null && e.OldItems.Count > 0)
-                    {
-                        foreach (LinearRange linearRange in e.OldItems)
-                        {
-                            linearRange.LinearGauge = null;
+                SetInheritedBindingContext(linearRange, this.BindingContext);
 
-                            if (this.rangeGrid.Children.Contains(linearRange.RangeView))
-                            {
-                                this.rangeGrid.Children.Remove(linearRange.RangeView);
-                            }
-                        }
-                    }
-                    break;
+                if (this.rangeLayout.Children.Count > 0 && !this.parentLayout.Children.Contains(rangeLayout))
+                {
+                    this.parentLayout.Children.Add(rangeLayout);
+                }
 
-                case NotifyCollectionChangedAction.Reset:
-                    this.rangeGrid.Children.Clear();
-                    break;
-                default:
-                    break;
+                this.ScaleInvalidateMeasureOverride();
             }
         }
+
+        /// <summary>
+        /// Remove the range from the ranges collection. 
+        /// </summary>
+        /// <param name="range"></param>
+        /// <param name="index"></param>
+        private void RemoveRange(object range, int index)
+        {
+            if (range is LinearRange linearRange)
+            {
+                linearRange.Scale = null;
+
+                if (linearRange.Child != null)
+                    this.RangeChildUpdate(linearRange.Child, null);
+
+                if (this.rangeLayout.Children.Contains(linearRange.RangeView))
+                {
+                    this.rangeLayout.Children.RemoveAt(index);
+                }
+
+                this.ScaleInvalidateMeasureOverride();
+            }
+        }
+
+        /// <summary>
+        /// Clear the ranges collection. 
+        /// </summary>
+        private void ResetRanges()
+        {
+            this.rangeLayout.Children.Clear();
+            this.ScaleInvalidateMeasureOverride();
+        }
+
+        #endregion
+
+        #region BarPointers collection changed
 
         /// <summary>
         /// Called when <see cref="BarPointer"/> collection got changed.
@@ -2255,55 +2441,156 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="e">The NotifyCollectionChangedEventArgs.</param>
         private void BarPointers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+            e.ApplyCollectionChanges((obj, index, _) => AddBarPointer(obj, index), (obj, index) => RemoveBarPointer(obj, index), ResetBarPointers);
+        }
+
+        /// <summary>
+        /// Add/insert the axis to the bar pointers collection. 
+        /// </summary>
+        /// <param name="pointer"></param>
+        /// <param name="index"></param>
+        private void AddBarPointer(object pointer, int index)
+        {
+            if (pointer is BarPointer barPointer)
             {
-                case NotifyCollectionChangedAction.Add:
-                case NotifyCollectionChangedAction.Remove:
-                case NotifyCollectionChangedAction.Replace:
-                    if (e.NewItems != null && e.NewItems.Count > 0)
-                    {
-                        foreach (BarPointer barPointer in e.NewItems)
-                        {
-                            barPointer.Scale = this;
-                            barPointer.CanAnimate = true;
+                barPointer.Scale = this;
+                barPointer.CanAnimate = true;
 
-                            if (!this.pointerGrid.Contains(barPointer.PointerView))
-                                this.pointerGrid.Add(barPointer.PointerView);
+                if (!this.barPointersLayout.Contains(barPointer.PointerView))
+                    this.barPointersLayout.Insert(index, barPointer.PointerView);
 
-                            if (!this.ScaleAvailableSize.IsZero)
-                            {
-                                SetInheritedBindingContext(barPointer, this.BindingContext);
-                                barPointer.CreatePointer();
-                            }
+                if (barPointer.Child != null)
+                {
+                    barPointer.Child.BindingContext = barPointer;
+                    this.BarPointerChildUpdate(null, barPointer.Child);
+                }
 
-                            if (this.pointerGrid.Children.Count > 0 && !this.parentGrid.Children.Contains(pointerGrid))
-                            {
-                                this.parentGrid.Children.Add(pointerGrid);
-                            }
-                        }
-                    }
+                SetInheritedBindingContext(barPointer, this.BindingContext);
 
-                    if (e.OldItems != null && e.OldItems.Count > 0)
-                    {
-                        foreach (BarPointer barPointer in e.OldItems)
-                        {
-                            barPointer.Scale = null;
+                if (this.barPointersLayout.Children.Count > 0 && !this.parentLayout.Children.Contains(barPointersLayout))
+                {
+                    this.parentLayout.Children.Add(barPointersLayout);
+                }
 
-                            if (this.pointerGrid.Children.Contains(barPointer.PointerView))
-                            {
-                                this.pointerGrid.Children.Remove(barPointer.PointerView);
-                            }
-                        }
-                    }
-                    break;
-
-                case NotifyCollectionChangedAction.Reset:
-                    this.pointerGrid.Children.Clear();
-                    break;
-                default:
-                    break;
+                this.ScaleInvalidateMeasureOverride();
             }
         }
+
+        /// <summary>
+        /// Remove the range from the bar pointers collection. 
+        /// </summary>
+        /// <param name="pointer"></param>
+        /// <param name="index"></param>
+        private void RemoveBarPointer(object pointer, int index)
+        {
+            if (pointer is BarPointer barPointer)
+            {
+                barPointer.Scale = null;
+
+                if (this.barPointersLayout.Children.Contains(barPointer.PointerView))
+                {
+                    this.barPointersLayout.Children.RemoveAt(index);
+                }
+
+                if (barPointer.Child != null)
+                    this.BarPointerChildUpdate(barPointer.Child, null);
+
+                this.ScaleInvalidateMeasureOverride();
+            }
+        }
+
+        /// <summary>
+        /// Clear the bar pointers collection. 
+        /// </summary>
+        private void ResetBarPointers()
+        {
+            this.barPointersLayout.Children.Clear();
+            this.ScaleInvalidateMeasureOverride();
+        }
+
+        #endregion
+
+        #region MarkerPointers collection changed
+
+        /// <summary>
+        /// Called when <see cref="MarkerPointers"/> collection got changed.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The NotifyCollectionChangedEventArgs.</param>
+        private void MarkerPointers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            e.ApplyCollectionChanges((obj, index, _) => AddMarkerPointer(obj, index), (obj, index) => RemoveMarkerPointer(obj, index), ResetMarkerPointers);
+        }
+
+        /// <summary>
+        /// Add/insert the axis to the marker pointers collection. 
+        /// </summary>
+        /// <param name="pointer"></param>
+        /// <param name="index"></param>
+        private void AddMarkerPointer(object pointer, int index)
+        {
+            if (pointer is LinearMarkerPointer markerPointer)
+            {
+                markerPointer.Scale = this;
+                markerPointer.CanAnimate = true;
+
+                if (markerPointer is ContentPointer contentPointer && contentPointer.Content != null)
+                {
+                    contentPointer.Content.BindingContext = contentPointer;
+                    this.ShapePointerChildUpdate(null, contentPointer.Content);
+                }
+
+                if (!this.shapePointersLayout.Contains(markerPointer.PointerView))
+                    this.shapePointersLayout.Insert(index, markerPointer.PointerView);
+
+                if (!this.ScaleAvailableSize.IsZero)
+                {
+                    SetInheritedBindingContext(markerPointer, this.BindingContext);
+                    markerPointer.CreatePointer();
+                }
+
+                if (this.shapePointersLayout.Children.Count > 0 && !this.parentLayout.Children.Contains(shapePointersLayout))
+                {
+                    this.parentLayout.Children.Add(shapePointersLayout);
+                }
+
+                this.ScaleInvalidateMeasureOverride();
+            }
+        }
+
+        /// <summary>
+        /// Remove the range from the marker pointers collection. 
+        /// </summary>
+        /// <param name="pointer"></param>
+        /// <param name="index"></param>
+        private void RemoveMarkerPointer(object pointer, int index)
+        {
+            if (pointer is LinearMarkerPointer markerPointer)
+            {
+                markerPointer.Scale = null;
+
+                if (this.shapePointersLayout.Children.Contains(markerPointer.PointerView))
+                {
+                    this.shapePointersLayout.Children.RemoveAt(index);
+                }
+
+                if (markerPointer is ContentPointer contentPointer && contentPointer.Content != null)
+                    this.ShapePointerChildUpdate(contentPointer.Content, null);
+
+                this.ScaleInvalidateMeasureOverride();
+            }
+        }
+
+        /// <summary>
+        /// Clear the bar pointers collection. 
+        /// </summary>
+        private void ResetMarkerPointers()
+        {
+            this.shapePointersLayout.Children.Clear();
+            this.ScaleInvalidateMeasureOverride();
+        }
+
+        #endregion
 
         #endregion
 
@@ -2327,12 +2614,12 @@ namespace Syncfusion.Maui.Gauges
             }
 
             this.ScaleAvailableSize = new Size(widthConstraint, heightConstraint);
-            this.UpdateAxis();
+            this.UpdateScale();
 
             if ((this.Orientation == GaugeOrientation.Horizontal && this.HeightRequest == -1)
                 || (this.Orientation == GaugeOrientation.Vertical && this.WidthRequest == -1))
             {
-                this.ScaleAvailableSize = this.GetAxisSize();
+                this.ScaleAvailableSize = this.GetScaleSize();
             }
 
             this.MeasureContent(ScaleAvailableSize.Width, ScaleAvailableSize.Height);
@@ -2352,61 +2639,74 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// To get the axis size based on its children's size and positions.
+        /// Annotation content collection added in the visual tree elements for hot reload case. 
         /// </summary>
-        /// <returns>The size to be rendered for axis along with its elements.</returns>
-        private Size GetAxisSize()
+        /// <returns></returns>
+        IReadOnlyList<IVisualTreeElement> IVisualTreeElement.GetVisualChildren()
+        {
+            if (this.parentLayout != null)
+            {
+                return new List<IVisualTreeElement>() { parentLayout };
+            }
+            return new List<IVisualTreeElement>();
+        }
+
+        /// <summary>
+        /// To get the scale size based on its children's size and positions.
+        /// </summary>
+        /// <returns>The size to be rendered for scale along with its elements.</returns>
+        private Size GetScaleSize()
         {
             double maximumTickLength = this.GetActualMaxTickLength();
             double actualTickOffset = this.GetActualTickOffset();
             double labelMaximumSize = this.GetLabelMaxLength();
             double actualLabelOffset = this.GetActualLabelOffset();
-            double actualAxisLineThickness = this.GetActualAxisLineThickness();
+            double actualScaleLineThickness = this.GetActualScaleLineThickness();
             GaugeLabelsPosition actualLabelPosition = this.GetActualLabelPosition();
             GaugeElementPosition actualTickPosition = this.GetActualElementPosition(this.TickPosition);
-            double axisHeight, outsideRangeHeight = 0d, insideRangeHeight = 0d;
+            double scaleHeight, outsideRangeHeight = 0d, insideRangeHeight = 0d;
             this.GetRangeHeights(ref outsideRangeHeight, ref insideRangeHeight);
             double outsideBarPointerHeight = 0d, insideBarPointerHeight = 0d;
             this.GetBarPointersHeight(ref outsideBarPointerHeight, ref insideBarPointerHeight);
             double outsideMarkerPointerHeight = 0d, insideMarkerPointerHeight = 0d;
-            //this.GetMarkerPointersHeight(ref outsideMarkerPointerHeight, ref insideMarkerPointerHeight);
-            double outsideAxisHeight = Math.Max(Math.Max(outsideRangeHeight, outsideBarPointerHeight), outsideMarkerPointerHeight);
-            double insideAxisHeight = Math.Max(Math.Max(insideRangeHeight, insideBarPointerHeight), insideMarkerPointerHeight);
-            double labelPanelHeight = labelMaximumSize + actualLabelOffset;
-            double tickPanelHeight = maximumTickLength + actualTickOffset;
-            double tickAndLabelHeight = labelPanelHeight + tickPanelHeight;
+            this.GetMarkerPointersHeight(ref outsideMarkerPointerHeight, ref insideMarkerPointerHeight);
+            double outsideScaleHeight = Math.Max(Math.Max(outsideRangeHeight, outsideBarPointerHeight), outsideMarkerPointerHeight);
+            double insideScaleHeight = Math.Max(Math.Max(insideRangeHeight, insideBarPointerHeight), insideMarkerPointerHeight);
+            double labelsLayoutHeight = labelMaximumSize + actualLabelOffset;
+            double ticksLayoutHeight = maximumTickLength + actualTickOffset;
+            double tickAndLabelHeight = labelsLayoutHeight + ticksLayoutHeight;
 
             if (actualTickPosition == GaugeElementPosition.Cross)
             {
-                if (actualAxisLineThickness < maximumTickLength)
+                if (actualScaleLineThickness < maximumTickLength)
                 {
-                    double axisTop = (maximumTickLength - actualAxisLineThickness) / 2;
-                    double diffHeight = axisTop;
+                    double ScaleTop = (maximumTickLength - actualScaleLineThickness) / 2;
+                    double diffHeight = ScaleTop;
                     if (actualLabelPosition == GaugeLabelsPosition.Outside)
                     {
-                        axisTop += labelPanelHeight;
-                        axisTop = outsideAxisHeight > axisTop ? outsideAxisHeight : axisTop;
-                        axisHeight = actualAxisLineThickness + axisTop;
-                        axisHeight += diffHeight > insideAxisHeight ? diffHeight : insideAxisHeight;
+                        ScaleTop += labelsLayoutHeight;
+                        ScaleTop = outsideScaleHeight > ScaleTop ? outsideScaleHeight : ScaleTop;
+                        scaleHeight = actualScaleLineThickness + ScaleTop;
+                        scaleHeight += diffHeight > insideScaleHeight ? diffHeight : insideScaleHeight;
                     }
                     else
                     {
-                        axisTop = outsideAxisHeight > axisTop ? outsideAxisHeight : axisTop;
-                        axisHeight = actualAxisLineThickness + axisTop;
-                        axisHeight += insideAxisHeight < (diffHeight + labelPanelHeight) ? (diffHeight + labelPanelHeight) : insideAxisHeight;
+                        ScaleTop = outsideScaleHeight > ScaleTop ? outsideScaleHeight : ScaleTop;
+                        scaleHeight = actualScaleLineThickness + ScaleTop;
+                        scaleHeight += insideScaleHeight < (diffHeight + labelsLayoutHeight) ? (diffHeight + labelsLayoutHeight) : insideScaleHeight;
                     }
                 }
                 else
                 {
                     if (actualLabelPosition == GaugeLabelsPosition.Outside)
                     {
-                        axisHeight = labelPanelHeight > outsideAxisHeight ? labelPanelHeight : outsideAxisHeight;
-                        axisHeight += actualAxisLineThickness + insideAxisHeight;
+                        scaleHeight = labelsLayoutHeight > outsideScaleHeight ? labelsLayoutHeight : outsideScaleHeight;
+                        scaleHeight += actualScaleLineThickness + insideScaleHeight;
                     }
                     else
                     {
-                        axisHeight = labelPanelHeight > insideAxisHeight ? labelPanelHeight : insideAxisHeight;
-                        axisHeight += actualAxisLineThickness + outsideAxisHeight;
+                        scaleHeight = labelsLayoutHeight > insideScaleHeight ? labelsLayoutHeight : insideScaleHeight;
+                        scaleHeight += actualScaleLineThickness + outsideScaleHeight;
                     }
                 }
             }
@@ -2414,42 +2714,42 @@ namespace Syncfusion.Maui.Gauges
             {
                 if (actualLabelPosition == GaugeLabelsPosition.Inside && actualTickPosition == GaugeElementPosition.Inside)
                 {
-                    axisHeight = actualAxisLineThickness + outsideAxisHeight;
-                    axisHeight += insideAxisHeight > tickAndLabelHeight ? insideAxisHeight : tickAndLabelHeight;
+                    scaleHeight = actualScaleLineThickness + outsideScaleHeight;
+                    scaleHeight += insideScaleHeight > tickAndLabelHeight ? insideScaleHeight : tickAndLabelHeight;
                 }
                 else if (actualLabelPosition == GaugeLabelsPosition.Outside && actualTickPosition == GaugeElementPosition.Outside)
                 {
-                    axisHeight = actualAxisLineThickness + insideAxisHeight;
-                    axisHeight += outsideAxisHeight > tickAndLabelHeight ? outsideAxisHeight : tickAndLabelHeight;
+                    scaleHeight = actualScaleLineThickness + insideScaleHeight;
+                    scaleHeight += outsideScaleHeight > tickAndLabelHeight ? outsideScaleHeight : tickAndLabelHeight;
                 }
                 else
                 {
-                    axisHeight = actualAxisLineThickness;
+                    scaleHeight = actualScaleLineThickness;
                     if (actualLabelPosition == GaugeLabelsPosition.Outside)
                     {
-                        axisHeight += outsideAxisHeight < labelPanelHeight ? labelPanelHeight : outsideAxisHeight;
+                        scaleHeight += outsideScaleHeight < labelsLayoutHeight ? labelsLayoutHeight : outsideScaleHeight;
                     }
 
                     if (actualLabelPosition == GaugeLabelsPosition.Inside)
                     {
-                        axisHeight += insideAxisHeight < labelPanelHeight ? labelPanelHeight : insideAxisHeight;
+                        scaleHeight += insideScaleHeight < labelsLayoutHeight ? labelsLayoutHeight : insideScaleHeight;
                     }
 
                     if (actualTickPosition == GaugeElementPosition.Outside)
                     {
-                        axisHeight += outsideAxisHeight < tickPanelHeight ? tickPanelHeight : outsideAxisHeight;
+                        scaleHeight += outsideScaleHeight < ticksLayoutHeight ? ticksLayoutHeight : outsideScaleHeight;
                     }
 
                     if (actualTickPosition == GaugeElementPosition.Inside)
                     {
-                        axisHeight += insideAxisHeight < tickPanelHeight ? tickPanelHeight : insideAxisHeight;
+                        scaleHeight += insideScaleHeight < ticksLayoutHeight ? ticksLayoutHeight : insideScaleHeight;
                     }
                 }
             }
 
             return this.Orientation == GaugeOrientation.Horizontal
-                ? new Size(this.ScaleAvailableSize.Width, axisHeight)
-                : new Size(axisHeight, this.ScaleAvailableSize.Height);
+                ? new Size(this.ScaleAvailableSize.Width, scaleHeight)
+                : new Size(scaleHeight, this.ScaleAvailableSize.Height);
         }
 
 
@@ -2457,8 +2757,8 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// To get the range heights based on positions.
         /// </summary>
-        /// <param name="outsideRangeHeight">Outside positioned axis height.</param>
-        /// <param name="insideRangeHeight">Inside positioned axis height.</param>
+        /// <param name="outsideRangeHeight">Outside positioned scale height.</param>
+        /// <param name="insideRangeHeight">Inside positioned scale height.</param>
         private void GetRangeHeights(ref double outsideRangeHeight, ref double insideRangeHeight)
         {
             double fillRangeHeight = 0d;
@@ -2489,10 +2789,10 @@ namespace Syncfusion.Maui.Gauges
                 }
             }
 
-            double actualAxisLineThickness = this.GetActualAxisLineThickness();
-            if (fillRangeHeight > actualAxisLineThickness)
+            double actualScaleLineThickness = this.GetActualScaleLineThickness();
+            if (fillRangeHeight > actualScaleLineThickness)
             {
-                double diffWidth = (fillRangeHeight - actualAxisLineThickness) / 2;
+                double diffWidth = (fillRangeHeight - actualScaleLineThickness) / 2;
                 insideRangeHeight = Math.Max(diffWidth, insideRangeHeight);
                 outsideRangeHeight = Math.Max(diffWidth, outsideRangeHeight);
             }
@@ -2504,14 +2804,14 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// To get the range heights based on offset positions.
+        /// To get the bar pointers heights based on offset positions.
         /// </summary>
-        /// <param name="outsidePointerHeight">Outside positioned axis height.</param>
-        /// <param name="insidePointerHeight">Inside positioned axis height.</param>
+        /// <param name="outsidePointerHeight">Outside positioned scale height.</param>
+        /// <param name="insidePointerHeight">Inside positioned scale height.</param>
         private void GetBarPointersHeight(ref double outsidePointerHeight, ref double insidePointerHeight)
         {
             double fillPointerHeight = 0d;
-            double actualAxisLineThickness = this.GetActualAxisLineThickness();
+            double actualScaleLineThickness = this.GetActualScaleLineThickness();
             foreach (BarPointer barPointer in this.BarPointers)
             {
                 if (barPointer.Offset == 0)
@@ -2520,24 +2820,24 @@ namespace Syncfusion.Maui.Gauges
                 }
                 else if (barPointer.Offset > 0)
                 {
-                    insidePointerHeight = Math.Max((barPointer.PointerSize / 2) + barPointer.Offset - (actualAxisLineThickness / 2), insidePointerHeight);
-                    if (barPointer.PointerSize > actualAxisLineThickness)
+                    insidePointerHeight = Math.Max((barPointer.PointerSize / 2) + barPointer.Offset - (actualScaleLineThickness / 2), insidePointerHeight);
+                    if (barPointer.PointerSize > actualScaleLineThickness)
                     {
-                        if (barPointer.Offset < (barPointer.PointerSize - actualAxisLineThickness))
+                        if (barPointer.Offset < (barPointer.PointerSize - actualScaleLineThickness))
                         {
-                            outsidePointerHeight = Math.Max(((barPointer.PointerSize - actualAxisLineThickness) / 2) - barPointer.Offset, outsidePointerHeight);
+                            outsidePointerHeight = Math.Max(((barPointer.PointerSize - actualScaleLineThickness) / 2) - barPointer.Offset, outsidePointerHeight);
                         }
                     }
                 }
                 else if (barPointer.Offset < 0)
                 {
-                    outsidePointerHeight = Math.Max((barPointer.PointerSize / 2) + Math.Abs(barPointer.Offset) - (actualAxisLineThickness / 2), outsidePointerHeight);
+                    outsidePointerHeight = Math.Max((barPointer.PointerSize / 2) + Math.Abs(barPointer.Offset) - (actualScaleLineThickness / 2), outsidePointerHeight);
                 }
             }
 
-            if (fillPointerHeight > actualAxisLineThickness)
+            if (fillPointerHeight > actualScaleLineThickness)
             {
-                double diffWidth = (fillPointerHeight - actualAxisLineThickness) / 2;
+                double diffWidth = (fillPointerHeight - actualScaleLineThickness) / 2;
                 insidePointerHeight = Math.Max(diffWidth, insidePointerHeight);
                 outsidePointerHeight = Math.Max(diffWidth, outsidePointerHeight);
             }
@@ -2546,6 +2846,57 @@ namespace Syncfusion.Maui.Gauges
             {
                 Utility.Swap(ref insidePointerHeight, ref outsidePointerHeight);
             }
+        }
+
+        /// <summary>
+        /// To get the marker pointers heights based on offset positions.
+        /// </summary>
+        /// <param name="outsidePointerHeight">Outside positioned axis height.</param>
+        /// <param name="insidePointerHeight">Inside positioned axis height.</param>
+        internal void GetMarkerPointersHeight(ref double outsidePointerHeight, ref double insidePointerHeight)
+        {
+            double actualAxisLineThickness = this.GetActualScaleLineThickness();
+
+            foreach (LinearMarkerPointer markerPointer in this.MarkerPointers)
+            {
+                double pointerOffset = this.Orientation == GaugeOrientation.Horizontal
+                    ? markerPointer.OffsetPoint.Y : markerPointer.OffsetPoint.X;
+                GaugeAlignment pointerPosition = this.Orientation == GaugeOrientation.Horizontal
+                    ? markerPointer.VerticalAlignment : markerPointer.HorizontalAlignment;
+                double markerSize = 0d;
+
+                if (markerPointer is ShapePointer shapePointer)
+                {
+                    markerSize = this.Orientation == GaugeOrientation.Horizontal
+                        ? shapePointer.ShapeHeight
+                        : shapePointer.ShapeWidth;
+                }
+                else if (markerPointer is ContentPointer contentPointer)
+                {
+                    if (contentPointer.Content != null)
+                    {
+                        markerSize = this.Orientation == GaugeOrientation.Horizontal
+                                        ? contentPointer.Content.DesiredSize.Height
+                                        : contentPointer.Content.DesiredSize.Width;
+                    }
+                }
+
+                if (pointerOffset == 0)
+                {
+                    markerPointer.MarkerPointersHeightWithoutOffset(ref outsidePointerHeight, ref insidePointerHeight, actualAxisLineThickness, pointerPosition, markerSize);
+                }
+                else if (pointerOffset > 0)
+                {
+                    markerPointer.MarkerPointerHeightWithPositiveOffset(ref outsidePointerHeight, ref insidePointerHeight, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
+                }
+                else if (pointerOffset < 0)
+                {
+                    markerPointer.MarkerPointersHeightWithNegativeOffset(ref outsidePointerHeight, ref insidePointerHeight, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
+                }
+            }
+
+            if (this.IsMirrored)
+                Utility.Swap(ref insidePointerHeight, ref outsidePointerHeight);
         }
 
         #endregion

@@ -12,7 +12,7 @@ namespace Syncfusion.Maui.Gauges
     /// <summary>
     /// Create the range to add color bar in the gauge.
     /// <see cref="LinearRange"/> is a visual that helps to quickly visualize
-    /// where a value falls on the axis.
+    /// where a value falls on the scale.
     /// </summary>
     public class LinearRange : BindableObject
     {
@@ -52,7 +52,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="MidWidth"/> bindable property.
         /// </value>
         public static readonly BindableProperty MidWidthProperty =
-            BindableProperty.Create(nameof(MidWidth), typeof(double), typeof(LinearRange), 10d, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(MidWidth), typeof(double), typeof(LinearRange), double.NaN, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="EndWidth"/> bindable property.
@@ -90,6 +90,15 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty GradientStopsProperty =
          BindableProperty.Create(nameof(GradientStops), typeof(ObservableCollection<GaugeGradientStop>), typeof(LinearRange), null, propertyChanged: OnGradientStopsPropertyChanged);
 
+        /// <summary>
+        /// Identifies the <see cref="Child"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="Child"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty ChildProperty =
+          BindableProperty.Create(nameof(Child), typeof(View), typeof(LinearRange), null, propertyChanged: OnChildPropertyChanged);
+
         #endregion
 
         #region Fields
@@ -98,9 +107,9 @@ namespace Syncfusion.Maui.Gauges
         private LinearGradientBrush? linearGradientBrush;
 
         internal LinearRangeView RangeView;
-        internal SfLinearGauge? LinearGauge;
-
+        internal SfLinearGauge? Scale;
         internal double ActualStartValue, ActualEndValue;
+        
         #endregion
 
         #region Constructor
@@ -206,7 +215,7 @@ namespace Syncfusion.Maui.Gauges
         /// Gets or sets a collection of <see cref="GaugeGradientStop"/> to fill the gradient brush to the gauge range.
         /// </summary>
         /// <value>
-        /// A collection of the <see cref="GaugeGradientStop"/> objects associated with the brush, each of which specifies a color and an offset along the axis.
+        /// A collection of the <see cref="GaugeGradientStop"/> objects associated with the brush, each of which specifies a color and an offset along the scale.
         /// The default is an empty collection.
         /// </value>
         public ObservableCollection<GaugeGradientStop> GradientStops
@@ -214,6 +223,19 @@ namespace Syncfusion.Maui.Gauges
             get { return (ObservableCollection<GaugeGradientStop>)this.GetValue(GradientStopsProperty); }
             set { this.SetValue(GradientStopsProperty, value); }
         }
+
+        /// <summary>
+        /// Gets or sets the child content of a <see cref="BarPointer"/>. 
+        /// </summary>
+        /// <value>
+        /// An object that contains the pointer's visual child content. The default value is <c>null</c>.
+        /// </value>
+        public View Child
+        {
+            get { return (View)this.GetValue(ChildProperty); }
+            set { this.SetValue(ChildProperty, value); }
+        }
+
         #endregion
 
         #region Override methods
@@ -241,7 +263,7 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         internal void CreateRangePath()
         {
-            if (this.LinearGauge == null || this.LinearGauge.ScaleAvailableSize.IsZero)
+            if (this.Scale == null || this.Scale.ScaleAvailableSize.IsZero)
             {
                 return;
             }
@@ -249,8 +271,8 @@ namespace Syncfusion.Maui.Gauges
             double maxRangeWidth = double.IsNaN(this.MidWidth) ? Math.Max(this.StartWidth, this.EndWidth) :
                 Math.Max(Math.Max(this.StartWidth, this.MidWidth), this.EndWidth);
 
-            ActualStartValue = Math.Clamp(this.StartValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
-            ActualEndValue = Math.Clamp(this.EndValue, this.LinearGauge.ActualMinimum, this.LinearGauge.ActualMaximum);
+            ActualStartValue = Math.Clamp(this.StartValue, this.Scale.ActualMinimum, this.Scale.ActualMaximum);
+            ActualEndValue = Math.Clamp(this.EndValue, this.Scale.ActualMinimum, this.Scale.ActualMaximum);
             Utility.ValidateMinimumMaximumValue(ref ActualStartValue, ref ActualEndValue);
             double actualEndWidth = this.EndWidth > 0 ? this.EndWidth : 0d;
             double actualStartWidth = this.StartWidth > 0 ? this.StartWidth : 0d;
@@ -259,95 +281,80 @@ namespace Syncfusion.Maui.Gauges
             {
                 actualMidWidth = this.MidWidth > 0 ? this.MidWidth : 0d;
             }
-            double lineThickness = this.LinearGauge.GetActualAxisLineThickness();
-            double rangeStartPosition = this.LinearGauge.GetPositionFromValue(ActualStartValue);
-            double rangeEndPosition = this.LinearGauge.GetPositionFromValue(ActualEndValue);
+            double lineThickness = this.Scale.GetActualScaleLineThickness();
+            double rangeStartPosition = this.Scale.GetPositionFromValue(ActualStartValue);
+            double rangeEndPosition = this.Scale.GetPositionFromValue(ActualEndValue);
             double rangeMidPosition = (rangeStartPosition + rangeEndPosition) / 2;
-            double axisLinePositionX = this.LinearGauge.AxisLinePosition.X;
-            double axisLinePositionY = this.LinearGauge.AxisLinePosition.Y;
+            double scaleLinePositionX = this.Scale.ScalePosition.X;
+            double scaleLinePositionY = this.Scale.ScalePosition.Y;
             rangePath = new PathF();
 
-            switch (this.LinearGauge.GetActualElementPosition(this.RangePosition))
+            switch (this.Scale.GetActualElementPosition(this.RangePosition))
             {
                 case GaugeElementPosition.Outside:
-                    MoveToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY);
-                    LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY);
-                    LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY - actualEndWidth);
+                    this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY);
+                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY);
+                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY - actualEndWidth);
                     if (!double.IsNaN(this.MidWidth))
                     {
-                        LineToRangePath(axisLinePositionX + rangeMidPosition, axisLinePositionY - actualMidWidth);
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY - actualMidWidth);
                     }
-                    LineToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY - actualStartWidth);
+                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY - actualStartWidth);
                     break;
                 case GaugeElementPosition.Cross:
-                    if (this.LinearGauge.IsMirrored)
+                    if (this.Scale.IsMirrored)
                     {
-                        MoveToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2));
-                        LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2));
-                        LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualEndWidth);
+                        this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2));
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2));
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualEndWidth);
                         if (!double.IsNaN(this.MidWidth))
                         {
-                            LineToRangePath(axisLinePositionX + rangeMidPosition, axisLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualMidWidth);
+                            this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualMidWidth);
                         }
-                        LineToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualStartWidth);
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualStartWidth);
                     }
                     else
                     {
-                        MoveToRangePath(axisLinePositionX + rangeStartPosition,axisLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualStartWidth);
+                        this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualStartWidth);
                         if (!double.IsNaN(this.MidWidth))
                         {
-                            LineToRangePath(axisLinePositionX + rangeMidPosition,axisLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualMidWidth);
+                            this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualMidWidth);
                         }
-                        LineToRangePath(axisLinePositionX + rangeEndPosition,axisLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualEndWidth);
-                        LineToRangePath(axisLinePositionX + rangeEndPosition,axisLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2));
-                        LineToRangePath(axisLinePositionX + rangeStartPosition,axisLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2));
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualEndWidth);
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2));
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2));
                     }
-
                     break;
                 case GaugeElementPosition.Inside:
-                    MoveToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY + lineThickness);
-                    LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY + lineThickness);
-                    LineToRangePath(axisLinePositionX + rangeEndPosition, axisLinePositionY + lineThickness + actualEndWidth);
+                    this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + lineThickness);
+                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + lineThickness);
+                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + lineThickness + actualEndWidth);
                     if (!double.IsNaN(this.MidWidth))
                     {
-                        LineToRangePath(axisLinePositionX + rangeMidPosition, axisLinePositionY + lineThickness + actualMidWidth);
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY + lineThickness + actualMidWidth);
                     }
-                    LineToRangePath(axisLinePositionX + rangeStartPosition, axisLinePositionY + lineThickness + actualStartWidth);
+                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + lineThickness + actualStartWidth);
                     break;
             }
             rangePath.Close();
 
             CreateGradient();
-        }
 
-        private void MoveToRangePath(double x, double y)
-        {
-            if (this.LinearGauge == null || rangePath == null)
-                return;
-
-            if (this.LinearGauge.Orientation == GaugeOrientation.Horizontal)
-                rangePath.MoveTo((float)x, (float)y);
-            else
-                rangePath.MoveTo((float)y, (float)x);
-        }
-
-        private void LineToRangePath(double x, double y)
-        {
-            if (this.LinearGauge == null || rangePath == null)
-                return;
-
-            if (this.LinearGauge.Orientation == GaugeOrientation.Horizontal)
-                rangePath.LineTo((float)x, (float)y);
-            else
-                rangePath.LineTo((float)y, (float)x);
+            //Arrange child.
+            if (this.Child != null)
+            {
+                Scale.UpdateChild(this.Child, rangePath.Bounds);
+            }
         }
 
         private void CreateGradient()
         {
-            if (this.LinearGauge != null && this.GradientStops != null)
+            if (this.Scale != null && this.GradientStops != null)
             {
-                linearGradientBrush = this.LinearGauge.GetLinearGradient(this.GradientStops, ActualStartValue, ActualEndValue);
+                linearGradientBrush = this.Scale.GetLinearGradient(this.GradientStops, ActualStartValue, ActualEndValue);
             }
+            else
+                linearGradientBrush = null;
         }
 
         /// <summary>
@@ -356,7 +363,7 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="canvas">canvas</param>
         internal void DrawRange(ICanvas canvas)
         {
-            if (this.LinearGauge != null)
+            if (this.Scale != null)
             {
                 canvas.SaveState();
 
@@ -398,9 +405,9 @@ namespace Syncfusion.Maui.Gauges
             if (bindable is LinearRange linearRange)
             {
                 linearRange.CreateRangePath();
-                if (linearRange.LinearGauge != null && linearRange.LinearGauge.UseRangeColorForAxis)
+                if (linearRange.Scale != null && linearRange.Scale.UseRangeColorForAxis)
                 {
-                    linearRange.LinearGauge.InvalidateDrawable();
+                    linearRange.Scale.InvalidateDrawable();
                 }
                 linearRange.InvalidateDrawable();
             }
@@ -414,10 +421,9 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="newValue">New value.</param>
         private static void OnPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is LinearRange linearRange && linearRange.LinearGauge != null)
+            if (bindable is LinearRange linearRange && linearRange.Scale != null)
             {
-                linearRange.LinearGauge.ScaleInvalidateMeasureOverride();
-                linearRange.InvalidateDrawable();
+                linearRange.Scale.ScaleInvalidateMeasureOverride();
             }
         }
 
@@ -431,9 +437,34 @@ namespace Syncfusion.Maui.Gauges
         {
             if (bindable is LinearRange linearRange)
             {
-                if (linearRange.LinearGauge != null)
+                if (linearRange.Scale != null)
                 {
                     linearRange.InvalidateDrawable();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Called when bar pointer <see cref="Child"/> changed.
+        /// </summary>
+        /// <param name="bindable">The BindableObject.</param>
+        /// <param name="oldValue">Old value.</param>
+        /// <param name="newValue">New value.</param>
+        private static void OnChildPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is LinearRange linearRange)
+            {
+                if (linearRange.Scale != null)
+                {
+                    linearRange.Scale.RangeChildUpdate(oldValue, newValue);
+
+                    if (newValue is View newChild)
+                    {
+                        newChild.BindingContext = linearRange;
+
+                        if (linearRange.rangePath != null)
+                            linearRange.Scale.UpdateChild(newChild, linearRange.rangePath.Bounds);
+                    }
                 }
             }
         }

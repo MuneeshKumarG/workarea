@@ -9,8 +9,7 @@ using System.Collections.Specialized;
 namespace Syncfusion.Maui.Gauges
 {
     /// <summary>
-    /// Create the pointer to indicate the value with built-in shape.
-    /// To highlight values, set the bar pointer pointer type to a built-in shape, such as a circle, triangle, inverted triangle, square, or diamond.
+    /// Create the pointer to indicate the value with bar shape.
     /// </summary>
     public class BarPointer : LinearPointer
     {
@@ -61,6 +60,15 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty GradientStopsProperty =
           BindableProperty.Create(nameof(GradientStops), typeof(ObservableCollection<GaugeGradientStop>), typeof(BarPointer), null, propertyChanged: OnGradientStopsPropertyChanged);
 
+        /// <summary>
+        /// Identifies the <see cref="Child"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="Child"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty ChildProperty =
+          BindableProperty.Create(nameof(Child), typeof(View), typeof(BarPointer), null, propertyChanged: OnChildPropertyChanged);
+
         #endregion
 
         #region Fields
@@ -74,13 +82,13 @@ namespace Syncfusion.Maui.Gauges
         #region Properties
 
         /// <summary>
-        /// Gets or sets the value to adjusts the <see cref="BarPointer"/> position from the axis line.
+        /// Gets or sets the value to adjusts the <see cref="BarPointer"/> position from the scale line.
         /// </summary>
         /// <value>
         /// Its default value is <c>0</c>.
         /// </value>
         /// <remarks>
-        /// Specifies the distance between the pointer and the axis line. <see cref="BarPointer"/> rendered over the axis line by default. 
+        /// Specifies the distance between the pointer and the scale line. <see cref="BarPointer"/> rendered over the scale line by default. 
         /// </remarks>
         public double Offset
         {
@@ -116,7 +124,7 @@ namespace Syncfusion.Maui.Gauges
         /// Gets or sets the collection of <see cref="GaugeGradientStop"/> that specifies how interior is painted with gradient brush on the <see cref="BarPointer"/>.
         /// </summary>
         /// <value>
-        /// A collection of the <see cref="GaugeGradientStop"/> objects associated with the brush, each of which specifies a color and an offset along the axis.
+        /// A collection of the <see cref="GaugeGradientStop"/> objects associated with the brush, each of which specifies a color and an offset along the scale.
         /// The default is an empty collection.
         /// </value>
         public ObservableCollection<GaugeGradientStop> GradientStops
@@ -132,6 +140,18 @@ namespace Syncfusion.Maui.Gauges
         {
             get { return (Brush)this.GetValue(FillProperty); }
             set { this.SetValue(FillProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the child content of a <see cref="BarPointer"/>. 
+        /// </summary>
+        /// <value>
+        /// An object that contains the pointer's visual child content. The default value is <c>null</c>.
+        /// </value>
+        public View Child
+        {
+            get { return (View)this.GetValue(ChildProperty); }
+            set { this.SetValue(ChildProperty, value); }
         }
 
         #endregion
@@ -173,10 +193,11 @@ namespace Syncfusion.Maui.Gauges
 
                 Utility.ValidateMinimumMaximumValue(ref actualStartValue, ref actualEndValue);
                 double halfWidth = this.PointerSize > 0 ? this.PointerSize / 2 : 0d;
-                double halfLineThickness = this.Scale.GetActualAxisLineThickness() / 2;
+                double halfLineThickness = this.Scale.GetActualScaleLineThickness() / 2;
                 double pointerStartPosition = this.Scale.GetPositionFromValue(actualStartValue);
                 double pointerEndPosition = this.Scale.GetPositionFromValue(actualEndValue);
                 double halfPointerWidth = this.PointerSize / 2;
+
                 if (this.Scale.Orientation == GaugeOrientation.Vertical ^ this.Scale.IsInversed)
                 {
                     halfPointerWidth *= -1;
@@ -193,58 +214,43 @@ namespace Syncfusion.Maui.Gauges
                 }
 
                 barPointerPath = new PathF();
-                double axisLinePositionY = this.Scale.AxisLinePosition.Y + halfLineThickness;
-                double startPointX1 = this.Scale.AxisLinePosition.X + pointerStartPosition;
-                double startPointX2 = this.Scale.AxisLinePosition.X + pointerEndPosition;
+                float x1, x2, y1, y2;
+                double scaleLinePositionY = this.Scale.ScalePosition.Y + halfLineThickness;
+                double startPointX1 = this.Scale.ScalePosition.X + pointerStartPosition;
+                double startPointX2 = this.Scale.ScalePosition.X + pointerEndPosition;
+
                 if (this.Scale.IsMirrored)
                 {
-                    this.Scale.MoveToPath(barPointerPath, startPointX1, axisLinePositionY - this.Offset + halfWidth);
-                    this.Scale.LineToPath(barPointerPath, startPointX2, axisLinePositionY - this.Offset + halfWidth);
-                    this.Scale.LineToPath(barPointerPath, startPointX2, axisLinePositionY - this.Offset - halfWidth);
-                    this.Scale.LineToPath(barPointerPath, startPointX1, axisLinePositionY - this.Offset - halfWidth);
+                    y1 = (float)(scaleLinePositionY - this.Offset - halfWidth);
+                    y2 = (float)(scaleLinePositionY - this.Offset + halfWidth);
+                    this.Scale.MoveToPath(barPointerPath, startPointX1, y2);
+                    this.Scale.LineToPath(barPointerPath, startPointX2, y2);
+                    this.Scale.LineToPath(barPointerPath, startPointX2, y1);
+                    this.Scale.LineToPath(barPointerPath, startPointX1, y1);
                 }
                 else
                 {
-                    this.Scale.MoveToPath(barPointerPath, startPointX1, axisLinePositionY + this.Offset - halfWidth);
-                    this.Scale.LineToPath(barPointerPath, startPointX2, axisLinePositionY + this.Offset - halfWidth);
-                    this.Scale.LineToPath(barPointerPath, startPointX2, axisLinePositionY + this.Offset + halfWidth);
-                    this.Scale.LineToPath(barPointerPath, startPointX1, axisLinePositionY + this.Offset + halfWidth);
+                    y1 = (float)(scaleLinePositionY + this.Offset - halfWidth);
+                    y2 = (float)(scaleLinePositionY + this.Offset + halfWidth);
+                    this.Scale.MoveToPath(barPointerPath, startPointX1, y1);
+                    this.Scale.LineToPath(barPointerPath, startPointX2, y1);
+                    this.Scale.LineToPath(barPointerPath, startPointX2, y2);
+                    this.Scale.LineToPath(barPointerPath, startPointX1, y2);
                 }
 
                 barPointerPath.Close();
-
-                float x1, x2, y1, y2;
 
                 if (this.CornerStyle == CornerStyle.StartCurve || this.CornerStyle == CornerStyle.BothCurve)
                 {
                     x1 = (float)(startPointX1 - halfWidth);
                     x2 = (float)(startPointX1 + halfWidth);
 
-                    if (this.Scale.IsMirrored)
-                    {
-                        y1 = (float)(axisLinePositionY - this.Offset - halfWidth);
-                        y2 = (float)(axisLinePositionY - this.Offset + halfWidth);
-                       
-                    }
-                    else
-                    {
-                        y1 = (float)(axisLinePositionY + this.Offset - halfWidth);
-                        y2 = (float)(axisLinePositionY + this.Offset + halfWidth);
-                    }
-                    
                     Scale.MoveToPath(barPointerPath, (float)startPointX1, y2);
+                    
                     if (Scale.Orientation == GaugeOrientation.Horizontal)
-                    {
-                        float startAngle = Scale.IsInversed ? 270 : 90;
-                        float endAngle = Scale.IsInversed ? 90 : 270;
-                        barPointerPath.AddArc(x1, y1, x2, y2, startAngle, endAngle, false);
-                    }
+                        barPointerPath.AddArc(x1, y1, x2, y2, Scale.IsInversed ? 270 : 90, Scale.IsInversed ? 90 : 270, false);
                     else
-                    {
-                        float startAngle = Scale.IsInversed ? 360 : 180;
-                        float endAngle = Scale.IsInversed ? 180 : 360;
-                        barPointerPath.AddArc(y1, x1, y2, x2, startAngle, endAngle, false);
-                    }
+                        barPointerPath.AddArc(y1, x1, y2, x2, Scale.IsInversed ? 360 : 180, Scale.IsInversed ? 180 : 360, false);
 
                     barPointerPath.Close();
                 }
@@ -254,37 +260,22 @@ namespace Syncfusion.Maui.Gauges
                     x1 = (float)(startPointX2 - halfWidth);
                     x2 = (float)(startPointX2 + halfWidth);
 
-                    if (this.Scale.IsMirrored)
-                    {
-                        y1 = (float)(axisLinePositionY - this.Offset - halfWidth);
-                        x2 = (float)(startPointX2 + halfWidth);
-                        y2 = (float)(axisLinePositionY - this.Offset + halfWidth);
-
-                    }
-                    else
-                    {
-                        y1 = (float)(axisLinePositionY + this.Offset - halfWidth);
-                        y2 = (float)(axisLinePositionY + this.Offset + halfWidth);
-                    }
-
                     Scale.MoveToPath(barPointerPath, (float)startPointX2, y2);
+                    
                     if (Scale.Orientation == GaugeOrientation.Horizontal)
-                    {
-                        float startAngle = Scale.IsInversed ? 90 : 270;
-                        float endAngle = Scale.IsInversed ? 270 : 90;
-                        barPointerPath.AddArc(x1, y1, x2, y2, startAngle, endAngle, false);
-                    }
+                        barPointerPath.AddArc(x1, y1, x2, y2, Scale.IsInversed ? 90 : 270, Scale.IsInversed ? 270 : 90, false);
                     else
-                    {
-                        float startAngle = Scale.IsInversed ? 180 : 360;
-                        float endAngle = Scale.IsInversed ? 360 : 180;
-                        barPointerPath.AddArc(y1, x1, y2, x2, startAngle, endAngle, false);
-                    }
+                        barPointerPath.AddArc(y1, x1, y2, x2, Scale.IsInversed ? 180 : 360, Scale.IsInversed ? 360 : 180, false);
 
                     barPointerPath.Close();
                 }
 
                 this.CreateGradient();
+
+                if (this.Child != null)
+                {
+                    Scale.UpdateChild(this.Child, barPointerPath.Bounds);
+                }
             }
         }
 
@@ -333,6 +324,33 @@ namespace Syncfusion.Maui.Gauges
             {
                 pointer.Scale.ScaleInvalidateMeasureOverride();
                 pointer.UpdatePointer();
+                pointer.InvalidateDrawable();
+            }
+        }
+
+        /// <summary>
+        /// Called when bar pointer <see cref="Child"/> changed.
+        /// </summary>
+        /// <param name="bindable">The BindableObject.</param>
+        /// <param name="oldValue">Old value.</param>
+        /// <param name="newValue">New value.</param>
+        private static void OnChildPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is BarPointer pointer)
+            {
+                if (pointer.Scale != null)
+                {
+                    pointer.Scale.BarPointerChildUpdate(oldValue, newValue);
+
+                    if (newValue is View newChild)
+                    {
+                        newChild.BindingContext = pointer;
+
+                        if (pointer.barPointerPath != null)
+                            pointer.Scale.UpdateChild(newChild, pointer.barPointerPath.Bounds);
+                    }
+                }
+               
                 pointer.InvalidateDrawable();
             }
         }
