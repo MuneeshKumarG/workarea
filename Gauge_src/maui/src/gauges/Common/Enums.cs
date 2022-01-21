@@ -111,6 +111,32 @@
     }
 
     /// <summary>
+    /// Specifies the different shape type for pointer.
+    /// </summary>
+    public enum ShapeType
+    {
+        /// <summary>
+        /// Specifies the circle shape for the marker.
+        /// </summary>
+        Circle,
+
+        /// <summary>
+        /// Specifies the diamond shape for the marker.
+        /// </summary>
+        Diamond,
+
+        /// <summary>
+        /// Specifies the inverted triangle shape for the marker.
+        /// </summary>
+        InvertedTriangle,
+
+        /// <summary>
+        /// Specifies the triangle shape for the marker.
+        /// </summary>
+        Triangle,
+    }
+
+    /// <summary>
     /// Specifies whether to position the gauge annotation based on axis value or angle.
     /// </summary>
     public enum AnnotationDirection
