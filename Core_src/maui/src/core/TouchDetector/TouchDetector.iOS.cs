@@ -17,7 +17,7 @@ namespace Syncfusion.Maui.Core.Internals
             if (mauiView != null)
             {
                 var handler = mauiView.Handler;
-                UIView? nativeView = handler.NativeView as UIView;
+                UIView? nativeView = handler?.NativeView as UIView;
 
                 if (nativeView != null)
                 {
@@ -85,7 +85,7 @@ namespace Syncfusion.Maui.Core.Internals
 
             if (touch != null)
             {
-                long pointerId = touch.Handle.ToInt64();
+                long pointerId = touch.Handle.Handle.ToInt64();
                 CGPoint point = touch.LocationInView(View);
                 touchDetector.OnTouchAction(pointerId, TouchActions.Pressed, new Point(point.X, point.Y));
             }
@@ -99,7 +99,7 @@ namespace Syncfusion.Maui.Core.Internals
 
             if (touch != null)
             {
-                long pointerId = touch.Handle.ToInt64();
+                long pointerId = touch.Handle.Handle.ToInt64();
                 CGPoint point = touch.LocationInView(View);
                 touchDetector.OnTouchAction(pointerId, TouchActions.Moved, new Point(point.X, point.Y));
             }
@@ -113,7 +113,7 @@ namespace Syncfusion.Maui.Core.Internals
 
             if (touch != null)
             {
-                long pointerId = touch.Handle.ToInt64();
+                long pointerId = touch.Handle.Handle.ToInt64();
                 CGPoint point = touch.LocationInView(View);
                 touchDetector.OnTouchAction(pointerId, TouchActions.Released, new Point(point.X, point.Y));
             }
@@ -127,7 +127,7 @@ namespace Syncfusion.Maui.Core.Internals
 
             if (touch != null)
             {
-                long pointerId = touch.Handle.ToInt64();
+                long pointerId = touch.Handle.Handle.ToInt64();
                 CGPoint point = touch.LocationInView(View);
                 touchDetector.OnTouchAction(pointerId, TouchActions.Cancelled, new Point(point.X, point.Y));
             }

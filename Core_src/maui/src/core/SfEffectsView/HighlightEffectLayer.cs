@@ -1,20 +1,29 @@
-﻿using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
-using Syncfusion.Maui.Graphics.Internals;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="HighlightEffectLayer.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Syncfusion.Maui.Core
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.Maui.Controls;
+    using Microsoft.Maui.Graphics;
+    using Syncfusion.Maui.Graphics.Internals;
+
     /// <summary>
-    /// Highlight effectlayer.
+    /// Represents the HighlightEffectLayer class.
     /// </summary>
     internal class HighlightEffectLayer : DrawableView
     {
-        #region fields
+        #region Fields
+
+        /// <summary>
+        /// Represents the highlight transparency factor.
+        /// </summary>
+        private const float HighlightTransparencyFactor = 0.04f;
 
         /// <summary>
         /// Represents highlight bounds.
@@ -26,27 +35,23 @@ namespace Syncfusion.Maui.Core
         /// </summary>
         private Brush highlightColor = new SolidColorBrush(Colors.Black);
 
-        /// <summary>
-		/// Represents the highlight transparency factor.
-		/// </summary>
-		private const float highlightTransparencyFactor = 0.04f;
-
         #endregion
 
-        #region constructor
+        #region Constructor
 
         /// <summary>
-        /// Highlight effect layer.
+        /// Initializes a new instance of the <see cref="HighlightEffectLayer"/> class.
         /// </summary>
-        /// <param name="_highlightColor">The highlight color.</param>
-        public HighlightEffectLayer(Brush _highlightColor)
+        /// <param name="highlightColor">The highlight color.</param>
+        public HighlightEffectLayer(Brush highlightColor)
         {
-            highlightColor = _highlightColor;
+            this.highlightColor = highlightColor;
             this.IsEnabled = false;
         }
+
         #endregion
 
-        #region methods
+        #region Methods
 
         /// <summary>
         /// The draw method.
@@ -55,11 +60,10 @@ namespace Syncfusion.Maui.Core
         /// <param name="dirtyRect">The rectangle.</param>
         public override void Draw(ICanvas canvas, RectangleF dirtyRect)
         {
-            if (highlightColor != null)
+            if (this.highlightColor != null)
             {
-                canvas.Alpha = highlightTransparencyFactor;
-               
-                canvas.SetFillPaint(highlightColor, this.highlightBounds);
+                canvas.Alpha = HighlightTransparencyFactor;
+                canvas.SetFillPaint(this.highlightColor, this.highlightBounds);
                 canvas.FillRectangle(this.highlightBounds);
             }
         }
@@ -69,14 +73,15 @@ namespace Syncfusion.Maui.Core
         /// </summary>
         /// <param name="width">The width property.</param>
         /// <param name="height">The height property.</param>
-        /// <param name="_highlightColor">The highlight color.</param>
-        internal void UpdateHighlightBounds(double width = 0, double height = 0, Brush? _highlightColor = null)
+        /// <param name="highlightColor">The highlight color.</param>
+        internal void UpdateHighlightBounds(double width = 0, double height = 0, Brush? highlightColor = null)
         {
-            if (_highlightColor == null)
+            if (highlightColor == null)
             {
-                _highlightColor = new SolidColorBrush(Colors.Transparent);
+                highlightColor = new SolidColorBrush(Colors.Transparent);
             }
-            this.highlightColor = _highlightColor;
+
+            this.highlightColor = highlightColor;
             this.highlightBounds = new Rectangle(0, 0, width, height);
             this.InvalidateDrawable();
         }

@@ -2,6 +2,7 @@
 using MauiView = Microsoft.Maui.Controls.View;
 using System;
 using Microsoft.Maui;
+using Microsoft.Maui.Platform;
 using Microsoft.Maui.Graphics;
 
 namespace Syncfusion.Maui.Core.Internals
@@ -13,7 +14,7 @@ namespace Syncfusion.Maui.Core.Internals
             if (mauiView != null)
             {
                 var handler = mauiView.Handler;
-                View? nativeView = handler.NativeView as View;
+                View? nativeView = handler?.NativeView as View;
 
                 if (nativeView != null)
                 {

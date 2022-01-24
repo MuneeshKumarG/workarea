@@ -5,6 +5,7 @@ using Microsoft.Maui.Graphics;
 using Microsoft.Maui;
 using GestureStatus = Microsoft.Maui.Controls.GestureStatus;
 using System;
+using Microsoft.Maui.Platform;
 
 namespace Syncfusion.Maui.Core.Internals
 {
@@ -22,7 +23,7 @@ namespace Syncfusion.Maui.Core.Internals
             if (mauiView != null)
             {
                 var handler = mauiView.Handler;
-                View? nativeView = handler.NativeView as View;
+                View? nativeView = handler?.NativeView as View;
 
                 if (nativeView != null)
                 {

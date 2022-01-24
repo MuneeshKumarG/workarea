@@ -321,15 +321,15 @@ namespace Syncfusion.Maui.Core
                 {
                     if (Orientation == LegendOrientation.Vertical)
                     {
-                        LegendLayout = new VerticalStackLayout() { HorizontalOptions = LayoutOptions.CenterAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
+                        LegendLayout = new VerticalStackLayout() { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Fill };
                     }
                     else
                     {
                         //CenterAndExpand not working in windows platform, hence used FillAndExpand. 
 #if WINDOWS
-                        LegendLayout = new HorizontalStackLayout() { HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
+                        LegendLayout = new HorizontalStackLayout() { HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
 #else
-                        LegendLayout = new HorizontalStackLayout() { HorizontalOptions = LayoutOptions.CenterAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
+                        LegendLayout = new HorizontalStackLayout() { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Fill };
 #endif
                     }
                 }
@@ -337,11 +337,11 @@ namespace Syncfusion.Maui.Core
                 {
                     if (Orientation == LegendOrientation.Horizontal)
                     {
-                        LegendLayout = new HorizontalStackLayout() { HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.CenterAndExpand };
+                        LegendLayout = new HorizontalStackLayout() { HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Center };
                     }
                     else
                     {
-                        LegendLayout = new VerticalStackLayout() { HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.CenterAndExpand };
+                        LegendLayout = new VerticalStackLayout() { HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Center };
                     }
                 }
            // }
@@ -350,13 +350,13 @@ namespace Syncfusion.Maui.Core
 
             if (Placement == LegendPlacement.Top || Placement == LegendPlacement.Bottom)
             {
-                ScrollViewContent.HorizontalOptions = LayoutOptions.CenterAndExpand;
+                ScrollViewContent.HorizontalOptions = LayoutOptions.Center;
                 ScrollViewContent.VerticalOptions = LayoutOptions.Fill;
             }
             else
             {
                 ScrollViewContent.HorizontalOptions = LayoutOptions.Fill;
-                ScrollViewContent.VerticalOptions = LayoutOptions.CenterAndExpand;
+                ScrollViewContent.VerticalOptions = LayoutOptions.Center;
             }
 
             if(Orientation == LegendOrientation.Vertical)
@@ -389,13 +389,13 @@ namespace Syncfusion.Maui.Core
 
             if (Placement == LegendPlacement.Top || Placement == LegendPlacement.Bottom)
             {
-                LegendScrollView.HorizontalOptions = LayoutOptions.FillAndExpand;
+                LegendScrollView.HorizontalOptions = LayoutOptions.Fill;
                 LegendScrollView.VerticalOptions = LayoutOptions.Fill;
             }
             else
             {
                 LegendScrollView.HorizontalOptions = LayoutOptions.Fill;
-                LegendScrollView.VerticalOptions = LayoutOptions.FillAndExpand;
+                LegendScrollView.VerticalOptions = LayoutOptions.Fill;
             }
 
             this.Content = LegendScrollView;
@@ -513,7 +513,7 @@ namespace Syncfusion.Maui.Core
 
                 var template = new DataTemplate(() =>
                 {
-                    var frame = new ContentView() { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
+                    var frame = new ContentView() { Padding = 0, HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
                     var legendTapGesture = new TapGestureRecognizer();
                     legendTapGesture.NumberOfTapsRequired = 1;
                     legendTapGesture.Tapped += LegendTapGesture_Tapped;

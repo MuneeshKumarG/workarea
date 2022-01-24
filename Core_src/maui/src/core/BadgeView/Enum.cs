@@ -1,6 +1,10 @@
-﻿namespace Syncfusion.Maui.Core
+﻿// <copyright file="Enum.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Syncfusion.Maui.Core
 {
-    #region enum
+    #region Enum
 
     /// <summary>
     /// Defines the badge type for the badge control for predefined style.
@@ -101,17 +105,17 @@
     public enum BadgeAlignment
     {
         /// <summary>
-        /// To define the badge alignment as start
+        /// To define the badge alignment as start.
         /// </summary>
         Start,
 
         /// <summary>
-        /// To define the badge alignment as center
+        /// To define the badge alignment as center.
         /// </summary>
         Center,
 
         /// <summary>
-        /// To define the badge alignment as end
+        /// To define the badge alignment as end.
         /// </summary>
         End,
     }
@@ -119,7 +123,7 @@
     /// <summary>
     /// Defines the predefined icons for badge.
     /// </summary>
-    //TODO: Need to fix the font icon issue in library or need to draw the icons
+    // TODO: Need to fix the font icon issue in library or need to draw the icons.
     internal enum BadgeIcon
     {
         /// <summary>

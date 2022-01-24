@@ -4,6 +4,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Graphics.Win2D;
+using Microsoft.Maui.Platform;
 using System;
 using System.Collections.Generic;
 using System.Linq;
