@@ -1482,6 +1482,11 @@ namespace Syncfusion.Maui.Gauges
         {
             base.OnBindingContextChanged();
 
+            if (this.BackgroundContent != null)
+            {
+                SetInheritedBindingContext(this.BackgroundContent, this.BindingContext);
+            }
+
             if (this.AxisLabelStyle != null)
             {
                 SetInheritedBindingContext(this.AxisLabelStyle, this.BindingContext);
@@ -1515,6 +1520,7 @@ namespace Syncfusion.Maui.Gauges
             foreach (var annotation in this.Annotations)
             {
                 SetInheritedBindingContext(annotation, this.BindingContext);
+                SetInheritedBindingContext(annotation.Content, this.BindingContext);
             }
         }
 
@@ -2598,10 +2604,15 @@ namespace Syncfusion.Maui.Gauges
 
                 if (newValue is View newView && !radialAxis.ParentGrid.Children.Contains(newView))
                 {
-                    newView.HorizontalOptions = LayoutOptions.CenterAndExpand;
-                    newView.VerticalOptions = LayoutOptions.CenterAndExpand;
+                    newView.HorizontalOptions = LayoutOptions.Center;
+                    newView.VerticalOptions = LayoutOptions.Center;
                     radialAxis.ParentGrid.Children.Insert(0, newView);
-#if WINDOWS
+
+                    if (!radialAxis.AvailableSize.IsZero)
+                    {
+                        SetInheritedBindingContext(newView, radialAxis.BindingContext);
+                    }
+#if WINDOWS || IOS
                     //TODO : Maui-WinUI does not trigger measure override for dynamic time children collection change.
                     //We reported this problem in below link.
                     //https://github.com/dotnet/maui/issues/3512
@@ -4161,6 +4172,7 @@ namespace Syncfusion.Maui.Gauges
                             if (!this.AvailableSize.IsZero)
                             {
                                 SetInheritedBindingContext(gaugeAnnotation, this.BindingContext);
+                                SetInheritedBindingContext(gaugeAnnotation.Content, this.BindingContext);
                                 gaugeAnnotation.CreateAnnotation();
                             }
 

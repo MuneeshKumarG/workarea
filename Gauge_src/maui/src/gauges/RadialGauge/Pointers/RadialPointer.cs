@@ -615,7 +615,7 @@ namespace Syncfusion.Maui.Gauges
             double minimum = RadialAxis.Minimum;
             double delta = RadialAxis.Maximum - minimum;
             double factor = Math.Round(RadialAxis.ValueToFactor(currentValue) * (delta / StepFrequency)) / (delta / StepFrequency);
-            return (factor * delta) + minimum;
+            return ((RadialAxis.IsInversed ? 1d - factor : factor) * delta) + minimum;
         }
 #nullable enable
 
