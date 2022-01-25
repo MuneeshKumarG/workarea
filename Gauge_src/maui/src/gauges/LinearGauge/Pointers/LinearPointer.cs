@@ -57,6 +57,15 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty IsInteractiveProperty =
            BindableProperty.Create(nameof(IsInteractive), typeof(bool), typeof(LinearPointer), false);
 
+        /// <summary>
+        /// Identifies the <see cref="StepFrequency"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="StepFrequency"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty StepFrequencyProperty =
+            BindableProperty.Create(nameof(StepFrequency), typeof(double), typeof(LinearPointer), 0d);
+
         #endregion
 
         #region Fields
@@ -65,6 +74,21 @@ namespace Syncfusion.Maui.Gauges
         private const string animationName = "PointerAnimation";
         private double? animationValue;
         internal SfLinearGauge? Scale;
+
+        /// <summary>
+        /// Indicates pointer pressed in pointer or not. 
+        /// </summary>
+        internal bool IsPressed;
+
+        /// <summary>
+        /// Represents the pointer dragging rect. 
+        /// </summary>
+        internal RectangleF PointerRect;
+
+        /// <summary>
+        /// Holds dragging rect offset value. 
+        /// </summary>
+        internal const float DraggingOffset = 10;
 
         #endregion
 
@@ -77,6 +101,32 @@ namespace Syncfusion.Maui.Gauges
         {
             this.PointerView = new LinearPointerView(this);
         }
+
+        #endregion
+
+        #region Events
+
+#nullable disable
+        /// <summary>
+        /// Called when the user is selecting a new value for the pointers by dragging.
+        /// </summary>
+        public event EventHandler<ValueChangedEventArgs> ValueChanged;
+
+        /// <summary>
+        /// Called before when the user is selecting a new value for the pointers by dragging.
+        /// </summary>   
+        public event EventHandler<ValueChangingEventArgs> ValueChanging;
+
+        /// <summary>
+        /// Called when the user starts selecting a new value of pointer by dragging.
+        /// </summary>
+        public event EventHandler<ValueChangedEventArgs> ValueChangeStarted;
+
+        /// <summary>
+        /// Called when the user is done selecting a new value of the pointer by dragging.
+        /// </summary>
+        public event EventHandler<ValueChangedEventArgs> ValueChangeCompleted;
+#nullable enable
 
         #endregion
 
@@ -111,22 +161,6 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets a value that allowing pointer value change through interaction.
-        /// </summary>
-        /// <value>
-        /// <b>true</b> if pointer interaction is enabled; otherwise, <b>false</b>.The default value is <b>false</b>.
-        /// </value>
-        /// <remarks>
-        /// It decides whether the gauge pointer will be interactive or not.
-        /// If <see cref="IsInteractive"/> is <c>true</c>, the gauge pointer will be interactive, otherwise not.
-        /// </remarks>
-        public bool IsInteractive
-        {
-            get { return (bool)this.GetValue(IsInteractiveProperty); }
-            set { this.SetValue(IsInteractiveProperty, value); }
-        }
-
-        /// <summary>
         /// Gets or sets a value that specifies the pointer animation duration in milliseconds. 
         /// </summary>
         /// <value>
@@ -154,6 +188,34 @@ namespace Syncfusion.Maui.Gauges
         {
             get { return (Easing)this.GetValue(AnimationEasingProperty); }
             set { this.SetValue(AnimationEasingProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value that allowing pointer value change through interaction.
+        /// </summary>
+        /// <value>
+        /// <b>true</b> if pointer interaction is enabled; otherwise, <b>false</b>.The default value is <b>false</b>.
+        /// </value>
+        /// <remarks>
+        /// It decides whether the gauge pointer will be interactive or not.
+        /// If <see cref="IsInteractive"/> is <c>true</c>, the gauge pointer will be interactive, otherwise not.
+        /// </remarks>
+        public bool IsInteractive
+        {
+            get { return (bool)this.GetValue(IsInteractiveProperty); }
+            set { this.SetValue(IsInteractiveProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the value that specifies the dragging step frequency of the pointer.
+        /// </summary>
+        /// <value>
+        /// The default value is <c>0</c>.
+        /// </value>
+        public double StepFrequency
+        {
+            get { return (double)this.GetValue(StepFrequencyProperty); }
+            set { this.SetValue(StepFrequencyProperty, value); }
         }
 
         /// <summary>
@@ -243,6 +305,72 @@ namespace Syncfusion.Maui.Gauges
                 this.PointerView.InvalidateDrawable();
         }
 
+        /// <summary>
+        /// Method used to update pointer in pressed state. 
+        /// </summary>
+        /// <param name="point">Represents pressed point.</param>
+        internal void UpdatePointerPressed(Point point)
+        {
+            if (this.PointerRect.Contains(point))
+            {
+                this.IsPressed = true;
+                ValueChangedEventArgs args = new ValueChangedEventArgs
+                {
+                    CurrentValue = this.Value
+                };
+                this.RaiseOnValueChangeStarted(args);
+            }
+            else
+            {
+                this.IsPressed = false;
+            }
+        }
+
+        /// <summary>
+        /// Method used to pointer in released state. 
+        /// </summary>
+        internal void UpdatePointerReleased()
+        {
+            this.IsPressed = false;
+            ValueChangedEventArgs args = new ValueChangedEventArgs
+            {
+                CurrentValue = this.Value
+            };
+            this.RaiseOnValueChangeCompleted(args);
+        }
+
+        /// <summary>
+        /// To drag the pointer to current pointer position.
+        /// </summary>
+        /// <param name="currentPoint">The current pointer position.</param>
+        internal void DragPointer(Point currentPoint)
+        {
+            if (this.Scale != null)
+            {
+                double currentPosition = this.Scale.Orientation == GaugeOrientation.Horizontal
+                                        ? currentPoint.X : currentPoint.Y;
+
+                double dragValue = this.Scale.GetValueFromPosition(currentPosition);
+
+                if (StepFrequency > 0)
+                {
+                    dragValue = GetStepFrequencyValue(dragValue);
+                }
+
+                double actualValue = Math.Clamp(dragValue, this.Scale.ActualMinimum, this.Scale.ActualMaximum);
+                ValueChangingEventArgs args = new ValueChangingEventArgs
+                {
+                    CurrentValue = actualValue,
+                    PreviousValue = this.Value
+                };
+                this.RaiseOnValueChanging(args);
+                if (!args.Cancel)
+                {
+                    this.Value = actualValue;
+                }
+            }
+        }
+
         #endregion
 
         #region Property changed
@@ -257,6 +385,12 @@ namespace Syncfusion.Maui.Gauges
         {
             if (bindable is LinearPointer linearPointer && linearPointer.Scale != null && !linearPointer.Scale.ScaleAvailableSize.IsZero)
             {
+                ValueChangedEventArgs args = new ValueChangedEventArgs
+                {
+                    CurrentValue = (double)newValue
+                };
+                linearPointer.RaiseOnValueChanged(args);
+
                 if (linearPointer.EnableAnimation)
                 {
                     linearPointer.AnimatePointer((double)oldValue, (double)newValue);
@@ -273,6 +407,21 @@ namespace Syncfusion.Maui.Gauges
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// To get the step frequency value from the start and end value of the pointer.
+        /// </summary>
+        /// <param name="currentValue">Specify the current value of pointer. </param>
+        /// <returns>It returns the step value of the pointer</returns>
+        private double GetStepFrequencyValue(double currentValue)
+        {
+            if (this.Scale == null) return currentValue;
+
+            double minimum = Scale.Minimum;
+            double delta = Scale.Maximum - minimum;
+            double factor = Math.Round(Scale.ValueToFactor(currentValue) * (delta / StepFrequency)) / (delta / StepFrequency);
+            return ((Scale.IsInversed ? 1d - factor : factor) * delta) + minimum;
+        }
 
         /// <summary>
         /// Method used to update animation value. 
@@ -293,6 +442,42 @@ namespace Syncfusion.Maui.Gauges
         {
             AnimationExtensions.AbortAnimation(this.PointerView, animationName);
             this.AnimationValue = null;
+        }
+
+        /// <summary>
+        /// This method is used to raise value changed event.
+        /// </summary>
+        /// <param name="args">The value changed event arguments.</param>
+        private void RaiseOnValueChanged(ValueChangedEventArgs args)
+        {
+            this.ValueChanged?.Invoke(this, args);
+        }
+
+        /// <summary>
+        /// This method is used to raise value changing event.
+        /// </summary>
+        /// <param name="args">The value changing event arguments.</param>
+        private void RaiseOnValueChanging(ValueChangingEventArgs args)
+        {
+            this.ValueChanging?.Invoke(this, args);
+        }
+
+        /// <summary>
+        /// This method is used to raise value change started event.
+        /// </summary>
+        /// <param name="args">The value changed event arguments.</param>
+        private void RaiseOnValueChangeStarted(ValueChangedEventArgs args)
+        {
+            this.ValueChangeStarted?.Invoke(this, args);
+        }
+
+        /// <summary>
+        /// This method is used to raise value change completed event.
+        /// </summary>
+        /// <param name="args">The value changed event arguments.</param>
+        private void RaiseOnValueChangeCompleted(ValueChangedEventArgs args)
+        {
+            this.ValueChangeCompleted?.Invoke(this, args);
         }
 
         #endregion

@@ -234,7 +234,6 @@ namespace Syncfusion.Maui.Gauges
                     default:
                         break;
                 }
-
                 canvas.RestoreState();
             }
         }
@@ -273,6 +272,10 @@ namespace Syncfusion.Maui.Gauges
                 {
                     Utility.Swap(ref shapePositionX, ref shapePositionY);
                 }
+
+                //Calculate dragging rectangle. 
+                this.PointerRect = new RectangleF((float)shapePositionX - DraggingOffset, (float)shapePositionY - DraggingOffset,
+                (float)ShapeWidth + (DraggingOffset * 2), (float)ShapeHeight + (DraggingOffset * 2));
             }
         }
 

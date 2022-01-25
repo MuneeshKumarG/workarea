@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Layouts;
+using Syncfusion.Maui.Core.Internals;
 using Syncfusion.Maui.Graphics.Internals;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Syncfusion.Maui.Gauges
     /// <summary>
     /// The linear gauge is a data visualization control that can be used to display data on a linear scale in either horizontal or vertical orientation.
     /// </summary>
-    public class SfLinearGauge : View, IContentView, IVisualTreeElement
+    public class SfLinearGauge : View, IContentView, IVisualTreeElement, ITouchListener
     {
         #region Bindable properties
 
@@ -249,6 +250,7 @@ namespace Syncfusion.Maui.Gauges
         private double scaleLineLength;
         private PointF majorTicksLayoutPosition, minorTicksLayoutPosition, labelsLayoutPosition;
         private Size firstLabelSize, lastLabelSize;
+        private bool isTouchHandled;
 
         internal Point ScalePosition;
         internal Size ScaleAvailableSize, LabelMaximumSize;
@@ -284,7 +286,21 @@ namespace Syncfusion.Maui.Gauges
             this.Ranges = new ObservableCollection<LinearRange>();
             this.BarPointers = new ObservableCollection<BarPointer>();
             this.MarkerPointers = new ObservableCollection<LinearMarkerPointer> ();
+
+            this.AddTouchListener(this);
         }
+
+        #endregion
+
+        #region Events
+
+#nullable disable
+        /// <summary>
+        /// Called when an axis label is created
+        /// </summary>
+        public event EventHandler<LabelCreatedEventArgs> LabelCreated;
+
+#nullable enable
 
         #endregion
 
@@ -626,6 +642,17 @@ namespace Syncfusion.Maui.Gauges
             }
         }
 
+        /// <summary>
+        /// Gets the boolean value indicating to pass the touches on either the parent or child view.
+        /// </summary>
+        bool ITouchListener.IsTouchHandled
+        {
+            get
+            {
+                return isTouchHandled;
+            }
+        }
+
         #endregion
 
         #region Override methods
@@ -727,6 +754,25 @@ namespace Syncfusion.Maui.Gauges
             return !this.IsInversed ? 1d - factor : factor;
         }
 
+        /// <summary>
+        /// Converts factor to axis value.
+        /// </summary>
+        /// <param name="factor">The factor to convert as axis value.</param>
+        /// <returns>Axis value of the provided factor.</returns>
+        public virtual double FactorToValue(double factor)
+        {
+            if (this.Orientation == GaugeOrientation.Horizontal)
+            {
+                factor = this.IsInversed ? 1d - factor : factor;
+            }
+            else
+            {
+                factor = !this.IsInversed ? 1d - factor : factor;
+            }
+
+            return (factor * (this.ActualMaximum - this.ActualMinimum)) + this.ActualMinimum;
+        }
+
         #endregion
 
         #region Internal methods
@@ -756,6 +802,17 @@ namespace Syncfusion.Maui.Gauges
         {
             double factor = this.ValueToFactor(value);
             return factor * scaleLineLength;
+        }
+
+        /// <summary>
+        /// To get the track value from the pointer position.
+        /// </summary>
+        /// <param name="position">The current pointer position.</param>
+        /// <returns>The track value of the given pointer position.</returns>
+        internal double GetValueFromPosition(double position)
+        {
+            double factor = Math.Clamp(position / this.scaleLineLength, 0, 1);
+            return this.FactorToValue(factor);
         }
 
         internal void InvalidateDrawable()
@@ -1660,8 +1717,7 @@ namespace Syncfusion.Maui.Gauges
             };
             string labelText = value.ToString(this.LabelFormat, CultureInfo.CurrentCulture);
             label.Text = labelText;
-            label.LabelStyle = this.LabelStyle;
-
+            this.RaiseLabelCreated(label);
             return label;
         }
 
@@ -2597,6 +2653,112 @@ namespace Syncfusion.Maui.Gauges
         #region Measure method
 
         /// <summary>
+        /// OnTouchAction method implemented by ITouchListener. 
+        /// </summary>
+        /// <param name="e"></param>
+        void ITouchListener.OnTouch(TouchEventArgs e)
+        {
+            this.OnTouchListener(e, ref isTouchHandled);
+        }
+
+        /// <summary>
+        /// Method used to pass touch action and point to pointers.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="isTouchHandled"></param>
+        private void OnTouchListener(TouchEventArgs e, ref bool isTouchHandled)
+        {
+            if ((MarkerPointers != null && MarkerPointers.Count > 0)||(BarPointers != null && BarPointers.Count > 0))
+            {
+                switch (e.Action)
+                {
+                    case TouchActions.Pressed:
+                        if (MarkerPointers != null && MarkerPointers.Count > 0)
+                        {
+                            for (int i = MarkerPointers.Count - 1; i >= 0; i--)
+                            {
+                                if (MarkerPointers[i] is LinearPointer pointer && pointer.IsInteractive)
+                                {
+                                    if (!pointer.IsPressed)
+                                        pointer.UpdatePointerPressed(e.TouchPoint);
+
+                                    if (pointer.IsPressed)
+                                    {
+                                        isTouchHandled = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if (BarPointers != null && BarPointers.Count > 0)
+                        {
+                            for (int i = BarPointers.Count - 1; i >= 0; i--)
+                            {
+                                if (BarPointers[i] is BarPointer pointer && pointer.IsInteractive)
+                                {
+                                    if (!pointer.IsPressed)
+                                        pointer.UpdatePointerPressed(e.TouchPoint);
+
+                                    if (pointer.IsPressed)
+                                    {
+                                        isTouchHandled = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case TouchActions.Moved:
+                        if (MarkerPointers != null && MarkerPointers.Count > 0)
+                        {
+                            foreach (var pointer in MarkerPointers)
+                            {
+                                if (pointer.IsPressed)
+                                {
+                                    pointer.DragPointer(e.TouchPoint);
+                                }
+                            }
+                        }
+                        if (BarPointers != null && BarPointers.Count > 0)
+                        {
+                            foreach (var pointer in BarPointers)
+                            {
+                                if (pointer.IsPressed)
+                                {
+                                    pointer.DragPointer(e.TouchPoint);
+                                }
+                            }
+                        }
+                        break;
+                    case TouchActions.Released:
+                        if (MarkerPointers != null && MarkerPointers.Count > 0)
+                        {
+                            foreach (var pointer in MarkerPointers)
+                            {
+                                if (pointer.IsPressed)
+                                {
+                                    pointer.UpdatePointerReleased();
+                                    isTouchHandled = false;
+                                }
+                            }
+                        }
+                        if (BarPointers != null && BarPointers.Count > 0)
+                        {
+                            foreach (var pointer in BarPointers)
+                            {
+                                if (pointer.IsPressed)
+                                {
+                                    pointer.UpdatePointerReleased();
+                                    isTouchHandled = false;
+                                }
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
         /// Measure the content.
         /// </summary>
         /// <param name="widthConstraint"></param>
@@ -2649,6 +2811,26 @@ namespace Syncfusion.Maui.Gauges
                 return new List<IVisualTreeElement>() { parentLayout };
             }
             return new List<IVisualTreeElement>();
+        }
+
+        /// <summary>
+        /// To raise label created event.
+        /// </summary>
+        /// <param name="label">Corresponding axis label instance.</param>
+        private void RaiseLabelCreated(GaugeLabelInfo label)
+        {
+            if (this.LabelCreated == null)
+            {
+                return;
+            }
+
+            var args = new LabelCreatedEventArgs
+            {
+                Text = label.Text
+            };
+            this.LabelCreated(this, args);
+            label.Text = args.Text;
+            label.LabelStyle = args.Style ?? this.LabelStyle;
         }
 
         /// <summary>

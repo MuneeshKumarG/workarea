@@ -56,5 +56,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core_src\maui\src\core\Syncfusion.Maui.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="LinearGauge\Pointers\" />
+    <Folder Include="LinearGauge\Range\" />
+  </ItemGroup>
   <Import Project="..\targets\MultiTargeting.targets" />
 </Project>

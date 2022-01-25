@@ -167,7 +167,7 @@ namespace Syncfusion.Maui.Gauges
         /// Gets or sets the value that specifies the range mid width. Specify the value in logical pixel.
         /// </summary>
         /// <value>
-        /// It defines the end width of the range. The default value is <c>10</c>.
+        /// It defines the end width of the range. The default value is <c>double.NaN</c>.
         /// </value>
         public double MidWidth
         {
@@ -225,7 +225,7 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets the child content of a <see cref="BarPointer"/>. 
+        /// Gets or sets the child content of a <see cref="LinearRange"/>. 
         /// </summary>
         /// <value>
         /// An object that contains the pointer's visual child content. The default value is <c>null</c>.

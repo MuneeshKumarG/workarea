@@ -246,7 +246,7 @@ namespace Syncfusion.Maui.Gauges
                     x2 = (float)(startPointX1 + halfWidth);
 
                     Scale.MoveToPath(barPointerPath, (float)startPointX1, y2);
-                    
+
                     if (Scale.Orientation == GaugeOrientation.Horizontal)
                         barPointerPath.AddArc(x1, y1, x2, y2, Scale.IsInversed ? 270 : 90, Scale.IsInversed ? 90 : 270, false);
                     else
@@ -261,7 +261,7 @@ namespace Syncfusion.Maui.Gauges
                     x2 = (float)(startPointX2 + halfWidth);
 
                     Scale.MoveToPath(barPointerPath, (float)startPointX2, y2);
-                    
+
                     if (Scale.Orientation == GaugeOrientation.Horizontal)
                         barPointerPath.AddArc(x1, y1, x2, y2, Scale.IsInversed ? 90 : 270, Scale.IsInversed ? 270 : 90, false);
                     else
@@ -275,6 +275,17 @@ namespace Syncfusion.Maui.Gauges
                 if (this.Child != null)
                 {
                     Scale.UpdateChild(this.Child, barPointerPath.Bounds);
+                }
+
+                float size = DraggingOffset * 2;
+
+                if (Scale.Orientation == GaugeOrientation.Horizontal)
+                {
+                    this.PointerRect = new RectangleF((float)(startPointX2 - DraggingOffset), y1 - DraggingOffset, size, size + (float)PointerSize);
+                }
+                else
+                {
+                    this.PointerRect = new RectangleF(y1 - DraggingOffset, (float)(startPointX2 - DraggingOffset), size + (float)PointerSize, size);
                 }
             }
         }

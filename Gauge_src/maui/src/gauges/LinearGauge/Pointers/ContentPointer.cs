@@ -82,7 +82,10 @@ namespace Syncfusion.Maui.Gauges
                     Utility.Swap(ref x, ref y);
                 }
 
-                AbsoluteLayout.SetLayoutBounds(Content, new Rectangle(new Point(x, y), Content.DesiredSize));
+                Rectangle rectangle = new Rectangle(new Point(x, y), Content.DesiredSize);
+                AbsoluteLayout.SetLayoutBounds(Content, rectangle);
+
+                this.PointerRect = rectangle;
             }
         }
 
