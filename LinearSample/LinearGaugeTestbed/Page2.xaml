@@ -10,7 +10,7 @@
         <Grid HeightRequest="500">
             <gauge:SfLinearGauge x:Name="gauge"  VerticalOptions="Center" HorizontalOptions="Center" >
                 <gauge:SfLinearGauge.Ranges>
-                    <gauge:LinearRange MidWidth="50" StartValue="0" EndValue="50" StartWidth="50" EndWidth="50"/>
+                    <gauge:LinearRange MidWidth="5" StartValue="0" EndValue="50" StartWidth="50" EndWidth="50"/>
                 </gauge:SfLinearGauge.Ranges>
             </gauge:SfLinearGauge>
         </Grid>

@@ -6,5 +6,6 @@
 
     <VerticalStackLayout>
         <Button Margin="5" x:Name="button1" Clicked="button1_Clicked" Text="Linear Gauge"/>
+        <Button Margin="5" x:Name="button2" Clicked="button2_Clicked" Text="Gauge"/>
     </VerticalStackLayout>
 </ContentPage>
