@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Essentials;
@@ -23,8 +24,35 @@ namespace LinearGaugeTestbed
 			InitializeComponent();
             this.BindingContext = this;
 
+            barPointer.ValueChanging += BarPointer_ValueChanging;
+            barPointer.ValueChanged += BarPointer_ValueChanged;
+            barPointer.ValueChangeStarted += BarPointer_ValueChangeStarted;
+            barPointer.ValueChangeCompleted += BarPointer_ValueChangeCompleted;
         }
 
+        private void BarPointer_ValueChangeCompleted(object sender, Syncfusion.Maui.Gauges.ValueChangedEventArgs e)
+        {
+            Debug.WriteLine("BarPointer_ValueChangeCompleted");
+        }
+
+        private void BarPointer_ValueChangeStarted(object sender, Syncfusion.Maui.Gauges.ValueChangedEventArgs e)
+        {
+            Debug.WriteLine("BarPointer_ValueChangeStarted");
+        }
+
+        private void BarPointer_ValueChanged(object sender, Syncfusion.Maui.Gauges.ValueChangedEventArgs e)
+        {
+            Debug.WriteLine("BarPointer_ValueChanged");
+        }
+
+        private void BarPointer_ValueChanging(object sender, ValueChangingEventArgs e)
+        {
+
+            Debug.WriteLine("BarPointer_ValueChanging");
+
+            if (e.NewValue > 70)
+                e.Cancel = true;
+        }
 
         public List<string> ColorCollection
         {
@@ -621,11 +649,16 @@ namespace LinearGaugeTestbed
 
         private void RangeMidWidthIncrease_Clicked(object sender, EventArgs e)
         {
+            if(double.IsNaN(range.MidWidth))
+                range.MidWidth = range.StartWidth;
             range.MidWidth += 1;
         }
 
         private void RangeMidWidthDecrease_Clicked(object sender, EventArgs e)
         {
+            if (double.IsNaN(range.MidWidth))
+                range.MidWidth = range.StartWidth;
+
             range.MidWidth -= 1;
         }
 
@@ -731,9 +764,9 @@ namespace LinearGaugeTestbed
 
         private void RangeChildSet_Clicked(object sender, EventArgs e)
         {
-            range.Child = new Label()
+            range.Child = new Image()
             {
-                Text ="Dynamic"
+                Source = "alexandar.png"
             };
         }
 
@@ -769,10 +802,9 @@ namespace LinearGaugeTestbed
 
         private void BarPointerChildSet_Clicked(object sender, EventArgs e)
         {
-            barPointer.Child = new Label()
+            barPointer.Child = new Image()
             {
-                Text = "Dynamic",
-                Background = new SolidColorBrush(Colors.Yellow),
+                Source = "alexandar.png"
             };
         }
 
@@ -976,10 +1008,9 @@ namespace LinearGaugeTestbed
 
         private void ContentPointerChildSet_Clicked(object sender, EventArgs e)
         {
-            contentPointer.Content = new Label()
+            contentPointer.Content = new Image()
             {
-                Text = "Dynamic",
-                Background = new SolidColorBrush(Colors.Yellow),
+                Source = "alexandar.png"
             };
         }
 

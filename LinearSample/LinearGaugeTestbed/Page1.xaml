@@ -10,33 +10,56 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Margin="15">
-            <gauge:SfLinearGauge x:Name="gauge" >
+            <gauge:SfLinearGauge x:Name="gauge" WidthRequest="500"
+                                 HorizontalOptions="Center" VerticalOptions="Center"
+                                 Maximum="10"
+                          Interval="2"
+                          MinorTicksPerInterval="3">
+                <gauge:SfLinearGauge.MajorTickStyle>
+                    <gauge:LinearTickStyle Length="15"/>
+                </gauge:SfLinearGauge.MajorTickStyle>
+                <gauge:SfLinearGauge.MinorTickStyle>
+                    <gauge:LinearTickStyle Length="10"/>
+                </gauge:SfLinearGauge.MinorTickStyle>
+                <gauge:SfLinearGauge.LineStyle>
+                    <gauge:LinearLineStyle Thickness="30"/>
+                </gauge:SfLinearGauge.LineStyle>
                 <gauge:SfLinearGauge.Ranges>
-                    <gauge:LinearRange x:Name="range" StartValue="{Binding Position}" EndValue="40"
-                                       StartWidth="20" EndWidth="20">
-                        <!--<gauge:LinearRange.Child>
-                            <Label Text="{Binding StartValue}" 
-                                   HorizontalOptions="Center"/>
-                        </gauge:LinearRange.Child>-->
-                    </gauge:LinearRange>
+                    <gauge:LinearRange x:Name="range" EndValue="4"
+                                        Fill="Red"
+                                        StartWidth="30"
+                                        EndWidth="30"
+                                        RangePosition="Cross"/>
+                    <gauge:LinearRange StartValue="4"
+                                        EndValue="8"
+                                        Fill="Yellow"
+                                        StartWidth="30"
+                                        EndWidth="30"
+                                        RangePosition="Cross" />
+                    <gauge:LinearRange StartValue="8"
+                                        EndValue="10"
+                                        Fill="Green"
+                                        StartWidth="30"
+                                        EndWidth="30"
+                                        RangePosition="Cross" />
+
                 </gauge:SfLinearGauge.Ranges>
                 <gauge:SfLinearGauge.BarPointers>
-                    <gauge:BarPointer x:Name="barPointer" Value="60" EnableAnimation="True">
-                        <!--<gauge:BarPointer.Child>
-                            <Label Text="Bar Pointer" 
-                                   HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
-                        </gauge:BarPointer.Child>-->
-                    </gauge:BarPointer>
+                    <gauge:BarPointer x:Name="barPointer" Value="5"
+                                  PointerSize="12"
+                                  Fill="Black"/>
                 </gauge:SfLinearGauge.BarPointers>
                 <gauge:SfLinearGauge.MarkerPointers>
-                    <gauge:ShapePointer x:Name="shapePointer" Value="90" ShapeType="Triangle" />
-                    <gauge:ContentPointer x:Name="contentPointer" Value="70">
-                        <gauge:ContentPointer.Content>
-                            <Label Text="Content"/>
-                        </gauge:ContentPointer.Content>
+                    <gauge:ShapePointer x:Name="shapePointer"  Value="7" />
+
+                    <gauge:ContentPointer x:Name="contentPointer" Value="5" >
+                       
+
                     </gauge:ContentPointer>
                 </gauge:SfLinearGauge.MarkerPointers>
             </gauge:SfLinearGauge>
+
+           
         </Grid>
         <ScrollView GridLayout.Row="1">
             <VerticalStackLayout>
@@ -540,7 +563,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label Text="Child"/>
-                    <Button GridLayout.Column="1" Text="Label" 
+                    <Button GridLayout.Column="1" Text="Image" 
                             Clicked="RangeChildSet_Clicked" Margin="5"/>
                     <Button GridLayout.Column="2" Text="Null" 
                             Clicked="RangeChildSetNull_Clicked" Margin="5"/>
@@ -630,7 +653,7 @@
                             SelectedIndexChanged="Picker_SelectedIndexChanged12"/>
                 </Grid>
 
-                <Grid Margin="5">
+                <!--<Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -641,7 +664,7 @@
                             Clicked="BarPointerBorderSizeIncrease_Clicked" Margin="5"/>
                     <Button GridLayout.Column="2" Text="-" 
                             Clicked="BarPointerBorderSizeDecrease_Clicked" Margin="5"/>
-                </Grid>
+                </Grid>-->
 
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
@@ -653,7 +676,7 @@
                             SelectedIndexChanged="Picker_SelectedIndexChanged13"/>
                 </Grid>
 
-                <Grid Margin="5">
+                <!--<Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -661,7 +684,7 @@
                     <Label Text="Stroke"/>
                     <Picker GridLayout.Column="1" ItemsSource="{Binding ColorCollection}"
                             SelectedIndexChanged="Picker_SelectedIndexChanged14"/>
-                </Grid>
+                </Grid>-->
 
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
@@ -683,7 +706,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label Text="Child"/>
-                    <Button GridLayout.Column="1" Text="Label" 
+                    <Button GridLayout.Column="1" Text="Image" 
                             Clicked="BarPointerChildSet_Clicked" Margin="5"/>
                     <Button GridLayout.Column="2" Text="Null" 
                             Clicked="BarPointerChildSetNull_Clicked" Margin="5"/>
@@ -965,7 +988,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label Text="Content"/>
-                    <Button GridLayout.Column="1" Text="Label" 
+                    <Button GridLayout.Column="1" Text="Image" 
                             Clicked="ContentPointerChildSet_Clicked" Margin="5"/>
                     <Button GridLayout.Column="2" Text="Null" 
                             Clicked="ContentPointerChildSetNull_Clicked" Margin="5"/>

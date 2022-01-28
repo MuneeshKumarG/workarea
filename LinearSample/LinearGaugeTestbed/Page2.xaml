@@ -7,7 +7,13 @@
 
     <VerticalStackLayout>
         <Button Text="Orientation" x:Name="orientation"/>
-        <gauge:SfLinearGauge x:Name="gauge" Background="orange" >
-        </gauge:SfLinearGauge>
+        <Grid HeightRequest="500">
+            <gauge:SfLinearGauge x:Name="gauge"  VerticalOptions="Center" HorizontalOptions="Center" >
+                <gauge:SfLinearGauge.Ranges>
+                    <gauge:LinearRange MidWidth="50" StartValue="0" EndValue="50" StartWidth="50" EndWidth="50"/>
+                </gauge:SfLinearGauge.Ranges>
+            </gauge:SfLinearGauge>
+        </Grid>
+       
     </VerticalStackLayout>
 </ContentPage>
