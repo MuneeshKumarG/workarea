@@ -121,6 +121,8 @@ namespace Syncfusion.Maui.Gauges
         {
             this.RangeView = new LinearRangeView(this);
             this.GradientStops = new ObservableCollection<GaugeGradientStop>();
+            AbsoluteLayout.SetLayoutBounds(this.RangeView, new Rectangle(0, 0, 1, 1));
+            AbsoluteLayout.SetLayoutFlags(this.RangeView, Microsoft.Maui.Layouts.AbsoluteLayoutFlags.All);
         }
 
         #endregion
@@ -252,6 +254,9 @@ namespace Syncfusion.Maui.Gauges
                 foreach (var gradientStop in this.GradientStops)
                     SetInheritedBindingContext(gradientStop, BindingContext);
             }
+
+            if (this.Child != null)
+                SetInheritedBindingContext(Child, this);
         }
 
         #endregion
@@ -268,7 +273,8 @@ namespace Syncfusion.Maui.Gauges
                 return;
             }
 
-            double maxRangeWidth = double.IsNaN(this.MidWidth) ? Math.Max(this.StartWidth, this.EndWidth) :
+            bool isAddedMidWidth = double.IsNaN(this.MidWidth);
+            double maxRangeWidth = isAddedMidWidth ? Math.Max(this.StartWidth, this.EndWidth) :
                 Math.Max(Math.Max(this.StartWidth, this.MidWidth), this.EndWidth);
 
             ActualStartValue = Math.Clamp(this.StartValue, this.Scale.ActualMinimum, this.Scale.ActualMaximum);
@@ -277,7 +283,7 @@ namespace Syncfusion.Maui.Gauges
             double actualEndWidth = this.EndWidth > 0 ? this.EndWidth : 0d;
             double actualStartWidth = this.StartWidth > 0 ? this.StartWidth : 0d;
             double actualMidWidth = 0d;
-            if (!double.IsNaN(this.MidWidth))
+            if (!isAddedMidWidth)
             {
                 actualMidWidth = this.MidWidth > 0 ? this.MidWidth : 0d;
             }
@@ -295,7 +301,7 @@ namespace Syncfusion.Maui.Gauges
                     this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY);
                     this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY);
                     this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY - actualEndWidth);
-                    if (!double.IsNaN(this.MidWidth))
+                    if (!isAddedMidWidth)
                     {
                         this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY - actualMidWidth);
                     }
@@ -307,7 +313,7 @@ namespace Syncfusion.Maui.Gauges
                         this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2));
                         this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2));
                         this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualEndWidth);
-                        if (!double.IsNaN(this.MidWidth))
+                        if (!isAddedMidWidth)
                         {
                             this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualMidWidth);
                         }
@@ -316,7 +322,7 @@ namespace Syncfusion.Maui.Gauges
                     else
                     {
                         this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualStartWidth);
-                        if (!double.IsNaN(this.MidWidth))
+                        if (!isAddedMidWidth)
                         {
                             this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualMidWidth);
                         }
@@ -329,7 +335,7 @@ namespace Syncfusion.Maui.Gauges
                     this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + lineThickness);
                     this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + lineThickness);
                     this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + lineThickness + actualEndWidth);
-                    if (!double.IsNaN(this.MidWidth))
+                    if (!isAddedMidWidth)
                     {
                         this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY + lineThickness + actualMidWidth);
                     }
@@ -363,21 +369,14 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="canvas">canvas</param>
         internal void DrawRange(ICanvas canvas)
         {
-            if (this.Scale != null)
+            if (this.rangePath != null)
             {
-                canvas.SaveState();
+                if (this.linearGradientBrush != null)
+                    canvas.SetFillPaint(this.linearGradientBrush, rangePath.Bounds);
+                else
+                    canvas.SetFillPaint(this.Fill, rangePath.Bounds);
 
-                if (this.rangePath != null)
-                {
-                    if (this.linearGradientBrush != null)
-                        canvas.SetFillPaint(this.linearGradientBrush, rangePath.Bounds);
-                    else
-                        canvas.SetFillPaint(this.Fill, rangePath.Bounds);
-
-                    canvas.FillPath(this.rangePath);
-                }
-
-                canvas.RestoreState();
+                canvas.FillPath(this.rangePath);
             }
         }
 
@@ -454,13 +453,13 @@ namespace Syncfusion.Maui.Gauges
         {
             if (bindable is LinearRange linearRange)
             {
-                if (linearRange.Scale != null)
+                if (linearRange.Scale != null && linearRange.Scale.RangeLayout.Contains(linearRange.RangeView))
                 {
                     linearRange.Scale.RangeChildUpdate(oldValue, newValue);
 
                     if (newValue is View newChild)
                     {
-                        newChild.BindingContext = linearRange;
+                        SetInheritedBindingContext(newChild, linearRange);
 
                         if (linearRange.rangePath != null)
                             linearRange.Scale.UpdateChild(newChild, linearRange.rangePath.Bounds);

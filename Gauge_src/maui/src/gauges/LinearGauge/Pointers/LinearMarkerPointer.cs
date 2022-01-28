@@ -109,6 +109,22 @@ namespace Syncfusion.Maui.Gauges
         #region Methods
 
         /// <summary>
+        /// Method used to update pointer to property change. 
+        /// </summary>
+        internal override void UpdatePointer() { }
+
+        /// <summary>
+        /// Method used to create pointer.
+        /// </summary>
+        internal override void CreatePointer() { }
+
+        /// <summary>
+        /// Method used to draw pointer.
+        /// </summary>
+        /// <param name="canvas">canvas</param>
+        internal override void Draw(ICanvas canvas) { }
+
+        /// <summary>
         /// To get the pointer position.
         /// </summary>
         /// <param name="halfWidth">The pointer half width.</param>

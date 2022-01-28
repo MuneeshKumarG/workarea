@@ -329,12 +329,12 @@ namespace Syncfusion.Maui.Gauges
             if (this.CanAnimate)
             {
                 this.AnimatePointer(this.Scale.ActualMinimum, this.Value);
-                this.CanAnimate = false;
             }
             else
             {
                 this.UpdatePointer();
             }
+            this.CanAnimate = false;
         }
 
         #endregion

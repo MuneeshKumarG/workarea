@@ -88,7 +88,7 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// Holds dragging rect offset value. 
         /// </summary>
-        internal const float DraggingOffset = 10;
+        internal const float DraggingOffset = 15;
 
         #endregion
 
@@ -100,6 +100,8 @@ namespace Syncfusion.Maui.Gauges
         public LinearPointer()
         {
             this.PointerView = new LinearPointerView(this);
+            AbsoluteLayout.SetLayoutBounds(this.PointerView, new Rectangle(0, 0, 1, 1));
+            AbsoluteLayout.SetLayoutFlags(this.PointerView, Microsoft.Maui.Layouts.AbsoluteLayoutFlags.All);
         }
 
         #endregion
@@ -276,25 +278,18 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// Method used to update pointer to property change. 
         /// </summary>
-        internal virtual void UpdatePointer()
-        {
-        }
+        internal abstract void UpdatePointer();
 
         /// <summary>
         /// Method used to create pointer.
         /// </summary>
-        internal virtual void CreatePointer()
-        {
-        }
+        internal abstract void CreatePointer();
 
         /// <summary>
         /// Method used to draw pointer.
         /// </summary>
         /// <param name="canvas">canvas</param>
-        internal virtual void Draw(ICanvas canvas)
-        {
-
-        }
+        internal abstract void Draw(ICanvas canvas);
 
         /// <summary>
         /// Invalidate pointer view.

@@ -277,17 +277,34 @@ namespace Syncfusion.Maui.Gauges
                     Scale.UpdateChild(this.Child, barPointerPath.Bounds);
                 }
 
+                //Calculate interaction pointer rect.
                 float size = DraggingOffset * 2;
 
+                if (this.CornerStyle == CornerStyle.EndCurve || this.CornerStyle == CornerStyle.BothCurve)
+                    startPointX2 = startPointX2 + (Scale.Orientation == GaugeOrientation.Horizontal ? halfWidth : -halfWidth);
+
                 if (Scale.Orientation == GaugeOrientation.Horizontal)
-                {
                     this.PointerRect = new RectangleF((float)(startPointX2 - DraggingOffset), y1 - DraggingOffset, size, size + (float)PointerSize);
-                }
                 else
-                {
                     this.PointerRect = new RectangleF(y1 - DraggingOffset, (float)(startPointX2 - DraggingOffset), size + (float)PointerSize, size);
-                }
             }
+        }
+
+        /// <summary>
+        /// Invoked whenever the binding context of the View changes.
+        /// </summary>
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+
+            if (this.GradientStops != null)
+            {
+                foreach (var gradientStop in this.GradientStops)
+                    SetInheritedBindingContext(gradientStop, BindingContext);
+            }
+
+            if (this.Child != null)
+                SetInheritedBindingContext(Child, this);
         }
 
         #endregion
@@ -349,13 +366,13 @@ namespace Syncfusion.Maui.Gauges
         {
             if (bindable is BarPointer pointer)
             {
-                if (pointer.Scale != null)
+                if (pointer.Scale != null && pointer.Scale.BarPointersLayout.Contains(pointer.PointerView))
                 {
                     pointer.Scale.BarPointerChildUpdate(oldValue, newValue);
 
                     if (newValue is View newChild)
                     {
-                        newChild.BindingContext = pointer;
+                        SetInheritedBindingContext(newChild, pointer);
 
                         if (pointer.barPointerPath != null)
                             pointer.Scale.UpdateChild(newChild, pointer.barPointerPath.Bounds);
@@ -412,12 +429,12 @@ namespace Syncfusion.Maui.Gauges
             if (this.CanAnimate)
             {
                 this.AnimatePointer(this.Scale.ActualMinimum, this.Value);
-                this.CanAnimate = false;
             }
             else
             {
                 this.UpdatePointer();
             }
+            this.CanAnimate = false;
         }
 
         private void CreateGradient()
@@ -426,6 +443,8 @@ namespace Syncfusion.Maui.Gauges
             {
                 linearGradientBrush = this.Scale.GetLinearGradient(this.GradientStops, actualStartValue, actualEndValue);
             }
+            else
+                linearGradientBrush = null;
         }
 
         /// <summary>

@@ -244,14 +244,14 @@ namespace Syncfusion.Maui.Gauges
         #region Fields
 
         private Grid parentLayout;
-        private AbsoluteLayout rangeLayout, barPointersLayout, shapePointersLayout;
         private LinearScaleView linearScaleView;
         private PathF? scaleLinePath;
         private double scaleLineLength;
         private PointF majorTicksLayoutPosition, minorTicksLayoutPosition, labelsLayoutPosition;
         private Size firstLabelSize, lastLabelSize;
         private bool isTouchHandled;
-
+        
+        internal AbsoluteLayout RangeLayout, BarPointersLayout, ShapePointersLayout;
         internal Point ScalePosition;
         internal Size ScaleAvailableSize, LabelMaximumSize;
         internal List<GaugeLabelInfo>? VisibleLabels;
@@ -269,9 +269,9 @@ namespace Syncfusion.Maui.Gauges
         {
             this.linearScaleView = new LinearScaleView(this);
             this.parentLayout = new Grid();
-            this.rangeLayout = new AbsoluteLayout();
-            this.barPointersLayout = new AbsoluteLayout();
-            this.shapePointersLayout = new AbsoluteLayout();
+            this.RangeLayout = new AbsoluteLayout();
+            this.BarPointersLayout = new AbsoluteLayout();
+            this.ShapePointersLayout = new AbsoluteLayout();
             this.parentLayout.Children.Add(this.linearScaleView);
 
             this.LineStyle = new LinearLineStyle();
@@ -863,9 +863,6 @@ namespace Syncfusion.Maui.Gauges
 
         internal void MoveToPath(PathF path, double x, double y)
         {
-            if (path == null)
-                return;
-
             if (this.Orientation == GaugeOrientation.Horizontal)
                 path.MoveTo((float)x, (float)y);
             else
@@ -874,9 +871,6 @@ namespace Syncfusion.Maui.Gauges
 
         internal void LineToPath(PathF path, double x, double y)
         {
-            if (path == null)
-                return;
-
             if (this.Orientation == GaugeOrientation.Horizontal)
                 path.LineTo((float)x, (float)y);
             else
@@ -885,40 +879,40 @@ namespace Syncfusion.Maui.Gauges
 
         internal void BarPointerChildUpdate(object? oldView, object? newView)
         {
-            if (oldView is View oldChild && this.barPointersLayout.Children.Contains(oldChild))
+            if (oldView is View oldChild && this.BarPointersLayout.Children.Contains(oldChild))
             {
-                this.barPointersLayout.Children.Remove(oldChild);
+                this.BarPointersLayout.Children.Remove(oldChild);
             }
 
-            if (newView is View newChild && !this.barPointersLayout.Children.Contains(newChild))
+            if (newView is View newChild && !this.BarPointersLayout.Children.Contains(newChild))
             {
-                this.barPointersLayout.Children.Add(newChild);
+                this.BarPointersLayout.Children.Add(newChild);
             }
         }
 
         internal void ShapePointerChildUpdate(object? oldView, object? newView)
         {
-            if (oldView is View oldChild && this.shapePointersLayout.Children.Contains(oldChild))
+            if (oldView is View oldChild && this.ShapePointersLayout.Children.Contains(oldChild))
             {
-                this.shapePointersLayout.Children.Remove(oldChild);
+                this.ShapePointersLayout.Children.Remove(oldChild);
             }
 
-            if (newView is View newChild && !this.shapePointersLayout.Children.Contains(newChild))
+            if (newView is View newChild && !this.ShapePointersLayout.Children.Contains(newChild))
             {
-                this.shapePointersLayout.Children.Add(newChild);
+                this.ShapePointersLayout.Children.Add(newChild);
             }
         }
 
         internal void RangeChildUpdate(object? oldView, object? newView)
         {
-            if (oldView is View oldChild && this.rangeLayout.Children.Contains(oldChild))
+            if (oldView is View oldChild && this.RangeLayout.Children.Contains(oldChild))
             {
-                this.rangeLayout.Children.Remove(oldChild);
+                this.RangeLayout.Children.Remove(oldChild);
             }
 
-            if (newView is View newChild && !this.rangeLayout.Children.Contains(newChild))
+            if (newView is View newChild && !this.RangeLayout.Children.Contains(newChild))
             {
-                this.rangeLayout.Children.Add(newChild);
+                this.RangeLayout.Children.Add(newChild);
             }
         }
 
@@ -1585,19 +1579,6 @@ namespace Syncfusion.Maui.Gauges
                 this.CreateRanges();
                 this.CreateBarPointers();
                 this.CreateMarkerPointers();
-
-                foreach (var range in Ranges)
-                {
-                    AbsoluteLayout.SetLayoutBounds(range.RangeView, new Rectangle(0, 0, ScaleAvailableSize.Width, ScaleAvailableSize.Height));
-                }
-                foreach (var pointer in BarPointers)
-                {
-                    AbsoluteLayout.SetLayoutBounds(pointer.PointerView, new Rectangle(0, 0, ScaleAvailableSize.Width, ScaleAvailableSize.Height));
-                }
-                foreach (var pointer in MarkerPointers)
-                {
-                    AbsoluteLayout.SetLayoutBounds(pointer.PointerView, new Rectangle(0, 0, ScaleAvailableSize.Width, ScaleAvailableSize.Height));
-                }
             }
         }
 
@@ -2434,20 +2415,20 @@ namespace Syncfusion.Maui.Gauges
             {
                 linearRange.Scale = this;
 
-                if (!this.rangeLayout.Contains(linearRange.RangeView))
-                    this.rangeLayout.Insert(index, linearRange.RangeView);
+                if (!this.RangeLayout.Contains(linearRange.RangeView))
+                    this.RangeLayout.Insert(index, linearRange.RangeView);
 
                 if (linearRange.Child != null)
                 {
-                    linearRange.Child.BindingContext = linearRange;
+                    SetInheritedBindingContext(linearRange.Child, linearRange);
                     this.RangeChildUpdate(null, linearRange.Child);
                 }
 
                 SetInheritedBindingContext(linearRange, this.BindingContext);
 
-                if (this.rangeLayout.Children.Count > 0 && !this.parentLayout.Children.Contains(rangeLayout))
+                if (this.RangeLayout.Children.Count > 0 && !this.parentLayout.Children.Contains(RangeLayout))
                 {
-                    this.parentLayout.Children.Add(rangeLayout);
+                    this.parentLayout.Children.Add(RangeLayout);
                 }
 
                 this.ScaleInvalidateMeasureOverride();
@@ -2468,9 +2449,9 @@ namespace Syncfusion.Maui.Gauges
                 if (linearRange.Child != null)
                     this.RangeChildUpdate(linearRange.Child, null);
 
-                if (this.rangeLayout.Children.Contains(linearRange.RangeView))
+                if (this.RangeLayout.Children.Contains(linearRange.RangeView))
                 {
-                    this.rangeLayout.Children.RemoveAt(index);
+                    this.RangeLayout.Children.RemoveAt(index);
                 }
 
                 this.ScaleInvalidateMeasureOverride();
@@ -2482,7 +2463,7 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         private void ResetRanges()
         {
-            this.rangeLayout.Children.Clear();
+            this.RangeLayout.Children.Clear();
             this.ScaleInvalidateMeasureOverride();
         }
 
@@ -2512,20 +2493,20 @@ namespace Syncfusion.Maui.Gauges
                 barPointer.Scale = this;
                 barPointer.CanAnimate = true;
 
-                if (!this.barPointersLayout.Contains(barPointer.PointerView))
-                    this.barPointersLayout.Insert(index, barPointer.PointerView);
+                if (!this.BarPointersLayout.Contains(barPointer.PointerView))
+                    this.BarPointersLayout.Insert(index, barPointer.PointerView);
 
                 if (barPointer.Child != null)
                 {
-                    barPointer.Child.BindingContext = barPointer;
+                    SetInheritedBindingContext(barPointer.Child, barPointer);
                     this.BarPointerChildUpdate(null, barPointer.Child);
                 }
 
                 SetInheritedBindingContext(barPointer, this.BindingContext);
 
-                if (this.barPointersLayout.Children.Count > 0 && !this.parentLayout.Children.Contains(barPointersLayout))
+                if (this.BarPointersLayout.Children.Count > 0 && !this.parentLayout.Children.Contains(BarPointersLayout))
                 {
-                    this.parentLayout.Children.Add(barPointersLayout);
+                    this.parentLayout.Children.Add(BarPointersLayout);
                 }
 
                 this.ScaleInvalidateMeasureOverride();
@@ -2543,9 +2524,9 @@ namespace Syncfusion.Maui.Gauges
             {
                 barPointer.Scale = null;
 
-                if (this.barPointersLayout.Children.Contains(barPointer.PointerView))
+                if (this.BarPointersLayout.Children.Contains(barPointer.PointerView))
                 {
-                    this.barPointersLayout.Children.RemoveAt(index);
+                    this.BarPointersLayout.Children.RemoveAt(index);
                 }
 
                 if (barPointer.Child != null)
@@ -2560,7 +2541,7 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         private void ResetBarPointers()
         {
-            this.barPointersLayout.Children.Clear();
+            this.BarPointersLayout.Children.Clear();
             this.ScaleInvalidateMeasureOverride();
         }
 
@@ -2592,12 +2573,12 @@ namespace Syncfusion.Maui.Gauges
 
                 if (markerPointer is ContentPointer contentPointer && contentPointer.Content != null)
                 {
-                    contentPointer.Content.BindingContext = contentPointer;
+                    SetInheritedBindingContext(contentPointer.Content, contentPointer);
                     this.ShapePointerChildUpdate(null, contentPointer.Content);
                 }
 
-                if (!this.shapePointersLayout.Contains(markerPointer.PointerView))
-                    this.shapePointersLayout.Insert(index, markerPointer.PointerView);
+                if (!this.ShapePointersLayout.Contains(markerPointer.PointerView))
+                    this.ShapePointersLayout.Insert(index, markerPointer.PointerView);
 
                 if (!this.ScaleAvailableSize.IsZero)
                 {
@@ -2605,9 +2586,9 @@ namespace Syncfusion.Maui.Gauges
                     markerPointer.CreatePointer();
                 }
 
-                if (this.shapePointersLayout.Children.Count > 0 && !this.parentLayout.Children.Contains(shapePointersLayout))
+                if (this.ShapePointersLayout.Children.Count > 0 && !this.parentLayout.Children.Contains(ShapePointersLayout))
                 {
-                    this.parentLayout.Children.Add(shapePointersLayout);
+                    this.parentLayout.Children.Add(ShapePointersLayout);
                 }
 
                 this.ScaleInvalidateMeasureOverride();
@@ -2625,9 +2606,9 @@ namespace Syncfusion.Maui.Gauges
             {
                 markerPointer.Scale = null;
 
-                if (this.shapePointersLayout.Children.Contains(markerPointer.PointerView))
+                if (this.ShapePointersLayout.Children.Contains(markerPointer.PointerView))
                 {
-                    this.shapePointersLayout.Children.RemoveAt(index);
+                    this.ShapePointersLayout.Children.RemoveAt(index);
                 }
 
                 if (markerPointer is ContentPointer contentPointer && contentPointer.Content != null)
@@ -2642,7 +2623,7 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         private void ResetMarkerPointers()
         {
-            this.shapePointersLayout.Children.Clear();
+            this.ShapePointersLayout.Children.Clear();
             this.ScaleInvalidateMeasureOverride();
         }
 

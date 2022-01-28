@@ -89,6 +89,16 @@ namespace Syncfusion.Maui.Gauges
             }
         }
 
+        /// <summary>
+        /// Invoked whenever the binding context of the View changes.
+        /// </summary>
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+
+            if (this.Content != null)
+                SetInheritedBindingContext(Content, this);
+        }
         #endregion
 
         #region Property changed
@@ -103,12 +113,15 @@ namespace Syncfusion.Maui.Gauges
         {
             if (bindable is ContentPointer pointer)
             {
-                if (newValue is View newChild)
+                if (pointer.Scale != null && pointer.Scale.ShapePointersLayout.Contains(pointer.PointerView))
                 {
-                    newChild.BindingContext = pointer;
+                    if (newValue is View newChild)
+                    {
+                        SetInheritedBindingContext(newChild, pointer);
+                    }
+                    pointer.Scale.ShapePointerChildUpdate(oldValue, newValue);
+                    pointer.UpdatePointer();
                 }
-                pointer.Scale?.ShapePointerChildUpdate(oldValue, newValue);
-                pointer.UpdatePointer();
             }
         }
 
@@ -129,12 +142,12 @@ namespace Syncfusion.Maui.Gauges
             if (this.CanAnimate)
             {
                 this.AnimatePointer(this.Scale.ActualMinimum, this.Value);
-                this.CanAnimate = false;
             }
             else
             {
                 this.UpdatePointer();
             }
+            this.CanAnimate = false;
         }
 
         #endregion
