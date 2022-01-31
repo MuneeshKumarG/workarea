@@ -73,7 +73,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="LabelFormat"/> bindable property.
         /// </value>
         public static readonly BindableProperty LabelFormatProperty =
-            BindableProperty.Create(nameof(LabelFormat), typeof(string), typeof(SfLinearGauge), null, propertyChanged: OnLabelFormatPropertyChanged);
+            BindableProperty.Create(nameof(LabelFormat), typeof(string), typeof(SfLinearGauge), null, propertyChanged: OnScaleInvalidatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="LabelPosition"/> bindable property.
@@ -82,8 +82,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="LabelPosition"/> bindable property.
         /// </value>
         public static readonly BindableProperty LabelPositionProperty =
-           BindableProperty.Create(nameof(LabelPosition), typeof(GaugeLabelsPosition), typeof(SfLinearGauge),
-           GaugeLabelsPosition.Inside, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(LabelPosition), typeof(GaugeLabelsPosition), typeof(SfLinearGauge), GaugeLabelsPosition.Inside, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="LabelOffset"/> bindable property.
@@ -92,7 +91,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="LabelOffset"/> bindable property.
         /// </value>
         public static readonly BindableProperty LabelOffsetProperty =
-           BindableProperty.Create(nameof(LabelOffset), typeof(double), typeof(SfLinearGauge), double.NaN, propertyChanged: OnLabelOffsetPropertyChanged);
+            BindableProperty.Create(nameof(LabelOffset), typeof(double), typeof(SfLinearGauge), double.NaN, propertyChanged: OnScaleInvalidatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="TickPosition"/> bindable property.
@@ -101,8 +100,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="TickPosition"/> bindable property.
         /// </value>
         public static readonly BindableProperty TickPositionProperty =
-            BindableProperty.Create(nameof(TickPosition), typeof(GaugeElementPosition), typeof(SfLinearGauge),
-             GaugeElementPosition.Inside, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(TickPosition), typeof(GaugeElementPosition), typeof(SfLinearGauge), GaugeElementPosition.Inside, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="TickOffset"/> bindable property.
@@ -111,7 +109,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="TickOffset"/> bindable property.
         /// </value>
         public static readonly BindableProperty TickOffsetProperty =
-            BindableProperty.Create(nameof(TickOffset), typeof(double), typeof(SfLinearGauge), double.NaN, propertyChanged: OnTickOffsetPropertyChanged);
+            BindableProperty.Create(nameof(TickOffset), typeof(double), typeof(SfLinearGauge), double.NaN, propertyChanged: OnScaleInvalidatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="LineStyle"/> bindable property.
@@ -174,7 +172,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="ShowTicks"/> bindable property.
         /// </value>
         public static readonly BindableProperty ShowTicksProperty =
-            BindableProperty.Create(nameof(ShowTicks), typeof(bool), typeof(SfLinearGauge), true, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(ShowTicks), typeof(bool), typeof(SfLinearGauge), true, propertyChanged: OnScaleInvalidatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="ShowLine"/> bindable property.
@@ -183,7 +181,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="ShowLine"/> bindable property.
         /// </value>
         public static readonly BindableProperty ShowLineProperty =
-            BindableProperty.Create(nameof(ShowLine), typeof(bool), typeof(SfLinearGauge), true, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(ShowLine), typeof(bool), typeof(SfLinearGauge), true, propertyChanged: OnScaleInvalidatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="ShowLabels"/> bindable property.
@@ -192,7 +190,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="ShowLabels"/> bindable property.
         /// </value>
         public static readonly BindableProperty ShowLabelsProperty =
-            BindableProperty.Create(nameof(ShowLabels), typeof(bool), typeof(SfLinearGauge), true, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(ShowLabels), typeof(bool), typeof(SfLinearGauge), true, propertyChanged: OnScaleInvalidatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="UseRangeColorForAxis"/> bindable property.
@@ -210,7 +208,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="Orientation"/> bindable property.
         /// </value>
         public static readonly BindableProperty OrientationProperty =
-            BindableProperty.Create(nameof(Orientation), typeof(GaugeOrientation), typeof(SfLinearGauge), GaugeOrientation.Horizontal, propertyChanged: OnOrientationPropertyChanged);
+            BindableProperty.Create(nameof(Orientation), typeof(GaugeOrientation), typeof(SfLinearGauge), GaugeOrientation.Horizontal, propertyChanged: OnScaleInvalidatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="Ranges"/> bindable property.
@@ -299,7 +297,6 @@ namespace Syncfusion.Maui.Gauges
         /// Called when an axis label is created
         /// </summary>
         public event EventHandler<LabelCreatedEventArgs> LabelCreated;
-
 #nullable enable
 
         #endregion
@@ -779,7 +776,10 @@ namespace Syncfusion.Maui.Gauges
 
         internal void Draw(ICanvas canvas)
         {
-            DrawScaleLine(canvas);
+            if (this.ShowLine)
+            {
+                DrawScaleLine(canvas);
+            }
 
             if (this.ShowTicks)
             {
@@ -974,7 +974,7 @@ namespace Syncfusion.Maui.Gauges
         {
             if (e.PropertyName != null)
             {
-                ScaleTicStyle_PropertyChanged(e.PropertyName, false);
+                ScaleTicStyle_PropertyChanged(e.PropertyName);
             }
         }
 
@@ -987,7 +987,7 @@ namespace Syncfusion.Maui.Gauges
         {
             if (e.PropertyName != null)
             {
-                ScaleTicStyle_PropertyChanged(e.PropertyName, true);
+                ScaleTicStyle_PropertyChanged(e.PropertyName);
             }
         }
 
@@ -995,8 +995,7 @@ namespace Syncfusion.Maui.Gauges
         /// Called when <see cref="MajorTickStyle"/> or <see cref="MinorTickStyle"/> property got changed.
         /// </summary>
         /// <param name="propertyName">Property name.</param>
-        /// <param name="isMajorTick">Boolean to identify major tick or not.</param>
-        private void ScaleTicStyle_PropertyChanged(string propertyName, bool isMajorTick)
+        private void ScaleTicStyle_PropertyChanged(string propertyName)
         {
             if (propertyName == GaugeTickStyle.LengthProperty.PropertyName)
             {
@@ -1058,80 +1057,11 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="bindable">The BindableObject.</param>
         /// <param name="oldValue">Old value.</param>
         /// <param name="newValue">New value.</param>
-        private static void OnOrientationPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void OnScaleInvalidatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (bindable is SfLinearGauge sfLinearGauge)
             {
                 sfLinearGauge.ScaleInvalidateMeasureOverride();
-            }
-        }
-
-        /// <summary>
-        /// Called when <see cref="LabelFormat"/> property changed.
-        /// </summary>
-        /// <param name="bindable">The BindableObject.</param>
-        /// <param name="oldValue">Old value.</param>
-        /// <param name="newValue">New value.</param>
-        private static void OnLabelFormatPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            if (bindable is SfLinearGauge sfLinearGauge)
-            {
-                if (sfLinearGauge.LabelPosition == GaugeLabelsPosition.Outside)
-                {
-                    sfLinearGauge.UpdateScale();
-                    sfLinearGauge.InvalidateScale();
-                }
-                else
-                {
-                    sfLinearGauge.UpdateScaleElements();
-                    sfLinearGauge.InvalidateDrawable();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Called when <see cref="LabelOffset"/> property changed.
-        /// </summary>
-        /// <param name="bindable">The BindableObject.</param>
-        /// <param name="oldValue">Old value.</param>
-        /// <param name="newValue">New value.</param>
-        private static void OnLabelOffsetPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            if (bindable is SfLinearGauge sfLinearGauge)
-            {
-                if (sfLinearGauge.LabelPosition == GaugeLabelsPosition.Outside)
-                {
-                    sfLinearGauge.UpdateScale();
-                    sfLinearGauge.InvalidateScale();
-                }
-                else
-                {
-                    sfLinearGauge.UpdateScaleElements();
-                    sfLinearGauge.InvalidateDrawable();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Called when <see cref="TickOffset"/> property changed.
-        /// </summary>
-        /// <param name="bindable">The BindableObject.</param>
-        /// <param name="oldValue">Old value.</param>
-        /// <param name="newValue">New value.</param>
-        private static void OnTickOffsetPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            if (bindable is SfLinearGauge sfLinearGauge)
-            {
-                if (sfLinearGauge.TickPosition == GaugeElementPosition.Outside)
-                {
-                    sfLinearGauge.UpdateScale();
-                    sfLinearGauge.InvalidateScale();
-                }
-                else
-                {
-                    sfLinearGauge.UpdateScaleElements();
-                    sfLinearGauge.InvalidateDrawable();
-                }
             }
         }
 
