@@ -82,7 +82,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="LabelPosition"/> bindable property.
         /// </value>
         public static readonly BindableProperty LabelPositionProperty =
-            BindableProperty.Create(nameof(LabelPosition), typeof(GaugeLabelsPosition), typeof(SfLinearGauge), GaugeLabelsPosition.Inside, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(LabelPosition), typeof(GaugeLabelsPosition), typeof(SfLinearGauge), GaugeLabelsPosition.Inside, propertyChanged: OnScaleInvalidatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="LabelOffset"/> bindable property.
@@ -100,7 +100,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="TickPosition"/> bindable property.
         /// </value>
         public static readonly BindableProperty TickPositionProperty =
-            BindableProperty.Create(nameof(TickPosition), typeof(GaugeElementPosition), typeof(SfLinearGauge), GaugeElementPosition.Inside, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(TickPosition), typeof(GaugeElementPosition), typeof(SfLinearGauge), GaugeElementPosition.Inside, propertyChanged: OnScaleInvalidatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="TickOffset"/> bindable property.

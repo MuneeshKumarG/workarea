@@ -386,7 +386,7 @@ namespace Syncfusion.Maui.Gauges
                 };
                 linearPointer.RaiseOnValueChanged(args);
 
-                if (linearPointer.EnableAnimation)
+                if (linearPointer.EnableAnimation && !linearPointer.IsPressed)
                 {
                     linearPointer.AnimatePointer((double)oldValue, (double)newValue);
                 }
