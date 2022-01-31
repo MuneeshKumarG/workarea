@@ -18,11 +18,12 @@ namespace LinearGaugeTestbed
             get { return position; }
             set { position = value; }
         }
-
+        double interval;
         public Page1()
 		{
 			InitializeComponent();
             this.BindingContext = this;
+            interval = double.IsNaN(gauge.Interval) ? 10 : gauge.Interval;
 
             barPointer.ValueChanging += BarPointer_ValueChanging;
             barPointer.ValueChanged += BarPointer_ValueChanged;
@@ -91,7 +92,7 @@ namespace LinearGaugeTestbed
             gauge.Maximum -= 1;
         }
 
-        double interval = 10;
+       
         private void IntervalIncrease_Clicked(object sender, EventArgs e)
         {
             interval++;

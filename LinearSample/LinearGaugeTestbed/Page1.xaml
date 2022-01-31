@@ -10,7 +10,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Margin="15">
-            <gauge:SfLinearGauge x:Name="gauge" WidthRequest="500"
+            <gauge:SfLinearGauge x:Name="gauge" ShowLine="False"
                                  HorizontalOptions="Center" VerticalOptions="Center"
                                  Maximum="10"
                           Interval="2"
