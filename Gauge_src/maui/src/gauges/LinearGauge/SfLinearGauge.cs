@@ -249,7 +249,7 @@ namespace Syncfusion.Maui.Gauges
         private Size firstLabelSize, lastLabelSize;
         private bool isTouchHandled;
         
-        internal AbsoluteLayout RangeLayout, BarPointersLayout, ShapePointersLayout;
+        internal AbsoluteLayout RangeLayout, BarPointersLayout, MarkerPointersLayout;
         internal Point ScalePosition;
         internal Size ScaleAvailableSize, LabelMaximumSize;
         internal List<GaugeLabelInfo>? VisibleLabels;
@@ -269,7 +269,7 @@ namespace Syncfusion.Maui.Gauges
             this.parentLayout = new Grid();
             this.RangeLayout = new AbsoluteLayout();
             this.BarPointersLayout = new AbsoluteLayout();
-            this.ShapePointersLayout = new AbsoluteLayout();
+            this.MarkerPointersLayout = new AbsoluteLayout();
             this.parentLayout.Children.Add(this.linearScaleView);
 
             this.LineStyle = new LinearLineStyle();
@@ -861,20 +861,28 @@ namespace Syncfusion.Maui.Gauges
             this.InvalidateScale();
         }
 
-        internal void MoveToPath(PathF path, double x, double y)
+        internal void MoveToPath(PathF path, float x, float y)
         {
             if (this.Orientation == GaugeOrientation.Horizontal)
-                path.MoveTo((float)x, (float)y);
+                path.MoveTo(x, y);
             else
-                path.MoveTo((float)y, (float)x);
+                path.MoveTo(y, x);
         }
 
-        internal void LineToPath(PathF path, double x, double y)
+        internal void LineToPath(PathF path, float x, float y)
         {
             if (this.Orientation == GaugeOrientation.Horizontal)
-                path.LineTo((float)x, (float)y);
+                path.LineTo(x, y);
             else
-                path.LineTo((float)y, (float)x);
+                path.LineTo(y, x);
+        }
+
+        internal void CurveToPath(PathF path, double c1X, double c1Y, double c2X, double c2Y, double x, double y)
+        {
+            if (this.Orientation == GaugeOrientation.Horizontal)
+                path.CurveTo((float)c1X, (float)c1Y, (float)c2X, (float)c2Y, (float)x, (float)y);
+            else
+                path.CurveTo((float)c1Y, (float)c1X, (float)c2Y, (float)c2X, (float)y, (float)x);
         }
 
         internal void BarPointerChildUpdate(object? oldView, object? newView)
@@ -890,16 +898,16 @@ namespace Syncfusion.Maui.Gauges
             }
         }
 
-        internal void ShapePointerChildUpdate(object? oldView, object? newView)
+        internal void MarkerPointerChildUpdate(object? oldView, object? newView)
         {
-            if (oldView is View oldChild && this.ShapePointersLayout.Children.Contains(oldChild))
+            if (oldView is View oldChild && this.MarkerPointersLayout.Children.Contains(oldChild))
             {
-                this.ShapePointersLayout.Children.Remove(oldChild);
+                this.MarkerPointersLayout.Children.Remove(oldChild);
             }
 
-            if (newView is View newChild && !this.ShapePointersLayout.Children.Contains(newChild))
+            if (newView is View newChild && !this.MarkerPointersLayout.Children.Contains(newChild))
             {
-                this.ShapePointersLayout.Children.Add(newChild);
+                this.MarkerPointersLayout.Children.Add(newChild);
             }
         }
 
@@ -1984,11 +1992,11 @@ namespace Syncfusion.Maui.Gauges
             double actualScaleLineThickness = this.GetActualScaleLineThickness();
             GaugeLabelsPosition actualLabelsPosition = this.GetActualLabelPosition();
             double outsideRangeHeight = 0d, insideRangeHeight = 0d;
-            this.GetRangeHeights(ref outsideRangeHeight, ref insideRangeHeight);
+            this.GetRangesSize(ref outsideRangeHeight, ref insideRangeHeight);
             double outsideBarPointerHeight = 0d, insideBarPointerHeight = 0d;
-            this.GetBarPointersHeight(ref outsideBarPointerHeight, ref insideBarPointerHeight);
+            this.GetBarPointersSize(ref outsideBarPointerHeight, ref insideBarPointerHeight);
             double outsideMarkerPointerHeight = 0d, insideMarkerPointerHeight = 0d;
-            this.GetMarkerPointersHeight(ref outsideMarkerPointerHeight, ref insideMarkerPointerHeight);
+            this.GetMarkerPointersSize(ref outsideMarkerPointerHeight, ref insideMarkerPointerHeight);
             double outsideScaleHeight = Math.Max(Math.Max(outsideRangeHeight, outsideBarPointerHeight), outsideMarkerPointerHeight);
             double x = firstLabelSize / 2, y = 0d;
 
@@ -2504,11 +2512,11 @@ namespace Syncfusion.Maui.Gauges
                 if (markerPointer is ContentPointer contentPointer && contentPointer.Content != null)
                 {
                     SetInheritedBindingContext(contentPointer.Content, contentPointer);
-                    this.ShapePointerChildUpdate(null, contentPointer.Content);
+                    this.MarkerPointerChildUpdate(null, contentPointer.Content);
                 }
 
-                if (!this.ShapePointersLayout.Contains(markerPointer.PointerView))
-                    this.ShapePointersLayout.Insert(index, markerPointer.PointerView);
+                if (!this.MarkerPointersLayout.Contains(markerPointer.PointerView))
+                    this.MarkerPointersLayout.Insert(index, markerPointer.PointerView);
 
                 if (!this.ScaleAvailableSize.IsZero)
                 {
@@ -2516,9 +2524,9 @@ namespace Syncfusion.Maui.Gauges
                     markerPointer.CreatePointer();
                 }
 
-                if (this.ShapePointersLayout.Children.Count > 0 && !this.parentLayout.Children.Contains(ShapePointersLayout))
+                if (this.MarkerPointersLayout.Children.Count > 0 && !this.parentLayout.Children.Contains(MarkerPointersLayout))
                 {
-                    this.parentLayout.Children.Add(ShapePointersLayout);
+                    this.parentLayout.Children.Add(MarkerPointersLayout);
                 }
 
                 this.ScaleInvalidateMeasureOverride();
@@ -2536,13 +2544,13 @@ namespace Syncfusion.Maui.Gauges
             {
                 markerPointer.Scale = null;
 
-                if (this.ShapePointersLayout.Children.Contains(markerPointer.PointerView))
+                if (this.MarkerPointersLayout.Children.Contains(markerPointer.PointerView))
                 {
-                    this.ShapePointersLayout.Children.RemoveAt(index);
+                    this.MarkerPointersLayout.Children.RemoveAt(index);
                 }
 
                 if (markerPointer is ContentPointer contentPointer && contentPointer.Content != null)
-                    this.ShapePointerChildUpdate(contentPointer.Content, null);
+                    this.MarkerPointerChildUpdate(contentPointer.Content, null);
 
                 this.ScaleInvalidateMeasureOverride();
             }
@@ -2553,7 +2561,7 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         private void ResetMarkerPointers()
         {
-            this.ShapePointersLayout.Children.Clear();
+            this.MarkerPointersLayout.Children.Clear();
             this.ScaleInvalidateMeasureOverride();
         }
 
@@ -2757,17 +2765,17 @@ namespace Syncfusion.Maui.Gauges
             double actualScaleLineThickness = this.GetActualScaleLineThickness();
             GaugeLabelsPosition actualLabelPosition = this.GetActualLabelPosition();
             GaugeElementPosition actualTickPosition = this.GetActualElementPosition(this.TickPosition);
-            double scaleHeight, outsideRangeHeight = 0d, insideRangeHeight = 0d;
-            this.GetRangeHeights(ref outsideRangeHeight, ref insideRangeHeight);
-            double outsideBarPointerHeight = 0d, insideBarPointerHeight = 0d;
-            this.GetBarPointersHeight(ref outsideBarPointerHeight, ref insideBarPointerHeight);
-            double outsideMarkerPointerHeight = 0d, insideMarkerPointerHeight = 0d;
-            this.GetMarkerPointersHeight(ref outsideMarkerPointerHeight, ref insideMarkerPointerHeight);
-            double outsideScaleHeight = Math.Max(Math.Max(outsideRangeHeight, outsideBarPointerHeight), outsideMarkerPointerHeight);
-            double insideScaleHeight = Math.Max(Math.Max(insideRangeHeight, insideBarPointerHeight), insideMarkerPointerHeight);
-            double labelsLayoutHeight = labelMaximumSize + actualLabelOffset;
-            double ticksLayoutHeight = maximumTickLength + actualTickOffset;
-            double tickAndLabelHeight = labelsLayoutHeight + ticksLayoutHeight;
+            double scaleSize, outsideRangeSize = 0d, insideRangeSize = 0d;
+            this.GetRangesSize(ref outsideRangeSize, ref insideRangeSize);
+            double outsideBarPointersSize = 0d, insideBarPointersSize = 0d;
+            this.GetBarPointersSize(ref outsideBarPointersSize, ref insideBarPointersSize);
+            double outsideMarkerPointersSize = 0d, insideMarkerPointersSize = 0d;
+            this.GetMarkerPointersSize(ref outsideMarkerPointersSize, ref insideMarkerPointersSize);
+            double outsideScaleSize = Math.Max(Math.Max(outsideRangeSize, outsideBarPointersSize), outsideMarkerPointersSize);
+            double insideScaleSize = Math.Max(Math.Max(insideRangeSize, insideBarPointersSize), insideMarkerPointersSize);
+            double labelsLayoutSize = labelMaximumSize + actualLabelOffset;
+            double ticksLayoutSize = maximumTickLength + actualTickOffset;
+            double tickAndLabelSize = labelsLayoutSize + ticksLayoutSize;
 
             if (actualTickPosition == GaugeElementPosition.Cross)
             {
@@ -2777,29 +2785,29 @@ namespace Syncfusion.Maui.Gauges
                     double diffHeight = ScaleTop;
                     if (actualLabelPosition == GaugeLabelsPosition.Outside)
                     {
-                        ScaleTop += labelsLayoutHeight;
-                        ScaleTop = outsideScaleHeight > ScaleTop ? outsideScaleHeight : ScaleTop;
-                        scaleHeight = actualScaleLineThickness + ScaleTop;
-                        scaleHeight += diffHeight > insideScaleHeight ? diffHeight : insideScaleHeight;
+                        ScaleTop += labelsLayoutSize;
+                        ScaleTop = outsideScaleSize > ScaleTop ? outsideScaleSize : ScaleTop;
+                        scaleSize = actualScaleLineThickness + ScaleTop;
+                        scaleSize += diffHeight > insideScaleSize ? diffHeight : insideScaleSize;
                     }
                     else
                     {
-                        ScaleTop = outsideScaleHeight > ScaleTop ? outsideScaleHeight : ScaleTop;
-                        scaleHeight = actualScaleLineThickness + ScaleTop;
-                        scaleHeight += insideScaleHeight < (diffHeight + labelsLayoutHeight) ? (diffHeight + labelsLayoutHeight) : insideScaleHeight;
+                        ScaleTop = outsideScaleSize > ScaleTop ? outsideScaleSize : ScaleTop;
+                        scaleSize = actualScaleLineThickness + ScaleTop;
+                        scaleSize += insideScaleSize < (diffHeight + labelsLayoutSize) ? (diffHeight + labelsLayoutSize) : insideScaleSize;
                     }
                 }
                 else
                 {
                     if (actualLabelPosition == GaugeLabelsPosition.Outside)
                     {
-                        scaleHeight = labelsLayoutHeight > outsideScaleHeight ? labelsLayoutHeight : outsideScaleHeight;
-                        scaleHeight += actualScaleLineThickness + insideScaleHeight;
+                        scaleSize = labelsLayoutSize > outsideScaleSize ? labelsLayoutSize : outsideScaleSize;
+                        scaleSize += actualScaleLineThickness + insideScaleSize;
                     }
                     else
                     {
-                        scaleHeight = labelsLayoutHeight > insideScaleHeight ? labelsLayoutHeight : insideScaleHeight;
-                        scaleHeight += actualScaleLineThickness + outsideScaleHeight;
+                        scaleSize = labelsLayoutSize > insideScaleSize ? labelsLayoutSize : insideScaleSize;
+                        scaleSize += actualScaleLineThickness + outsideScaleSize;
                     }
                 }
             }
@@ -2807,54 +2815,52 @@ namespace Syncfusion.Maui.Gauges
             {
                 if (actualLabelPosition == GaugeLabelsPosition.Inside && actualTickPosition == GaugeElementPosition.Inside)
                 {
-                    scaleHeight = actualScaleLineThickness + outsideScaleHeight;
-                    scaleHeight += insideScaleHeight > tickAndLabelHeight ? insideScaleHeight : tickAndLabelHeight;
+                    scaleSize = actualScaleLineThickness + outsideScaleSize;
+                    scaleSize += insideScaleSize > tickAndLabelSize ? insideScaleSize : tickAndLabelSize;
                 }
                 else if (actualLabelPosition == GaugeLabelsPosition.Outside && actualTickPosition == GaugeElementPosition.Outside)
                 {
-                    scaleHeight = actualScaleLineThickness + insideScaleHeight;
-                    scaleHeight += outsideScaleHeight > tickAndLabelHeight ? outsideScaleHeight : tickAndLabelHeight;
+                    scaleSize = actualScaleLineThickness + insideScaleSize;
+                    scaleSize += outsideScaleSize > tickAndLabelSize ? outsideScaleSize : tickAndLabelSize;
                 }
                 else
                 {
-                    scaleHeight = actualScaleLineThickness;
+                    scaleSize = actualScaleLineThickness;
                     if (actualLabelPosition == GaugeLabelsPosition.Outside)
                     {
-                        scaleHeight += outsideScaleHeight < labelsLayoutHeight ? labelsLayoutHeight : outsideScaleHeight;
+                        scaleSize += outsideScaleSize < labelsLayoutSize ? labelsLayoutSize : outsideScaleSize;
                     }
 
                     if (actualLabelPosition == GaugeLabelsPosition.Inside)
                     {
-                        scaleHeight += insideScaleHeight < labelsLayoutHeight ? labelsLayoutHeight : insideScaleHeight;
+                        scaleSize += insideScaleSize < labelsLayoutSize ? labelsLayoutSize : insideScaleSize;
                     }
 
                     if (actualTickPosition == GaugeElementPosition.Outside)
                     {
-                        scaleHeight += outsideScaleHeight < ticksLayoutHeight ? ticksLayoutHeight : outsideScaleHeight;
+                        scaleSize += outsideScaleSize < ticksLayoutSize ? ticksLayoutSize : outsideScaleSize;
                     }
 
                     if (actualTickPosition == GaugeElementPosition.Inside)
                     {
-                        scaleHeight += insideScaleHeight < ticksLayoutHeight ? ticksLayoutHeight : insideScaleHeight;
+                        scaleSize += insideScaleSize < ticksLayoutSize ? ticksLayoutSize : insideScaleSize;
                     }
                 }
             }
 
             return this.Orientation == GaugeOrientation.Horizontal
-                ? new Size(this.ScaleAvailableSize.Width, scaleHeight)
-                : new Size(scaleHeight, this.ScaleAvailableSize.Height);
+                ? new Size(this.ScaleAvailableSize.Width, scaleSize)
+                : new Size(scaleSize, this.ScaleAvailableSize.Height);
         }
-
-
 
         /// <summary>
         /// To get the range heights based on positions.
         /// </summary>
-        /// <param name="outsideRangeHeight">Outside positioned scale height.</param>
-        /// <param name="insideRangeHeight">Inside positioned scale height.</param>
-        private void GetRangeHeights(ref double outsideRangeHeight, ref double insideRangeHeight)
+        /// <param name="outsideRangesSize">Outside positioned scale height.</param>
+        /// <param name="insideRangesSize">Inside positioned scale height.</param>
+        private void GetRangesSize(ref double outsideRangesSize, ref double insideRangesSize)
         {
-            double fillRangeHeight = 0d;
+            double fillRangesSize = 0d;
             double maxRangeWidth;
 
             foreach (LinearRange range in this.Ranges)
@@ -2871,82 +2877,82 @@ namespace Syncfusion.Maui.Gauges
                 switch (range.RangePosition)
                 {
                     case GaugeElementPosition.Inside:
-                        insideRangeHeight = Math.Max(insideRangeHeight, maxRangeWidth);
+                        insideRangesSize = Math.Max(insideRangesSize, maxRangeWidth);
                         break;
                     case GaugeElementPosition.Outside:
-                        outsideRangeHeight = Math.Max(outsideRangeHeight, maxRangeWidth);
+                        outsideRangesSize = Math.Max(outsideRangesSize, maxRangeWidth);
                         break;
                     case GaugeElementPosition.Cross:
-                        fillRangeHeight = Math.Max(fillRangeHeight, maxRangeWidth);
+                        fillRangesSize = Math.Max(fillRangesSize, maxRangeWidth);
                         break;
                 }
             }
 
             double actualScaleLineThickness = this.GetActualScaleLineThickness();
-            if (fillRangeHeight > actualScaleLineThickness)
+            if (fillRangesSize > actualScaleLineThickness)
             {
-                double diffWidth = (fillRangeHeight - actualScaleLineThickness) / 2;
-                insideRangeHeight = Math.Max(diffWidth, insideRangeHeight);
-                outsideRangeHeight = Math.Max(diffWidth, outsideRangeHeight);
+                double diffWidth = (fillRangesSize - actualScaleLineThickness) / 2;
+                insideRangesSize = Math.Max(diffWidth, insideRangesSize);
+                outsideRangesSize = Math.Max(diffWidth, outsideRangesSize);
             }
 
             if (this.IsMirrored)
             {
-                Utility.Swap(ref insideRangeHeight, ref outsideRangeHeight);
+                Utility.Swap(ref insideRangesSize, ref outsideRangesSize);
             }
         }
 
         /// <summary>
         /// To get the bar pointers heights based on offset positions.
         /// </summary>
-        /// <param name="outsidePointerHeight">Outside positioned scale height.</param>
-        /// <param name="insidePointerHeight">Inside positioned scale height.</param>
-        private void GetBarPointersHeight(ref double outsidePointerHeight, ref double insidePointerHeight)
+        /// <param name="outsidePointersSize">Outside positioned scale height.</param>
+        /// <param name="insidePointersSize">Inside positioned scale height.</param>
+        private void GetBarPointersSize(ref double outsidePointersSize, ref double insidePointersSize)
         {
-            double fillPointerHeight = 0d;
+            double fillPointersSize = 0d;
             double actualScaleLineThickness = this.GetActualScaleLineThickness();
             foreach (BarPointer barPointer in this.BarPointers)
             {
                 if (barPointer.Offset == 0)
                 {
-                    fillPointerHeight = Math.Max(barPointer.PointerSize, fillPointerHeight);
+                    fillPointersSize = Math.Max(barPointer.PointerSize, fillPointersSize);
                 }
                 else if (barPointer.Offset > 0)
                 {
-                    insidePointerHeight = Math.Max((barPointer.PointerSize / 2) + barPointer.Offset - (actualScaleLineThickness / 2), insidePointerHeight);
+                    insidePointersSize = Math.Max((barPointer.PointerSize / 2) + barPointer.Offset - (actualScaleLineThickness / 2), insidePointersSize);
                     if (barPointer.PointerSize > actualScaleLineThickness)
                     {
                         if (barPointer.Offset < (barPointer.PointerSize - actualScaleLineThickness))
                         {
-                            outsidePointerHeight = Math.Max(((barPointer.PointerSize - actualScaleLineThickness) / 2) - barPointer.Offset, outsidePointerHeight);
+                            outsidePointersSize = Math.Max(((barPointer.PointerSize - actualScaleLineThickness) / 2) - barPointer.Offset, outsidePointersSize);
                         }
                     }
                 }
                 else if (barPointer.Offset < 0)
                 {
-                    outsidePointerHeight = Math.Max((barPointer.PointerSize / 2) + Math.Abs(barPointer.Offset) - (actualScaleLineThickness / 2), outsidePointerHeight);
+                    outsidePointersSize = Math.Max((barPointer.PointerSize / 2) + Math.Abs(barPointer.Offset) - (actualScaleLineThickness / 2), outsidePointersSize);
                 }
             }
 
-            if (fillPointerHeight > actualScaleLineThickness)
+            if (fillPointersSize > actualScaleLineThickness)
             {
-                double diffWidth = (fillPointerHeight - actualScaleLineThickness) / 2;
-                insidePointerHeight = Math.Max(diffWidth, insidePointerHeight);
-                outsidePointerHeight = Math.Max(diffWidth, outsidePointerHeight);
+                double diffWidth = (fillPointersSize - actualScaleLineThickness) / 2;
+                insidePointersSize = Math.Max(diffWidth, insidePointersSize);
+                outsidePointersSize = Math.Max(diffWidth, outsidePointersSize);
             }
 
             if (this.IsMirrored)
             {
-                Utility.Swap(ref insidePointerHeight, ref outsidePointerHeight);
+                Utility.Swap(ref insidePointersSize, ref outsidePointersSize);
             }
         }
 
         /// <summary>
         /// To get the marker pointers heights based on offset positions.
         /// </summary>
-        /// <param name="outsidePointerHeight">Outside positioned axis height.</param>
-        /// <param name="insidePointerHeight">Inside positioned axis height.</param>
-        internal void GetMarkerPointersHeight(ref double outsidePointerHeight, ref double insidePointerHeight)
+        /// <param name="outsidePointersSize">Outside positioned axis height.</param>
+        /// <param name="insidePointersSize">Inside positioned axis height.</param>
+        internal void GetMarkerPointersSize(ref double outsidePointersSize, ref double insidePointersSize)
         {
             double actualAxisLineThickness = this.GetActualScaleLineThickness();
 
@@ -2976,20 +2982,20 @@ namespace Syncfusion.Maui.Gauges
 
                 if (pointerOffset == 0)
                 {
-                    markerPointer.MarkerPointersHeightWithoutOffset(ref outsidePointerHeight, ref insidePointerHeight, actualAxisLineThickness, pointerPosition, markerSize);
+                    markerPointer.GetMarkerSize(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerPosition, markerSize);
                 }
                 else if (pointerOffset > 0)
                 {
-                    markerPointer.MarkerPointerHeightWithPositiveOffset(ref outsidePointerHeight, ref insidePointerHeight, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
+                    markerPointer.GetMarkerSizeWithPositiveOffset(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
                 }
                 else if (pointerOffset < 0)
                 {
-                    markerPointer.MarkerPointersHeightWithNegativeOffset(ref outsidePointerHeight, ref insidePointerHeight, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
+                    markerPointer.GetMarkerSizeWithNegativeOffset(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
                 }
             }
 
             if (this.IsMirrored)
-                Utility.Swap(ref insidePointerHeight, ref outsidePointerHeight);
+                Utility.Swap(ref insidePointersSize, ref outsidePointersSize);
         }
 
         #endregion

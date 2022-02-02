@@ -8,7 +8,7 @@ namespace Syncfusion.Maui.Gauges
     /// Base class for <see cref="ShapePointer"/>.
     /// It holds the common properties and logics for customizing <see cref="ShapePointer"/> and content pointer.
     /// </summary>
-    public class LinearMarkerPointer : LinearPointer
+    public abstract class LinearMarkerPointer : LinearPointer
     {
         #region Bindable properties
 
@@ -109,22 +109,6 @@ namespace Syncfusion.Maui.Gauges
         #region Methods
 
         /// <summary>
-        /// Method used to update pointer to property change. 
-        /// </summary>
-        internal override void UpdatePointer() { }
-
-        /// <summary>
-        /// Method used to create pointer.
-        /// </summary>
-        internal override void CreatePointer() { }
-
-        /// <summary>
-        /// Method used to draw pointer.
-        /// </summary>
-        /// <param name="canvas">canvas</param>
-        internal override void Draw(ICanvas canvas) { }
-
-        /// <summary>
         /// To get the pointer position.
         /// </summary>
         /// <param name="halfWidth">The pointer half width.</param>
@@ -190,13 +174,13 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// To calculate marker pointer margins when it have negative offset.
         /// </summary>
-        /// <param name="outsidePointerHeight">The outside positioned pointer height.</param>
-        /// <param name="insidePointerHeight">The inside positioned pointer height.</param>
+        /// <param name="outsidePointerSize">The outside positioned pointer height.</param>
+        /// <param name="insidePointerSize">The inside positioned pointer height.</param>
         /// <param name="actualAxisLineThickness">The actual axis line thickness.</param>
         /// <param name="pointerOffset">The pointer offset.</param>
         /// <param name="pointerPosition">The pointer current position.</param>
         /// <param name="markerSize">The pointer size.</param>
-        internal void MarkerPointersHeightWithNegativeOffset(ref double outsidePointerHeight, ref double insidePointerHeight,
+        internal void GetMarkerSizeWithNegativeOffset(ref double outsidePointerSize, ref double insidePointerSize,
             double actualAxisLineThickness, double pointerOffset, GaugeAlignment pointerPosition, double markerSize)
         {
             switch (pointerPosition)
@@ -204,31 +188,31 @@ namespace Syncfusion.Maui.Gauges
                 case GaugeAlignment.Start:
                     if (actualAxisLineThickness / 2 < Math.Abs(pointerOffset))
                     {
-                        outsidePointerHeight = Math.Max(Math.Abs(pointerOffset) - (actualAxisLineThickness / 2), outsidePointerHeight);
+                        outsidePointerSize = Math.Max(Math.Abs(pointerOffset) - (actualAxisLineThickness / 2), outsidePointerSize);
                         if (markerSize > actualAxisLineThickness)
                         {
-                            insidePointerHeight = Math.Max(Math.Max(markerSize - Math.Abs(pointerOffset) - (actualAxisLineThickness / 2), 0), insidePointerHeight);
+                            insidePointerSize = Math.Max(Math.Max(markerSize - Math.Abs(pointerOffset) - (actualAxisLineThickness / 2), 0), insidePointerSize);
                         }
                     }
                     else
                     {
-                        insidePointerHeight = Math.Max(markerSize - (actualAxisLineThickness / 2) + pointerOffset, insidePointerHeight);
+                        insidePointerSize = Math.Max(markerSize - (actualAxisLineThickness / 2) + pointerOffset, insidePointerSize);
                     }
 
                     break;
                 case GaugeAlignment.Center:
-                    outsidePointerHeight = Math.Max(((markerSize - actualAxisLineThickness) / 2) + Math.Abs(pointerOffset), outsidePointerHeight);
+                    outsidePointerSize = Math.Max(((markerSize - actualAxisLineThickness) / 2) + Math.Abs(pointerOffset), outsidePointerSize);
                     if (markerSize > actualAxisLineThickness)
                     {
                         if (Math.Abs(pointerOffset) < (markerSize - actualAxisLineThickness))
                         {
-                            insidePointerHeight = Math.Max(((markerSize - actualAxisLineThickness) / 2) + pointerOffset, insidePointerHeight);
+                            insidePointerSize = Math.Max(((markerSize - actualAxisLineThickness) / 2) + pointerOffset, insidePointerSize);
                         }
                     }
 
                     break;
                 case GaugeAlignment.End:
-                    outsidePointerHeight = Math.Max(markerSize - (actualAxisLineThickness / 2) + Math.Abs(pointerOffset), outsidePointerHeight);
+                    outsidePointerSize = Math.Max(markerSize - (actualAxisLineThickness / 2) + Math.Abs(pointerOffset), outsidePointerSize);
                     break;
             }
         }
@@ -236,27 +220,27 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// To calculate marker pointer margins when it have positive offset.
         /// </summary>
-        /// <param name="outsidePointerHeight">The outside positioned pointer height.</param>
-        /// <param name="insidePointerHeight">The inside positioned pointer height.</param>
+        /// <param name="outsidePointerSize">The outside positioned pointer height.</param>
+        /// <param name="insidePointerSize">The inside positioned pointer height.</param>
         /// <param name="actualAxisLineThickness">The actual axis line thickness.</param>
         /// <param name="pointerOffset">The pointer offset.</param>
         /// <param name="pointerPosition">The pointer current position.</param>
         /// <param name="markerSize">The pointer size.</param>
-        internal void MarkerPointerHeightWithPositiveOffset(ref double outsidePointerHeight, ref double insidePointerHeight,
+        internal void GetMarkerSizeWithPositiveOffset(ref double outsidePointerSize, ref double insidePointerSize,
             double actualAxisLineThickness, double pointerOffset, GaugeAlignment pointerPosition, double markerSize)
         {
             switch (pointerPosition)
             {
                 case GaugeAlignment.Start:
-                    insidePointerHeight = Math.Max(markerSize - (actualAxisLineThickness / 2) + pointerOffset, insidePointerHeight);
+                    insidePointerSize = Math.Max(markerSize - (actualAxisLineThickness / 2) + pointerOffset, insidePointerSize);
                     break;
                 case GaugeAlignment.Center:
-                    insidePointerHeight = Math.Max(((markerSize - actualAxisLineThickness) / 2) + pointerOffset, insidePointerHeight);
+                    insidePointerSize = Math.Max(((markerSize - actualAxisLineThickness) / 2) + pointerOffset, insidePointerSize);
                     if (markerSize > actualAxisLineThickness)
                     {
                         if (pointerOffset < (markerSize - actualAxisLineThickness))
                         {
-                            outsidePointerHeight = Math.Max(((markerSize - actualAxisLineThickness) / 2) - pointerOffset, outsidePointerHeight);
+                            outsidePointerSize = Math.Max(((markerSize - actualAxisLineThickness) / 2) - pointerOffset, outsidePointerSize);
                         }
                     }
 
@@ -264,15 +248,15 @@ namespace Syncfusion.Maui.Gauges
                 case GaugeAlignment.End:
                     if (actualAxisLineThickness / 2 < pointerOffset)
                     {
-                        insidePointerHeight = Math.Max(pointerOffset - (actualAxisLineThickness / 2), insidePointerHeight);
+                        insidePointerSize = Math.Max(pointerOffset - (actualAxisLineThickness / 2), insidePointerSize);
                         if (markerSize > actualAxisLineThickness)
                         {
-                            outsidePointerHeight = Math.Max(Math.Max(markerSize - pointerOffset - (actualAxisLineThickness / 2), 0), outsidePointerHeight);
+                            outsidePointerSize = Math.Max(Math.Max(markerSize - pointerOffset - (actualAxisLineThickness / 2), 0), outsidePointerSize);
                         }
                     }
                     else
                     {
-                        outsidePointerHeight = Math.Max(markerSize - (actualAxisLineThickness / 2) - pointerOffset, outsidePointerHeight);
+                        outsidePointerSize = Math.Max(markerSize - (actualAxisLineThickness / 2) - pointerOffset, outsidePointerSize);
                     }
 
                     break;
@@ -282,25 +266,25 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// To calculate marker pointer margins when it does not have offset.
         /// </summary>
-        /// <param name="outsidePointerHeight">The outside positioned pointer height.</param>
-        /// <param name="insidePointerHeight">The inside positioned pointer height.</param>
+        /// <param name="outsidePointerSize">The outside positioned pointer height.</param>
+        /// <param name="insidePointerSize">The inside positioned pointer height.</param>
         /// <param name="actualAxisLineThickness">The actual axis line thickness.</param>
         /// <param name="pointerPosition">The pointer current position.</param>
         /// <param name="markerSize">The pointer size.</param>
-        internal void MarkerPointersHeightWithoutOffset(ref double outsidePointerHeight, ref double insidePointerHeight,
+        internal void GetMarkerSize(ref double outsidePointerSize, ref double insidePointerSize,
             double actualAxisLineThickness, GaugeAlignment pointerPosition, double markerSize)
         {
             switch (pointerPosition)
             {
                 case GaugeAlignment.Start:
-                    insidePointerHeight = Math.Max(Math.Max(0, markerSize - (actualAxisLineThickness / 2)), insidePointerHeight);
+                    insidePointerSize = Math.Max(Math.Max(0, markerSize - (actualAxisLineThickness / 2)), insidePointerSize);
                     break;
                 case GaugeAlignment.Center:
-                    outsidePointerHeight = Math.Max(Math.Max(0, (markerSize / 2) - (actualAxisLineThickness / 2)), outsidePointerHeight);
-                    insidePointerHeight = Math.Max(Math.Max(0, (markerSize / 2) - (actualAxisLineThickness / 2)), insidePointerHeight);
+                    outsidePointerSize = Math.Max(Math.Max(0, (markerSize / 2) - (actualAxisLineThickness / 2)), outsidePointerSize);
+                    insidePointerSize = Math.Max(Math.Max(0, (markerSize / 2) - (actualAxisLineThickness / 2)), insidePointerSize);
                     break;
                 case GaugeAlignment.End:
-                    outsidePointerHeight = Math.Max(Math.Max(0, markerSize - (actualAxisLineThickness / 2)), outsidePointerHeight);
+                    outsidePointerSize = Math.Max(Math.Max(0, markerSize - (actualAxisLineThickness / 2)), outsidePointerSize);
                     break;
             }
         }

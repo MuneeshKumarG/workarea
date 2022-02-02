@@ -193,11 +193,11 @@ namespace Syncfusion.Maui.Gauges
                     (double)this.AnimationValue : this.Value, this.Scale.ActualMinimum, this.Scale.ActualMaximum);
 
                 Utility.ValidateMinimumMaximumValue(ref actualStartValue, ref actualEndValue);
-                double halfWidth = this.PointerSize > 0 ? this.PointerSize / 2 : 0d;
-                double halfLineThickness = this.Scale.GetActualScaleLineThickness() / 2;
-                double pointerStartPosition = this.Scale.GetPositionFromValue(actualStartValue);
-                double pointerEndPosition = this.Scale.GetPositionFromValue(actualEndValue);
-                double halfPointerWidth = this.PointerSize / 2;
+                float halfWidth = this.PointerSize > 0 ? (float)this.PointerSize / 2 : 0f;
+                float halfLineThickness = (float)this.Scale.GetActualScaleLineThickness() / 2;
+                float pointerStartPosition = (float)this.Scale.GetPositionFromValue(actualStartValue);
+                float pointerEndPosition = (float)this.Scale.GetPositionFromValue(actualEndValue);
+                float halfPointerWidth = (float)this.PointerSize / 2;
 
                 if (this.Scale.Orientation == GaugeOrientation.Vertical ^ this.Scale.IsInversed)
                 {
@@ -222,9 +222,9 @@ namespace Syncfusion.Maui.Gauges
 
                 barPointerPath = new PathF();
                 float x1, x2, y1, y2;
-                double scaleLinePositionY = this.Scale.ScalePosition.Y + halfLineThickness;
-                double startPointX1 = this.Scale.ScalePosition.X + pointerStartPosition;
-                double startPointX2 = this.Scale.ScalePosition.X + pointerEndPosition;
+                float scaleLinePositionY = (float)this.Scale.ScalePosition.Y + halfLineThickness;
+                float startPointX1 = (float)this.Scale.ScalePosition.X + pointerStartPosition;
+                float startPointX2 = (float)this.Scale.ScalePosition.X + pointerEndPosition;
 
                 if (this.Scale.IsMirrored)
                 {

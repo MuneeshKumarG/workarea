@@ -1,10 +1,6 @@
 ﻿using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
-using Microsoft.Maui.Layouts;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 
 namespace Syncfusion.Maui.Gauges
 {
@@ -48,6 +44,8 @@ namespace Syncfusion.Maui.Gauges
         {
             this.CreateShapePointer();
         }
+
+        internal override void Draw(ICanvas canvas) { }
 
         internal override void UpdatePointer()
         {
@@ -113,13 +111,13 @@ namespace Syncfusion.Maui.Gauges
         {
             if (bindable is ContentPointer pointer)
             {
-                if (pointer.Scale != null && pointer.Scale.ShapePointersLayout.Contains(pointer.PointerView))
+                if (pointer.Scale != null && pointer.Scale.MarkerPointersLayout.Contains(pointer.PointerView))
                 {
                     if (newValue is View newChild)
                     {
                         SetInheritedBindingContext(newChild, pointer);
                     }
-                    pointer.Scale.ShapePointerChildUpdate(oldValue, newValue);
+                    pointer.Scale.MarkerPointerChildUpdate(oldValue, newValue);
                     pointer.UpdatePointer();
                 }
             }

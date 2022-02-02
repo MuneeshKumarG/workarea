@@ -261,6 +261,19 @@ namespace Syncfusion.Maui.Gauges
 
         #endregion
 
+        /// <summary>
+        /// Gets the range path with mid width point drawn. 
+        /// </summary>
+        /// <param name="pathF"></param>
+        /// <param name="startPoint"></param>
+        /// <param name="midPoint"></param>
+        /// <param name="endPoint"></param>
+        /// <returns></returns>
+        public virtual void UpdateMidRangePath(PathF pathF, PointF startPoint, PointF midPoint, PointF endPoint)
+        {
+            pathF.LineTo(midPoint.X, midPoint.Y);
+        }
+
         #region Internal methods
 
         /// <summary>
@@ -274,25 +287,25 @@ namespace Syncfusion.Maui.Gauges
             }
 
             bool isAddedMidWidth = double.IsNaN(this.MidWidth);
-            double maxRangeWidth = isAddedMidWidth ? Math.Max(this.StartWidth, this.EndWidth) :
-                Math.Max(Math.Max(this.StartWidth, this.MidWidth), this.EndWidth);
+            float maxRangeWidth = (float)(isAddedMidWidth ? Math.Max(this.StartWidth, this.EndWidth) :
+                Math.Max(Math.Max(this.StartWidth, this.MidWidth), this.EndWidth));
 
             ActualStartValue = Math.Clamp(this.StartValue, this.Scale.ActualMinimum, this.Scale.ActualMaximum);
             ActualEndValue = Math.Clamp(this.EndValue, this.Scale.ActualMinimum, this.Scale.ActualMaximum);
             Utility.ValidateMinimumMaximumValue(ref ActualStartValue, ref ActualEndValue);
-            double actualEndWidth = this.EndWidth > 0 ? this.EndWidth : 0d;
-            double actualStartWidth = this.StartWidth > 0 ? this.StartWidth : 0d;
-            double actualMidWidth = 0d;
+            float actualEndWidth = this.EndWidth > 0 ? (float)this.EndWidth : 0f;
+            float actualStartWidth = this.StartWidth > 0 ? (float)this.StartWidth : 0f;
+            float actualMidWidth = 0f;
             if (!isAddedMidWidth)
             {
-                actualMidWidth = this.MidWidth > 0 ? this.MidWidth : 0d;
+                actualMidWidth = this.MidWidth > 0 ? (float)this.MidWidth : 0f;
             }
-            double lineThickness = this.Scale.GetActualScaleLineThickness();
-            double rangeStartPosition = this.Scale.GetPositionFromValue(ActualStartValue);
-            double rangeEndPosition = this.Scale.GetPositionFromValue(ActualEndValue);
-            double rangeMidPosition = (rangeStartPosition + rangeEndPosition) / 2;
-            double scaleLinePositionX = this.Scale.ScalePosition.X;
-            double scaleLinePositionY = this.Scale.ScalePosition.Y;
+            float lineThickness = (float)this.Scale.GetActualScaleLineThickness();
+            float rangeStartPosition = (float)this.Scale.GetPositionFromValue(ActualStartValue);
+            float rangeEndPosition = (float)this.Scale.GetPositionFromValue(ActualEndValue);
+            float rangeMidPosition = (rangeStartPosition + rangeEndPosition) / 2;
+            float scaleLinePositionX = (float)this.Scale.ScalePosition.X;
+            float scaleLinePositionY = (float)this.Scale.ScalePosition.Y;
             rangePath = new PathF();
 
             switch (this.Scale.GetActualElementPosition(this.RangePosition))
@@ -303,7 +316,11 @@ namespace Syncfusion.Maui.Gauges
                     this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY - actualEndWidth);
                     if (!isAddedMidWidth)
                     {
-                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY - actualMidWidth);
+                        this.UpdateMidRangePath(scaleLinePositionX + rangeEndPosition, scaleLinePositionY - actualEndWidth,
+                            scaleLinePositionX + rangeMidPosition, scaleLinePositionY - actualMidWidth,
+                            scaleLinePositionX + rangeStartPosition, scaleLinePositionY - actualStartWidth);
+
+                        //this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY - actualMidWidth);
                     }
                     this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY - actualStartWidth);
                     break;
@@ -510,6 +527,17 @@ namespace Syncfusion.Maui.Gauges
         {
             this.CreateGradient();
             this.InvalidateDrawable();
+        }
+
+        private void UpdateMidRangePath(float c1X, float c1Y, float c2X, float c2Y, float x, float y)
+        {
+            if (this.Scale != null && this.rangePath != null)
+            {
+                if (this.Scale.Orientation == GaugeOrientation.Horizontal)
+                    UpdateMidRangePath(rangePath, new PointF(c1X, c1Y), new PointF(c2X, c2Y), new Point(x, y));
+                else
+                    UpdateMidRangePath(rangePath, new PointF(c1Y, c1X), new PointF(c2Y, c2X), new Point(y, x));
+            }
         }
 
         #endregion
