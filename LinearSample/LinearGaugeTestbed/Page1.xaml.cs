@@ -1021,4 +1021,12 @@ namespace LinearGaugeTestbed
         }
 
     }
+
+    public class CustomRange :LinearRange
+    {
+        public override void UpdateMidRangePath(PathF pathF, PointF startPoint, PointF midPoint, PointF endPoint)
+        {
+            base.UpdateMidRangePath(pathF, startPoint, midPoint, endPoint);
+        }
+    }
 }

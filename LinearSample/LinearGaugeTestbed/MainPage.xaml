@@ -2,10 +2,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LinearGaugeTestbed.MainPage"
              xmlns:gauge="http://schemas.syncfusion.com/maui"
+             xmlns:local="clr-namespace:LinearGaugeTestbed"
              BackgroundColor="{DynamicResource SecondaryColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:GraphicsDrawable x:Key="GraphicsDrawable" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-    <VerticalStackLayout>
+    <VerticalStackLayout >
         <Button Margin="5" x:Name="button1" Clicked="button1_Clicked" Text="Linear Gauge"/>
-        <Button Margin="5" x:Name="button2" Clicked="button2_Clicked" Text="Gauge"/>
+        <Button Margin="5" x:Name="button2" Clicked="button2_Clicked" Text="Radial Gauge"/>
+       
     </VerticalStackLayout>
 </ContentPage>

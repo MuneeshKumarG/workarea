@@ -13,15 +13,21 @@ namespace LinearGaugeTestbed
 		{
 			InitializeComponent();
 
-            orientation.Clicked += Orientation_Clicked;
-		}
+			SfRadialGauge sfRadialGauge = new SfRadialGauge();
 
-        private void Orientation_Clicked(object sender, EventArgs e)
-        {
-			if (gauge.Orientation == GaugeOrientation.Horizontal)
-				gauge.Orientation = GaugeOrientation.Vertical;
-			else
-				gauge.Orientation = GaugeOrientation.Horizontal;
+			RadialAxis radialAxis = new RadialAxis();
+			radialAxis.AxisLineStyle.Fill=new SolidColorBrush(Colors.Yellow);
+			sfRadialGauge.Axes.Add(radialAxis);
+
+			MarkerPointer markerPointer = new MarkerPointer();
+			markerPointer.Value = 50;
+			markerPointer.IsInteractive = true;
+			markerPointer.MarkerType=MarkerType.Circle;
+			radialAxis.Pointers.Add(markerPointer);
+
+			this.Content = sfRadialGauge;
 		}
     }
+
+	
 }

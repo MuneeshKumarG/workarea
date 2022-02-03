@@ -5,15 +5,16 @@
              xmlns:local="clr-namespace:LinearGaugeTestbed"
              BackgroundColor="{DynamicResource SecondaryColor}">
 
-    <VerticalStackLayout>
-        <Button Text="Orientation" x:Name="orientation"/>
-        <Grid HeightRequest="500">
-            <gauge:SfLinearGauge x:Name="gauge"  VerticalOptions="Center" HorizontalOptions="Center" >
-                <gauge:SfLinearGauge.Ranges>
-                    <gauge:LinearRange MidWidth="5" StartValue="0" EndValue="50" StartWidth="50" EndWidth="50"/>
-                </gauge:SfLinearGauge.Ranges>
-            </gauge:SfLinearGauge>
-        </Grid>
-       
-    </VerticalStackLayout>
+    <Grid>
+        <gauge:SfRadialGauge>
+            <gauge:SfRadialGauge.Axes>
+                <gauge:RadialAxis>
+                    <gauge:RadialAxis.Pointers>
+                        <gauge:MarkerPointer Value="60" />
+                    </gauge:RadialAxis.Pointers>
+                </gauge:RadialAxis>
+            </gauge:SfRadialGauge.Axes>
+        </gauge:SfRadialGauge>
+
+    </Grid>
 </ContentPage>
