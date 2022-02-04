@@ -248,7 +248,7 @@ namespace Syncfusion.Maui.Gauges
         private PointF majorTicksLayoutPosition, minorTicksLayoutPosition, labelsLayoutPosition;
         private Size firstLabelSize, lastLabelSize;
         private bool isTouchHandled;
-        
+
         internal AbsoluteLayout RangeLayout, BarPointersLayout, MarkerPointersLayout;
         internal Point ScalePosition;
         internal Size ScaleAvailableSize, LabelMaximumSize;
@@ -283,7 +283,7 @@ namespace Syncfusion.Maui.Gauges
             this.MinorTickPositions = new List<AxisTickInfo>();
             this.Ranges = new ObservableCollection<LinearRange>();
             this.BarPointers = new ObservableCollection<BarPointer>();
-            this.MarkerPointers = new ObservableCollection<LinearMarkerPointer> ();
+            this.MarkerPointers = new ObservableCollection<LinearMarkerPointer>();
 
             this.AddTouchListener(this);
         }
@@ -682,19 +682,28 @@ namespace Syncfusion.Maui.Gauges
                 SetInheritedBindingContext(this.LineStyle, this.BindingContext);
             }
 
-            foreach (var range in this.Ranges)
+            if (this.Ranges != null)
             {
-                SetInheritedBindingContext(range, this.BindingContext);
+                foreach (var range in this.Ranges)
+                {
+                    SetInheritedBindingContext(range, this.BindingContext);
+                }
             }
 
-            foreach (var pointer in this.BarPointers)
+            if (this.BarPointers != null)
             {
-                SetInheritedBindingContext(pointer, this.BindingContext);
+                foreach (var pointer in this.BarPointers)
+                {
+                    SetInheritedBindingContext(pointer, this.BindingContext);
+                }
             }
 
-            foreach (var pointer in this.MarkerPointers)
+            if (this.MarkerPointers != null)
             {
-                SetInheritedBindingContext(pointer, this.BindingContext);
+                foreach (var pointer in this.MarkerPointers)
+                {
+                    SetInheritedBindingContext(pointer, this.BindingContext);
+                }
             }
         }
         #endregion
@@ -937,19 +946,28 @@ namespace Syncfusion.Maui.Gauges
         {
             this.InvalidateDrawable();
 
-            foreach (var range in Ranges)
+            if (this.Ranges != null)
             {
-                range.InvalidateDrawable();
+                foreach (var range in Ranges)
+                {
+                    range.InvalidateDrawable();
+                }
             }
 
-            foreach (var pointer in BarPointers)
+            if (this.BarPointers != null)
             {
-                pointer.InvalidateDrawable();
+                foreach (var pointer in BarPointers)
+                {
+                    pointer.InvalidateDrawable();
+                }
             }
 
-            foreach (var pointer in MarkerPointers)
+            if (this.MarkerPointers != null)
             {
-                pointer.InvalidateDrawable();
+                foreach (var pointer in MarkerPointers)
+                {
+                    pointer.InvalidateDrawable();
+                }
             }
         }
 
@@ -1113,7 +1131,7 @@ namespace Syncfusion.Maui.Gauges
                     gaugeLabelStyle.PropertyChanged += sfLinearGauge.GaugeLabelStyle_PropertyChanged;
                 }
 
-                sfLinearGauge.InvalidateDrawable();
+                sfLinearGauge.ScaleInvalidateMeasureOverride();
             }
         }
 
@@ -1137,7 +1155,7 @@ namespace Syncfusion.Maui.Gauges
                     newMinorTickStyle.PropertyChanged += sfLinearGauge.ScaleMinorStyle_PropertyChanged;
                 }
 
-                sfLinearGauge.InvalidateDrawable();
+                sfLinearGauge.ScaleInvalidateMeasureOverride();
             }
         }
 
@@ -1162,7 +1180,7 @@ namespace Syncfusion.Maui.Gauges
                     newMajorTickStyle.PropertyChanged += sfLinearGauge.ScaleMajorStyle_PropertyChanged;
                 }
 
-                sfLinearGauge.InvalidateDrawable();
+                sfLinearGauge.ScaleInvalidateMeasureOverride();
             }
         }
 
@@ -1224,16 +1242,7 @@ namespace Syncfusion.Maui.Gauges
             }
             else if (e.PropertyName == GaugeLabelStyle.FontAttributesProperty.PropertyName || e.PropertyName == GaugeLabelStyle.FontFamilyProperty.PropertyName || e.PropertyName == GaugeLabelStyle.FontSizeProperty.PropertyName)
             {
-                if (this.LabelPosition == GaugeLabelsPosition.Inside)
-                {
-                    this.UpdateScaleElements();
-                    this.InvalidateDrawable();
-                }
-                else
-                {
-                    this.UpdateScale();
-                    this.InvalidateScale();
-                }
+                this.ScaleInvalidateMeasureOverride();
             }
         }
 
@@ -1264,6 +1273,10 @@ namespace Syncfusion.Maui.Gauges
                         ranges.CollectionChanged += linearGauge.Ranges_CollectionChanged;
                     }
                 }
+                else
+                {
+                    linearGauge.ResetRanges();
+                }
             }
         }
 
@@ -1292,6 +1305,10 @@ namespace Syncfusion.Maui.Gauges
                         barPointers.CollectionChanged += linearGauge.BarPointers_CollectionChanged;
                     }
                 }
+                else
+                {
+                    linearGauge.ResetBarPointers();
+                }
             }
         }
 
@@ -1319,6 +1336,10 @@ namespace Syncfusion.Maui.Gauges
                     {
                         markerPointers.CollectionChanged += linearGauge.MarkerPointers_CollectionChanged;
                     }
+                }
+                else
+                {
+                    linearGauge.ResetMarkerPointers();
                 }
             }
         }
@@ -1525,9 +1546,12 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         private void CreateRanges()
         {
-            foreach (LinearRange linearRange in this.Ranges)
+            if (this.Ranges != null)
             {
-                linearRange.CreateRangePath();
+                foreach (LinearRange linearRange in this.Ranges)
+                {
+                    linearRange.CreateRangePath();
+                }
             }
         }
 
@@ -1536,9 +1560,12 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         private void CreateBarPointers()
         {
-            foreach (BarPointer barPointer in this.BarPointers)
+            if (this.BarPointers != null)
             {
-                barPointer.CreatePointer();
+                foreach (BarPointer barPointer in this.BarPointers)
+                {
+                    barPointer.CreatePointer();
+                }
             }
         }
 
@@ -1547,9 +1574,12 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         private void CreateMarkerPointers()
         {
-            foreach (LinearMarkerPointer pointer in this.MarkerPointers)
+            if (this.MarkerPointers != null)
             {
-                pointer.CreatePointer();
+                foreach (LinearMarkerPointer pointer in this.MarkerPointers)
+                {
+                    pointer.CreatePointer();
+                }
             }
         }
 
@@ -2587,7 +2617,7 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="isTouchHandled"></param>
         private void OnTouchListener(TouchEventArgs e, ref bool isTouchHandled)
         {
-            if ((MarkerPointers != null && MarkerPointers.Count > 0)||(BarPointers != null && BarPointers.Count > 0))
+            if ((MarkerPointers != null && MarkerPointers.Count > 0) || (BarPointers != null && BarPointers.Count > 0))
             {
                 switch (e.Action)
                 {
@@ -2863,28 +2893,31 @@ namespace Syncfusion.Maui.Gauges
             double fillRangesSize = 0d;
             double maxRangeWidth;
 
-            foreach (LinearRange range in this.Ranges)
+            if (this.Ranges != null)
             {
-                if (double.IsNaN(range.MidWidth))
+                foreach (LinearRange range in this.Ranges)
                 {
-                    maxRangeWidth = Math.Max(range.StartWidth, range.EndWidth);
-                }
-                else
-                {
-                    maxRangeWidth = Math.Max(Math.Max(range.StartWidth, range.MidWidth), range.EndWidth);
-                }
+                    if (double.IsNaN(range.MidWidth))
+                    {
+                        maxRangeWidth = Math.Max(range.StartWidth, range.EndWidth);
+                    }
+                    else
+                    {
+                        maxRangeWidth = Math.Max(Math.Max(range.StartWidth, range.MidWidth), range.EndWidth);
+                    }
 
-                switch (range.RangePosition)
-                {
-                    case GaugeElementPosition.Inside:
-                        insideRangesSize = Math.Max(insideRangesSize, maxRangeWidth);
-                        break;
-                    case GaugeElementPosition.Outside:
-                        outsideRangesSize = Math.Max(outsideRangesSize, maxRangeWidth);
-                        break;
-                    case GaugeElementPosition.Cross:
-                        fillRangesSize = Math.Max(fillRangesSize, maxRangeWidth);
-                        break;
+                    switch (range.RangePosition)
+                    {
+                        case GaugeElementPosition.Inside:
+                            insideRangesSize = Math.Max(insideRangesSize, maxRangeWidth);
+                            break;
+                        case GaugeElementPosition.Outside:
+                            outsideRangesSize = Math.Max(outsideRangesSize, maxRangeWidth);
+                            break;
+                        case GaugeElementPosition.Cross:
+                            fillRangesSize = Math.Max(fillRangesSize, maxRangeWidth);
+                            break;
+                    }
                 }
             }
 
@@ -2911,26 +2944,30 @@ namespace Syncfusion.Maui.Gauges
         {
             double fillPointersSize = 0d;
             double actualScaleLineThickness = this.GetActualScaleLineThickness();
-            foreach (BarPointer barPointer in this.BarPointers)
+
+            if (this.BarPointers != null)
             {
-                if (barPointer.Offset == 0)
+                foreach (BarPointer barPointer in this.BarPointers)
                 {
-                    fillPointersSize = Math.Max(barPointer.PointerSize, fillPointersSize);
-                }
-                else if (barPointer.Offset > 0)
-                {
-                    insidePointersSize = Math.Max((barPointer.PointerSize / 2) + barPointer.Offset - (actualScaleLineThickness / 2), insidePointersSize);
-                    if (barPointer.PointerSize > actualScaleLineThickness)
+                    if (barPointer.Offset == 0)
                     {
-                        if (barPointer.Offset < (barPointer.PointerSize - actualScaleLineThickness))
+                        fillPointersSize = Math.Max(barPointer.PointerSize, fillPointersSize);
+                    }
+                    else if (barPointer.Offset > 0)
+                    {
+                        insidePointersSize = Math.Max((barPointer.PointerSize / 2) + barPointer.Offset - (actualScaleLineThickness / 2), insidePointersSize);
+                        if (barPointer.PointerSize > actualScaleLineThickness)
                         {
-                            outsidePointersSize = Math.Max(((barPointer.PointerSize - actualScaleLineThickness) / 2) - barPointer.Offset, outsidePointersSize);
+                            if (barPointer.Offset < (barPointer.PointerSize - actualScaleLineThickness))
+                            {
+                                outsidePointersSize = Math.Max(((barPointer.PointerSize - actualScaleLineThickness) / 2) - barPointer.Offset, outsidePointersSize);
+                            }
                         }
                     }
-                }
-                else if (barPointer.Offset < 0)
-                {
-                    outsidePointersSize = Math.Max((barPointer.PointerSize / 2) + Math.Abs(barPointer.Offset) - (actualScaleLineThickness / 2), outsidePointersSize);
+                    else if (barPointer.Offset < 0)
+                    {
+                        outsidePointersSize = Math.Max((barPointer.PointerSize / 2) + Math.Abs(barPointer.Offset) - (actualScaleLineThickness / 2), outsidePointersSize);
+                    }
                 }
             }
 
@@ -2956,41 +2993,44 @@ namespace Syncfusion.Maui.Gauges
         {
             double actualAxisLineThickness = this.GetActualScaleLineThickness();
 
-            foreach (LinearMarkerPointer markerPointer in this.MarkerPointers)
+            if (this.MarkerPointers != null)
             {
-                double pointerOffset = this.Orientation == GaugeOrientation.Horizontal
-                    ? markerPointer.OffsetPoint.Y : markerPointer.OffsetPoint.X;
-                GaugeAlignment pointerPosition = this.Orientation == GaugeOrientation.Horizontal
-                    ? markerPointer.VerticalAlignment : markerPointer.HorizontalAlignment;
-                double markerSize = 0d;
+                foreach (LinearMarkerPointer markerPointer in this.MarkerPointers)
+                {
+                    double pointerOffset = this.Orientation == GaugeOrientation.Horizontal
+                        ? markerPointer.OffsetPoint.Y : markerPointer.OffsetPoint.X;
+                    GaugeAlignment pointerPosition = this.Orientation == GaugeOrientation.Horizontal
+                        ? markerPointer.VerticalAlignment : markerPointer.HorizontalAlignment;
+                    double markerSize = 0d;
 
-                if (markerPointer is ShapePointer shapePointer)
-                {
-                    markerSize = this.Orientation == GaugeOrientation.Horizontal
-                        ? shapePointer.ShapeHeight
-                        : shapePointer.ShapeWidth;
-                }
-                else if (markerPointer is ContentPointer contentPointer)
-                {
-                    if (contentPointer.Content != null)
+                    if (markerPointer is ShapePointer shapePointer)
                     {
                         markerSize = this.Orientation == GaugeOrientation.Horizontal
-                                        ? contentPointer.Content.DesiredSize.Height
-                                        : contentPointer.Content.DesiredSize.Width;
+                            ? shapePointer.ShapeHeight
+                            : shapePointer.ShapeWidth;
                     }
-                }
+                    else if (markerPointer is ContentPointer contentPointer)
+                    {
+                        if (contentPointer.Content != null)
+                        {
+                            markerSize = this.Orientation == GaugeOrientation.Horizontal
+                                            ? contentPointer.Content.DesiredSize.Height
+                                            : contentPointer.Content.DesiredSize.Width;
+                        }
+                    }
 
-                if (pointerOffset == 0)
-                {
-                    markerPointer.GetMarkerSize(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerPosition, markerSize);
-                }
-                else if (pointerOffset > 0)
-                {
-                    markerPointer.GetMarkerSizeWithPositiveOffset(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
-                }
-                else if (pointerOffset < 0)
-                {
-                    markerPointer.GetMarkerSizeWithNegativeOffset(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
+                    if (pointerOffset == 0)
+                    {
+                        markerPointer.GetMarkerSize(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerPosition, markerSize);
+                    }
+                    else if (pointerOffset > 0)
+                    {
+                        markerPointer.GetMarkerSizeWithPositiveOffset(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
+                    }
+                    else if (pointerOffset < 0)
+                    {
+                        markerPointer.GetMarkerSizeWithNegativeOffset(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
+                    }
                 }
             }
 

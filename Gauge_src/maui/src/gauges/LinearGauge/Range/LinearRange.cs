@@ -319,44 +319,51 @@ namespace Syncfusion.Maui.Gauges
                         this.UpdateMidRangePath(scaleLinePositionX + rangeEndPosition, scaleLinePositionY - actualEndWidth,
                             scaleLinePositionX + rangeMidPosition, scaleLinePositionY - actualMidWidth,
                             scaleLinePositionX + rangeStartPosition, scaleLinePositionY - actualStartWidth);
-
-                        //this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY - actualMidWidth);
                     }
                     this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY - actualStartWidth);
                     break;
                 case GaugeElementPosition.Cross:
                     if (this.Scale.IsMirrored)
                     {
-                        this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2));
-                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2));
-                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualEndWidth);
+                        float pathYPosition = scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2);
+                        this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, pathYPosition);
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, pathYPosition);
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, pathYPosition + actualEndWidth);
                         if (!isAddedMidWidth)
                         {
-                            this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualMidWidth);
+                            this.UpdateMidRangePath(scaleLinePositionX + rangeEndPosition, pathYPosition + actualEndWidth,
+                                scaleLinePositionX + rangeMidPosition, pathYPosition + actualMidWidth,
+                                scaleLinePositionX + rangeStartPosition, pathYPosition + actualStartWidth);
                         }
-                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + (lineThickness / 2) - (maxRangeWidth / 2) + actualStartWidth);
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, pathYPosition + actualStartWidth);
                     }
                     else
                     {
-                        this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualStartWidth);
+                        float pathYPosition = scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2);
+                        this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, pathYPosition - actualStartWidth);
                         if (!isAddedMidWidth)
                         {
-                            this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualMidWidth);
+                            this.UpdateMidRangePath(scaleLinePositionX + rangeStartPosition, pathYPosition - actualStartWidth,
+                            scaleLinePositionX + rangeMidPosition, pathYPosition - actualMidWidth,
+                            scaleLinePositionX + rangeEndPosition, pathYPosition - actualEndWidth);
                         }
-                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2) - actualEndWidth);
-                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2));
-                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + (lineThickness / 2) + (maxRangeWidth / 2));
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, pathYPosition - actualEndWidth);
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, pathYPosition);
+                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, pathYPosition);
                     }
                     break;
                 case GaugeElementPosition.Inside:
-                    this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + lineThickness);
-                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + lineThickness);
-                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, scaleLinePositionY + lineThickness + actualEndWidth);
+                    float yPosition = scaleLinePositionY + lineThickness;
+                    this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, yPosition);
+                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, yPosition);
+                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeEndPosition, yPosition + actualEndWidth);
                     if (!isAddedMidWidth)
                     {
-                        this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeMidPosition, scaleLinePositionY + lineThickness + actualMidWidth);
+                        this.UpdateMidRangePath(scaleLinePositionX + rangeEndPosition, yPosition + actualEndWidth,
+                            scaleLinePositionX + rangeMidPosition, yPosition + actualMidWidth,
+                            scaleLinePositionX + rangeStartPosition, yPosition + actualStartWidth);
                     }
-                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY + lineThickness + actualStartWidth);
+                    this.Scale.LineToPath(rangePath, scaleLinePositionX + rangeStartPosition, yPosition + actualStartWidth);
                     break;
             }
             rangePath.Close();
@@ -529,14 +536,23 @@ namespace Syncfusion.Maui.Gauges
             this.InvalidateDrawable();
         }
 
-        private void UpdateMidRangePath(float c1X, float c1Y, float c2X, float c2Y, float x, float y)
+        /// <summary>
+        /// Method to get range path with mid width shape. 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        private void UpdateMidRangePath(float x1, float y1, float x2, float y2, float x3, float y3)
         {
             if (this.Scale != null && this.rangePath != null)
             {
                 if (this.Scale.Orientation == GaugeOrientation.Horizontal)
-                    UpdateMidRangePath(rangePath, new PointF(c1X, c1Y), new PointF(c2X, c2Y), new Point(x, y));
+                    UpdateMidRangePath(rangePath, new PointF(x1, y1), new PointF(x2, y2), new Point(x3, y3));
                 else
-                    UpdateMidRangePath(rangePath, new PointF(c1Y, c1X), new PointF(c2Y, c2X), new Point(y, x));
+                    UpdateMidRangePath(rangePath, new PointF(y1, x1), new PointF(y2, x2), new Point(y3, x3));
             }
         }
 

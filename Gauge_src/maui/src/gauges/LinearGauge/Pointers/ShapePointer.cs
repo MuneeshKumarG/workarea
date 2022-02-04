@@ -266,7 +266,9 @@ namespace Syncfusion.Maui.Gauges
                 }
 
                 shapePositionX = this.Scale.ScalePosition.X + this.Scale.GetPositionFromValue(actualValue) - halfWidth;
-                shapePositionY = this.Scale.ScalePosition.Y + (this.Scale.GetActualScaleLineThickness() / 2) - halfHeight;
+                shapePositionY = this.Scale.ScalePosition.Y + (this.Scale.GetActualScaleLineThickness() / 2) -
+                    (this.Scale.ShowLine ? halfHeight : (this.Scale.IsMirrored ? 0 : this.ShapeHeight));
+
                 this.GetPointerPosition(halfWidth, halfHeight, ref shapePositionX, ref shapePositionY);
                 if (this.Scale.Orientation == GaugeOrientation.Vertical)
                 {

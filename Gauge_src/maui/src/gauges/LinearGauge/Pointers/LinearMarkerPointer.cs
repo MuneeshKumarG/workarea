@@ -97,10 +97,9 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="newValue">New value.</param>
         private static void OnMarkerPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is LinearMarkerPointer linearMarkerPointer)
+            if (bindable is LinearMarkerPointer linearMarkerPointer && linearMarkerPointer.Scale != null)
             {
-                linearMarkerPointer.UpdatePointer();
-                linearMarkerPointer.InvalidateDrawable();
+                linearMarkerPointer.Scale.ScaleInvalidateMeasureOverride();
             }
         }
 

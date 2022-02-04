@@ -83,7 +83,9 @@ namespace Syncfusion.Maui.Gauges
                 Rectangle rectangle = new Rectangle(new Point(x, y), Content.DesiredSize);
                 AbsoluteLayout.SetLayoutBounds(Content, rectangle);
 
-                this.PointerRect = rectangle;
+                //Calculate dragging rectangle. 
+                this.PointerRect = new RectangleF((float)x - DraggingOffset, (float)y - DraggingOffset,
+                (float)Content.DesiredSize.Width + (DraggingOffset * 2), (float)Content.DesiredSize.Height + (DraggingOffset * 2));
             }
         }
 
@@ -113,12 +115,13 @@ namespace Syncfusion.Maui.Gauges
             {
                 if (pointer.Scale != null && pointer.Scale.MarkerPointersLayout.Contains(pointer.PointerView))
                 {
+                    pointer.Scale.MarkerPointerChildUpdate(oldValue, newValue);
+
                     if (newValue is View newChild)
                     {
                         SetInheritedBindingContext(newChild, pointer);
                     }
-                    pointer.Scale.MarkerPointerChildUpdate(oldValue, newValue);
-                    pointer.UpdatePointer();
+                    pointer.Scale.ScaleInvalidateMeasureOverride();
                 }
             }
         }

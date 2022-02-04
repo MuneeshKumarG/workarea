@@ -76,7 +76,6 @@ namespace Syncfusion.Maui.Gauges
         private PathF? barPointerPath;
         private LinearGradientBrush? linearGradientBrush;
         private double actualStartValue, actualEndValue;
-        private const int barPointerMinWidth = 3;
 
         #endregion
 
@@ -213,12 +212,6 @@ namespace Syncfusion.Maui.Gauges
                 {
                     pointerEndPosition -= halfPointerWidth;
                 }
-
-                if ((this.Scale.Orientation == GaugeOrientation.Horizontal && !this.Scale.IsInversed)||
-                    (this.Scale.Orientation == GaugeOrientation.Vertical && this.Scale.IsInversed))
-                    pointerEndPosition = pointerEndPosition < pointerStartPosition + barPointerMinWidth ? pointerStartPosition + barPointerMinWidth : pointerEndPosition;
-                else
-                    pointerEndPosition = pointerStartPosition - barPointerMinWidth > pointerEndPosition ? pointerEndPosition : pointerStartPosition - barPointerMinWidth;
 
                 barPointerPath = new PathF();
                 float x1, x2, y1, y2;
