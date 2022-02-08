@@ -75,7 +75,8 @@ namespace Syncfusion.Maui.Graphics.Internals
         /// <param name="canvas">Corresponding canvas</param>
         /// <param name="rect">Symbol location and size</param>
         /// <param name="hasBorder">Need to draw border</param>
-        public static void DrawCross(this ICanvas canvas, RectangleF rect,  bool hasBorder)
+        /// <param name="thickness">Symbol thickness</param>
+        public static void DrawCross(this ICanvas canvas, RectangleF rect, bool hasBorder, float thickness = 5)
         {
             float x = rect.X;
             float y = rect.Y;
@@ -83,9 +84,8 @@ namespace Syncfusion.Maui.Graphics.Internals
             float height = y + rect.Height;
             float midWidth = x + (rect.Width / 2);
             float midHeight = y + (rect.Height / 2);
-            float crossWidth = rect.Width / 5;
-            float crossHeight = rect.Height / 5;
-
+            float crossWidth = rect.Width / thickness;
+            float crossHeight = rect.Height / thickness;
 
             var path = new PathF();
             path.MoveTo(width - crossWidth, y);
@@ -116,7 +116,8 @@ namespace Syncfusion.Maui.Graphics.Internals
         /// <param name="canvas">Corresponding canvas</param>
         /// <param name="rect">Symbol location and size</param>
         /// <param name="hasBorder">Need to draw border</param>
-        public static void DrawPlus(this ICanvas canvas, RectangleF rect,  bool hasBorder)
+        /// <param name="thickness">Symbol thickness</param>
+        public static void DrawPlus(this ICanvas canvas, RectangleF rect,  bool hasBorder, float thickness = 5)
         {
             float x = rect.X;
             float y = rect.Y;
@@ -124,8 +125,8 @@ namespace Syncfusion.Maui.Graphics.Internals
             float height = y + rect.Height;
             float midWidth = x + (rect.Width / 2);
             float midHeight = y + (rect.Height / 2);
-            float crossWidth = rect.Width / 5;
-            float crossHeight = rect.Height / 5;
+            float crossWidth = rect.Width / thickness;
+            float crossHeight = rect.Height / thickness;
 
             var path = new PathF();
             path.MoveTo(midWidth + crossWidth, y);
@@ -245,6 +246,34 @@ namespace Syncfusion.Maui.Graphics.Internals
             {
                 canvas.DrawPath(path);
             }
+        }
+
+        /// <summary>
+        /// Draw away symbol with provided rect.
+        /// </summary>
+        /// <param name="canvas">Corresponding canvas.</param>
+        /// <param name="rect">Symbol location and size.</param>
+        public static void DrawAwaySymbol(ICanvas canvas, RectangleF rect)
+        {
+            var path = new PathF();
+            path.MoveTo(rect.X + (rect.Width / 2) - 1, rect.Y);
+            path.LineTo(rect.X + (rect.Width / 2) - 1, rect.Y + (rect.Height / 2) + 1);
+            path.LineTo(rect.X + (rect.Width / 2) + 4.5f, rect.Y + rect.Height - 1.5f);
+            canvas.DrawPath(path);
+        }
+
+        /// <summary>
+        /// Draw tick symbol with provided rect.
+        /// </summary>
+        /// <param name="canvas">Corresponding canvas.</param>
+        /// <param name="rect">Symbol location and size.</param>
+        public static void DrawTick(ICanvas canvas, RectangleF rect)
+        {
+            var path = new PathF();
+            path.MoveTo(rect.X + 1, rect.Y + rect.Height - 6);
+            path.LineTo(rect.X + 4.5f, rect.Y + rect.Height - 2.5f);
+            path.LineTo(rect.X + rect.Width - 0.5f, rect.Y + 2);
+            canvas.DrawPath(path);
         }
     }
 }

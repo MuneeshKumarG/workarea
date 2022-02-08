@@ -124,8 +124,33 @@ namespace Syncfusion.Maui.Core
     /// Defines the predefined icons for badge.
     /// </summary>
     // TODO: Need to fix the font icon issue in library or need to draw the icons.
-    internal enum BadgeIcon
+    public enum BadgeIcon
     {
+        /// <summary>
+        /// To define the badge icon as add.
+        /// </summary>
+        Add,
+
+        /// <summary>
+        /// To define the badge icon as available.
+        /// </summary>
+        Available,
+
+        /// <summary>
+        /// To define the badge icon as away.
+        /// </summary>
+        Away,
+
+        /// <summary>
+        /// To define the badge icon as busy.
+        /// </summary>
+        Busy,
+
+        /// <summary>
+        /// To define the badge icon as delete.
+        /// </summary>
+        Delete,
+
         /// <summary>
         /// To define the badge icon as dot.
         /// </summary>
@@ -135,6 +160,16 @@ namespace Syncfusion.Maui.Core
         /// To define the badge icon as None.
         /// </summary>
         None,
+
+        /// <summary>
+        /// To define the badge icon as prohibit1.
+        /// </summary>
+        Prohibit1,
+
+        /// <summary>
+        /// To define the badge icon as prohibit2.
+        /// </summary>
+        Prohibit2,
     }
 
     #endregion

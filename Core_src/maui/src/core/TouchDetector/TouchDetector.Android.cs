@@ -38,7 +38,11 @@ namespace Syncfusion.Maui.Core.Internals
 
         internal void OnTouch(object? sender, View.TouchEventArgs e)
         {
-            
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             View? nativeView = sender as View;
             
             MotionEvent? motionEvent = e.Event;

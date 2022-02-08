@@ -48,6 +48,11 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_Touch(object? sender, View.TouchEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             var motionEvent = e.Event;
 
             if (motionEvent != null)
@@ -211,7 +216,7 @@ namespace Syncfusion.Maui.Core.Internals
             {
                 if (e1 != null && e2 != null && e2.PointerCount == 1)
                 {
-                    Point point = new Point(e1.GetX(e1.ActionIndex), e1.GetY(e1.ActionIndex));
+                    Point point = new Point(e2.GetX(e2.ActionIndex), e2.GetY(e2.ActionIndex));
                     Func<double, double> fromPixels = Android.App.Application.Context.FromPixels;
                     point = new Point(fromPixels(point.X), fromPixels(point.Y));
                     detector?.OnScroll(point, new Point(fromPixels(distanceX), fromPixels(distanceY)));

@@ -54,6 +54,15 @@ namespace Syncfusion.Maui.Core
     public class SfBadgeView : ContentView
     {
         #region Bindable properties
+		
+		 /// <summary>        
+        /// Identifies the <see cref="ScreenReaderText"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="ScreenReaderText"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty ScreenReaderTextProperty =
+            BindableProperty.Create(nameof(ScreenReaderText), typeof(string), typeof(SfBadgeView), string.Empty, BindingMode.OneWay, null, OnScreenReaderTextPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="Content"/> bindable property.
@@ -72,6 +81,7 @@ namespace Syncfusion.Maui.Core
         /// </value>
         public static readonly BindableProperty BadgeTextProperty =
             BindableProperty.Create(nameof(BadgeText), typeof(string), typeof(SfBadgeView), string.Empty, BindingMode.OneWay, null, OnBadgeTextPropertyChanged);
+
 
         /// <summary>
         /// Identifies the <see cref="BadgeSettings"/> bindable property.
@@ -129,6 +139,15 @@ namespace Syncfusion.Maui.Core
         {
             get { return (View)this.GetValue(ContentProperty); }
             set { this.SetValue(ContentProperty, value); }
+        }
+		
+        /// <summary>
+        /// Gets or sets the screen reader text for the badge.
+        /// </summary>
+        public string ScreenReaderText
+        {
+            get { return (string)this.GetValue(ScreenReaderTextProperty); }
+            set { this.SetValue(ScreenReaderTextProperty, value); }
         }
 
         /// <summary>
@@ -205,7 +224,8 @@ namespace Syncfusion.Maui.Core
             {
                 this.BadgeLabelView = new BadgeLabelView();
             }
-
+			
+            this.BadgeLabelView.ScreenReaderText = this.ScreenReaderText;
             this.BadgeLabelView.Text = this.BadgeText;
             this.mainGrid.Children.Add(this.BadgeLabelView);
             base.Content = this.mainGrid;
@@ -261,6 +281,26 @@ namespace Syncfusion.Maui.Core
                 }
             }
         }
+		
+		/// <summary>
+        /// Invoked whenever the <see cref="ScreenReaderTextProperty"/> is set for badge view.
+        /// </summary>
+        /// <param name="bindable">The bindable.</param>
+        /// <param name="oldValue">The old value.</param>
+        /// <param name="newValue">The new value.</param>
+        private static void OnScreenReaderTextPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var badgeView = bindable as SfBadgeView;
+
+            if (badgeView != null)
+            {
+                if (badgeView.BadgeLabelView != null)
+                {
+                    badgeView.BadgeLabelView.ScreenReaderText = (string)newValue;
+                }
+            }
+        }
+
 
         /// <summary>
         /// Invoked whenever the <see cref="BadgeTextProperty"/> is set for badge view.

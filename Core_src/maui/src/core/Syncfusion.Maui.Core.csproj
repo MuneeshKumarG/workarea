@@ -10,6 +10,7 @@
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 		<AnalysisLevel>latest</AnalysisLevel>
+		<AnalysisLevelSecurity>latest-recommended</AnalysisLevelSecurity>
 		<AssemblyName>Syncfusion.Maui.Core</AssemblyName>
 		<Configurations>Debug;Release;Release-Xml</Configurations>
 		<Platforms>AnyCPU</Platforms>
