@@ -11,47 +11,23 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Margin="15">
-            <gauge:SfLinearGauge x:Name="gauge" ShowLine="False"
-                                 HorizontalOptions="Center" VerticalOptions="Center"
-                                 Maximum="10"
-                          Interval="2"
-                          MinorTicksPerInterval="3">
-                <gauge:SfLinearGauge.MajorTickStyle>
-                    <gauge:LinearTickStyle Length="15"/>
-                </gauge:SfLinearGauge.MajorTickStyle>
-                <gauge:SfLinearGauge.MinorTickStyle>
-                    <gauge:LinearTickStyle Length="10"/>
-                </gauge:SfLinearGauge.MinorTickStyle>
-                <gauge:SfLinearGauge.LineStyle>
-                    <gauge:LinearLineStyle Thickness="30"/>
-                </gauge:SfLinearGauge.LineStyle>
+            <gauge:SfLinearGauge x:Name="gauge" Margin="5" HorizontalOptions="Center" VerticalOptions="Center">
+               
                 <gauge:SfLinearGauge.Ranges>
-                    <gauge:LinearRange x:Name="range" EndValue="4"
-                                        Fill="Red"
-                                        StartWidth="30"
-                                        EndWidth="30"
-                                        RangePosition="Cross"/>
-                    <gauge:LinearRange StartValue="4"
-                                        EndValue="8"
-                                        Fill="Yellow"
-                                        StartWidth="30"
-                                        EndWidth="30"
-                                        RangePosition="Cross" />
-                    <gauge:LinearRange StartValue="8"
-                                        EndValue="10"
-                                        Fill="Green"
-                                        StartWidth="30"
-                                        EndWidth="30"
-                                        RangePosition="Cross" />
+                    <gauge:LinearRange x:Name="range" EndValue="30" />
+                    
+                    <!--<gauge:LinearRange StartValue="30" EndValue="60" 
+                                        Fill="orange"/>
+                    
+                    <gauge:LinearRange StartValue="60" EndValue="100" 
+                                        Fill="Red"/>-->
 
                 </gauge:SfLinearGauge.Ranges>
                 <gauge:SfLinearGauge.BarPointers>
-                    <gauge:BarPointer x:Name="barPointer" Value="5"
-                                  PointerSize="12" EnableAnimation="True" IsInteractive="True"
-                                  Fill="Black"/>
+                    <gauge:BarPointer x:Name="barPointer" Value="50" IsInteractive="True"/>
                 </gauge:SfLinearGauge.BarPointers>
                 <gauge:SfLinearGauge.MarkerPointers>
-                    <gauge:ShapePointer x:Name="shapePointer"  Value="7" EnableAnimation="True" IsInteractive="True"/>
+                    <gauge:ShapePointer x:Name="shapePointer"  Value="60" EnableAnimation="True" IsInteractive="True"/>
 
                     <gauge:ContentPointer x:Name="contentPointer" Value="5" >
                        
@@ -60,7 +36,7 @@
                 </gauge:SfLinearGauge.MarkerPointers>
             </gauge:SfLinearGauge>
 
-           
+
         </Grid>
         <ScrollView GridLayout.Row="1">
             <VerticalStackLayout>
@@ -576,6 +552,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Button Text="Add" 
                             Clicked="RangeAdd_Clicked" Margin="5"/>
@@ -583,6 +560,8 @@
                             Clicked="RangeInsert_Clicked" Margin="5"/>
                     <Button GridLayout.Column="2" Text="Clear" 
                             Clicked="RangeClear_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="3" Text="Null" 
+                            Clicked="RangeNull_Clicked" Margin="5"/>
                 </Grid>
 
                 <Label Text="Bar Pointer" FontAttributes="Bold" Margin="0,10,0,10"/>

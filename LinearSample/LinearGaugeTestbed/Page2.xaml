@@ -6,15 +6,69 @@
              BackgroundColor="{DynamicResource SecondaryColor}">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
         <gauge:SfRadialGauge>
             <gauge:SfRadialGauge.Axes>
                 <gauge:RadialAxis>
                     <gauge:RadialAxis.Pointers>
-                        <gauge:MarkerPointer Value="60" />
+                        <gauge:MarkerPointer x:Name="marker" Value="60" OverlayRadius="15"
+                                             MarkerType="Circle"
+                                             IsInteractive="True" />
                     </gauge:RadialAxis.Pointers>
                 </gauge:RadialAxis>
             </gauge:SfRadialGauge.Axes>
         </gauge:SfRadialGauge>
+
+        <ScrollView GridLayout.Row="1">
+            <VerticalStackLayout >
+
+                <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Text="HasShadow"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference marker}, Path=HasShadow}"/>
+            </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="IsInteractive"/>
+                        <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference marker}, Path=IsInteractive}"/>
+                    </Grid>
+                    <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Text="OverlayRadius"/>
+                <Button GridLayout.Column="1" Text="+" 
+                            Clicked="OverlayRadiusIncrease_Clicked" Margin="5">
+                </Button>
+                <Button GridLayout.Column="2" Text="-" 
+                            Clicked="OverlayRadiusDecrease_Clicked" Margin="5"/>
+            </Grid>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Text="OverlayFill"/>
+                <Picker GridLayout.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged1"/>
+            </Grid>
+            </VerticalStackLayout>
+
+        </ScrollView>
 
     </Grid>
 </ContentPage>

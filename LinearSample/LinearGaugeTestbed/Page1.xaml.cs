@@ -11,7 +11,7 @@ namespace LinearGaugeTestbed
 {
 	public partial class Page1 : ContentPage
 	{
-        private double position = 10;
+        private double position = 20;
 
         public double Position
         {
@@ -51,8 +51,8 @@ namespace LinearGaugeTestbed
 
             Debug.WriteLine("BarPointer_ValueChanging");
 
-            if (e.NewValue > 70)
-                e.Cancel = true;
+            //if (e.NewValue > 70)
+            //    e.Cancel = true;
         }
 
         public List<string> ColorCollection
@@ -285,7 +285,7 @@ namespace LinearGaugeTestbed
                 return new List<string>()
                 {
                     "2,2",
-                    "4,4",
+                    "4,1",
                     "Null",
                 };
             }
@@ -296,8 +296,8 @@ namespace LinearGaugeTestbed
 
             if (dashArray == "2,2")
                 gauge.LineStyle.DashArray = new DoubleCollection() {2,2 };
-            else if (dashArray == "4,4")
-                gauge.LineStyle.DashArray = new DoubleCollection() { 4,4};
+            else if (dashArray == "4,1")
+                gauge.LineStyle.DashArray = new DoubleCollection() { 4,1};
             else if (dashArray == "Null")
                 gauge.LineStyle.DashArray = null;
         }
@@ -767,8 +767,16 @@ namespace LinearGaugeTestbed
         {
             range.Child = new Image()
             {
-                Source = "alexandar.png"
+                Source = "alexandar.png",
+                
             };
+            //range.Child = new Label() 
+            //{
+            //    Text="Range",
+            //    HorizontalOptions = LayoutOptions.Center,
+            //    HorizontalTextAlignment=TextAlignment.Center,
+            //    Background = new SolidColorBrush(Colors.White),
+            //};
         }
 
         private void RangeChildSetNull_Clicked(object sender, EventArgs e)
@@ -778,34 +786,48 @@ namespace LinearGaugeTestbed
 
         private void RangeAdd_Clicked(object sender, EventArgs e)
         {
+            if (gauge.Ranges == null)
+                gauge.Ranges = new System.Collections.ObjectModel.ObservableCollection<LinearRange>();
+
             gauge.Ranges.Add(new LinearRange()
             {
-                StartValue = 30,
-                EndValue =60,
+                StartValue = 0,
+                EndValue =6,
                 Fill=new SolidColorBrush(Colors.Red),
             });
         }
 
         private void RangeInsert_Clicked(object sender, EventArgs e)
         {
+            if (gauge.Ranges == null)
+                gauge.Ranges = new System.Collections.ObjectModel.ObservableCollection<LinearRange>();
             gauge.Ranges.Insert(0,new LinearRange()
             {
-                StartValue = 30,
-                EndValue = 60,
+                StartValue = 3,
+                EndValue = 6,
                 Fill = new SolidColorBrush(Colors.Yellow),
             });
         }
 
         private void RangeClear_Clicked(object sender, EventArgs e)
         {
-            gauge.Ranges.Clear();
+            gauge.Ranges?.Clear();
+        }
+
+        private void RangeNull_Clicked(object sender, EventArgs e)
+        {
+            gauge.Ranges = null;
         }
 
         private void BarPointerChildSet_Clicked(object sender, EventArgs e)
         {
             barPointer.Child = new Image()
             {
-                Source = "alexandar.png"
+                Source = "alexandar.png",
+                HeightRequest = 30,
+                WidthRequest = 30,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center
             };
         }
 
@@ -818,7 +840,7 @@ namespace LinearGaugeTestbed
         {
             gauge.BarPointers.Add(new BarPointer()
             {
-                Value = 80,
+                Value = 8,
                 Fill = new SolidColorBrush(Colors.Red),
             });
         }
@@ -827,7 +849,7 @@ namespace LinearGaugeTestbed
         {
             gauge.BarPointers.Insert(0, new BarPointer()
             {
-                Value = 80,
+                Value = 8,
                 Fill = new SolidColorBrush(Colors.Yellow),
             });
         }
@@ -1011,7 +1033,9 @@ namespace LinearGaugeTestbed
         {
             contentPointer.Content = new Image()
             {
-                Source = "alexandar.png"
+                Source = "alexandar.png",
+                HeightRequest = 30,
+                WidthRequest = 30,
             };
         }
 
@@ -1026,6 +1050,7 @@ namespace LinearGaugeTestbed
     {
         public override void UpdateMidRangePath(PathF pathF, PointF startPoint, PointF midPoint, PointF endPoint)
         {
+           // pathF.CurveTo(startPoint,midPoint,endPoint);
             base.UpdateMidRangePath(pathF, startPoint, midPoint, endPoint);
         }
     }
