@@ -800,6 +800,10 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="canvas"></param>
         private void DrawMarkerOverlay(ICanvas canvas)
         {
+            //TODO : Currently, shadow not showing in WinUI. We reported this problem in below link. 
+            //https://github.com/dotnet/maui/issues/4471
+            //Once the problem resolved, we need to ensure the shadow effect in WinUI.
+
             float overlayPositionX = this.markerPosition.X - (float)Math.Abs(this.MarkerWidth / 2 - this.OverlayRadius);
             float overlayPositionY = this.markerPosition.Y - (float)Math.Abs(this.MarkerHeight / 2 - this.OverlayRadius);
             float overlayWidth = (float)this.OverlayRadius * 2;
