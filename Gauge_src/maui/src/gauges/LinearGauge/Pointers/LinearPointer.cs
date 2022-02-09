@@ -83,7 +83,7 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// Represents the pointer dragging rect. 
         /// </summary>
-        internal RectangleF PointerRect;
+        internal Rectangle PointerRect;
 
         /// <summary>
         /// Holds dragging rect offset value. 

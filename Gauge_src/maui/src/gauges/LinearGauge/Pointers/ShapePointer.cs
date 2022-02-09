@@ -33,15 +33,15 @@ namespace Syncfusion.Maui.Gauges
         /// </value>
         public static readonly BindableProperty ShapeWidthProperty =
             BindableProperty.Create(nameof(ShapeWidth), typeof(double), typeof(ShapePointer), 16d, propertyChanged: OnShapePropertyChanged);
-        
+
         /// <summary>
         /// Identifies the <see cref="ShapeType"/> bindable property.
         /// </summary>
         /// <value>
         /// The identifier for <see cref="ShapeType"/> bindable property.
         /// </value>
-        public static readonly BindableProperty ShapeTypeProperty = BindableProperty.Create(nameof(ShapeType), 
-            typeof(ShapeType), typeof(ShapePointer), ShapeType.InvertedTriangle, propertyChanged: OnShapePropertyChanged);
+        public static readonly BindableProperty ShapeTypeProperty = BindableProperty.Create(nameof(ShapeType),
+            typeof(ShapeType), typeof(ShapePointer), ShapeType.InvertedTriangle, propertyChanged: OnShapeTypePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="Fill"/> bindable property.
@@ -49,7 +49,7 @@ namespace Syncfusion.Maui.Gauges
         /// <value>
         /// The identifier for <see cref="Fill"/> bindable property.
         /// </value>
-        public static readonly BindableProperty FillProperty = BindableProperty.Create(nameof(Fill), typeof(Brush), 
+        public static readonly BindableProperty FillProperty = BindableProperty.Create(nameof(Fill), typeof(Brush),
             typeof(ShapePointer), new SolidColorBrush(Color.FromRgb(73, 89, 99)), propertyChanged: OnInvalidatePropertyChanged);
 
         /// <summary>
@@ -164,13 +164,14 @@ namespace Syncfusion.Maui.Gauges
                 canvas.SaveState();
 
                 PointF shapePosition = new PointF((float)shapePositionX, (float)shapePositionY);
+
                 float halfBorderWidth = (float)this.StrokeThickness / 2;
-                float halfWidth = (float)this.ShapeWidth / 2;
-                float halfHeight = (float)this.ShapeHeight / 2;
+                float halfWidth = (float)ShapeWidth / 2;
+                float halfHeight = (float)ShapeHeight / 2;
                 float positionX = shapePosition.X + halfBorderWidth;
                 float positionY = shapePosition.Y + halfBorderWidth;
-                float width = (float)(this.ShapeWidth - this.StrokeThickness);
-                float height = (float)(this.ShapeHeight - this.StrokeThickness);
+                float width = (float)(ShapeWidth - this.StrokeThickness);
+                float height = (float)(ShapeHeight - this.StrokeThickness);
 
                 //Set stroke and stroke size for shape.
                 if (this.StrokeThickness > 0)
@@ -180,12 +181,9 @@ namespace Syncfusion.Maui.Gauges
                 }
 
                 //Set rotation angle for shape.
-                float angle = this.Scale.Orientation == GaugeOrientation.Vertical ? -90 : 0;
-                angle += this.Scale.IsMirrored ? 180 : 0;
-                
-                if (this.ShapeType == ShapeType.Diamond)
-                    angle += 45;
-                else if (this.ShapeType == ShapeType.Triangle)
+                float angle = this.Scale.IsMirrored ? 180 : 0;
+
+                if (this.ShapeType == ShapeType.Triangle)
                     angle += 180;
 
                 canvas.Rotate(angle, shapePosition.X + halfWidth, shapePosition.Y + halfHeight);
@@ -207,20 +205,37 @@ namespace Syncfusion.Maui.Gauges
                         break;
                     case ShapeType.Diamond:
 
-                        canvas.FillRectangle(positionX, positionY, width, height);
+                        PathF path = new PathF();
+                        path.MoveTo(positionX + width / 2, positionY);
+                        path.LineTo(positionX + width, positionY + height / 2);
+                        path.LineTo(positionX + width / 2, positionY + height);
+                        path.LineTo(positionX, positionY + height / 2);
+                        path.Close();
+
+                        canvas.FillPath(path);
 
                         if (StrokeThickness > 0)
                         {
-                            canvas.DrawRectangle(positionX, positionY, width, height);
+                            canvas.DrawPath(path);
                         }
 
                         break;
                     case ShapeType.InvertedTriangle:
                     case ShapeType.Triangle:
-                        PathF path = new PathF();
-                        path.LineTo(positionX, positionY);
-                        path.LineTo(positionX + width, positionY);
-                        path.LineTo(positionX + width / 2, positionY + height);
+                        path = new PathF();
+
+                        if (Scale.Orientation == GaugeOrientation.Horizontal)
+                        {
+                            path.LineTo(positionX, positionY);
+                            path.LineTo(positionX + width, positionY);
+                            path.LineTo(positionX + width / 2, positionY + height);
+                        }
+                        else
+                        {
+                            path.LineTo(positionX, positionY);
+                            path.LineTo(positionX, positionY + height);
+                            path.LineTo(positionX + width, positionY + height / 2);
+                        }
                         path.Close();
 
                         canvas.FillPath(path);
@@ -266,8 +281,7 @@ namespace Syncfusion.Maui.Gauges
                 }
 
                 shapePositionX = this.Scale.ScalePosition.X + this.Scale.GetPositionFromValue(actualValue) - halfWidth;
-                shapePositionY = this.Scale.ScalePosition.Y + (this.Scale.GetActualScaleLineThickness() / 2) -
-                    (this.Scale.ShowLine ? halfHeight : (this.Scale.IsMirrored ? 0 : this.ShapeHeight));
+                shapePositionY = this.Scale.ScalePosition.Y + (this.Scale.GetActualScaleLineThickness() / 2) - halfHeight;
 
                 this.GetPointerPosition(halfWidth, halfHeight, ref shapePositionX, ref shapePositionY);
                 if (this.Scale.Orientation == GaugeOrientation.Vertical)
@@ -276,8 +290,8 @@ namespace Syncfusion.Maui.Gauges
                 }
 
                 //Calculate dragging rectangle. 
-                this.PointerRect = new RectangleF((float)shapePositionX - DraggingOffset, (float)shapePositionY - DraggingOffset,
-                (float)ShapeWidth + (DraggingOffset * 2), (float)ShapeHeight + (DraggingOffset * 2));
+                this.PointerRect = new Rectangle(shapePositionX - DraggingOffset, shapePositionY - DraggingOffset,
+                ShapeWidth + (DraggingOffset * 2), ShapeHeight + (DraggingOffset * 2));
             }
         }
 
@@ -293,9 +307,22 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="newValue">New value.</param>
         private static void OnShapePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
+            if (bindable is ShapePointer shapePointer && shapePointer.Scale != null)
+            {
+                shapePointer.Scale.ScaleInvalidateMeasureOverride();
+            }
+        }
+
+        /// <summary>
+        /// Called when shape pointer <see cref="ShapeType"/> changed.
+        /// </summary>
+        /// <param name="bindable">The BindableObject.</param>
+        /// <param name="oldValue">Old value.</param>
+        /// <param name="newValue">New value.</param>
+        private static void OnShapeTypePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
             if (bindable is ShapePointer shapePointer)
             {
-                shapePointer.UpdatePointer();
                 shapePointer.InvalidateDrawable();
             }
         }

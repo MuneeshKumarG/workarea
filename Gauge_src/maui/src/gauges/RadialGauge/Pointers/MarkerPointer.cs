@@ -399,6 +399,9 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// Gets or sets a value that specifies the marker overlay fill color of pointer. 
         /// </summary>
+        /// <value>
+        /// It defines the color of the overlay fill. The default value is <c>Null</c>.
+        /// </value>
         /// <example>
         /// <code><![CDATA[
         /// <gauge:SfRadialGauge>
@@ -421,6 +424,9 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// Gets or sets a value that specifies the marker overlay fill radius of pointer. 
         /// </summary>
+        /// <value>
+        /// It defines the radius of overlay fill. The default value is <c>double.NaN</c>.
+        /// </value>
         /// <example>
         /// <code><![CDATA[
         /// <gauge:SfRadialGauge>
@@ -443,6 +449,9 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// Gets or sets a value that specifies the shadow effect for marker pointer. 
         /// </summary>
+        /// <value>
+        /// It defines the shadow visibility of marker pointer. The default value is <c>False</c>.
+        /// </value>
         /// <example>
         /// <code><![CDATA[
         /// <gauge:SfRadialGauge>

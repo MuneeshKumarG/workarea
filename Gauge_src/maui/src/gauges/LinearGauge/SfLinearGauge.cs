@@ -886,14 +886,6 @@ namespace Syncfusion.Maui.Gauges
                 path.LineTo(y, x);
         }
 
-        internal void CurveToPath(PathF path, double c1X, double c1Y, double c2X, double c2Y, double x, double y)
-        {
-            if (this.Orientation == GaugeOrientation.Horizontal)
-                path.CurveTo((float)c1X, (float)c1Y, (float)c2X, (float)c2Y, (float)x, (float)y);
-            else
-                path.CurveTo((float)c1Y, (float)c1X, (float)c2Y, (float)c2X, (float)y, (float)x);
-        }
-
         internal void BarPointerChildUpdate(object? oldView, object? newView)
         {
             if (oldView is View oldChild && this.BarPointersLayout.Children.Contains(oldChild))
@@ -2617,12 +2609,16 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="isTouchHandled"></param>
         private void OnTouchListener(TouchEventArgs e, ref bool isTouchHandled)
         {
-            if ((MarkerPointers != null && MarkerPointers.Count > 0) || (BarPointers != null && BarPointers.Count > 0))
+            bool isMarkerPointersExist = MarkerPointers != null && MarkerPointers.Count > 0;
+            bool isBarPointersExist = BarPointers != null && BarPointers.Count > 0;
+
+#nullable disable
+            if (isMarkerPointersExist || isBarPointersExist)
             {
                 switch (e.Action)
                 {
                     case TouchActions.Pressed:
-                        if (MarkerPointers != null && MarkerPointers.Count > 0)
+                        if (isMarkerPointersExist)
                         {
                             for (int i = MarkerPointers.Count - 1; i >= 0; i--)
                             {
@@ -2639,7 +2635,8 @@ namespace Syncfusion.Maui.Gauges
                                 }
                             }
                         }
-                        if (BarPointers != null && BarPointers.Count > 0)
+
+                        if (isBarPointersExist && !isTouchHandled)
                         {
                             for (int i = BarPointers.Count - 1; i >= 0; i--)
                             {
@@ -2658,7 +2655,7 @@ namespace Syncfusion.Maui.Gauges
                         }
                         break;
                     case TouchActions.Moved:
-                        if (MarkerPointers != null && MarkerPointers.Count > 0)
+                        if (isMarkerPointersExist)
                         {
                             foreach (var pointer in MarkerPointers)
                             {
@@ -2668,7 +2665,8 @@ namespace Syncfusion.Maui.Gauges
                                 }
                             }
                         }
-                        if (BarPointers != null && BarPointers.Count > 0)
+
+                        if (isBarPointersExist)
                         {
                             foreach (var pointer in BarPointers)
                             {
@@ -2680,7 +2678,7 @@ namespace Syncfusion.Maui.Gauges
                         }
                         break;
                     case TouchActions.Released:
-                        if (MarkerPointers != null && MarkerPointers.Count > 0)
+                        if (isMarkerPointersExist)
                         {
                             foreach (var pointer in MarkerPointers)
                             {
@@ -2691,7 +2689,8 @@ namespace Syncfusion.Maui.Gauges
                                 }
                             }
                         }
-                        if (BarPointers != null && BarPointers.Count > 0)
+
+                        if (isBarPointersExist)
                         {
                             foreach (var pointer in BarPointers)
                             {
@@ -2705,6 +2704,7 @@ namespace Syncfusion.Maui.Gauges
                         break;
                 }
             }
+#nullable enable
         }
 
         /// <summary>

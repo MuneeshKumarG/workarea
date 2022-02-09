@@ -84,8 +84,8 @@ namespace Syncfusion.Maui.Gauges
                 AbsoluteLayout.SetLayoutBounds(Content, rectangle);
 
                 //Calculate dragging rectangle. 
-                this.PointerRect = new RectangleF((float)x - DraggingOffset, (float)y - DraggingOffset,
-                (float)Content.DesiredSize.Width + (DraggingOffset * 2), (float)Content.DesiredSize.Height + (DraggingOffset * 2));
+                this.PointerRect = new Rectangle(x - DraggingOffset, y - DraggingOffset,
+                Content.DesiredSize.Width + (DraggingOffset * 2), Content.DesiredSize.Height + (DraggingOffset * 2));
             }
         }
 

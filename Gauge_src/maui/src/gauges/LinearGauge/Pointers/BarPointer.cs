@@ -69,6 +69,16 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty ChildProperty =
           BindableProperty.Create(nameof(Child), typeof(View), typeof(BarPointer), null, propertyChanged: OnChildPropertyChanged);
 
+
+        /// <summary>
+        /// Identifies the <see cref="BarPosition"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="BarPosition"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty BarPositionProperty =
+            BindableProperty.Create(nameof(BarPosition), typeof(GaugeElementPosition), typeof(BarPointer), GaugeElementPosition.Cross, propertyChanged: OnPropertyChanged);
+
         #endregion
 
         #region Fields
@@ -154,6 +164,18 @@ namespace Syncfusion.Maui.Gauges
             set { this.SetValue(ChildProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the value that specifies the bar pointer position. Specify the value in <see cref="GaugeElementPosition"/>.
+        /// </summary>
+        /// <value>
+        /// The default value is <see cref="GaugeElementPosition.Cross"/>.
+        /// </value>
+        public GaugeElementPosition BarPosition
+        {
+            get { return (GaugeElementPosition)this.GetValue(BarPositionProperty); }
+            set { this.SetValue(BarPositionProperty, value); }
+        }
+
         #endregion
 
         #region Override methods
@@ -219,40 +241,85 @@ namespace Syncfusion.Maui.Gauges
                 float startPointX1 = (float)this.Scale.ScalePosition.X + pointerStartPosition;
                 float startPointX2 = (float)this.Scale.ScalePosition.X + pointerEndPosition;
 
+                bool canDrawBarPointer = false;
+
+                if ((this.Scale.Orientation == GaugeOrientation.Horizontal && ((!this.Scale.IsInversed && startPointX1 < startPointX2) ||
+                    (this.Scale.IsInversed && startPointX1 > startPointX2))) || 
+                    (this.Scale.Orientation == GaugeOrientation.Vertical && ((this.Scale.IsInversed && startPointX1 < startPointX2) ||
+                    (!this.Scale.IsInversed && startPointX1 > startPointX2))))
+                {
+                    canDrawBarPointer = true;
+                }
+                
                 if (this.Scale.IsMirrored)
                 {
                     y1 = (float)(scaleLinePositionY - this.Offset - halfWidth);
                     y2 = (float)(scaleLinePositionY - this.Offset + halfWidth);
-                    this.Scale.MoveToPath(barPointerPath, startPointX1, y2);
-                    this.Scale.LineToPath(barPointerPath, startPointX2, y2);
-                    this.Scale.LineToPath(barPointerPath, startPointX2, y1);
-                    this.Scale.LineToPath(barPointerPath, startPointX1, y1);
+
+                    if (canDrawBarPointer)
+                    {
+                        this.Scale.MoveToPath(barPointerPath, startPointX1, y2);
+                        this.Scale.LineToPath(barPointerPath, startPointX2, y2);
+                        this.Scale.LineToPath(barPointerPath, startPointX2, y1);
+                        this.Scale.LineToPath(barPointerPath, startPointX1, y1);
+                        barPointerPath.Close();
+                    }
+
                 }
                 else
                 {
                     y1 = (float)(scaleLinePositionY + this.Offset - halfWidth);
                     y2 = (float)(scaleLinePositionY + this.Offset + halfWidth);
-                    this.Scale.MoveToPath(barPointerPath, startPointX1, y1);
-                    this.Scale.LineToPath(barPointerPath, startPointX2, y1);
-                    this.Scale.LineToPath(barPointerPath, startPointX2, y2);
-                    this.Scale.LineToPath(barPointerPath, startPointX1, y2);
+
+                    if (canDrawBarPointer)
+                    {
+                        this.Scale.MoveToPath(barPointerPath, startPointX1, y1);
+                        this.Scale.LineToPath(barPointerPath, startPointX2, y1);
+                        this.Scale.LineToPath(barPointerPath, startPointX2, y2);
+                        this.Scale.LineToPath(barPointerPath, startPointX1, y2);
+                        barPointerPath.Close();
+                    }
                 }
 
-                barPointerPath.Close();
 
                 if (this.CornerStyle == CornerStyle.StartCurve || this.CornerStyle == CornerStyle.BothCurve)
                 {
                     x1 = (float)(startPointX1 - halfWidth);
                     x2 = (float)(startPointX1 + halfWidth);
+                    float curveX1 = (float)startPointX1;
 
-                    Scale.MoveToPath(barPointerPath, (float)startPointX1, y2);
 
-                    if (Scale.Orientation == GaugeOrientation.Horizontal)
-                        barPointerPath.AddArc(x1, y1, x2, y2, Scale.IsInversed ? 270 : 90, Scale.IsInversed ? 90 : 270, false);
-                    else
-                        barPointerPath.AddArc(y1, x1, y2, x2, Scale.IsInversed ? 360 : 180, Scale.IsInversed ? 180 : 360, false);
+                    if ((this.Scale.Orientation == GaugeOrientation.Horizontal && !this.Scale.IsInversed) ||
+                        (this.Scale.Orientation == GaugeOrientation.Vertical && this.Scale.IsInversed))
+                    {
+                        if (startPointX1 > startPointX2)
+                        {
+                            double diff = Math.Abs(startPointX1 - startPointX2);
+                            curveX1 = startPointX2;
+                            x1 = (float)(curveX1 - halfWidth + diff);
+                            x2 = (float)(curveX1 + halfWidth - diff);
+                        }
+                    }
+                    else if (startPointX1 < startPointX2)
+                    {
+                        double diff = Math.Abs(startPointX1 - startPointX2);
+                        curveX1 = startPointX2;
+                        x1 = (float)(curveX1 - halfWidth + diff);
+                        x2 = (float)(curveX1 + halfWidth - diff);
 
-                    barPointerPath.Close();
+                    }
+
+                    if (x1 < x2)
+                    {
+                        Scale.MoveToPath(barPointerPath, curveX1, y2);
+
+                        if (Scale.Orientation == GaugeOrientation.Horizontal)
+                            barPointerPath.AddArc(x1, y1, x2, y2, Scale.IsInversed ? 270 : 90, Scale.IsInversed ? 90 : 270, false);
+                        else
+                            barPointerPath.AddArc(y1, x1, y2, x2, Scale.IsInversed ? 360 : 180, Scale.IsInversed ? 180 : 360, false);
+
+                        barPointerPath.Close();
+                    }
                 }
 
                 if (this.CornerStyle == CornerStyle.EndCurve || this.CornerStyle == CornerStyle.BothCurve)
@@ -260,14 +327,35 @@ namespace Syncfusion.Maui.Gauges
                     x1 = (float)(startPointX2 - halfWidth);
                     x2 = (float)(startPointX2 + halfWidth);
 
-                    Scale.MoveToPath(barPointerPath, (float)startPointX2, y2);
+                    if ((this.Scale.Orientation == GaugeOrientation.Horizontal && !this.Scale.IsInversed) ||
+                        (this.Scale.Orientation == GaugeOrientation.Vertical && this.Scale.IsInversed))
+                    {
+                        if (startPointX1 > x1)
+                        {
+                            double diff = Math.Abs(startPointX1 - x1);
+                            x1 = (float)(startPointX2 - halfWidth + diff);
+                            x2 = (float)(startPointX2 + halfWidth - diff);
+                        }
+                    }
+                    else if (startPointX1 < x2)
+                    {
+                        double diff = Math.Abs(startPointX1 - x2);
+                        x1 = (float)(startPointX2 - halfWidth + diff);
+                        x2 = (float)(startPointX2 + halfWidth - diff);
 
-                    if (Scale.Orientation == GaugeOrientation.Horizontal)
-                        barPointerPath.AddArc(x1, y1, x2, y2, Scale.IsInversed ? 90 : 270, Scale.IsInversed ? 270 : 90, false);
-                    else
-                        barPointerPath.AddArc(y1, x1, y2, x2, Scale.IsInversed ? 180 : 360, Scale.IsInversed ? 360 : 180, false);
+                    }
 
-                    barPointerPath.Close();
+                    if (x1 < x2)
+                    {
+                        Scale.MoveToPath(barPointerPath, (float)startPointX2, y2);
+
+                        if (Scale.Orientation == GaugeOrientation.Horizontal)
+                            barPointerPath.AddArc(x1, y1, x2, y2, Scale.IsInversed ? 90 : 270, Scale.IsInversed ? 270 : 90, false);
+                        else
+                            barPointerPath.AddArc(y1, x1, y2, x2, Scale.IsInversed ? 180 : 360, Scale.IsInversed ? 360 : 180, false);
+
+                        barPointerPath.Close();
+                    }
                 }
 
                 this.CreateGradient();
@@ -281,12 +369,12 @@ namespace Syncfusion.Maui.Gauges
                 float size = DraggingOffset * 2;
 
                 if (this.CornerStyle == CornerStyle.EndCurve || this.CornerStyle == CornerStyle.BothCurve)
-                    startPointX2 = startPointX2 + (Scale.Orientation == GaugeOrientation.Horizontal ? halfWidth : -halfWidth);
+                    startPointX2 = startPointX2 + (Scale.Orientation == GaugeOrientation.Vertical ^ this.Scale.IsInversed ? -halfWidth : halfWidth);
 
                 if (Scale.Orientation == GaugeOrientation.Horizontal)
-                    this.PointerRect = new RectangleF((float)(startPointX2 - DraggingOffset), y1 - DraggingOffset, size, size + (float)PointerSize);
+                    this.PointerRect = new Rectangle(startPointX2 - DraggingOffset, y1 - DraggingOffset, size, size + PointerSize);
                 else
-                    this.PointerRect = new RectangleF(y1 - DraggingOffset, (float)(startPointX2 - DraggingOffset), size + (float)PointerSize, size);
+                    this.PointerRect = new Rectangle(y1 - DraggingOffset, startPointX2 - DraggingOffset, size + PointerSize, size);
             }
         }
 

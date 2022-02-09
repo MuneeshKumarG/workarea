@@ -37,7 +37,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="VerticalAlignment"/> bindable property.
         /// </value>
         public static readonly BindableProperty VerticalAlignmentProperty = BindableProperty.Create(nameof(VerticalAlignment), 
-            typeof(GaugeAlignment), typeof(LinearMarkerPointer), GaugeAlignment.Center, propertyChanged: OnMarkerPropertyChanged);
+            typeof(GaugeAlignment), typeof(LinearMarkerPointer), GaugeAlignment.End, propertyChanged: OnMarkerPropertyChanged);
 
         #endregion
 
