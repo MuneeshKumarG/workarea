@@ -503,7 +503,7 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// Method used to pointer in released state. 
         /// </summary>
-        internal void UpdatePointerReleased()
+        internal virtual void UpdatePointerReleased()
         {
             this.IsPressed = false;
             ValueChangedEventArgs args = new ValueChangedEventArgs

@@ -107,6 +107,33 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty StrokeProperty =
             BindableProperty.Create(nameof(Stroke), typeof(Color), typeof(MarkerPointer), Color.FromRgb(73, 89, 99), propertyChanged: OnInvalidatePropertyChanged);
 
+        /// <summary>
+        /// Identifies the <see cref="OverlayFill"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="OverlayFill"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty OverlayFillProperty =
+            BindableProperty.Create(nameof(OverlayFill), typeof(Brush), typeof(MarkerPointer), null);
+
+        /// <summary>
+        /// Identifies the <see cref="OverlayRadius"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="OverlayRadius"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty OverlayRadiusProperty =
+            BindableProperty.Create(nameof(OverlayRadius), typeof(double), typeof(MarkerPointer), double.NaN);
+
+        /// <summary>
+        /// Identifies the <see cref="HasShadow"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="HasShadow"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty HasShadowProperty =
+            BindableProperty.Create(nameof(HasShadow), typeof(bool), typeof(MarkerPointer), false, propertyChanged: OnInvalidatePropertyChanged);
+
         #endregion
 
         #region Fields
@@ -125,6 +152,11 @@ namespace Syncfusion.Maui.Gauges
         /// Represents marker custom view.
         /// </summary>
         internal View? CustomView;
+
+        /// <summary>
+        /// Reprsents marker gets hovered with mouse or not. 
+        /// </summary>
+        internal bool IsHovered;
 
         #endregion
 
@@ -159,7 +191,7 @@ namespace Syncfusion.Maui.Gauges
         /// Gets or sets a value that specifies the marker height in logical pixels.
         /// </summary>
         /// <value>
-        /// It defines the height of the marker. The default value is <c>20</c>.
+        /// It defines the height of the marker. The default value is <c>16</c>.
         /// </value>
         /// <example>
         /// <code><![CDATA[
@@ -184,7 +216,7 @@ namespace Syncfusion.Maui.Gauges
         /// Gets or sets a value that specifies the marker width in logical pixels.
         /// </summary>
         /// <value>
-        /// It defines the width of the marker. The default value is <c>20</c>.
+        /// It defines the width of the marker. The default value is <c>16</c>.
         /// </value>
         /// <example>
         /// <code><![CDATA[
@@ -364,6 +396,72 @@ namespace Syncfusion.Maui.Gauges
             set { this.SetValue(StrokeProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets a value that specifies the marker overlay fill color of pointer. 
+        /// </summary>
+        /// <example>
+        /// <code><![CDATA[
+        /// <gauge:SfRadialGauge>
+        ///     <gauge:SfRadialGauge.Axes>
+        ///         <gauge:RadialAxis>
+        ///             <gauge:RadialAxis.Pointers>
+        ///                 <gauge:MarkerPointer Stroke="Red" MarkerType="Circle" OverlayRadius="15" OverlayFill="#65FF0000" IsInteractive="True"  />
+        ///             </gauge:RadialAxis.Pointers>
+        ///         </gauge:RadialAxis>
+        ///     </gauge:SfRadialGauge.Axes>
+        /// </gauge:SfRadialGauge>
+        /// ]]></code>
+        /// </example>
+        public Brush OverlayFill
+        {
+            get { return (Brush)this.GetValue(OverlayFillProperty); }
+            set { this.SetValue(OverlayFillProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value that specifies the marker overlay fill radius of pointer. 
+        /// </summary>
+        /// <example>
+        /// <code><![CDATA[
+        /// <gauge:SfRadialGauge>
+        ///     <gauge:SfRadialGauge.Axes>
+        ///         <gauge:RadialAxis>
+        ///             <gauge:RadialAxis.Pointers>
+        ///                 <gauge:MarkerPointer Stroke="Red" MarkerType="Circle" OverlayRadius="15" IsInteractive="True"  />
+        ///             </gauge:RadialAxis.Pointers>
+        ///         </gauge:RadialAxis>
+        ///     </gauge:SfRadialGauge.Axes>
+        /// </gauge:SfRadialGauge>
+        /// ]]></code>
+        /// </example>
+        public double OverlayRadius
+        {
+            get { return (double)this.GetValue(OverlayRadiusProperty); }
+            set { this.SetValue(OverlayRadiusProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value that specifies the shadow effect for marker pointer. 
+        /// </summary>
+        /// <example>
+        /// <code><![CDATA[
+        /// <gauge:SfRadialGauge>
+        ///     <gauge:SfRadialGauge.Axes>
+        ///         <gauge:RadialAxis>
+        ///             <gauge:RadialAxis.Pointers>
+        ///                 <gauge:MarkerPointer Stroke="Red" HasShadow="True"  />
+        ///             </gauge:RadialAxis.Pointers>
+        ///         </gauge:RadialAxis>
+        ///     </gauge:SfRadialGauge.Axes>
+        /// </gauge:SfRadialGauge>
+        /// ]]></code>
+        /// </example>
+        public bool HasShadow
+        {
+            get { return (bool)this.GetValue(HasShadowProperty); }
+            set { this.SetValue(HasShadowProperty, value); }
+        }
+
         #endregion
 
         #region Override methods
@@ -443,6 +541,17 @@ namespace Syncfusion.Maui.Gauges
             }
         }
 
+        internal override void UpdatePointerReleased()
+        {
+            base.UpdatePointerReleased();
+
+            if (this.OverlayRadius > 0)
+            {
+                this.InvalidateDrawable();
+                this.IsHovered = false;
+            }
+        }
+
         #endregion
 
         #region Internal methods
@@ -459,7 +568,7 @@ namespace Syncfusion.Maui.Gauges
             //We have to re-structure the marker template parent, once these issues get resolved. 
             if (this.RadialAxis != null && !this.RadialAxis.AnnotationsLayout.Children.Contains(view))
             {
-                view.BindingContext= this;
+                view.BindingContext = this;
                 this.RadialAxis.AnnotationsLayout.Children.Add(view);
             }
         }
@@ -626,6 +735,15 @@ namespace Syncfusion.Maui.Gauges
                 canvas.Rotate(this.markerAngle, this.markerPosition.X + halfWidth, this.markerPosition.Y + halfHeight);
             }
 
+            //Draw marker shape overlay.
+            if (this.OverlayRadius > 0 && (this.IsPressed || this.IsHovered))
+            {
+                DrawMarkerOverlay(canvas);
+            }
+
+            if (this.HasShadow)
+                canvas.SetShadow(new SizeF((float)this.MarkerWidth / 2, (float)this.MarkerHeight / 2), 10f, Colors.Gray);
+
             canvas.SetFillPaint(this.Fill, new RectangleF(positionX, positionY, width, height));
 
             //Draw marker shape.
@@ -674,6 +792,56 @@ namespace Syncfusion.Maui.Gauges
             }
 
             canvas.RestoreState();
+        }
+
+        /// <summary>
+        /// Method used to draw overlay for marker pointer. 
+        /// </summary>
+        /// <param name="canvas"></param>
+        private void DrawMarkerOverlay(ICanvas canvas)
+        {
+            float overlayPositionX = this.markerPosition.X - (float)Math.Abs(this.MarkerWidth / 2 - this.OverlayRadius);
+            float overlayPositionY = this.markerPosition.Y - (float)Math.Abs(this.MarkerHeight / 2 - this.OverlayRadius);
+            float overlayWidth = (float)this.OverlayRadius * 2;
+            float overlayHeight = (float)this.OverlayRadius * 2;
+
+            if (this.OverlayFill == null)
+            {
+                canvas.SetFillPaint(this.Fill, new RectangleF(overlayPositionX, overlayPositionY, overlayWidth, overlayHeight));
+                canvas.Alpha = 0.5f;
+            }
+            else
+            {
+                canvas.SetFillPaint(this.OverlayFill, new RectangleF(overlayPositionX, overlayPositionY, overlayWidth, overlayHeight));
+            }
+
+            switch (this.MarkerType)
+            {
+                case MarkerType.Circle:
+                    canvas.FillEllipse(overlayPositionX, overlayPositionY, overlayWidth, overlayHeight);
+
+                    break;
+                case MarkerType.Diamond:
+                case MarkerType.Rectangle:
+                    canvas.FillRectangle(overlayPositionX, overlayPositionY, overlayWidth, overlayHeight);
+
+                    break;
+                case MarkerType.InvertedTriangle:
+                case MarkerType.Triangle:
+                    PathF path = new PathF();
+                    path.LineTo(overlayPositionX, overlayPositionY);
+                    path.LineTo(overlayPositionX + overlayWidth, overlayPositionY);
+                    path.LineTo(overlayPositionX + overlayWidth / 2, overlayPositionY + overlayHeight);
+                    path.Close();
+
+                    canvas.FillPath(path);
+                    break;
+                default:
+                    break;
+            }
+
+            if (this.OverlayFill == null)
+                canvas.Alpha = 1f;
         }
 
         #endregion

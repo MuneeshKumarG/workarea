@@ -2285,6 +2285,16 @@ namespace Syncfusion.Maui.Gauges
                             {
                                 pointer.DragPointer(e.TouchPoint);
                             }
+
+                            if (pointer is MarkerPointer markerPointer && markerPointer.OverlayRadius > 0 && e.PointerDeviceType == PointerDeviceType.Mouse)
+                            {
+                                if (markerPointer.PointerRect.Contains(e.TouchPoint))
+                                    markerPointer.IsHovered = true;
+                                else
+                                    markerPointer.IsHovered = false;
+
+                                markerPointer.InvalidateDrawable();
+                            }
                         }
                         break;
                     case TouchActions.Released:
