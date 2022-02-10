@@ -123,7 +123,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="OverlayRadius"/> bindable property.
         /// </value>
         public static readonly BindableProperty OverlayRadiusProperty =
-            BindableProperty.Create(nameof(OverlayRadius), typeof(double), typeof(MarkerPointer), double.NaN);
+            BindableProperty.Create(nameof(OverlayRadius), typeof(double?), typeof(MarkerPointer), null);
 
         /// <summary>
         /// Identifies the <see cref="HasShadow"/> bindable property.
@@ -440,9 +440,9 @@ namespace Syncfusion.Maui.Gauges
         /// </gauge:SfRadialGauge>
         /// ]]></code>
         /// </example>
-        public double OverlayRadius
+        public double? OverlayRadius
         {
-            get { return (double)this.GetValue(OverlayRadiusProperty); }
+            get { return (double?)this.GetValue(OverlayRadiusProperty); }
             set { this.SetValue(OverlayRadiusProperty, value); }
         }
 
@@ -554,7 +554,7 @@ namespace Syncfusion.Maui.Gauges
         {
             base.UpdatePointerReleased();
 
-            if (this.OverlayRadius > 0)
+            if (this.IsHovered)
             {
                 this.InvalidateDrawable();
                 this.IsHovered = false;
@@ -745,7 +745,7 @@ namespace Syncfusion.Maui.Gauges
             }
 
             //Draw marker shape overlay.
-            if (this.OverlayRadius > 0 && (this.IsPressed || this.IsHovered))
+            if (this.OverlayRadius != 0 && (this.IsPressed || this.IsHovered))
             {
                 DrawMarkerOverlay(canvas);
             }
@@ -813,10 +813,11 @@ namespace Syncfusion.Maui.Gauges
             //https://github.com/dotnet/maui/issues/4471
             //Once the problem resolved, we need to ensure the shadow effect in WinUI.
 
-            float overlayPositionX = this.markerPosition.X - (float)Math.Abs(this.MarkerWidth / 2 - this.OverlayRadius);
-            float overlayPositionY = this.markerPosition.Y - (float)Math.Abs(this.MarkerHeight / 2 - this.OverlayRadius);
-            float overlayWidth = (float)this.OverlayRadius * 2;
-            float overlayHeight = (float)this.OverlayRadius * 2;
+            float actualOverlayRadius = (float)(this.OverlayRadius ?? 15);
+            float overlayPositionX = this.markerPosition.X - (float)Math.Abs(this.MarkerWidth / 2 - actualOverlayRadius);
+            float overlayPositionY = this.markerPosition.Y - (float)Math.Abs(this.MarkerHeight / 2 - actualOverlayRadius);
+            float overlayWidth = actualOverlayRadius * 2;
+            float overlayHeight = actualOverlayRadius * 2;
 
             if (this.OverlayFill == null)
             {

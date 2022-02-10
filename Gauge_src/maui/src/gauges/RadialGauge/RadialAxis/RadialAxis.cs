@@ -2286,7 +2286,7 @@ namespace Syncfusion.Maui.Gauges
                                 pointer.DragPointer(e.TouchPoint);
                             }
 
-                            if (pointer is MarkerPointer markerPointer && markerPointer.OverlayRadius > 0 && e.PointerDeviceType == PointerDeviceType.Mouse)
+                            if (pointer.IsInteractive && pointer is MarkerPointer markerPointer && markerPointer.OverlayRadius != 0 && e.PointerDeviceType == PointerDeviceType.Mouse)
                             {
                                 if (markerPointer.PointerRect.Contains(e.TouchPoint))
                                     markerPointer.IsHovered = true;
