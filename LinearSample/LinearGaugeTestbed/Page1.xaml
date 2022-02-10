@@ -11,10 +11,13 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Margin="15">
-            <gauge:SfLinearGauge x:Name="gauge" Margin="5" HorizontalOptions="Center" VerticalOptions="Center">
+            <gauge:SfLinearGauge x:Name="gauge" Margin="5" HorizontalOptions="Center" VerticalOptions="Center" 
+                                 IsVisible="false" EnableLoadingAnimation="True"
+                                 >
                
                 <gauge:SfLinearGauge.Ranges>
-                    <gauge:LinearRange x:Name="range" EndValue="30" />
+                    <gauge:LinearRange x:Name="range" EndValue="30" 
+                                        Fill="green" />
                     
                     <!--<gauge:LinearRange StartValue="30" EndValue="60" 
                                         Fill="orange"/>
@@ -24,22 +27,33 @@
 
                 </gauge:SfLinearGauge.Ranges>
                 <gauge:SfLinearGauge.BarPointers>
-                    <gauge:BarPointer x:Name="barPointer" Value="50" IsInteractive="True"/>
+                    <gauge:BarPointer x:Name="barPointer" Value="50"
+                                      EnableAnimation="True"
+                                  PointerSize="5" IsInteractive="True"/>
                 </gauge:SfLinearGauge.BarPointers>
                 <gauge:SfLinearGauge.MarkerPointers>
-                    <gauge:ShapePointer x:Name="shapePointer"  Value="60" EnableAnimation="True" IsInteractive="True"/>
+                    <gauge:ShapePointer x:Name="shapePointer"  Value="60" IsInteractive="True"/>
 
-                    <gauge:ContentPointer x:Name="contentPointer" Value="5" >
+                    <gauge:ContentPointer x:Name="contentPointer" Value="50" IsInteractive="True" >
                        
 
                     </gauge:ContentPointer>
                 </gauge:SfLinearGauge.MarkerPointers>
             </gauge:SfLinearGauge>
 
-
         </Grid>
         <ScrollView GridLayout.Row="1">
             <VerticalStackLayout>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="IsVisible"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=IsVisible}"  Margin="5"/>
+                </Grid>
+                
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -720,6 +734,14 @@
                     <Button GridLayout.Column="2" Text="-" 
                             Clicked="ShapePointerValueDecrease_Clicked" Margin="5"/>
                 </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="AllowClip"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference shapePointer}, Path=AllowClip}"  Margin="5"/>
+                </Grid>
 
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
@@ -882,6 +904,14 @@
                     <Button GridLayout.Column="2" Text="-" 
                             Clicked="ContentPointerValueDecrease_Clicked" Margin="5"/>
                 </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="AllowClip"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference contentPointer}, Path=AllowClip}"  Margin="5"/>
+                </Grid>
 
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
@@ -967,12 +997,15 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label Text="Content"/>
                     <Button GridLayout.Column="1" Text="Image" 
                             Clicked="ContentPointerChildSet_Clicked" Margin="5"/>
                     <Button GridLayout.Column="2" Text="Null" 
                             Clicked="ContentPointerChildSetNull_Clicked" Margin="5"/>
+                    <Button GridLayout.Column="3" Text="Text" 
+                            Clicked="ContentPointerChildSetText_Clicked" Margin="5"/>
                 </Grid>
 
             </VerticalStackLayout>

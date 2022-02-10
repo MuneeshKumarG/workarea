@@ -22,6 +22,11 @@ namespace LinearGaugeTestbed
 		{
 			Navigation.PushAsync(new Page2());
 		}
+
+		private void button3_Clicked(object sender, EventArgs e)
+		{
+			Navigation.PushAsync(new Page3());
+		}
 	}
 
 	public class GraphicsDrawable : IDrawable

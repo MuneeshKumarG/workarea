@@ -29,6 +29,27 @@ namespace LinearGaugeTestbed
             barPointer.ValueChanged += BarPointer_ValueChanged;
             barPointer.ValueChangeStarted += BarPointer_ValueChangeStarted;
             barPointer.ValueChangeCompleted += BarPointer_ValueChangeCompleted;
+
+            gauge.AnimationCompleted += BarPointer_AnimationCompleted;
+
+            //contentPointer.Content = new Image()
+            //{
+            //    Source = "alexandar.png",
+            //    HeightRequest = 30,
+            //    WidthRequest = 30,
+            //};
+        }
+
+        private void BarPointer_AnimationCompleted(object sender, EventArgs e)
+        {
+            contentPointer.AllowClip = true;
+            contentPointer.Content = new Image()
+            {
+                Source = "alexandar.png",
+                HeightRequest = 30,
+                WidthRequest = 30,
+                
+            };
         }
 
         private void BarPointer_ValueChangeCompleted(object sender, Syncfusion.Maui.Gauges.ValueChangedEventArgs e)
@@ -826,8 +847,6 @@ namespace LinearGaugeTestbed
                 Source = "alexandar.png",
                 HeightRequest = 30,
                 WidthRequest = 30,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.Center
             };
         }
 
@@ -1044,13 +1063,21 @@ namespace LinearGaugeTestbed
             contentPointer.Content = null;
         }
 
+        private void ContentPointerChildSetText_Clicked(object sender, EventArgs e)
+        {
+            contentPointer.Content = new Label()
+            {
+                Text ="Annual Revanue"
+            };
+        }
+
     }
 
     public class CustomRange :LinearRange
     {
         public override void UpdateMidRangePath(PathF pathF, PointF startPoint, PointF midPoint, PointF endPoint)
         {
-           // pathF.CurveTo(startPoint,midPoint,endPoint);
+            pathF.CurveTo(startPoint,midPoint,endPoint);
             base.UpdateMidRangePath(pathF, startPoint, midPoint, endPoint);
         }
     }

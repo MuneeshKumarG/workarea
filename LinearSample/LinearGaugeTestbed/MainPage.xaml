@@ -12,9 +12,9 @@
 
     <VerticalStackLayout >
         <Button Margin="5" x:Name="button1" Clicked="button1_Clicked" Text="Linear Gauge"/>
-        <Button Margin="5" x:Name="button2" Clicked="button2_Clicked" Text="Radial Gauge">
-           
-        </Button>
-       
+        <Button Margin="5" x:Name="button2" Clicked="button2_Clicked" Text="Radial Gauge"/>
+        <Button Margin="5" x:Name="button3" Clicked="button3_Clicked" Text="Linear Gauge Animation"/>
+
+
     </VerticalStackLayout>
 </ContentPage>

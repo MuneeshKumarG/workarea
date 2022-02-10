@@ -1,0 +1,36 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LinearGaugeTestbed.Page3"
+             xmlns:gauge="http://schemas.syncfusion.com/maui"
+             xmlns:local="clr-namespace:LinearGaugeTestbed"
+             BackgroundColor="{DynamicResource SecondaryColor}">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="3*"/>
+           
+        </Grid.RowDefinitions>
+        <gauge:SfLinearGauge x:Name="gauge" HorizontalOptions="Center"
+                             IsVisible="false" Orientation="Vertical"
+                             VerticalOptions="Center" EnableLoadingAnimation="True">
+            <gauge:SfLinearGauge.BarPointers>
+                <gauge:BarPointer Value="40"/>
+            </gauge:SfLinearGauge.BarPointers>
+        </gauge:SfLinearGauge>
+
+        <ScrollView GridLayout.Row="1">
+            <VerticalStackLayout>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="IsVisible"/>
+                    <Switch GridLayout.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=IsVisible}"  Margin="5"/>
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>
