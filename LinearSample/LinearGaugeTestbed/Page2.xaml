@@ -16,10 +16,11 @@
             <gauge:SfRadialGauge.Axes>
                 <gauge:RadialAxis>
                     <gauge:RadialAxis.Pointers>
-                        <gauge:MarkerPointer x:Name="marker" Value="60" OverlayRadius="15"
+                        <gauge:MarkerPointer x:Name="marker" Value="60" 
                                              MarkerType="Circle"
                                              IsInteractive="True" />
                     </gauge:RadialAxis.Pointers>
+                   
                 </gauge:RadialAxis>
             </gauge:SfRadialGauge.Axes>
         </gauge:SfRadialGauge>
@@ -49,14 +50,21 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
                 <Label Text="OverlayRadius"/>
-                <Button GridLayout.Column="1" Text="+" 
-                            Clicked="OverlayRadiusIncrease_Clicked" Margin="5">
-                </Button>
-                <Button GridLayout.Column="2" Text="-" 
+                    <Button GridLayout.Column="1" Text="+" 
+                            Clicked="OverlayRadiusIncrease_Clicked" Margin="5"/>
+
+                    <Button GridLayout.Column="2" Text="-" 
                             Clicked="OverlayRadiusDecrease_Clicked" Margin="5"/>
-            </Grid>
+                    <Button GridLayout.Column="3" Text="Null" 
+                            Clicked="OverlayRadiusNull_Clicked" Margin="5"/>
+
+                    <Button GridLayout.Column="4" Text="Zero" 
+                            Clicked="OverlayRadiusZero_Clicked" Margin="5"/>
+                </Grid>
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

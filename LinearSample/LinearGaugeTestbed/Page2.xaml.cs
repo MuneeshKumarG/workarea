@@ -40,18 +40,28 @@ namespace LinearGaugeTestbed
 
 		private void OverlayRadiusIncrease_Clicked(object sender, EventArgs e)
 		{
-			if (double.IsNaN(marker.OverlayRadius))
-				marker.OverlayRadius = marker.MarkerHeight;
+			if (marker.OverlayRadius==null)
+				marker.OverlayRadius = marker.MarkerWidth/2;
 
 			marker.OverlayRadius += 1;
 		}
 
 		private void OverlayRadiusDecrease_Clicked(object sender, EventArgs e)
 		{
-			if (double.IsNaN(marker.OverlayRadius))
-				marker.OverlayRadius = marker.MarkerHeight;
+			if (marker.OverlayRadius==null)
+				marker.OverlayRadius = marker.MarkerWidth/2;
 
 			marker.OverlayRadius -= 1;
+		}
+
+		private void OverlayRadiusNull_Clicked(object sender, EventArgs e)
+		{
+			marker.OverlayRadius = null;
+		}
+
+		private void OverlayRadiusZero_Clicked(object sender, EventArgs e)
+		{
+			marker.OverlayRadius = 0;
 		}
 
 		private void Picker_SelectedIndexChanged1(object sender, EventArgs e)
