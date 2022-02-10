@@ -813,7 +813,7 @@ namespace Syncfusion.Maui.Gauges
             //https://github.com/dotnet/maui/issues/4471
             //Once the problem resolved, we need to ensure the shadow effect in WinUI.
 
-            float actualOverlayRadius = (float)(this.OverlayRadius ?? 15);
+            float actualOverlayRadius = (float)(this.OverlayRadius ?? this.MarkerWidth);
             float overlayPositionX = this.markerPosition.X - (float)Math.Abs(this.MarkerWidth / 2 - actualOverlayRadius);
             float overlayPositionY = this.markerPosition.Y - (float)Math.Abs(this.MarkerHeight / 2 - actualOverlayRadius);
             float overlayWidth = actualOverlayRadius * 2;

@@ -264,7 +264,7 @@ namespace Syncfusion.Maui.Gauges
             {
                 double actualValue;
 
-                if (this.EnableAnimation && this.AnimationValue != null)
+                if ((this.EnableAnimation || this.Scale.CanAnimate) && this.AnimationValue != null)
                 {
                     actualValue = (double)this.AnimationValue;
                 }

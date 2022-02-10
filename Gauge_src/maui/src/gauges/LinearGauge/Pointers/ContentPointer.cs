@@ -53,7 +53,7 @@ namespace Syncfusion.Maui.Gauges
             {
                 double actualValue;
 
-                if (this.EnableAnimation && this.AnimationValue != null)
+                if ((this.EnableAnimation || this.Scale.CanAnimate) && this.AnimationValue != null)
                 {
                     actualValue = (double)this.AnimationValue;
                 }
@@ -78,6 +78,11 @@ namespace Syncfusion.Maui.Gauges
                 if (this.Scale.Orientation == GaugeOrientation.Vertical)
                 {
                     Utility.Swap(ref x, ref y);
+                }
+
+                if (this.Content.Opacity == 0 && this.Scale.CanAnimate && this.AnimationValue != null)
+                {
+                    this.Content.Opacity = 1;
                 }
 
                 Rectangle rectangle = new Rectangle(new Point(x, y), Content.DesiredSize);

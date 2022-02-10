@@ -128,6 +128,11 @@ namespace Syncfusion.Maui.Gauges
         /// Called when the user is done selecting a new value of the pointer by dragging.
         /// </summary>
         public event EventHandler<ValueChangedEventArgs> ValueChangeCompleted;
+
+        /// <summary>
+        /// Called when the user is done selecting a new value of the pointer by dragging.
+        /// </summary>
+        public event EventHandler<ValueChangedEventArgs> AnimationCompleted;
 #nullable enable
 
         #endregion
@@ -243,7 +248,8 @@ namespace Syncfusion.Maui.Gauges
         {
             get
             {
-                return this.EnableAnimation && this.canAnimate;
+                return this.Scale != null && !this.Scale.CanAnimate &&
+                    this.EnableAnimation && this.canAnimate;
             }
 
             set
@@ -437,6 +443,12 @@ namespace Syncfusion.Maui.Gauges
         {
             AnimationExtensions.AbortAnimation(this.PointerView, animationName);
             this.AnimationValue = null;
+
+            ValueChangedEventArgs args = new ValueChangedEventArgs
+            {
+                CurrentValue = this.Value
+            };
+            this.RaiseOnAnimationCompleted(args);
         }
 
         /// <summary>
@@ -473,6 +485,15 @@ namespace Syncfusion.Maui.Gauges
         private void RaiseOnValueChangeCompleted(ValueChangedEventArgs args)
         {
             this.ValueChangeCompleted?.Invoke(this, args);
+        }
+
+        /// <summary>
+        /// This method is used to raise animation completed event.
+        /// </summary>
+        /// <param name="args">The value changed event arguments.</param>
+        private void RaiseOnAnimationCompleted(ValueChangedEventArgs args)
+        {
+            this.AnimationCompleted?.Invoke(this, args);
         }
 
         #endregion

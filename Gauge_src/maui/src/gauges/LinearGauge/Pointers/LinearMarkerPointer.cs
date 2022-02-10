@@ -37,7 +37,16 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="VerticalAlignment"/> bindable property.
         /// </value>
         public static readonly BindableProperty VerticalAlignmentProperty = BindableProperty.Create(nameof(VerticalAlignment), 
-            typeof(GaugeAlignment), typeof(LinearMarkerPointer), GaugeAlignment.End, propertyChanged: OnMarkerPropertyChanged);
+            typeof(GaugeAlignment), typeof(LinearMarkerPointer), GaugeAlignment.Center, propertyChanged: OnMarkerPropertyChanged);
+
+        /// <summary>
+        /// Identifies the <see cref="AllowClip"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="AllowClip"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty AllowClipProperty =
+            BindableProperty.Create(nameof(AllowClip), typeof(bool), typeof(LinearMarkerPointer), false, propertyChanged: OnMarkerPropertyChanged);
 
         #endregion
 
@@ -83,6 +92,18 @@ namespace Syncfusion.Maui.Gauges
         {
             get { return (GaugeAlignment)this.GetValue(VerticalAlignmentProperty); }
             set { this.SetValue(VerticalAlignmentProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to clip markers in scale edge or not. 
+        /// </summary>
+        /// <value>
+        /// <b>The default value is false</b>.
+        /// </value>
+        public bool AllowClip
+        {
+            get { return (bool)this.GetValue(AllowClipProperty); }
+            set { this.SetValue(AllowClipProperty, value); }
         }
 
         #endregion
