@@ -30,7 +30,7 @@ namespace LinearGaugeTestbed
             barPointer.ValueChangeStarted += BarPointer_ValueChangeStarted;
             barPointer.ValueChangeCompleted += BarPointer_ValueChangeCompleted;
 
-            gauge.AnimationCompleted += BarPointer_AnimationCompleted;
+            gauge.AnimationCompleted += AnimationCompleted;
 
             //contentPointer.Content = new Image()
             //{
@@ -40,7 +40,7 @@ namespace LinearGaugeTestbed
             //};
         }
 
-        private void BarPointer_AnimationCompleted(object sender, EventArgs e)
+        private void AnimationCompleted(object sender, EventArgs e)
         {
             contentPointer.AllowClip = true;
             contentPointer.Content = new Image()
@@ -188,6 +188,22 @@ namespace LinearGaugeTestbed
         {
             gauge.TickPosition = GaugeElementPosition.Cross;
         }
+
+        private void BarPositionInside_Clicked(object sender, EventArgs e)
+        {
+            barPointer.BarPosition = GaugeElementPosition.Inside;
+        }
+
+        private void BarPositionOutside_Clicked(object sender, EventArgs e)
+        {
+            barPointer.BarPosition = GaugeElementPosition.Outside;
+        }
+
+        private void BarPositionCross_Clicked(object sender, EventArgs e)
+        {
+            barPointer.BarPosition = GaugeElementPosition.Cross;
+        }
+
 
         double tickOffset = 0;
         private void TickOffsetIncrease_Clicked(object sender, EventArgs e)
@@ -1075,7 +1091,7 @@ namespace LinearGaugeTestbed
 
     public class CustomRange :LinearRange
     {
-        public override void UpdateMidRangePath(PathF pathF, PointF startPoint, PointF midPoint, PointF endPoint)
+        protected override void UpdateMidRangePath(PathF pathF, PointF startPoint, PointF midPoint, PointF endPoint)
         {
             pathF.CurveTo(startPoint,midPoint,endPoint);
             base.UpdateMidRangePath(pathF, startPoint, midPoint, endPoint);

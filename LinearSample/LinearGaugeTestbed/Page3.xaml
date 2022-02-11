@@ -13,10 +13,13 @@
         </Grid.RowDefinitions>
         <gauge:SfLinearGauge x:Name="gauge" HorizontalOptions="Center"
                              IsVisible="false" Orientation="Vertical"
-                             VerticalOptions="Center" EnableLoadingAnimation="True">
+                             VerticalOptions="Center" EnableLoadingAnimation="True" AnimationDuration="2000">
             <gauge:SfLinearGauge.BarPointers>
                 <gauge:BarPointer Value="40"/>
             </gauge:SfLinearGauge.BarPointers>
+            <gauge:SfLinearGauge.MarkerPointers>
+                <gauge:ShapePointer AllowClip="False"/>
+            </gauge:SfLinearGauge.MarkerPointers>
         </gauge:SfLinearGauge>
 
         <ScrollView GridLayout.Row="1">

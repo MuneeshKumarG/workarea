@@ -14,10 +14,9 @@
 
         <gauge:SfRadialGauge>
             <gauge:SfRadialGauge.Axes>
-                <gauge:RadialAxis>
+                <gauge:RadialAxis >
                     <gauge:RadialAxis.Pointers>
                         <gauge:MarkerPointer x:Name="marker" Value="60" 
-                                             MarkerType="Circle"
                                              IsInteractive="True" />
                     </gauge:RadialAxis.Pointers>
                    
