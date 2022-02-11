@@ -123,7 +123,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="OverlayRadius"/> bindable property.
         /// </value>
         public static readonly BindableProperty OverlayRadiusProperty =
-            BindableProperty.Create(nameof(OverlayRadius), typeof(double?), typeof(MarkerPointer), null);
+            BindableProperty.Create(nameof(OverlayRadius), typeof(double), typeof(MarkerPointer), double.NaN);
 
         /// <summary>
         /// Identifies the <see cref="HasShadow"/> bindable property.
@@ -440,9 +440,9 @@ namespace Syncfusion.Maui.Gauges
         /// </gauge:SfRadialGauge>
         /// ]]></code>
         /// </example>
-        public double? OverlayRadius
+        public double OverlayRadius
         {
-            get { return (double?)this.GetValue(OverlayRadiusProperty); }
+            get { return (double)this.GetValue(OverlayRadiusProperty); }
             set { this.SetValue(OverlayRadiusProperty, value); }
         }
 
@@ -469,6 +469,14 @@ namespace Syncfusion.Maui.Gauges
         {
             get { return (bool)this.GetValue(HasShadowProperty); }
             set { this.SetValue(HasShadowProperty, value); }
+        }
+
+        internal bool CanDrawOverlay
+        {
+            get
+            {
+                return double.IsNaN(OverlayRadius) || this.OverlayRadius > this.MarkerWidth/2;
+            }
         }
 
         #endregion
@@ -552,13 +560,13 @@ namespace Syncfusion.Maui.Gauges
 
         internal override void UpdatePointerReleased()
         {
-            base.UpdatePointerReleased();
-
-            if (this.IsHovered)
+            if (this.IsPressed)
             {
                 this.InvalidateDrawable();
                 this.IsHovered = false;
             }
+
+            base.UpdatePointerReleased();
         }
 
         #endregion
@@ -730,75 +738,43 @@ namespace Syncfusion.Maui.Gauges
                 canvas.StrokeSize = (float)this.BorderWidth;
             }
 
+            float angle;
             //Set rotation angle for marker.
             if (this.MarkerType == MarkerType.Diamond)
             {
-                canvas.Rotate(this.markerAngle + 45, this.markerPosition.X + halfWidth, this.markerPosition.Y + halfHeight);
+                angle = this.markerAngle + 45;
+                canvas.Rotate(angle, this.markerPosition.X + halfWidth, this.markerPosition.Y + halfHeight);
             }
             else if (this.MarkerType == MarkerType.Triangle)
             {
-                canvas.Rotate(this.markerAngle + 180, this.markerPosition.X + halfWidth, this.markerPosition.Y + halfHeight);
+                angle = this.markerAngle + 180;
+                canvas.Rotate(angle, this.markerPosition.X + halfWidth, this.markerPosition.Y + halfHeight);
             }
             else
             {
-                canvas.Rotate(this.markerAngle, this.markerPosition.X + halfWidth, this.markerPosition.Y + halfHeight);
+                angle = this.markerAngle;
+                canvas.Rotate(angle, this.markerPosition.X + halfWidth, this.markerPosition.Y + halfHeight);
             }
 
             //Draw marker shape overlay.
-            if (this.OverlayRadius != 0 && (this.IsPressed || this.IsHovered))
+            if (this.CanDrawOverlay && (this.IsPressed || this.IsHovered))
             {
                 DrawMarkerOverlay(canvas);
             }
 
             if (this.HasShadow)
-                canvas.SetShadow(new SizeF((float)this.MarkerWidth / 2, (float)this.MarkerHeight / 2), 10f, Colors.Gray);
+            {
+                Point point = Utility.AngleToVector(angle);
+                float shadowWidth = (float)(point.Y * this.MarkerWidth / 2);
+                float shadowHeight = (float)(point.X * this.MarkerHeight / 2);
+
+                canvas.SetShadow(new SizeF(shadowWidth, shadowHeight), 10, Colors.Grey);
+            }
 
             canvas.SetFillPaint(this.Fill, new RectangleF(positionX, positionY, width, height));
 
             //Draw marker shape.
-            switch (this.MarkerType)
-            {
-                case MarkerType.Circle:
-
-                    canvas.FillEllipse(positionX, positionY, width, height);
-
-                    if (BorderWidth > 0)
-                    {
-                        canvas.DrawEllipse(positionX, positionY, width, height);
-                    }
-
-                    break;
-                case MarkerType.Diamond:
-                case MarkerType.Rectangle:
-
-                    canvas.FillRectangle(positionX, positionY, width, height);
-
-                    if (BorderWidth > 0)
-                    {
-                        canvas.DrawRectangle(positionX, positionY, width, height);
-                    }
-
-                    break;
-                case MarkerType.InvertedTriangle:
-                case MarkerType.Triangle:
-                    PathF path = new PathF();
-
-                    path.LineTo(positionX, positionY);
-                    path.LineTo(positionX + width, positionY);
-                    path.LineTo(positionX + width / 2, positionY + height);
-                    path.Close();
-
-                    canvas.FillPath(path);
-
-                    if (BorderWidth > 0)
-                    {
-                        canvas.DrawPath(path);
-                    }
-
-                    break;
-                default:
-                    break;
-            }
+            DrawMarkerShape(positionX, positionY, width, height, canvas, true);
 
             canvas.RestoreState();
         }
@@ -813,9 +789,9 @@ namespace Syncfusion.Maui.Gauges
             //https://github.com/dotnet/maui/issues/4471
             //Once the problem resolved, we need to ensure the shadow effect in WinUI.
 
-            float actualOverlayRadius = (float)(this.OverlayRadius ?? this.MarkerWidth);
-            float overlayPositionX = this.markerPosition.X - (float)Math.Abs(this.MarkerWidth / 2 - actualOverlayRadius);
-            float overlayPositionY = this.markerPosition.Y - (float)Math.Abs(this.MarkerHeight / 2 - actualOverlayRadius);
+            float actualOverlayRadius = (float)(double.IsNaN(this.OverlayRadius) ? this.MarkerWidth : this.OverlayRadius);
+            float overlayPositionX = this.markerPosition.X - (actualOverlayRadius - (float)this.MarkerWidth / 2);
+            float overlayPositionY = this.markerPosition.Y - (actualOverlayRadius - (float)this.MarkerHeight / 2);
             float overlayWidth = actualOverlayRadius * 2;
             float overlayHeight = actualOverlayRadius * 2;
 
@@ -829,33 +805,51 @@ namespace Syncfusion.Maui.Gauges
                 canvas.SetFillPaint(this.OverlayFill, new RectangleF(overlayPositionX, overlayPositionY, overlayWidth, overlayHeight));
             }
 
+            DrawMarkerShape(overlayPositionX, overlayPositionY, overlayWidth, overlayHeight, canvas, false);
+
+            if (this.OverlayFill == null)
+                canvas.Alpha = 1f;
+        }
+
+        private void DrawMarkerShape(float positionX,float positionY, float width, float height, 
+            ICanvas canvas, bool drawBorder)
+        {
             switch (this.MarkerType)
             {
                 case MarkerType.Circle:
-                    canvas.FillEllipse(overlayPositionX, overlayPositionY, overlayWidth, overlayHeight);
+                    canvas.FillEllipse(positionX, positionY, width, height);
 
+                    if (BorderWidth > 0 && drawBorder)
+                    {
+                        canvas.DrawEllipse(positionX, positionY, width, height);
+                    }
                     break;
                 case MarkerType.Diamond:
                 case MarkerType.Rectangle:
-                    canvas.FillRectangle(overlayPositionX, overlayPositionY, overlayWidth, overlayHeight);
+                    canvas.FillRectangle(positionX, positionY, width, height);
 
+                    if (BorderWidth > 0 && drawBorder)
+                    {
+                        canvas.DrawRectangle(positionX, positionY, width, height);
+                    }
                     break;
                 case MarkerType.InvertedTriangle:
                 case MarkerType.Triangle:
                     PathF path = new PathF();
-                    path.LineTo(overlayPositionX, overlayPositionY);
-                    path.LineTo(overlayPositionX + overlayWidth, overlayPositionY);
-                    path.LineTo(overlayPositionX + overlayWidth / 2, overlayPositionY + overlayHeight);
+                    path.LineTo(positionX, positionY);
+                    path.LineTo(positionX + width, positionY);
+                    path.LineTo(positionX + width / 2, positionY + height);
                     path.Close();
-
                     canvas.FillPath(path);
+
+                    if (BorderWidth > 0 && drawBorder)
+                    {
+                        canvas.DrawPath(path);
+                    }
                     break;
                 default:
                     break;
             }
-
-            if (this.OverlayFill == null)
-                canvas.Alpha = 1f;
         }
 
         #endregion

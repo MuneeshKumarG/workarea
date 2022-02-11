@@ -3059,22 +3059,59 @@ namespace Syncfusion.Maui.Gauges
                 {
                     if (barPointer.Offset == 0)
                     {
-                        fillPointersSize = Math.Max(barPointer.PointerSize, fillPointersSize);
+                        if (barPointer.BarPosition == GaugeElementPosition.Cross)
+                            fillPointersSize = Math.Max(barPointer.PointerSize, fillPointersSize);
+                        else if (barPointer.BarPosition == GaugeElementPosition.Inside)
+                            insidePointersSize = Math.Max(barPointer.PointerSize, insidePointersSize);
+                        else
+                            outsidePointersSize = Math.Max(barPointer.PointerSize, outsidePointersSize);
                     }
                     else if (barPointer.Offset > 0)
                     {
-                        insidePointersSize = Math.Max((barPointer.PointerSize / 2) + barPointer.Offset - (actualScaleLineThickness / 2), insidePointersSize);
-                        if (barPointer.PointerSize > actualScaleLineThickness)
+                        if (barPointer.BarPosition == GaugeElementPosition.Cross)
                         {
-                            if (barPointer.Offset < (barPointer.PointerSize - actualScaleLineThickness))
+                            insidePointersSize = Math.Max((barPointer.PointerSize / 2) + barPointer.Offset - (actualScaleLineThickness / 2), insidePointersSize);
+                            if (barPointer.PointerSize > actualScaleLineThickness)
                             {
-                                outsidePointersSize = Math.Max(((barPointer.PointerSize - actualScaleLineThickness) / 2) - barPointer.Offset, outsidePointersSize);
+                                if (barPointer.Offset < (barPointer.PointerSize - actualScaleLineThickness))
+                                {
+                                    outsidePointersSize = Math.Max(((barPointer.PointerSize - actualScaleLineThickness) / 2) - barPointer.Offset, outsidePointersSize);
+                                }
+                            }
+                        }
+                        else if (barPointer.BarPosition == GaugeElementPosition.Inside)
+                        {
+                            insidePointersSize = Math.Max(barPointer.PointerSize + barPointer.Offset, insidePointersSize);
+                        }
+                        else
+                        {
+                            outsidePointersSize = Math.Max(barPointer.PointerSize - barPointer.Offset, outsidePointersSize);
+                            if (barPointer.Offset > actualScaleLineThickness)
+                            {
+                                insidePointersSize = Math.Max(barPointer.Offset - actualScaleLineThickness, insidePointersSize);
                             }
                         }
                     }
                     else if (barPointer.Offset < 0)
                     {
-                        outsidePointersSize = Math.Max((barPointer.PointerSize / 2) + Math.Abs(barPointer.Offset) - (actualScaleLineThickness / 2), outsidePointersSize);
+                        double offset = Math.Abs(barPointer.Offset);
+                        if (barPointer.BarPosition == GaugeElementPosition.Cross)
+                        {
+                            outsidePointersSize = Math.Max((barPointer.PointerSize / 2) + offset - (actualScaleLineThickness / 2), outsidePointersSize);
+                        }
+                        else if (barPointer.BarPosition == GaugeElementPosition.Inside)
+                        {
+                            insidePointersSize = Math.Max(barPointer.PointerSize + barPointer.Offset, insidePointersSize);
+
+                            if (offset > actualScaleLineThickness)
+                            {
+                                outsidePointersSize = Math.Max(offset - actualScaleLineThickness, outsidePointersSize);
+                            }
+                        }
+                        else
+                        {
+                            outsidePointersSize = Math.Max(barPointer.PointerSize + offset, outsidePointersSize);
+                        }
                     }
                 }
             }

@@ -215,7 +215,15 @@ namespace Syncfusion.Maui.Gauges
 
                 Utility.ValidateMinimumMaximumValue(ref actualStartValue, ref actualEndValue);
                 float halfWidth = this.PointerSize > 0 ? (float)this.PointerSize / 2 : 0f;
-                float halfLineThickness = (float)this.Scale.GetActualScaleLineThickness() / 2;
+                float lineThickness;
+
+                if (this.BarPosition == GaugeElementPosition.Cross)
+                    lineThickness = (float)this.Scale.GetActualScaleLineThickness() / 2;
+                else if (this.BarPosition == GaugeElementPosition.Inside)
+                    lineThickness = (float)this.Scale.GetActualScaleLineThickness();
+                else
+                    lineThickness = 0;
+
                 float pointerStartPosition = (float)this.Scale.GetPositionFromValue(actualStartValue);
                 float pointerEndPosition = (float)this.Scale.GetPositionFromValue(actualEndValue);
                 float halfPointerWidth = (float)this.PointerSize / 2;
@@ -237,7 +245,7 @@ namespace Syncfusion.Maui.Gauges
 
                 barPointerPath = new PathF();
                 float x1, x2, y1, y2;
-                float scaleLinePositionY = (float)this.Scale.ScalePosition.Y + halfLineThickness;
+                float scaleLinePositionY = (float)this.Scale.ScalePosition.Y + lineThickness;
                 float startPointX1 = (float)this.Scale.ScalePosition.X + pointerStartPosition;
                 float startPointX2 = (float)this.Scale.ScalePosition.X + pointerEndPosition;
 
@@ -439,8 +447,6 @@ namespace Syncfusion.Maui.Gauges
             if (bindable is BarPointer pointer && pointer.Scale != null)
             {
                 pointer.Scale.ScaleInvalidateMeasureOverride();
-                pointer.UpdatePointer();
-                pointer.InvalidateDrawable();
             }
         }
 

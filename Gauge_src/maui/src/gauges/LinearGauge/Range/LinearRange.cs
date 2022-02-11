@@ -269,7 +269,7 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="midPoint"></param>
         /// <param name="endPoint"></param>
         /// <returns></returns>
-        public virtual void UpdateMidRangePath(PathF pathF, PointF startPoint, PointF midPoint, PointF endPoint)
+        protected virtual void UpdateMidRangePath(PathF pathF, PointF startPoint, PointF midPoint, PointF endPoint)
         {
             pathF.LineTo(midPoint.X, midPoint.Y);
         }
