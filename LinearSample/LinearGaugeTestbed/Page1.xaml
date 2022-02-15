@@ -28,11 +28,11 @@
                 </gauge:SfLinearGauge.Ranges>
                 <gauge:SfLinearGauge.BarPointers>
                     <gauge:BarPointer x:Name="barPointer" Value="50"
-                                      EnableAnimation="True"
-                                  PointerSize="5" IsInteractive="True"/>
+                                      EnableAnimation="True"  IsInteractive="True"/>
                 </gauge:SfLinearGauge.BarPointers>
                 <gauge:SfLinearGauge.MarkerPointers>
-                    <gauge:ShapePointer x:Name="shapePointer"  Value="60" IsInteractive="True"/>
+                    <gauge:ShapePointer x:Name="shapePointer"
+                                        StepFrequency="10" VerticalAlignment="End" Value="60" IsInteractive="True"/>
 
                     <gauge:ContentPointer x:Name="contentPointer" Value="50" IsInteractive="True" >
                        
