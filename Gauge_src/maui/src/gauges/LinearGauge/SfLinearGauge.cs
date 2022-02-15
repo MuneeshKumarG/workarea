@@ -1338,10 +1338,6 @@ namespace Syncfusion.Maui.Gauges
                         ranges.CollectionChanged += linearGauge.Ranges_CollectionChanged;
                     }
                 }
-                else
-                {
-                    linearGauge.ResetRanges();
-                }
             }
         }
 
@@ -1370,10 +1366,6 @@ namespace Syncfusion.Maui.Gauges
                         barPointers.CollectionChanged += linearGauge.BarPointers_CollectionChanged;
                     }
                 }
-                else
-                {
-                    linearGauge.ResetBarPointers();
-                }
             }
         }
 
@@ -1401,10 +1393,6 @@ namespace Syncfusion.Maui.Gauges
                     {
                         markerPointers.CollectionChanged += linearGauge.MarkerPointers_CollectionChanged;
                     }
-                }
-                else
-                {
-                    linearGauge.ResetMarkerPointers();
                 }
             }
         }
@@ -3227,7 +3215,7 @@ namespace Syncfusion.Maui.Gauges
                         var animation = new Animation(pointer.OnAnimationUpdate, this.ActualMinimum,
                             pointer.Value, Easing.Linear, null);
                         pointer.CanAnimate = false;
-                        parentAnimation.Add(animationBegin, animationEnd, animation); ;
+                        parentAnimation.Add(animationBegin, animationEnd, animation);
 
                     }
                 }
@@ -3238,7 +3226,7 @@ namespace Syncfusion.Maui.Gauges
                         var animation = new Animation(pointer.OnAnimationUpdate, this.ActualMinimum,
                             pointer.Value, Easing.Linear, null);
                         pointer.CanAnimate = false;
-                        parentAnimation.Add(animationBegin, animationEnd, animation); ;
+                        parentAnimation.Add(animationBegin, animationEnd, animation);
 
                     }
                 }

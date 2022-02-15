@@ -215,14 +215,15 @@ namespace Syncfusion.Maui.Gauges
 
                 Utility.ValidateMinimumMaximumValue(ref actualStartValue, ref actualEndValue);
                 float halfWidth = this.PointerSize > 0 ? (float)this.PointerSize / 2 : 0f;
-                float lineThickness;
+                float scaleLinePositionY;
+                float lineThickness = (float)this.Scale.GetActualScaleLineThickness();
 
                 if (this.BarPosition == GaugeElementPosition.Cross)
-                    lineThickness = (float)this.Scale.GetActualScaleLineThickness() / 2;
+                    scaleLinePositionY = (float)this.Scale.ScalePosition.Y + lineThickness / 2;
                 else if (this.BarPosition == GaugeElementPosition.Inside)
-                    lineThickness = (float)this.Scale.GetActualScaleLineThickness();
+                    scaleLinePositionY = (float)this.Scale.ScalePosition.Y + lineThickness + halfWidth;
                 else
-                    lineThickness = 0;
+                    scaleLinePositionY = (float)this.Scale.ScalePosition.Y - halfWidth;
 
                 float pointerStartPosition = (float)this.Scale.GetPositionFromValue(actualStartValue);
                 float pointerEndPosition = (float)this.Scale.GetPositionFromValue(actualEndValue);
@@ -245,7 +246,6 @@ namespace Syncfusion.Maui.Gauges
 
                 barPointerPath = new PathF();
                 float x1, x2, y1, y2;
-                float scaleLinePositionY = (float)this.Scale.ScalePosition.Y + lineThickness;
                 float startPointX1 = (float)this.Scale.ScalePosition.X + pointerStartPosition;
                 float startPointX2 = (float)this.Scale.ScalePosition.X + pointerEndPosition;
 
@@ -272,7 +272,6 @@ namespace Syncfusion.Maui.Gauges
                         this.Scale.LineToPath(barPointerPath, startPointX1, y1);
                         barPointerPath.Close();
                     }
-
                 }
                 else
                 {
@@ -289,13 +288,11 @@ namespace Syncfusion.Maui.Gauges
                     }
                 }
 
-
                 if (this.CornerStyle == CornerStyle.StartCurve || this.CornerStyle == CornerStyle.BothCurve)
                 {
                     x1 = (float)(startPointX1 - halfWidth);
                     x2 = (float)(startPointX1 + halfWidth);
                     float curveX1 = (float)startPointX1;
-
 
                     if ((this.Scale.Orientation == GaugeOrientation.Horizontal && !this.Scale.IsInversed) ||
                         (this.Scale.Orientation == GaugeOrientation.Vertical && this.Scale.IsInversed))
