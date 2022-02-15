@@ -217,6 +217,10 @@ namespace Syncfusion.Maui.Gauges
                 float halfWidth = this.PointerSize > 0 ? (float)this.PointerSize / 2 : 0f;
                 float scaleLinePositionY;
                 float lineThickness = (float)this.Scale.GetActualScaleLineThickness();
+                float pointerStartPosition = (float)this.Scale.GetPositionFromValue(actualStartValue);
+                float pointerEndPosition = (float)this.Scale.GetPositionFromValue(actualEndValue);
+                float halfPointerWidth = (float)this.PointerSize / 2;
+                bool isInversed = false;
 
                 if (this.BarPosition == GaugeElementPosition.Cross)
                     scaleLinePositionY = (float)this.Scale.ScalePosition.Y + lineThickness / 2;
@@ -225,13 +229,10 @@ namespace Syncfusion.Maui.Gauges
                 else
                     scaleLinePositionY = (float)this.Scale.ScalePosition.Y - halfWidth;
 
-                float pointerStartPosition = (float)this.Scale.GetPositionFromValue(actualStartValue);
-                float pointerEndPosition = (float)this.Scale.GetPositionFromValue(actualEndValue);
-                float halfPointerWidth = (float)this.PointerSize / 2;
-
                 if (this.Scale.Orientation == GaugeOrientation.Vertical ^ this.Scale.IsInversed)
                 {
                     halfPointerWidth *= -1;
+                    isInversed = true;
                 }
 
                 if (this.CornerStyle == CornerStyle.BothCurve || this.CornerStyle == CornerStyle.StartCurve)
@@ -251,10 +252,7 @@ namespace Syncfusion.Maui.Gauges
 
                 bool canDrawBarPointer = false;
 
-                if ((this.Scale.Orientation == GaugeOrientation.Horizontal && ((!this.Scale.IsInversed && startPointX1 < startPointX2) ||
-                    (this.Scale.IsInversed && startPointX1 > startPointX2))) || 
-                    (this.Scale.Orientation == GaugeOrientation.Vertical && ((this.Scale.IsInversed && startPointX1 < startPointX2) ||
-                    (!this.Scale.IsInversed && startPointX1 > startPointX2))))
+                if ((isInversed && startPointX1 > startPointX2) || (!isInversed && startPointX1 < startPointX2))
                 {
                     canDrawBarPointer = true;
                 }
