@@ -36,6 +36,7 @@ namespace LinearGaugeTestbed
 			this.BindingContext = this;
 			InitializeComponent();
 
+			//marker.Fill = null;
 		}
 
 		private void OverlayRadiusIncrease_Clicked(object sender, EventArgs e)

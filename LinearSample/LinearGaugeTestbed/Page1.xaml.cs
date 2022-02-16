@@ -305,7 +305,7 @@ namespace LinearGaugeTestbed
         {
             get
             {
-                return Enum.GetValues(typeof(ShapeType));
+                return Enum.GetValues(typeof(MarkerType));
             }
 
         }
@@ -588,7 +588,7 @@ namespace LinearGaugeTestbed
 
         private void Picker_SelectedIndexChanged15(object sender, EventArgs e)
         {
-            shapePointer.ShapeType = (ShapeType)(sender as Picker).SelectedItem;
+            shapePointer.ShapeType = (MarkerType)(sender as Picker).SelectedItem;
         }
 
         private void Picker_SelectedIndexChanged16(object sender, EventArgs e)
