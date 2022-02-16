@@ -764,17 +764,17 @@ namespace Syncfusion.Maui.Gauges
 
             if (this.HasShadow)
             {
-                Point point = Utility.AngleToVector(angle);
-                float shadowWidth = (float)(point.Y * this.MarkerWidth / 2);
-                float shadowHeight = (float)(point.X * this.MarkerHeight / 2);
+                //TODO : Currently, shadow not showing in WinUI. We reported this problem in below link. 
+                //https://github.com/dotnet/maui/issues/4471
+                //Once the problem resolved, we need to ensure the shadow effect in WinUI.
 
-                canvas.SetShadow(new SizeF(shadowWidth, shadowHeight), 10, Colors.Grey);
+                canvas.SetShadow(new SizeF(0, 2), 10, Color.FromRgb(148, 148, 148));
             }
 
             canvas.SetFillPaint(this.Fill, new RectangleF(positionX, positionY, width, height));
 
             //Draw marker shape.
-            DrawMarkerShape(positionX, positionY, width, height, canvas, true);
+            DrawMarkerShape(positionX, positionY, width, height, canvas, BorderWidth > 0 ? true : false);
 
             canvas.RestoreState();
         }
@@ -785,9 +785,8 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="canvas"></param>
         private void DrawMarkerOverlay(ICanvas canvas)
         {
-            //TODO : Currently, shadow not showing in WinUI. We reported this problem in below link. 
-            //https://github.com/dotnet/maui/issues/4471
-            //Once the problem resolved, we need to ensure the shadow effect in WinUI.
+            if (this.OverlayFill == null && this.Fill == null)
+                return;
 
             float actualOverlayRadius = (float)(double.IsNaN(this.OverlayRadius) ? this.MarkerWidth : this.OverlayRadius);
             float overlayPositionX = this.markerPosition.X - (actualOverlayRadius - (float)this.MarkerWidth / 2);
@@ -797,8 +796,7 @@ namespace Syncfusion.Maui.Gauges
 
             if (this.OverlayFill == null)
             {
-                canvas.SetFillPaint(this.Fill, new RectangleF(overlayPositionX, overlayPositionY, overlayWidth, overlayHeight));
-                canvas.Alpha = 0.5f;
+                canvas.FillColor = ((Paint)this.Fill)?.ToColor()?.WithAlpha(0.12f);
             }
             else
             {
@@ -806,9 +804,6 @@ namespace Syncfusion.Maui.Gauges
             }
 
             DrawMarkerShape(overlayPositionX, overlayPositionY, overlayWidth, overlayHeight, canvas, false);
-
-            if (this.OverlayFill == null)
-                canvas.Alpha = 1f;
         }
 
         private void DrawMarkerShape(float positionX,float positionY, float width, float height, 
@@ -819,7 +814,7 @@ namespace Syncfusion.Maui.Gauges
                 case MarkerType.Circle:
                     canvas.FillEllipse(positionX, positionY, width, height);
 
-                    if (BorderWidth > 0 && drawBorder)
+                    if (drawBorder)
                     {
                         canvas.DrawEllipse(positionX, positionY, width, height);
                     }
@@ -828,7 +823,7 @@ namespace Syncfusion.Maui.Gauges
                 case MarkerType.Rectangle:
                     canvas.FillRectangle(positionX, positionY, width, height);
 
-                    if (BorderWidth > 0 && drawBorder)
+                    if (drawBorder)
                     {
                         canvas.DrawRectangle(positionX, positionY, width, height);
                     }
@@ -842,7 +837,7 @@ namespace Syncfusion.Maui.Gauges
                     path.Close();
                     canvas.FillPath(path);
 
-                    if (BorderWidth > 0 && drawBorder)
+                    if (drawBorder)
                     {
                         canvas.DrawPath(path);
                     }

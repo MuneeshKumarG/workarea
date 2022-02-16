@@ -224,7 +224,7 @@ namespace Syncfusion.Maui.Gauges
 
                 if (this.BarPosition == GaugeElementPosition.Cross)
                     scaleLinePositionY = (float)this.Scale.ScalePosition.Y + lineThickness / 2;
-                else if (this.BarPosition == GaugeElementPosition.Inside)
+                else if ((this.BarPosition == GaugeElementPosition.Inside && !this.Scale.IsMirrored) || (this.BarPosition == GaugeElementPosition.Outside && this.Scale.IsMirrored))
                     scaleLinePositionY = (float)this.Scale.ScalePosition.Y + lineThickness + halfWidth;
                 else
                     scaleLinePositionY = (float)this.Scale.ScalePosition.Y - halfWidth;

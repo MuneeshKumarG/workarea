@@ -41,7 +41,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="ShapeType"/> bindable property.
         /// </value>
         public static readonly BindableProperty ShapeTypeProperty = BindableProperty.Create(nameof(ShapeType),
-            typeof(ShapeType), typeof(ShapePointer), ShapeType.InvertedTriangle, propertyChanged: OnShapeTypePropertyChanged);
+            typeof(MarkerType), typeof(ShapePointer), MarkerType.InvertedTriangle, propertyChanged: OnShapeTypePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="Fill"/> bindable property.
@@ -85,11 +85,11 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         /// <value>
         /// One of the enumeration values that specifies the shape type of shape pointer in the linear gauge.
-        /// The default is <see cref="ShapeType.InvertedTriangle"/>.
+        /// The default is <see cref="MarkerType.InvertedTriangle"/>.
         /// </value>
-        public ShapeType ShapeType
+        public MarkerType ShapeType
         {
-            get { return (ShapeType)this.GetValue(ShapeTypeProperty); }
+            get { return (MarkerType)this.GetValue(ShapeTypeProperty); }
             set { this.SetValue(ShapeTypeProperty, value); }
         }
 
@@ -183,7 +183,7 @@ namespace Syncfusion.Maui.Gauges
                 //Set rotation angle for shape.
                 float angle = this.Scale.IsMirrored ? 180 : 0;
 
-                if (this.ShapeType == ShapeType.Triangle)
+                if(this.ShapeType == MarkerType.Triangle)
                     angle += 180;
 
                 canvas.Rotate(angle, shapePosition.X + halfWidth, shapePosition.Y + halfHeight);
@@ -193,7 +193,7 @@ namespace Syncfusion.Maui.Gauges
                 //Draw shape shape.
                 switch (this.ShapeType)
                 {
-                    case ShapeType.Circle:
+                    case MarkerType.Circle:
 
                         canvas.FillEllipse(positionX, positionY, width, height);
 
@@ -203,7 +203,16 @@ namespace Syncfusion.Maui.Gauges
                         }
 
                         break;
-                    case ShapeType.Diamond:
+
+                    case MarkerType.Rectangle:
+                        canvas.FillRectangle(positionX, positionY, width, height);
+
+                        if (StrokeThickness > 0)
+                        {
+                            canvas.DrawRectangle(positionX, positionY, width, height);
+                        }
+                        break;
+                    case MarkerType.Diamond:
 
                         PathF path = new PathF();
                         path.MoveTo(positionX + width / 2, positionY);
@@ -220,8 +229,8 @@ namespace Syncfusion.Maui.Gauges
                         }
 
                         break;
-                    case ShapeType.InvertedTriangle:
-                    case ShapeType.Triangle:
+                    case MarkerType.InvertedTriangle:
+                    case MarkerType.Triangle:
                         path = new PathF();
 
                         if (Scale.Orientation == GaugeOrientation.Horizontal)
