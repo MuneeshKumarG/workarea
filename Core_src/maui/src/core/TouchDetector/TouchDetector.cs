@@ -13,6 +13,8 @@ namespace Syncfusion.Maui.Core.Internals
         private readonly List<ITouchListener> touchListeners;
         private bool _disposed;
         internal readonly View MauiView;
+        internal bool InputTransparent;
+        internal bool IsEnabled;
 
         /// <summary>
         /// 
@@ -31,8 +33,19 @@ namespace Syncfusion.Maui.Core.Internals
                 mauiView.HandlerChanged += MauiView_HandlerChanged;
                 mauiView.HandlerChanging += MauiView_HandlerChanging;
             }
+            mauiView.PropertyChanged += MauiView_PropertyChanged;
+            IsEnabled = mauiView.IsEnabled;
+            InputTransparent = mauiView.InputTransparent;
         }
 
+        private void MauiView_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == VisualElement.InputTransparentProperty.PropertyName)
+                InputTransparent = MauiView.InputTransparent;
+            else if (e.PropertyName == VisualElement.IsEnabledProperty.PropertyName)
+                IsEnabled = MauiView.IsEnabled;
+        }
+       
         private void MauiView_HandlerChanged(object? sender, EventArgs e)
         {
             if (sender is View view && view.Handler != null)
@@ -111,9 +124,29 @@ namespace Syncfusion.Maui.Core.Internals
         internal void OnTouchAction(long pointerId, TouchActions action, Point point)
         {
             TouchEventArgs eventArgs = new TouchEventArgs(pointerId, action, point);
+            OnTouchAction(eventArgs);
+        }
+
+        internal void OnTouchAction(long pointerId, TouchActions action, PointerDeviceType deviceType , Point point)
+        {
+            TouchEventArgs eventArgs = new TouchEventArgs(pointerId, action, deviceType, point);
+            OnTouchAction(eventArgs);
+        }
+
+        internal void OnTouchAction(TouchEventArgs eventArgs)
+        {
             foreach (var listener in touchListeners)
             {
                 listener.OnTouch(eventArgs);
+            }
+        }
+
+        internal void OnScrollAction(long pointerId, Point origin, double direction)
+        {
+            ScrollEventArgs eventArgs = new ScrollEventArgs(pointerId, origin, direction);
+            foreach (var listener in touchListeners)
+            {
+                listener.OnScrollWheel(eventArgs);
             }
         }
 
@@ -127,6 +160,7 @@ namespace Syncfusion.Maui.Core.Internals
                 UnsubscribeNativeTouchEvents(mauiView.Handler!);
                 mauiView.HandlerChanged -= MauiView_HandlerChanged;
                 mauiView.HandlerChanging -= MauiView_HandlerChanging;
+                MauiView.PropertyChanged -= MauiView_PropertyChanged;
                 mauiView = null;
             }
         }

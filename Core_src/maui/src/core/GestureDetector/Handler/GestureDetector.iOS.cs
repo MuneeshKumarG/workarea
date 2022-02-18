@@ -112,7 +112,7 @@ namespace Syncfusion.Maui.Core.Internals
 
             bool GestureRecognizer(UIGestureRecognizer gestureRecognizer, UIGestureRecognizer otherGestureRecognizer)
             {
-                if (otherGestureRecognizer is UITouchRecognizerExt || gestureListener == null)
+                if (otherGestureRecognizer is UITouchRecognizerExt || otherGestureRecognizer is UIScrollRecognizerExt || gestureListener == null)
                 {
                     return true;
                 }
@@ -122,10 +122,33 @@ namespace Syncfusion.Maui.Core.Internals
 
             private void OnScroll(GestureDetector gestureDetector)
             {
+                if (!gestureDetector.IsEnabled || gestureDetector.InputTransparent)
+                {
+                    return;
+                }
+
                 var locationInView = LocationInView(View);
                 var translateLocation = TranslationInView(View);
-                
-                gestureDetector.OnScroll(new Point(locationInView.X, locationInView.Y), new Point(translateLocation.X, translateLocation.Y));
+                var state = GestureStatus.Completed;
+
+                switch (State)
+                {
+                    case UIGestureRecognizerState.Began:
+                        state = GestureStatus.Started;
+                        break;
+                    case UIGestureRecognizerState.Changed:
+                        state = GestureStatus.Running;
+                        break;
+                    case UIGestureRecognizerState.Cancelled:
+                    case UIGestureRecognizerState.Failed:
+                        state = GestureStatus.Canceled;
+                        break;
+                    case UIGestureRecognizerState.Ended:
+                        state = GestureStatus.Completed;
+                        break;
+                }
+
+                gestureDetector.OnScroll(state, new Point(locationInView.X, locationInView.Y), new Point(translateLocation.X, translateLocation.Y));
                 SetTranslation(CGPoint.Empty, View);
             }
         }
@@ -145,6 +168,11 @@ namespace Syncfusion.Maui.Core.Internals
 
             private void OnPinch(GestureDetector gestureDetector)
             {
+                if (!gestureDetector.IsEnabled || gestureDetector.InputTransparent)
+                {
+                    return;
+                }
+
                 var locationInView = LocationInView(View);
                 var state = GestureStatus.Completed;
                 double angle = double.NaN;
@@ -192,6 +220,11 @@ namespace Syncfusion.Maui.Core.Internals
 
             private void OnTap(GestureDetector gestureDetector)
             {
+                if (!gestureDetector.IsEnabled || gestureDetector.InputTransparent)
+                {
+                    return;
+                }
+
                var locationInView = LocationInView(View);
                gestureDetector.OnTapped(new Point(locationInView.X, locationInView.Y), (int)NumberOfTapsRequired);
             }
@@ -212,6 +245,11 @@ namespace Syncfusion.Maui.Core.Internals
 
             private void OnLongPress(GestureDetector gestureDetector)
             {
+                if (!gestureDetector.IsEnabled || gestureDetector.InputTransparent)
+                {
+                    return;
+                }
+
                 var locationInView = LocationInView(View);
                 gestureDetector.OnLongPress(new Point(locationInView.X, locationInView.Y));
             }

@@ -13,6 +13,7 @@ namespace Syncfusion.Maui.Core
     using Microsoft.Maui.Controls;
     using Microsoft.Maui.Graphics;
     using Syncfusion.Maui.Graphics.Internals;
+    using CanvasExtensions = Syncfusion.Maui.Graphics.Internals.CanvasExtensions;
 
     /// <summary>
     /// Represents the BadgeLabelView class.
@@ -352,14 +353,16 @@ namespace Syncfusion.Maui.Core
         {
             PointF startPoint = default(PointF);
             startPoint.X = (float)(viewBounds.Center.X - (this.textSize.Width / 2));
-
+            startPoint.Y = (float)(viewBounds.Center.Y - (this.textSize.Height / 2));
+            if (!string.IsNullOrEmpty(this.Text)) 
+            { 
 #if __ANDROID__
             startPoint.Y = (float)(viewBounds.Center.Y + (this.textSize.Height / 2));
 #elif __IOS__ || __MACCATALYST__
             startPoint.Y = (float)(viewBounds.Center.Y - (this.textSize.Height / 2) - 3);
-#else
-            startPoint.Y = (float)(viewBounds.Center.Y - (this.textSize.Height / 2));
 #endif
+            }
+
             return startPoint;
         }
 
@@ -371,12 +374,20 @@ namespace Syncfusion.Maui.Core
         {
             RectangleF rect = default(RectangleF);
 
-            var textMeasurer = TextMeasurer.CreateTextMeasurer();
-            this.textSize = textMeasurer.MeasureText(this.Text, this.GetProccessedFontSize(), this.FontAttributes, this.FontFamily);
+            if (!string.IsNullOrEmpty(this.Text))
+            {
+                var textMeasurer = TextMeasurer.CreateTextMeasurer();
+                this.textSize = textMeasurer.MeasureText(this.Text, this.GetProccessedFontSize(), this.FontAttributes, this.FontFamily);
+            }
+            else if (this.BadgeIcon != BadgeIcon.None && this.BadgeIcon != BadgeIcon.Dot)
+            {
+                this.textSize = new Size(this.GetProccessedFontSize(), this.GetProccessedFontSize());
+            }
+            
             rect.Width = (float)(this.textSize.Width + this.TextPadding.Left + this.TextPadding.Right);
             rect.Height = (float)(this.textSize.Height + this.TextPadding.Top + this.TextPadding.Bottom);
 
-            if (this.BadgeIcon == BadgeIcon.Dot || this.Text == null || (this.Text != null && this.Text.Length == 0))
+            if (this.BadgeIcon == BadgeIcon.Dot && (this.Text == null || (this.Text != null && this.Text.Length == 0)))
             {
                 rect.Width = rect.Height = 10;
             }
@@ -528,7 +539,69 @@ namespace Syncfusion.Maui.Core
             }
 
             PointF startPoint = this.GetTextStartPoint(currentBounds);
-            canvas.DrawText(this.text, startPoint.X, startPoint.Y, this.TextElement!);
+            if (!string.IsNullOrEmpty(this.text))
+            {
+                canvas.DrawText(this.text, startPoint.X, startPoint.Y, this.TextElement!);
+            }
+            else
+            {
+                var rect = new RectangleF(startPoint.X, startPoint.Y, this.GetProccessedFontSize(), this.GetProccessedFontSize());
+                canvas.StrokeColor = this.TextColor;
+                canvas.StrokeSize = 1.5f;
+                canvas.SetFillPaint(new SolidColorBrush(this.TextColor), rect);
+                GetBadgeIcon(canvas, rect, this.BadgeIcon);
+            }
+        }
+
+        /// <summary>
+        /// To get the badge icon.
+        /// </summary>
+        private static void GetBadgeIcon(ICanvas canvas, RectangleF rect, BadgeIcon value)
+        {
+            float x = rect.X;
+            float y = rect.Y;
+            float width = x + rect.Width;
+            float height = y + rect.Height;
+            float midHeight = y + (rect.Height / 2);
+
+            switch (value)
+            {
+                case BadgeIcon.Add:
+                    rect.X += rect.Width / 12;
+                    rect.Y += rect.Height / 12;
+                    rect.Width -= rect.Width / 6;
+                    rect.Height -= rect.Height / 6;
+                    CanvasExtensions.DrawPlus(canvas, rect, false, rect.Width + 4);
+                    break;
+
+                case BadgeIcon.Available:
+                    CanvasExtensions.DrawTick(canvas, rect);
+                    break;
+
+                case BadgeIcon.Away:
+                    CanvasExtensions.DrawAwaySymbol(canvas, rect);
+                    break;
+
+                case BadgeIcon.Busy:
+                    canvas.DrawLine(new PointF(x, midHeight), new PointF(width, midHeight));
+                    break;
+
+                case BadgeIcon.Delete:
+                    rect.X += rect.Width / 6;
+                    rect.Y += rect.Height / 6;
+                    rect.Width -= rect.Width / 3;
+                    rect.Height -= rect.Height / 3;
+                    CanvasExtensions.DrawCross(canvas, rect, false, rect.Width);
+                    break;
+
+                case BadgeIcon.Prohibit1:
+                    canvas.DrawLine(new PointF(width - 1, y + 1), new PointF(x + 1, height - 1));
+                    break;
+
+                case BadgeIcon.Prohibit2:
+                    canvas.DrawLine(new PointF(x + 1, y + 1), new PointF(width - 1, height - 1));
+                    break;
+            }
         }
 
         private void UpdateSemanticProperties()

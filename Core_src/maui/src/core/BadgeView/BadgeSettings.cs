@@ -150,7 +150,7 @@ namespace Syncfusion.Maui.Core
         /// The identifier for <see cref="Icon"/> bindable property.
         /// </value>
         // TODO: Need to fix the font icon issue in library or need to draw the icons.
-        internal static readonly BindableProperty IconProperty =
+        public static readonly BindableProperty IconProperty =
             BindableProperty.Create(nameof(Icon), typeof(BadgeIcon), typeof(BadgeSettings), BadgeIcon.None, BindingMode.Default, null, null, OnBadgeIconPropertyChanged);
 
         #endregion
@@ -583,7 +583,7 @@ namespace Syncfusion.Maui.Core
         /// ]]></code>
         /// </example>
         // TODO: Need to fix the font icon issue in library or need to draw the icons.
-        internal BadgeIcon Icon
+        public BadgeIcon Icon
         {
             get { return (BadgeIcon)this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
@@ -661,15 +661,6 @@ namespace Syncfusion.Maui.Core
         #endregion
 
         #region Internal methods
-
-        /// <summary>
-        /// To get the font icon text for badge icon.
-        /// </summary>
-        /// <returns>It returns the font icon text.</returns>
-        internal static string GetFontIconText()
-        {
-            return string.Empty;
-        }
 
         /// <summary>
         /// To update the badge offset.
@@ -1031,8 +1022,6 @@ namespace Syncfusion.Maui.Core
             if (settings != null && settings.BadgeView != null && settings.BadgeView.BadgeLabelView != null && (BadgeIcon)newValue != BadgeIcon.None)
             {
                 settings.BadgeView.BadgeLabelView.BadgeIcon = (BadgeIcon)newValue;
-                settings.BadgeView.BadgeLabelView.Text = GetFontIconText();
-                settings.BadgeView.BadgeLabelView.FontFamily = "BadgeIcons";
             }
         }
 

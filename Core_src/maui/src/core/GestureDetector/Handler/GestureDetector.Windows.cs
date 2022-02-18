@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
@@ -11,7 +10,9 @@ namespace Syncfusion.Maui.Core.Internals
     public partial class GestureDetector
     {
         bool wasPinchStarted;
+        bool wasPanStarted;
         bool isPinching;
+        bool isPanning;
         Windows.Foundation.Point touchMovePoint;
         readonly List<uint> fingers = new List<uint>();
 
@@ -55,38 +56,66 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             //TODO : need to check and refix the issue with e.Position value of ManipulationRoutedDelatEventArgs instead using below position.
             touchMovePoint = e.GetCurrentPoint(sender as UIElement).Position;
         }
 
         private void NativeView_PointerExited(object sender, PointerRoutedEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             uint id = e.Pointer.PointerId;
             if (fingers.Contains(id))
                 fingers.Remove(id);
             PinchCompleted(true);
+            PanCompleted(true);
         }
 
         private void NativeView_PointerCanceled(object sender, PointerRoutedEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             uint id = e.Pointer.PointerId;
             if (fingers.Contains(id))
                 fingers.Remove(id);
 
             PinchCompleted(false);
+            PanCompleted(false);
         }
 
         private void NativeView_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             uint id = e.Pointer.PointerId;
             if (fingers.Contains(id))
                 fingers.Remove(id);
 
             PinchCompleted(true);
+            PanCompleted(true);
         }
 
         private void NativeView_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             uint id = e.Pointer.PointerId;
             if (!fingers.Contains(id))
                 fingers.Add(id);
@@ -107,14 +136,25 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             var scalePoint = new Point(e.Position.X, e.Position.Y);
             var translationPoint = new Point(e.Cumulative.Translation.X, e.Cumulative.Translation.Y);
             double angle = MathUtils.GetAngle(scalePoint.X, translationPoint.X, scalePoint.Y, translationPoint.Y);
             PinchCompleted(true,scalePoint, angle);
+            PanCompleted(true);
         }
 
         private void NativeView_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             bool isTouchHandled = false;
 
             OnPinch(e);
@@ -140,7 +180,13 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             wasPinchStarted = false;
+            wasPanStarted = false;
         }
 
         void OnPan(ManipulationDeltaRoutedEventArgs e)
@@ -150,12 +196,17 @@ namespace Syncfusion.Maui.Core.Internals
 
             var touchPoint = new Point(touchMovePoint.X, touchMovePoint.Y);
             var translationPoint = new Point(e.Delta.Translation.X, e.Delta.Translation.Y);
-           
+            GestureStatus state = GestureStatus.Started;
+            isPanning = true;
             foreach (var listener in panGestureListeners)
             {
-                PanEventArgs eventArgs = new PanEventArgs(touchPoint, translationPoint);
+                if(wasPanStarted)
+                    state = GestureStatus.Running;
+
+                PanEventArgs eventArgs = new PanEventArgs(state, touchPoint, translationPoint);
                 listener.OnPan(eventArgs);
             }
+            wasPanStarted = true;
         }
 
         void OnPinch(ManipulationDeltaRoutedEventArgs e)
@@ -201,8 +252,25 @@ namespace Syncfusion.Maui.Core.Internals
             isPinching = false;
         }
 
+        void PanCompleted(bool isCompleted)
+        {
+            if (panGestureListeners == null || panGestureListeners.Count == 0 || !isPanning) return;
+
+            foreach (var listener in panGestureListeners)
+            {
+                PanEventArgs eventArgs = new PanEventArgs(isCompleted ? GestureStatus.Completed : GestureStatus.Canceled, Point.Zero, Point.Zero);
+                listener.OnPan(eventArgs);
+            }
+            isPanning = false;
+        }
+
         private void NativeView_Holding(object sender, HoldingRoutedEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             if (longPressGestureListeners == null || longPressGestureListeners.Count == 0) return;
 
             var touchPoint = e.GetPosition(sender as UIElement);
@@ -223,6 +291,11 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             if (doubleTapGestureListeners == null || doubleTapGestureListeners.Count == 0) return;
 
             var touchPoint = e.GetPosition(sender as UIElement);
@@ -240,6 +313,11 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            if (!IsEnabled || InputTransparent)
+            {
+                return;
+            }
+
             if (tapGestureListeners == null || tapGestureListeners.Count == 0) return;
 
             var touchPoint = e.GetPosition(sender as UIElement);

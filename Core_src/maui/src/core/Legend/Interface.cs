@@ -30,6 +30,8 @@ namespace Syncfusion.Maui.Core
         /// </summary>
         /// <value>This property takes <see cref="LegendOrientation"/> as its value.</value>
         LegendOrientation Orientation { get; set; }
+
+        bool IsVisible { get; set; }
     }
 
     /// <summary>

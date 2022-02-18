@@ -137,6 +137,8 @@ namespace Syncfusion.Maui.Core
 
         LegendOrientation ILegend.Orientation { get => Orientation; set {} }
 
+        bool ILegend.IsVisible { get; set; }
+
         internal event EventHandler<LegendItemClickedEventArgs>? ItemClicked;
 
         #endregion
@@ -640,36 +642,5 @@ namespace Syncfusion.Maui.Core
         #endregion
 
         #endregion
-    }
-
-    internal class LegendItemClickedEventArgs : EventArgs
-    {
-        internal LegendItem? LegendItem { get; set; }
-    }
-
-    /// <summary>
-    /// Delegate for the LegendItemToggleHandler event.  
-    /// </summary>
-    /// <param name="legendItem">Used to specifyt he legend item.</param>
-    public delegate void LegendHandler(ILegendItem legendItem);
-
-    /// <summary>
-    /// This class serves as an event data for the <see cref="LegendItemEventArgs"/> event. The event data holds the information when the legend item. 
-    /// </summary>
-    public class LegendItemEventArgs
-    {
-        /// <summary>
-        /// Gets the corresponding legend item.
-        /// </summary>
-        public readonly ILegendItem LegendItem;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LegendItemEventArgs"/> class.
-        /// </summary>
-        /// <param name="legendItem">Used to specifyt he legend item.</param>
-        public LegendItemEventArgs(ILegendItem legendItem)
-        {
-            LegendItem = legendItem;
-        }
     }
 }

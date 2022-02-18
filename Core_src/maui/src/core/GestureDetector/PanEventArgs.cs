@@ -11,15 +11,22 @@ namespace Syncfusion.Maui.Core.Internals
     {
         private readonly Point _touchPoint;
         private readonly Point _translatePoint;
+        private readonly GestureStatus _status;
 
         /// <summary>
         /// Initializes when <see cref="PanEventArgs"/>
         /// </summary>
-        public PanEventArgs(Point touchPoint, Point translatePoint)
+        public PanEventArgs(GestureStatus status, Point touchPoint, Point translatePoint)
         {
+            _status = status;
             _touchPoint = touchPoint;
             _translatePoint = translatePoint;
         }
+
+        /// <summary>
+        /// Returns <see cref="GestureStatus"/> on pan interaction.
+        /// </summary>
+        public GestureStatus Status { get { return _status; } }
 
         /// <summary>
         /// Returns translate distance point on panning.

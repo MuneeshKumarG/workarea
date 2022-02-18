@@ -17,6 +17,8 @@ namespace Syncfusion.Maui.Core.Internals
         private List<IPanGestureListener>? panGestureListeners;
         private List<ILongPressGestureListener>? longPressGestureListeners;
         private bool _disposed;
+        internal bool InputTransparent;
+        internal bool IsEnabled;
         internal readonly View MauiView;
 
         /// <summary>
@@ -36,6 +38,17 @@ namespace Syncfusion.Maui.Core.Internals
                 mauiView.HandlerChanged += MauiView_HandlerChanged;
                 mauiView.HandlerChanging += MauiView_HandlerChanging;
             }
+            mauiView.PropertyChanged += MauiView_PropertyChanged;
+            IsEnabled = mauiView.IsEnabled;
+            InputTransparent = mauiView.InputTransparent;
+        }
+
+        private void MauiView_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == VisualElement.InputTransparentProperty.PropertyName)
+                InputTransparent = MauiView.InputTransparent;
+            else if (e.PropertyName == VisualElement.IsEnabledProperty.PropertyName)
+                IsEnabled = MauiView.IsEnabled;
         }
 
         private void MauiView_HandlerChanged(object? sender, EventArgs e)
@@ -185,13 +198,14 @@ namespace Syncfusion.Maui.Core.Internals
         /// <summary>
         /// Invoke on pan interaction.
         /// </summary>
+        /// <param name="state"></param>
         /// <param name="startPoint">Type of <see cref="Point"/></param>
         /// <param name="scalePoint">Type of <see cref="Point"/></param>
-        internal virtual void OnScroll(Point startPoint, Point scalePoint)
+        internal virtual void OnScroll(GestureStatus state, Point startPoint, Point scalePoint)
         {
             if (panGestureListeners != null)
             {
-                PanEventArgs eventArgs = new PanEventArgs(startPoint, scalePoint);
+                PanEventArgs eventArgs = new PanEventArgs(state,startPoint, scalePoint);
                 foreach (var listener in panGestureListeners)
                 {
                     listener.OnPan(eventArgs);
@@ -250,6 +264,7 @@ namespace Syncfusion.Maui.Core.Internals
                 UnsubscribeNativeGestureEvents(mauiView.Handler!);
                 mauiView.HandlerChanged -= MauiView_HandlerChanged;
                 mauiView.HandlerChanging -= MauiView_HandlerChanging;
+                MauiView.PropertyChanged -= MauiView_PropertyChanged;
                 mauiView = null;
             }
         }
