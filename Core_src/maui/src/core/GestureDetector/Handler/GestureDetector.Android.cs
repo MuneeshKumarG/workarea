@@ -3,7 +3,7 @@ using MauiView = Microsoft.Maui.Controls.View;
 using AGestureDetector = Android.Views.GestureDetector;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui;
-using GestureStatus = Microsoft.Maui.Controls.GestureStatus;
+using GestureStatus = Microsoft.Maui.GestureStatus;
 using System;
 using Microsoft.Maui.Platform;
 
@@ -23,7 +23,7 @@ namespace Syncfusion.Maui.Core.Internals
             if (mauiView != null)
             {
                 var handler = mauiView.Handler;
-                View? nativeView = handler.NativeView as View;
+                View? nativeView = handler?.NativeView as View;
 
                 if (nativeView != null)
                 {
@@ -48,11 +48,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_Touch(object? sender, View.TouchEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             var motionEvent = e.Event;
 
             if (motionEvent != null)

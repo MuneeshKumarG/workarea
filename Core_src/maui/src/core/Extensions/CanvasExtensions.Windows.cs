@@ -37,7 +37,8 @@ namespace Syncfusion.Maui.Graphics.Internals
 				{
 					IFontManager? fontManager = MauiWinUIApplication.Current.Services.GetRequiredService<IFontManager>();
 					var font = textElement.Font;
-					format.FontFamily = fontManager.GetFontFamily(font).ToString();
+					var fontFamily = fontManager.GetFontFamily(font);
+					format.FontFamily = fontFamily.Source;
 					format.FontSize = (float)textElement.FontSize;
 					format.FontStyle = font.ToFontStyle();
 					format.FontWeight = font.ToFontWeight();
@@ -63,7 +64,8 @@ namespace Syncfusion.Maui.Graphics.Internals
 				{
 					IFontManager? fontManager = MauiWinUIApplication.Current.Services.GetRequiredService<IFontManager>();
 					var font = textElement.Font;
-					format.FontFamily = fontManager.GetFontFamily(font).ToString();
+					var fontFamily = fontManager.GetFontFamily(font);
+					format.FontFamily = fontFamily.Source;
 					format.FontSize = (float)textElement.FontSize;
 					format.FontStyle = font.ToFontStyle();
 					format.FontWeight = font.ToFontWeight();

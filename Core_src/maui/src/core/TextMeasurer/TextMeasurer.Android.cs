@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
+using Font = Microsoft.Maui.Font;
 
 namespace Syncfusion.Maui.Graphics.Internals
 {

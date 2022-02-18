@@ -4,8 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 using System.Runtime.Versioning;
+using Font = Microsoft.Maui.Font;
 using Paint = Android.Graphics.Paint;
 
 namespace Syncfusion.Maui.Graphics.Internals
@@ -36,7 +37,7 @@ namespace Syncfusion.Maui.Graphics.Internals
                 Font font = textElement.Font;
                 Typeface? tf = fontManager.GetTypeface(font);
 				paint.SetTypeface(tf);
-				if (scalingCanvas.ParentCanvas is NativeCanvas nativeCanvas)
+				if (scalingCanvas.ParentCanvas is PlatformCanvas nativeCanvas)
 				{
 					paint.TextSize = (float)(textElement.FontSize * nativeCanvas.DisplayScale);
 					nativeCanvas.DrawText(value, x, y, paint);
@@ -65,7 +66,7 @@ namespace Syncfusion.Maui.Graphics.Internals
 				Font font = textElement.Font;
 				Typeface? tf = fontManager.GetTypeface(font);
 				paint.SetTypeface(tf);
-				if (scalingCanvas.ParentCanvas is NativeCanvas nativeCanvas)
+				if (scalingCanvas.ParentCanvas is PlatformCanvas nativeCanvas)
 				{
 					paint.TextSize = (float)(textElement.FontSize * nativeCanvas.DisplayScale);
 					nativeCanvas.Canvas.Save();
@@ -127,7 +128,7 @@ namespace Syncfusion.Maui.Graphics.Internals
 			}
 		}
 
-		private static void DrawText(this NativeCanvas nativeCanvas, string value, float x, float y, TextPaint textPaint)
+		private static void DrawText(this PlatformCanvas nativeCanvas, string value, float x, float y, TextPaint textPaint)
 		{
 			Canvas canvas = nativeCanvas.Canvas;
 			canvas.DrawText(value, x * nativeCanvas.DisplayScale, y * nativeCanvas.DisplayScale, textPaint);
@@ -143,7 +144,7 @@ namespace Syncfusion.Maui.Graphics.Internals
 		{
 			if (canvas is ScalingCanvas scalingCanvas)
 			{
-				if (scalingCanvas.ParentCanvas is NativeCanvas nativeCanvas)
+				if (scalingCanvas.ParentCanvas is PlatformCanvas nativeCanvas)
 				{
 					Paint paint = LineDrawUtils.PaintCache;
 					if (lineDrawing.StrokeDashArray != null && lineDrawing.StrokeDashArray.Count > 0)

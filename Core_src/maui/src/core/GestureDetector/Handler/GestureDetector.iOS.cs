@@ -1,6 +1,6 @@
 using Microsoft.Maui.Graphics;
 using MauiView = Microsoft.Maui.Controls.View;
-using GestureStatus = Microsoft.Maui.Controls.GestureStatus;
+using GestureStatus = Microsoft.Maui.GestureStatus;
 using UIKit;
 using System;
 using CoreGraphics;
@@ -22,7 +22,7 @@ namespace Syncfusion.Maui.Core.Internals
             if (mauiView != null)
             {
                 var handler = mauiView.Handler;
-                UIView? nativeView = handler.NativeView as UIView;
+                UIView? nativeView = handler?.NativeView as UIView;
                 if (nativeView != null)
                 {
                     // TODO : If dynamically add the gesture listeners, it won't work. Because below native gesture listeners created based on listener collection count, but dynamic case, this method executed before listener added to the collection. Need to do it proper and optimized way. 
@@ -122,11 +122,6 @@ namespace Syncfusion.Maui.Core.Internals
 
             private void OnScroll(GestureDetector gestureDetector)
             {
-                if (!gestureDetector.IsEnabled || gestureDetector.InputTransparent)
-                {
-                    return;
-                }
-
                 var locationInView = LocationInView(View);
                 var translateLocation = TranslationInView(View);
                 
@@ -150,11 +145,6 @@ namespace Syncfusion.Maui.Core.Internals
 
             private void OnPinch(GestureDetector gestureDetector)
             {
-                if (!gestureDetector.IsEnabled || gestureDetector.InputTransparent)
-                {
-                    return;
-                }
-
                 var locationInView = LocationInView(View);
                 var state = GestureStatus.Completed;
                 double angle = double.NaN;
@@ -202,11 +192,6 @@ namespace Syncfusion.Maui.Core.Internals
 
             private void OnTap(GestureDetector gestureDetector)
             {
-                if (!gestureDetector.IsEnabled || gestureDetector.InputTransparent)
-                {
-                    return;
-                }
-
                var locationInView = LocationInView(View);
                gestureDetector.OnTapped(new Point(locationInView.X, locationInView.Y), (int)NumberOfTapsRequired);
             }
@@ -227,11 +212,6 @@ namespace Syncfusion.Maui.Core.Internals
 
             private void OnLongPress(GestureDetector gestureDetector)
             {
-                if (!gestureDetector.IsEnabled || gestureDetector.InputTransparent)
-                {
-                    return;
-                }
-
                 var locationInView = LocationInView(View);
                 gestureDetector.OnLongPress(new Point(locationInView.X, locationInView.Y));
             }

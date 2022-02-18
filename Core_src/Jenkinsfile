@@ -60,9 +60,10 @@ if(currentBuild.result != 'FAILURE' && env.publishBranch.contains(githubSourceBr
 	{
 	  //method to get release notes content
 	   env.PATH = "C:\\Program Files\\Git\\mingw64\\bin;${env.PATH}"  
-       def branchCommit = '"'+'https://api.github.com/essential-studio/maui-core/pulls/'+env.pullRequestId+'/commits'
+       def branchCommit = '"'+'https://gitlab.syncfusion.com/api/v4/projects/3736/merge_requests/'+env.MergeRequestId+'/commits'
 	   String branchCommitDetails = bat returnStdout: true, script: 'curl -H "Accept: application/vnd.github.v3+json" -u SyncfusionBuild:' +env.GithubBuildAutomation_PrivateToken+" "+branchCommit
-	   def splitMessageDetails = branchCommitDetails.split('"message":' )
+	   def splitCommitDetails=branchCommitDetails.split('\n')
+	   def splitMessageDetails = splitCommitDetails[2].split('"message":')
 	   def releaseNotesContent=""; 
 		for(int k=1; k<splitMessageDetails.size();k++)
 		{

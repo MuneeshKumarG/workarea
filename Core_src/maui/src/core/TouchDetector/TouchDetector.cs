@@ -13,8 +13,6 @@ namespace Syncfusion.Maui.Core.Internals
         private readonly List<ITouchListener> touchListeners;
         private bool _disposed;
         internal readonly View MauiView;
-        internal bool InputTransparent;
-        internal bool IsEnabled;
 
         /// <summary>
         /// 
@@ -33,19 +31,8 @@ namespace Syncfusion.Maui.Core.Internals
                 mauiView.HandlerChanged += MauiView_HandlerChanged;
                 mauiView.HandlerChanging += MauiView_HandlerChanging;
             }
-            mauiView.PropertyChanged += MauiView_PropertyChanged;
-            IsEnabled = mauiView.IsEnabled;
-            InputTransparent = mauiView.InputTransparent;
         }
 
-        private void MauiView_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == VisualElement.InputTransparentProperty.PropertyName)
-                InputTransparent = MauiView.InputTransparent;
-            else if (e.PropertyName == VisualElement.IsEnabledProperty.PropertyName)
-                IsEnabled = MauiView.IsEnabled;
-        }
-       
         private void MauiView_HandlerChanged(object? sender, EventArgs e)
         {
             if (sender is View view && view.Handler != null)
@@ -137,10 +124,9 @@ namespace Syncfusion.Maui.Core.Internals
         {
             if (mauiView != null)
             {
-                UnsubscribeNativeTouchEvents(mauiView.Handler);
+                UnsubscribeNativeTouchEvents(mauiView.Handler!);
                 mauiView.HandlerChanged -= MauiView_HandlerChanged;
                 mauiView.HandlerChanging -= MauiView_HandlerChanging;
-                MauiView.PropertyChanged -= MauiView_PropertyChanged;
                 mauiView = null;
             }
         }

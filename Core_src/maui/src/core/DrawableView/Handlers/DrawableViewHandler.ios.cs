@@ -1,10 +1,10 @@
-﻿using Microsoft.Maui.Graphics.Native;
+﻿using Microsoft.Maui.Graphics.Platform;
 using Microsoft.Maui.Handlers;
 using UIKit;
 
 namespace Syncfusion.Maui.Graphics.Internals
 {
-    public partial class DrawableViewHandler : ViewHandler<IDrawableView, NativeGraphicsView>
+    public partial class DrawableViewHandler : ViewHandler<IDrawableView, PlatformGraphicsView>
     {
         #region Methods
 
@@ -12,9 +12,9 @@ namespace Syncfusion.Maui.Graphics.Internals
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override NativeGraphicsView CreateNativeView()
+        protected override PlatformGraphicsView CreateNativeView()
         {
-            return new NativeGraphicsView(VirtualView) { BackgroundColor = UIColor.Clear };
+            return new PlatformGraphicsView(VirtualView) { BackgroundColor = UIColor.Clear };
         }
 
         /// <summary>

@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 using ObjCRuntime;
 using System;
 using UIKit;
@@ -26,7 +26,7 @@ namespace Syncfusion.Maui.Graphics.Internals
         /// <param name="textElement"></param>
         public static void DrawText(this ICanvas canvas, string value, float x, float y, ITextElement textElement)
         {
-            if (canvas is NativeCanvas)
+            if (canvas is PlatformCanvas)
             {
                 IFontManager? fontManager = MauiUIApplicationDelegate.Current.Services.GetRequiredService<IFontManager>();
                 UIFont? uiFont = fontManager.GetFont(textElement.Font, textElement.FontSize);
@@ -51,7 +51,7 @@ namespace Syncfusion.Maui.Graphics.Internals
 		/// <param name="textElement">The text style.</param>
         public static void DrawText(this ICanvas canvas, string value, Rectangle rect, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, ITextElement textElement)
         {
-            if (canvas is NativeCanvas)
+            if (canvas is PlatformCanvas)
             {
                 IFontManager? fontManager = MauiUIApplicationDelegate.Current.Services.GetRequiredService<IFontManager>();
                 UIFont? uiFont = fontManager.GetFont(textElement.Font, textElement.FontSize);
@@ -92,7 +92,7 @@ namespace Syncfusion.Maui.Graphics.Internals
 		/// <param name="lineDrawing"></param>
         public static void DrawLines(this ICanvas canvas, float[] points, ILineDrawing lineDrawing)
         {
-            if (canvas is NativeCanvas nativeCanvas)
+            if (canvas is PlatformCanvas nativeCanvas)
             {
                 CGContext context = nativeCanvas.Context;
                 int j = 0;

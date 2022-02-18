@@ -14,7 +14,7 @@ namespace Syncfusion.Maui.Core.Internals
             if (mauiView != null)
             {
                 var handler = mauiView.Handler;
-                View? nativeView = handler.NativeView as View;
+                View? nativeView = handler?.NativeView as View;
 
                 if (nativeView != null)
                 {
@@ -38,11 +38,7 @@ namespace Syncfusion.Maui.Core.Internals
 
         internal void OnTouch(object? sender, View.TouchEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
+            
             View? nativeView = sender as View;
             
             MotionEvent? motionEvent = e.Event;

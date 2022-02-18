@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using System.ComponentModel;
+using Font = Microsoft.Maui.Font;
 
 namespace Syncfusion.Maui.Graphics.Internals
 {

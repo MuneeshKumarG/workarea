@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,6 @@ namespace Syncfusion.Maui.Core.Internals
         private List<IPanGestureListener>? panGestureListeners;
         private List<ILongPressGestureListener>? longPressGestureListeners;
         private bool _disposed;
-        internal bool InputTransparent;
-        internal bool IsEnabled;
         internal readonly View MauiView;
 
         /// <summary>
@@ -37,17 +36,6 @@ namespace Syncfusion.Maui.Core.Internals
                 mauiView.HandlerChanged += MauiView_HandlerChanged;
                 mauiView.HandlerChanging += MauiView_HandlerChanging;
             }
-            mauiView.PropertyChanged += MauiView_PropertyChanged;
-            IsEnabled = mauiView.IsEnabled;
-            InputTransparent = mauiView.InputTransparent;
-        }
-
-        private void MauiView_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == VisualElement.InputTransparentProperty.PropertyName)
-                InputTransparent = MauiView.InputTransparent;
-            else if (e.PropertyName == VisualElement.IsEnabledProperty.PropertyName)
-                IsEnabled = MauiView.IsEnabled;
         }
 
         private void MauiView_HandlerChanged(object? sender, EventArgs e)
@@ -259,10 +247,9 @@ namespace Syncfusion.Maui.Core.Internals
         {
             if (mauiView != null)
             {
-                UnsubscribeNativeGestureEvents(mauiView.Handler);
+                UnsubscribeNativeGestureEvents(mauiView.Handler!);
                 mauiView.HandlerChanged -= MauiView_HandlerChanged;
                 mauiView.HandlerChanging -= MauiView_HandlerChanging;
-                MauiView.PropertyChanged -= MauiView_PropertyChanged;
                 mauiView = null;
             }
         }

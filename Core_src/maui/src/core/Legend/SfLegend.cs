@@ -137,8 +137,6 @@ namespace Syncfusion.Maui.Core
 
         LegendOrientation ILegend.Orientation { get => Orientation; set {} }
 
-        bool ILegend.IsVisible { get; set; }
-
         internal event EventHandler<LegendItemClickedEventArgs>? ItemClicked;
 
         #endregion
@@ -570,7 +568,11 @@ namespace Syncfusion.Maui.Core
             {
                 var layout = template.CreateContent();
                 var customView = layout is ViewCell ? (layout as ViewCell)?.View : layout as View;
+#if WINDOWS
+                if (customView != null && e.Element != null && customView.Width > 0 && customView.Height > 0)
+#else
                 if (customView != null && e.Element != null)
+#endif
                 {
                     var contentView = e.Element as ContentView;
                     if (contentView != null)

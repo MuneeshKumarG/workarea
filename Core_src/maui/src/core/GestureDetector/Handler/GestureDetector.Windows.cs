@@ -20,7 +20,7 @@ namespace Syncfusion.Maui.Core.Internals
             if (mauiView != null)
             {
                 var handler = mauiView.Handler;
-                UIElement? nativeView = handler.NativeView as UIElement;
+                UIElement? nativeView = handler?.NativeView as UIElement;
                 if (nativeView != null)
                 {
                     if (tapGestureListeners != null && tapGestureListeners.Count > 0)
@@ -55,22 +55,12 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             //TODO : need to check and refix the issue with e.Position value of ManipulationRoutedDelatEventArgs instead using below position.
             touchMovePoint = e.GetCurrentPoint(sender as UIElement).Position;
         }
 
         private void NativeView_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             uint id = e.Pointer.PointerId;
             if (fingers.Contains(id))
                 fingers.Remove(id);
@@ -79,11 +69,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_PointerCanceled(object sender, PointerRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             uint id = e.Pointer.PointerId;
             if (fingers.Contains(id))
                 fingers.Remove(id);
@@ -93,11 +78,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             uint id = e.Pointer.PointerId;
             if (fingers.Contains(id))
                 fingers.Remove(id);
@@ -107,11 +87,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             uint id = e.Pointer.PointerId;
             if (!fingers.Contains(id))
                 fingers.Add(id);
@@ -132,11 +107,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             var scalePoint = new Point(e.Position.X, e.Position.Y);
             var translationPoint = new Point(e.Cumulative.Translation.X, e.Cumulative.Translation.Y);
             double angle = MathUtils.GetAngle(scalePoint.X, translationPoint.X, scalePoint.Y, translationPoint.Y);
@@ -145,11 +115,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             bool isTouchHandled = false;
 
             OnPinch(e);
@@ -175,11 +140,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             wasPinchStarted = false;
         }
 
@@ -243,11 +203,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_Holding(object sender, HoldingRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             if (longPressGestureListeners == null || longPressGestureListeners.Count == 0) return;
 
             var touchPoint = e.GetPosition(sender as UIElement);
@@ -268,11 +223,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             if (doubleTapGestureListeners == null || doubleTapGestureListeners.Count == 0) return;
 
             var touchPoint = e.GetPosition(sender as UIElement);
@@ -290,11 +240,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             if (tapGestureListeners == null || tapGestureListeners.Count == 0) return;
 
             var touchPoint = e.GetPosition(sender as UIElement);

@@ -13,7 +13,7 @@ namespace Syncfusion.Maui.Core.Internals
             if (mauiView != null)
             {
                 var handler = mauiView.Handler;
-                UIElement? nativeView = handler.NativeView as UIElement;
+                UIElement? nativeView = handler?.NativeView as UIElement;
                 if (nativeView != null)
                 {
                     nativeView.PointerPressed += NativeView_PointerPressed;
@@ -26,11 +26,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
-
             var nativeView = sender as UIElement;
             if (nativeView != null)
             {
@@ -45,10 +40,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
             var nativeView = sender as UIElement;
             if (nativeView != null)
             {
@@ -59,10 +50,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_PointerCanceled(object sender, PointerRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
             var nativeView = sender as UIElement;
             if (nativeView != null)
             {
@@ -77,10 +64,6 @@ namespace Syncfusion.Maui.Core.Internals
 
         private void NativeView_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            if (!IsEnabled || InputTransparent)
-            {
-                return;
-            }
             var nativeView = sender as UIElement;
             if (nativeView != null)
             {
