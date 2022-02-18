@@ -259,7 +259,7 @@ namespace Syncfusion.Maui.Core.Internals
         {
             if (mauiView != null)
             {
-                UnsubscribeNativeGestureEvents(mauiView.Handler!);
+                UnsubscribeNativeGestureEvents(mauiView.Handler);
                 mauiView.HandlerChanged -= MauiView_HandlerChanged;
                 mauiView.HandlerChanging -= MauiView_HandlerChanging;
                 MauiView.PropertyChanged -= MauiView_PropertyChanged;

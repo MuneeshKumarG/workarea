@@ -23,7 +23,7 @@ namespace Syncfusion.Maui.Core.Internals
             if (mauiView != null)
             {
                 var handler = mauiView.Handler;
-                View? nativeView = handler?.NativeView as View;
+                View? nativeView = handler.NativeView as View;
 
                 if (nativeView != null)
                 {
@@ -216,7 +216,7 @@ namespace Syncfusion.Maui.Core.Internals
             {
                 if (e1 != null && e2 != null && e2.PointerCount == 1)
                 {
-                    Point point = new Point(e2.GetX(e2.ActionIndex), e2.GetY(e2.ActionIndex));
+                    Point point = new Point(e1.GetX(e1.ActionIndex), e1.GetY(e1.ActionIndex));
                     Func<double, double> fromPixels = Android.App.Application.Context.FromPixels;
                     point = new Point(fromPixels(point.X), fromPixels(point.Y));
                     detector?.OnScroll(point, new Point(fromPixels(distanceX), fromPixels(distanceY)));

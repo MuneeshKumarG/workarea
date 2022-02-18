@@ -6,9 +6,9 @@
       "Assemblies": [
         {
           "Name": "Syncfusion.Maui.Core",
-          "EnableFxCopAnalyzer": true,
+          "EnableFxCopAnalyzer": false,
           "EnableStyleCopAnalyzer": false,
-          "TreatWarningsAsErrors": true
+          "TreatWarningsAsErrors": false
         }
       ]
     }    

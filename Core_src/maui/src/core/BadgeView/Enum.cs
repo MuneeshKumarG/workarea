@@ -1,10 +1,6 @@
-﻿// <copyright file="Enum.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
-namespace Syncfusion.Maui.Core
+﻿namespace Syncfusion.Maui.Core
 {
-    #region Enum
+    #region enum
 
     /// <summary>
     /// Defines the badge type for the badge control for predefined style.
@@ -105,17 +101,17 @@ namespace Syncfusion.Maui.Core
     public enum BadgeAlignment
     {
         /// <summary>
-        /// To define the badge alignment as start.
+        /// To define the badge alignment as start
         /// </summary>
         Start,
 
         /// <summary>
-        /// To define the badge alignment as center.
+        /// To define the badge alignment as center
         /// </summary>
         Center,
 
         /// <summary>
-        /// To define the badge alignment as end.
+        /// To define the badge alignment as end
         /// </summary>
         End,
     }
@@ -123,34 +119,9 @@ namespace Syncfusion.Maui.Core
     /// <summary>
     /// Defines the predefined icons for badge.
     /// </summary>
-    // TODO: Need to fix the font icon issue in library or need to draw the icons.
-    public enum BadgeIcon
+    //TODO: Need to fix the font icon issue in library or need to draw the icons
+    internal enum BadgeIcon
     {
-        /// <summary>
-        /// To define the badge icon as add.
-        /// </summary>
-        Add,
-
-        /// <summary>
-        /// To define the badge icon as available.
-        /// </summary>
-        Available,
-
-        /// <summary>
-        /// To define the badge icon as away.
-        /// </summary>
-        Away,
-
-        /// <summary>
-        /// To define the badge icon as busy.
-        /// </summary>
-        Busy,
-
-        /// <summary>
-        /// To define the badge icon as delete.
-        /// </summary>
-        Delete,
-
         /// <summary>
         /// To define the badge icon as dot.
         /// </summary>
@@ -160,16 +131,6 @@ namespace Syncfusion.Maui.Core
         /// To define the badge icon as None.
         /// </summary>
         None,
-
-        /// <summary>
-        /// To define the badge icon as prohibit1.
-        /// </summary>
-        Prohibit1,
-
-        /// <summary>
-        /// To define the badge icon as prohibit2.
-        /// </summary>
-        Prohibit2,
     }
 
     #endregion

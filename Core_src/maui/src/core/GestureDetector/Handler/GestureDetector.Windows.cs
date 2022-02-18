@@ -20,7 +20,7 @@ namespace Syncfusion.Maui.Core.Internals
             if (mauiView != null)
             {
                 var handler = mauiView.Handler;
-                UIElement? nativeView = handler?.NativeView as UIElement;
+                UIElement? nativeView = handler.NativeView as UIElement;
                 if (nativeView != null)
                 {
                     if (tapGestureListeners != null && tapGestureListeners.Count > 0)

@@ -124,29 +124,9 @@ namespace Syncfusion.Maui.Core.Internals
         internal void OnTouchAction(long pointerId, TouchActions action, Point point)
         {
             TouchEventArgs eventArgs = new TouchEventArgs(pointerId, action, point);
-            OnTouchAction(eventArgs);
-        }
-
-        internal void OnTouchAction(long pointerId, TouchActions action, PointerDeviceType deviceType , Point point)
-        {
-            TouchEventArgs eventArgs = new TouchEventArgs(pointerId, action, deviceType, point);
-            OnTouchAction(eventArgs);
-        }
-
-        internal void OnTouchAction(TouchEventArgs eventArgs)
-        {
             foreach (var listener in touchListeners)
             {
                 listener.OnTouch(eventArgs);
-            }
-        }
-
-        internal void OnScrollAction(long pointerId, Point origin, double direction)
-        {
-            ScrollEventArgs eventArgs = new ScrollEventArgs(pointerId, origin, direction);
-            foreach (var listener in touchListeners)
-            {
-                listener.OnScrollWheel(eventArgs);
             }
         }
 
@@ -157,7 +137,7 @@ namespace Syncfusion.Maui.Core.Internals
         {
             if (mauiView != null)
             {
-                UnsubscribeNativeTouchEvents(mauiView.Handler!);
+                UnsubscribeNativeTouchEvents(mauiView.Handler);
                 mauiView.HandlerChanged -= MauiView_HandlerChanged;
                 mauiView.HandlerChanging -= MauiView_HandlerChanging;
                 MauiView.PropertyChanged -= MauiView_PropertyChanged;

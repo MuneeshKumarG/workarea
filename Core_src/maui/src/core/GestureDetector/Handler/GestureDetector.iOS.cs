@@ -22,7 +22,7 @@ namespace Syncfusion.Maui.Core.Internals
             if (mauiView != null)
             {
                 var handler = mauiView.Handler;
-                UIView? nativeView = handler?.NativeView as UIView;
+                UIView? nativeView = handler.NativeView as UIView;
                 if (nativeView != null)
                 {
                     // TODO : If dynamically add the gesture listeners, it won't work. Because below native gesture listeners created based on listener collection count, but dynamic case, this method executed before listener added to the collection. Need to do it proper and optimized way. 
@@ -112,7 +112,7 @@ namespace Syncfusion.Maui.Core.Internals
 
             bool GestureRecognizer(UIGestureRecognizer gestureRecognizer, UIGestureRecognizer otherGestureRecognizer)
             {
-                if (otherGestureRecognizer is UITouchRecognizerExt || otherGestureRecognizer is UIScrollRecognizerExt || gestureListener == null)
+                if (otherGestureRecognizer is UITouchRecognizerExt || gestureListener == null)
                 {
                     return true;
                 }
