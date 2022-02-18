@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using Syncfusion.Maui.Graphics.Internals;
+using Font = Microsoft.Maui.Font;
 
 namespace Syncfusion.Maui.Gauges
 {

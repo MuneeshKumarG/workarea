@@ -193,13 +193,22 @@ namespace Syncfusion.Maui.Gauges
             BindableProperty.Create(nameof(ShowLabels), typeof(bool), typeof(SfLinearGauge), true, propertyChanged: OnScaleInvalidatePropertyChanged);
 
         /// <summary>
-        /// Identifies the <see cref="EnableLoadingAnimation"/> bindable property.
+        /// Identifies the <see cref="AnimateAxis"/> bindable property.
         /// </summary>
         /// <value>
-        /// The identifier for <see cref="EnableLoadingAnimation"/> bindable property.
+        /// The identifier for <see cref="AnimateAxis"/> bindable property.
         /// </value>
-        public static readonly BindableProperty EnableLoadingAnimationProperty =
-            BindableProperty.Create(nameof(EnableLoadingAnimation), typeof(bool), typeof(SfLinearGauge), false);
+        public static readonly BindableProperty AnimateAxisProperty =
+            BindableProperty.Create(nameof(AnimateAxis), typeof(bool), typeof(SfLinearGauge), false);
+
+        /// <summary>
+        /// Identifies the <see cref="AnimateRange"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="AnimateRange"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty AnimateRangeProperty =
+            BindableProperty.Create(nameof(AnimateRange), typeof(bool), typeof(SfLinearGauge), false);
 
         /// <summary>
         /// Identifies the <see cref="AnimationDuration"/> bindable property.
@@ -265,7 +274,7 @@ namespace Syncfusion.Maui.Gauges
         private double scaleLineLength, pointersMaxSize;
         private PointF majorTicksLayoutPosition, minorTicksLayoutPosition, labelsLayoutPosition;
         private Size firstLabelSize, lastLabelSize;
-        private bool isTouchHandled, canAnimate = true;
+        private bool isTouchHandled, canAnimateScale = true, canAnimateRange = true;
 
         internal AbsoluteLayout RangeLayout, BarPointersLayout, MarkerPointersLayout;
         internal Point ScalePosition;
@@ -273,6 +282,7 @@ namespace Syncfusion.Maui.Gauges
         internal List<GaugeLabelInfo>? VisibleLabels;
         internal List<AxisTickInfo> MajorTickPositions, MinorTickPositions;
         internal double ActualMinimum, ActualMaximum, ActualInterval;
+        internal bool IsScaleAnimationCompleted = false;
 
         #endregion
 
@@ -316,10 +326,6 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         public event EventHandler<LabelCreatedEventArgs> LabelCreated;
 
-        /// <summary>
-        /// Called when the user is done selecting a new value of the pointer by dragging.
-        /// </summary>
-        public event EventHandler<EventArgs> AnimationCompleted;
 #nullable enable
 
         #endregion
@@ -565,15 +571,27 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to animate linear gauge in load time.
+        /// Gets or sets a value indicating whether to animate linear gauge scale in load time.
         /// </summary>
         /// <value>
         /// <b>The default value is false</b>.
         /// </value>
-        public bool EnableLoadingAnimation
+        public bool AnimateAxis
         {
-            get { return (bool)this.GetValue(EnableLoadingAnimationProperty); }
-            set { this.SetValue(EnableLoadingAnimationProperty, value); }
+            get { return (bool)this.GetValue(AnimateAxisProperty); }
+            set { this.SetValue(AnimateAxisProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to animate linear gauge range in load time.
+        /// </summary>
+        /// <value>
+        /// <b>The default value is false</b>.
+        /// </value>
+        public bool AnimateRange
+        {
+            get { return (bool)this.GetValue(AnimateRangeProperty); }
+            set { this.SetValue(AnimateRangeProperty, value); }
         }
 
         /// <summary>
@@ -701,17 +719,32 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets boolean value, that represents the loading animation.
+        /// Gets or sets boolean value, that represents the scale loading animation.
         /// </summary>
-        internal bool CanAnimate
+        internal bool CanAnimateScale
         {
             get
             {
-                return canAnimate && EnableLoadingAnimation && AnimationDuration > 0;
+                return canAnimateScale && AnimateAxis && AnimationDuration > 0;
             }
             set
             {
-                canAnimate = value;
+                canAnimateScale = value;
+            }
+        }
+
+        // <summary>
+        /// Gets or sets boolean value, that represents the range loading animation.
+        /// </summary>
+        internal bool CanAnimateRange
+        {
+            get
+            {
+                return canAnimateRange && AnimateRange && AnimationDuration > 0;
+            }
+            set
+            {
+                canAnimateRange = value;
             }
         }
 
@@ -850,8 +883,10 @@ namespace Syncfusion.Maui.Gauges
 
         internal void Draw(ICanvas canvas)
         {
-            if (this.CanAnimate && (this.ShowLabels || this.ShowLine || this.ShowTicks ||(this.Ranges != null && this.Ranges.Count>0)))
-                this.Opacity = 0;
+            if (this.CanAnimateScale)
+                this.linearScaleView.Opacity = 0;
+            if (this.CanAnimateRange)
+                this.RangeLayout.Opacity = 0;
 
             if (this.ShowLine)
             {
@@ -869,10 +904,8 @@ namespace Syncfusion.Maui.Gauges
                 this.DrawScaleLabels(canvas);
             }
 
-            if(this.CanAnimate)
-            {
+            if (this.CanAnimateScale || this.CanAnimateRange)
                 PerformLoadingAnimation();
-            }
         }
 
         /// <summary>
@@ -981,6 +1014,9 @@ namespace Syncfusion.Maui.Gauges
 
             if (newView is View newChild && !this.MarkerPointersLayout.Children.Contains(newChild))
             {
+                if (CanAnimateScale || CanAnimateRange)
+                    newChild.Opacity = 0;
+
                 this.MarkerPointersLayout.Children.Add(newChild);
             }
         }
@@ -1589,8 +1625,12 @@ namespace Syncfusion.Maui.Gauges
             {
                 this.UpdateScaleElements();
                 this.CreateRanges();
-                this.CreateBarPointers();
-                this.CreateMarkerPointers();
+
+                if ((!CanAnimateScale && !CanAnimateRange) || this.IsScaleAnimationCompleted)
+                {
+                    this.CreateBarPointers();
+                    this.CreateMarkerPointers();
+                }
             }
         }
 
@@ -1618,6 +1658,8 @@ namespace Syncfusion.Maui.Gauges
                 foreach (BarPointer barPointer in this.BarPointers)
                 {
                     barPointer.CreatePointer();
+
+                    barPointer.InvalidateDrawable();
                 }
             }
         }
@@ -1631,10 +1673,9 @@ namespace Syncfusion.Maui.Gauges
             {
                 foreach (LinearMarkerPointer pointer in this.MarkerPointers)
                 {
-                    if (CanAnimate && pointer is ContentPointer contentPointer && contentPointer.Content != null)
-                        contentPointer.Content.Opacity = 0;
-
                     pointer.CreatePointer();
+
+                    pointer.InvalidateDrawable();
                 }
             }
         }
@@ -3176,66 +3217,8 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         private void PerformLoadingAnimation()
         {
-            //Prepare loading animation section list.
-            List<string> list = new List<string>();
-            if (this.ShowLine || this.ShowTicks || this.ShowLabels || (this.Ranges != null && this.Ranges.Count > 0))
-                list.Add("Scale");
-            if ((this.BarPointers != null && this.BarPointers.Count > 0) || (this.MarkerPointers != null && this.MarkerPointers.Count > 0))
-                list.Add("Pointers");
-
-            if (list.Count == 0) return;
-
-            //Calculate animation duration factor for each section.
-            double animationDurationFactor = 1d / list.Count;
-            double animationBegin = 0;
-
-            var parentAnimation = new Animation();
-
-            //Create scale animation.
-            if (list.Contains("Scale"))
-            {
-                var animation = new Animation(this.OnAnimationUpdate, 0, 1, null, null);
-
-                double animationEnd = animationBegin + animationDurationFactor;
-                animationEnd = animationEnd > 1 ? 1 : animationEnd;
-                parentAnimation.Add(animationBegin, animationEnd, animation);
-                animationBegin = animationEnd;
-            }
-
-            //Create pointers animation.
-            if (list.Contains("Pointers"))
-            {
-                double animationEnd = animationBegin + animationDurationFactor;
-                animationEnd = animationEnd > 1 ? 1 : animationEnd;
-
-                if (this.BarPointers != null)
-                {
-                    foreach (var pointer in this.BarPointers)
-                    {
-                        var animation = new Animation(pointer.OnAnimationUpdate, this.ActualMinimum,
-                            pointer.Value, Easing.Linear, null);
-                        pointer.CanAnimate = false;
-                        parentAnimation.Add(animationBegin, animationEnd, animation);
-
-                    }
-                }
-                if (this.MarkerPointers != null)
-                {
-                    foreach (var pointer in this.MarkerPointers)
-                    {
-                        var animation = new Animation(pointer.OnAnimationUpdate, this.ActualMinimum,
-                            pointer.Value, Easing.Linear, null);
-                        pointer.CanAnimate = false;
-                        parentAnimation.Add(animationBegin, animationEnd, animation);
-
-                    }
-                }
-                animationBegin = animationEnd;
-            }
-
-            //Start loading animation.
-            parentAnimation.Commit(this, "GaugeLoadingAnimation", 16, (uint)AnimationDuration,
-                Easing.Linear, OnAnimationFinished, null);
+            AnimationExtensions.Animate(this, "GaugeLoadingAnimation", this.OnAnimationUpdate, 0, 1,
+                    16, (uint)this.AnimationDuration, null, this.OnAnimationFinished, null);
         }
 
         /// <summary>
@@ -3244,7 +3227,10 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="value">Represents animation value.</param>
         internal void OnAnimationUpdate(double value)
         {
-            this.Opacity = (float)value;
+            if (this.CanAnimateScale)
+                this.linearScaleView.Opacity = value;
+            if (this.CanAnimateRange)
+                this.RangeLayout.Opacity = value;
         }
 
         /// <summary>
@@ -3254,35 +3240,13 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="isCompleted">Represents animation complete state.</param>
         private void OnAnimationFinished(double value, bool isCompleted)
         {
-            CanAnimate = false;
-
-            if (this.BarPointers != null)
-            {
-                foreach (var pointer in this.BarPointers)
-                {
-                    pointer.AnimationValue = null;
-                }
-            }
-            if (this.MarkerPointers != null)
-            {
-                foreach (var pointer in this.MarkerPointers)
-                {
-                    pointer.AnimationValue = null;
-                }
-            }
+            IsScaleAnimationCompleted = true;
             AnimationExtensions.AbortAnimation(this, "GaugeLoadingAnimation");
 
-            //Raise animation completed event for loading animation.
-            this.RaiseOnAnimationCompleted(new EventArgs());
-        }
-
-        /// <summary>
-        /// This method is used to raise animation completed event.
-        /// </summary>
-        /// <param name="args">The event argument.</param>
-        private void RaiseOnAnimationCompleted(EventArgs args)
-        {
-            this.AnimationCompleted?.Invoke(this, args);
+            CreateBarPointers();
+            CreateMarkerPointers();
+            
+            CanAnimateScale = CanAnimateRange = false;
         }
 
         #endregion

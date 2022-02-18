@@ -210,7 +210,7 @@ namespace Syncfusion.Maui.Gauges
             if (this.Scale != null && !this.Scale.ScaleAvailableSize.IsZero)
             {
                 actualStartValue = this.Scale.ActualMinimum;
-                actualEndValue = Math.Clamp((this.EnableAnimation || this.Scale.CanAnimate) && this.AnimationValue != null ?
+                actualEndValue = Math.Clamp(this.EnableAnimation && this.AnimationValue != null ?
                     (double)this.AnimationValue : this.Value, this.Scale.ActualMinimum, this.Scale.ActualMaximum);
 
                 Utility.ValidateMinimumMaximumValue(ref actualStartValue, ref actualEndValue);

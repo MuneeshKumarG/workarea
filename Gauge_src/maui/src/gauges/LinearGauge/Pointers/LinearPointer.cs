@@ -248,8 +248,7 @@ namespace Syncfusion.Maui.Gauges
         {
             get
             {
-                return this.Scale != null && !this.Scale.CanAnimate &&
-                    this.EnableAnimation && this.canAnimate;
+                return this.EnableAnimation && this.canAnimate;
             }
 
             set

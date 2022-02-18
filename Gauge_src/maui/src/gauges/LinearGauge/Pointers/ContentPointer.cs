@@ -53,7 +53,7 @@ namespace Syncfusion.Maui.Gauges
             {
                 double actualValue;
 
-                if ((this.EnableAnimation || this.Scale.CanAnimate) && this.AnimationValue != null)
+                if (this.EnableAnimation && this.AnimationValue != null)
                 {
                     actualValue = (double)this.AnimationValue;
                 }
@@ -80,10 +80,8 @@ namespace Syncfusion.Maui.Gauges
                     Utility.Swap(ref x, ref y);
                 }
 
-                if (this.Content.Opacity == 0 && this.Scale.CanAnimate && this.AnimationValue != null)
-                {
+                if (this.Content.Opacity == 0)
                     this.Content.Opacity = 1;
-                }
 
                 Rectangle rectangle = new Rectangle(new Point(x, y), Content.DesiredSize);
                 AbsoluteLayout.SetLayoutBounds(Content, rectangle);
