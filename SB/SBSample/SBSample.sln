@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SBSample", "SBSample\SBSample.csproj", "{135AED8C-22FE-4899-9B47-7142CFA444CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syncfusion.Maui.Core", "..\..\workarea1\Core_src\maui\src\core\Syncfusion.Maui.Core.csproj", "{801440E2-8019-45B3-AD85-2A6838D385A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syncfusion.Maui.Core", "..\..\Core_src\maui\src\core\Syncfusion.Maui.Core.csproj", "{20812FD6-56BF-496D-8CC7-93569BED2870}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syncfusion.Maui.Gauges", "..\..\workarea1\Gauge_src\maui\src\gauges\Syncfusion.Maui.Gauges.csproj", "{693FCCDA-C113-49A6-AF94-D7D6A9EAB1DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syncfusion.Maui.Gauges", "..\..\Gauge_src\maui\src\gauges\Syncfusion.Maui.Gauges.csproj", "{957228E8-3297-4829-B6FA-25B295E9CFC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,18 +25,18 @@ Global
 		{135AED8C-22FE-4899-9B47-7142CFA444CD}.Release-Xml|Any CPU.ActiveCfg = Release|Any CPU
 		{135AED8C-22FE-4899-9B47-7142CFA444CD}.Release-Xml|Any CPU.Build.0 = Release|Any CPU
 		{135AED8C-22FE-4899-9B47-7142CFA444CD}.Release-Xml|Any CPU.Deploy.0 = Release|Any CPU
-		{801440E2-8019-45B3-AD85-2A6838D385A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{801440E2-8019-45B3-AD85-2A6838D385A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{801440E2-8019-45B3-AD85-2A6838D385A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{801440E2-8019-45B3-AD85-2A6838D385A5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{801440E2-8019-45B3-AD85-2A6838D385A5}.Release-Xml|Any CPU.ActiveCfg = Release-Xml|Any CPU
-		{801440E2-8019-45B3-AD85-2A6838D385A5}.Release-Xml|Any CPU.Build.0 = Release-Xml|Any CPU
-		{693FCCDA-C113-49A6-AF94-D7D6A9EAB1DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{693FCCDA-C113-49A6-AF94-D7D6A9EAB1DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{693FCCDA-C113-49A6-AF94-D7D6A9EAB1DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{693FCCDA-C113-49A6-AF94-D7D6A9EAB1DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{693FCCDA-C113-49A6-AF94-D7D6A9EAB1DB}.Release-Xml|Any CPU.ActiveCfg = Release-Xml|Any CPU
-		{693FCCDA-C113-49A6-AF94-D7D6A9EAB1DB}.Release-Xml|Any CPU.Build.0 = Release-Xml|Any CPU
+		{20812FD6-56BF-496D-8CC7-93569BED2870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20812FD6-56BF-496D-8CC7-93569BED2870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20812FD6-56BF-496D-8CC7-93569BED2870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20812FD6-56BF-496D-8CC7-93569BED2870}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20812FD6-56BF-496D-8CC7-93569BED2870}.Release-Xml|Any CPU.ActiveCfg = Release-Xml|Any CPU
+		{20812FD6-56BF-496D-8CC7-93569BED2870}.Release-Xml|Any CPU.Build.0 = Release-Xml|Any CPU
+		{957228E8-3297-4829-B6FA-25B295E9CFC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957228E8-3297-4829-B6FA-25B295E9CFC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957228E8-3297-4829-B6FA-25B295E9CFC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957228E8-3297-4829-B6FA-25B295E9CFC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{957228E8-3297-4829-B6FA-25B295E9CFC3}.Release-Xml|Any CPU.ActiveCfg = Release-Xml|Any CPU
+		{957228E8-3297-4829-B6FA-25B295E9CFC3}.Release-Xml|Any CPU.Build.0 = Release-Xml|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
