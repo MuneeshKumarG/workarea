@@ -221,6 +221,8 @@ namespace Syncfusion.Maui.Gauges
                 float pointerEndPosition = (float)this.Scale.GetPositionFromValue(actualEndValue);
                 float halfPointerWidth = (float)this.PointerSize / 2;
                 bool isInversed = false;
+                double actualOffset = this.BarPosition == GaugeElementPosition.Cross ? 0 :
+                    this.BarPosition == GaugeElementPosition.Inside ? this.Offset : -this.Offset;
 
                 if (this.BarPosition == GaugeElementPosition.Cross)
                     scaleLinePositionY = (float)this.Scale.ScalePosition.Y + lineThickness / 2;
@@ -259,8 +261,8 @@ namespace Syncfusion.Maui.Gauges
                 
                 if (this.Scale.IsMirrored)
                 {
-                    y1 = (float)(scaleLinePositionY - this.Offset - halfWidth);
-                    y2 = (float)(scaleLinePositionY - this.Offset + halfWidth);
+                    y1 = (float)(scaleLinePositionY - actualOffset - halfWidth);
+                    y2 = (float)(scaleLinePositionY - actualOffset + halfWidth);
 
                     if (canDrawBarPointer)
                     {
@@ -273,8 +275,8 @@ namespace Syncfusion.Maui.Gauges
                 }
                 else
                 {
-                    y1 = (float)(scaleLinePositionY + this.Offset - halfWidth);
-                    y2 = (float)(scaleLinePositionY + this.Offset + halfWidth);
+                    y1 = (float)(scaleLinePositionY + actualOffset - halfWidth);
+                    y2 = (float)(scaleLinePositionY + actualOffset + halfWidth);
 
                     if (canDrawBarPointer)
                     {

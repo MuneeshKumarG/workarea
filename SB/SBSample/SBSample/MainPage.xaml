@@ -1,0 +1,19 @@
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SBSample.MainPage"
+       xmlns:local="clr-namespace:SBSample" 
+             BackgroundColor="Orange" >
+
+    <FlyoutItem Title="Home">
+        <ShellContent ContentTemplate="{DataTemplate local:HomePage}"
+                      />
+    </FlyoutItem>
+    <FlyoutItem Title="Radial slider">
+        <ShellContent ContentTemplate="{DataTemplate local:Page1}"
+                      />
+    </FlyoutItem>
+    <FlyoutItem Title="Radial range slider">
+        <ShellContent ContentTemplate="{DataTemplate local:Page2}"
+                       />
+    </FlyoutItem>
+</Shell>

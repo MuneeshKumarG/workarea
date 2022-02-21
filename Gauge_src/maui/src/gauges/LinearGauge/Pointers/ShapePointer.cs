@@ -284,15 +284,16 @@ namespace Syncfusion.Maui.Gauges
 
                 double halfWidth = this.ShapeWidth / 2;
                 double halfHeight = this.ShapeHeight / 2;
+                double lineThickness = this.Scale.GetActualScaleLineThickness();
                 if (this.Scale.Orientation == GaugeOrientation.Vertical)
                 {
                     Utility.Swap(ref halfWidth, ref halfHeight);
                 }
 
                 shapePositionX = this.Scale.ScalePosition.X + this.Scale.GetPositionFromValue(actualValue) - halfWidth;
-                shapePositionY = this.Scale.ScalePosition.Y + (this.Scale.GetActualScaleLineThickness() / 2) - halfHeight;
+                shapePositionY = this.Scale.ScalePosition.Y + (lineThickness / 2) - halfHeight;
 
-                this.GetPointerPosition(halfWidth, halfHeight, ref shapePositionX, ref shapePositionY);
+                this.GetPointerPosition(halfWidth, halfHeight + (lineThickness / 2), ref shapePositionX, ref shapePositionY);
                 if (this.Scale.Orientation == GaugeOrientation.Vertical)
                 {
                     Utility.Swap(ref shapePositionX, ref shapePositionY);

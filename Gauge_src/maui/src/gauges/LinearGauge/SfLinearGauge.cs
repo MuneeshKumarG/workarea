@@ -199,7 +199,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="AnimateAxis"/> bindable property.
         /// </value>
         public static readonly BindableProperty AnimateAxisProperty =
-            BindableProperty.Create(nameof(AnimateAxis), typeof(bool), typeof(SfLinearGauge), false);
+            BindableProperty.Create(nameof(AnimateAxis), typeof(bool), typeof(SfLinearGauge), false, propertyChanged: OnScaleAnimatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="AnimateRange"/> bindable property.
@@ -208,7 +208,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="AnimateRange"/> bindable property.
         /// </value>
         public static readonly BindableProperty AnimateRangeProperty =
-            BindableProperty.Create(nameof(AnimateRange), typeof(bool), typeof(SfLinearGauge), false);
+            BindableProperty.Create(nameof(AnimateRange), typeof(bool), typeof(SfLinearGauge), false, propertyChanged: OnScaleAnimatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="AnimationDuration"/> bindable property.
@@ -217,7 +217,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="AnimationDuration"/> bindable property.
         /// </value>
         public static readonly BindableProperty AnimationDurationProperty =
-            BindableProperty.Create(nameof(AnimationDuration), typeof(double), typeof(SfLinearGauge), 1500d);
+            BindableProperty.Create(nameof(AnimationDuration), typeof(double), typeof(SfLinearGauge), 1000d);
 
         /// <summary>
         /// Identifies the <see cref="UseRangeColorForAxis"/> bindable property.
@@ -282,7 +282,7 @@ namespace Syncfusion.Maui.Gauges
         internal List<GaugeLabelInfo>? VisibleLabels;
         internal List<AxisTickInfo> MajorTickPositions, MinorTickPositions;
         internal double ActualMinimum, ActualMaximum, ActualInterval;
-        internal bool IsScaleAnimationCompleted = false;
+        internal bool CanDrawPointer = true;
 
         #endregion
 
@@ -733,7 +733,7 @@ namespace Syncfusion.Maui.Gauges
             }
         }
 
-        // <summary>
+        /// <summary>
         /// Gets or sets boolean value, that represents the range loading animation.
         /// </summary>
         internal bool CanAnimateRange
@@ -906,6 +906,8 @@ namespace Syncfusion.Maui.Gauges
 
             if (this.CanAnimateScale || this.CanAnimateRange)
                 PerformLoadingAnimation();
+            else
+                CanAnimateScale = CanAnimateRange = false;
         }
 
         /// <summary>
@@ -1014,9 +1016,6 @@ namespace Syncfusion.Maui.Gauges
 
             if (newView is View newChild && !this.MarkerPointersLayout.Children.Contains(newChild))
             {
-                if (CanAnimateScale || CanAnimateRange)
-                    newChild.Opacity = 0;
-
                 this.MarkerPointersLayout.Children.Add(newChild);
             }
         }
@@ -1189,6 +1188,21 @@ namespace Syncfusion.Maui.Gauges
             if (bindable is SfLinearGauge sfLinearGauge)
             {
                 sfLinearGauge.ScaleInvalidateMeasureOverride();
+            }
+        }
+
+        /// <summary>
+        /// Called when scale animation properties changed.
+        /// </summary>
+        /// <param name="bindable">The BindableObject.</param>
+        /// <param name="oldValue">Old value.</param>
+        /// <param name="newValue">New value.</param>
+        private static void OnScaleAnimatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is SfLinearGauge sfLinearGauge)
+            {
+                if (sfLinearGauge.canAnimateScale && (bool)newValue)
+                    sfLinearGauge.CanDrawPointer = false;
             }
         }
 
@@ -1626,7 +1640,7 @@ namespace Syncfusion.Maui.Gauges
                 this.UpdateScaleElements();
                 this.CreateRanges();
 
-                if ((!CanAnimateScale && !CanAnimateRange) || this.IsScaleAnimationCompleted)
+                if (this.CanDrawPointer)
                 {
                     this.CreateBarPointers();
                     this.CreateMarkerPointers();
@@ -1659,7 +1673,8 @@ namespace Syncfusion.Maui.Gauges
                 {
                     barPointer.CreatePointer();
 
-                    barPointer.InvalidateDrawable();
+                    if (this.CanDrawPointer)
+                        barPointer.InvalidateDrawable();
                 }
             }
         }
@@ -1675,7 +1690,8 @@ namespace Syncfusion.Maui.Gauges
                 {
                     pointer.CreatePointer();
 
-                    pointer.InvalidateDrawable();
+                    if (this.CanDrawPointer)
+                        pointer.InvalidateDrawable();
                 }
             }
         }
@@ -3086,60 +3102,41 @@ namespace Syncfusion.Maui.Gauges
             {
                 foreach (BarPointer barPointer in this.BarPointers)
                 {
-                    if (barPointer.Offset == 0)
+
+                    if (barPointer.BarPosition == GaugeElementPosition.Cross)
+                        fillPointersSize = Math.Max(barPointer.PointerSize, fillPointersSize);
+                    else if (barPointer.BarPosition == GaugeElementPosition.Inside)
                     {
-                        if (barPointer.BarPosition == GaugeElementPosition.Cross)
-                            fillPointersSize = Math.Max(barPointer.PointerSize, fillPointersSize);
-                        else if (barPointer.BarPosition == GaugeElementPosition.Inside)
-                            insidePointersSize = Math.Max(barPointer.PointerSize, insidePointersSize);
-                        else
-                            outsidePointersSize = Math.Max(barPointer.PointerSize, outsidePointersSize);
-                    }
-                    else if (barPointer.Offset > 0)
-                    {
-                        if (barPointer.BarPosition == GaugeElementPosition.Cross)
-                        {
-                            insidePointersSize = Math.Max((barPointer.PointerSize / 2) + barPointer.Offset - (actualScaleLineThickness / 2), insidePointersSize);
-                            if (barPointer.PointerSize > actualScaleLineThickness)
-                            {
-                                if (barPointer.Offset < (barPointer.PointerSize - actualScaleLineThickness))
-                                {
-                                    outsidePointersSize = Math.Max(((barPointer.PointerSize - actualScaleLineThickness) / 2) - barPointer.Offset, outsidePointersSize);
-                                }
-                            }
-                        }
-                        else if (barPointer.BarPosition == GaugeElementPosition.Inside)
+                        if (barPointer.Offset >= 0)
                         {
                             insidePointersSize = Math.Max(barPointer.PointerSize + barPointer.Offset, insidePointersSize);
                         }
                         else
-                        {
-                            outsidePointersSize = Math.Max(barPointer.PointerSize - barPointer.Offset, outsidePointersSize);
-                            if (barPointer.Offset > actualScaleLineThickness)
-                            {
-                                insidePointersSize = Math.Max(barPointer.Offset - actualScaleLineThickness, insidePointersSize);
-                            }
-                        }
-                    }
-                    else if (barPointer.Offset < 0)
-                    {
-                        double offset = Math.Abs(barPointer.Offset);
-                        if (barPointer.BarPosition == GaugeElementPosition.Cross)
-                        {
-                            outsidePointersSize = Math.Max((barPointer.PointerSize / 2) + offset - (actualScaleLineThickness / 2), outsidePointersSize);
-                        }
-                        else if (barPointer.BarPosition == GaugeElementPosition.Inside)
                         {
                             insidePointersSize = Math.Max(barPointer.PointerSize + barPointer.Offset, insidePointersSize);
 
+                            double offset = Math.Abs(barPointer.Offset);
                             if (offset > actualScaleLineThickness)
                             {
                                 outsidePointersSize = Math.Max(offset - actualScaleLineThickness, outsidePointersSize);
                             }
                         }
+                    }
+                    else
+                    {
+                        if (barPointer.Offset >= 0)
+                        {
+                            outsidePointersSize = Math.Max(barPointer.PointerSize + barPointer.Offset, outsidePointersSize);
+                        }
                         else
                         {
-                            outsidePointersSize = Math.Max(barPointer.PointerSize + offset, outsidePointersSize);
+                            outsidePointersSize = Math.Max(barPointer.PointerSize + barPointer.Offset, outsidePointersSize);
+
+                            double offset = Math.Abs(barPointer.Offset);
+                            if (offset > actualScaleLineThickness)
+                            {
+                                insidePointersSize = Math.Max(offset - actualScaleLineThickness, insidePointersSize);
+                            }
                         }
                     }
                 }
@@ -3173,8 +3170,7 @@ namespace Syncfusion.Maui.Gauges
                 {
                     double pointerOffset = this.Orientation == GaugeOrientation.Horizontal
                         ? markerPointer.OffsetPoint.Y : markerPointer.OffsetPoint.X;
-                    GaugeAlignment pointerPosition = this.Orientation == GaugeOrientation.Horizontal
-                        ? markerPointer.VerticalAlignment : markerPointer.HorizontalAlignment;
+                  
                     double markerSize = 0d;
 
                     if (markerPointer is ShapePointer shapePointer)
@@ -3187,6 +3183,8 @@ namespace Syncfusion.Maui.Gauges
                     {
                         if (contentPointer.Content != null)
                         {
+                            contentPointer.Content.Measure(this.ScaleAvailableSize.Width, this.ScaleAvailableSize.Height);
+
                             markerSize = this.Orientation == GaugeOrientation.Horizontal
                                             ? contentPointer.Content.DesiredSize.Height
                                             : contentPointer.Content.DesiredSize.Width;
@@ -3195,15 +3193,15 @@ namespace Syncfusion.Maui.Gauges
 
                     if (pointerOffset == 0)
                     {
-                        markerPointer.GetMarkerSize(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerPosition, markerSize);
+                        markerPointer.GetMarkerSize(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, markerSize);
                     }
                     else if (pointerOffset > 0)
                     {
-                        markerPointer.GetMarkerSizeWithPositiveOffset(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
+                        markerPointer.GetMarkerSizeWithPositiveOffset(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerOffset, markerSize);
                     }
                     else if (pointerOffset < 0)
                     {
-                        markerPointer.GetMarkerSizeWithNegativeOffset(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerOffset, pointerPosition, markerSize);
+                        markerPointer.GetMarkerSizeWithNegativeOffset(ref outsidePointersSize, ref insidePointersSize, actualAxisLineThickness, pointerOffset, markerSize);
                     }
                 }
             }
@@ -3217,8 +3215,9 @@ namespace Syncfusion.Maui.Gauges
         /// </summary>
         private void PerformLoadingAnimation()
         {
+            this.MarkerPointersLayout.Opacity = 0;
             AnimationExtensions.Animate(this, "GaugeLoadingAnimation", this.OnAnimationUpdate, 0, 1,
-                    16, (uint)this.AnimationDuration, null, this.OnAnimationFinished, null);
+                    16, (uint)this.AnimationDuration, Easing.CubicInOut, this.OnAnimationFinished, null);
         }
 
         /// <summary>
@@ -3240,9 +3239,9 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="isCompleted">Represents animation complete state.</param>
         private void OnAnimationFinished(double value, bool isCompleted)
         {
-            IsScaleAnimationCompleted = true;
             AnimationExtensions.AbortAnimation(this, "GaugeLoadingAnimation");
-
+            this.CanDrawPointer = true;
+            this.MarkerPointersLayout.Opacity = 1;
             CreateBarPointers();
             CreateMarkerPointers();
             

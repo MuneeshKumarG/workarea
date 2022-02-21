@@ -22,22 +22,22 @@ namespace Syncfusion.Maui.Gauges
             typeof(LinearMarkerPointer), null, propertyChanged: OnMarkerPropertyChanged);
 
         /// <summary>
-        /// Identifies the <see cref="HorizontalAlignment"/> bindable property.
+        /// Identifies the <see cref="Alignment"/> bindable property.
         /// </summary>
         /// <value>
-        /// The identifier for <see cref="HorizontalAlignment"/> bindable property.
+        /// The identifier for <see cref="Alignment"/> bindable property.
         /// </value>
-        public static readonly BindableProperty HorizontalAlignmentProperty = BindableProperty.Create(nameof(HorizontalAlignment), 
+        public static readonly BindableProperty AlignmentProperty = BindableProperty.Create(nameof(Alignment), 
             typeof(GaugeAlignment), typeof(LinearMarkerPointer), GaugeAlignment.Center, propertyChanged: OnMarkerPropertyChanged);
 
         /// <summary>
-        /// Identifies the <see cref="VerticalAlignment"/> bindable property.
+        /// Identifies the <see cref="Position"/> bindable property.
         /// </summary>
         /// <value>
-        /// The identifier for <see cref="VerticalAlignment"/> bindable property.
+        /// The identifier for <see cref="Position"/> bindable property.
         /// </value>
-        public static readonly BindableProperty VerticalAlignmentProperty = BindableProperty.Create(nameof(VerticalAlignment), 
-            typeof(GaugeAlignment), typeof(LinearMarkerPointer), GaugeAlignment.Center, propertyChanged: OnMarkerPropertyChanged);
+        public static readonly BindableProperty PositionProperty = BindableProperty.Create(nameof(Position), 
+            typeof(GaugeElementPosition), typeof(LinearMarkerPointer), GaugeElementPosition.Outside, propertyChanged: OnMarkerPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="AllowClip"/> bindable property.
@@ -69,29 +69,29 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets the horizontal placement (left, center or right) of the marker pointer relative to its position. 
+        /// Gets or sets the placement (start, center or end) of the marker pointer relative to its position. 
         /// </summary>
         /// <value>
-        /// One of the enumeration values that specifies the horizontal position of marker in the linear gauge.
+        /// One of the enumeration values that specifies the alignment of marker in the linear gauge.
         /// The default is <see cref="GaugeAlignment.Center"/>.
         /// </value>
-        public GaugeAlignment HorizontalAlignment
+        public GaugeAlignment Alignment
         {
-            get { return (GaugeAlignment)this.GetValue(HorizontalAlignmentProperty); }
-            set { this.SetValue(HorizontalAlignmentProperty, value); }
+            get { return (GaugeAlignment)this.GetValue(AlignmentProperty); }
+            set { this.SetValue(AlignmentProperty, value); }
         }
 
         /// <summary>
-        /// Gets or sets the vertical placement (top, center or bottom) of the marker pointer relative to its position. 
+        /// Gets or sets the placement (top, center or bottom) of the marker pointer relative to scale. 
         /// </summary>
         /// <value>
         /// One of the enumeration values that specifies the vertical position of marker in the linear gauge.
-        /// The default is <see cref="GaugeAlignment.Center"/>.
+        /// The default is <see cref="GaugeElementPosition.Cross"/>.
         /// </value>
-        public GaugeAlignment VerticalAlignment
+        public GaugeElementPosition Position
         {
-            get { return (GaugeAlignment)this.GetValue(VerticalAlignmentProperty); }
-            set { this.SetValue(VerticalAlignmentProperty, value); }
+            get { return (GaugeElementPosition)this.GetValue(PositionProperty); }
+            set { this.SetValue(PositionProperty, value); }
         }
 
         /// <summary>
@@ -139,28 +139,25 @@ namespace Syncfusion.Maui.Gauges
         {
             if (this.Scale != null)
             {
-                GaugeAlignment verticalPosition = this.GetActualViewAlignment(this.Scale.Orientation == GaugeOrientation.Horizontal ?
-                    this.VerticalAlignment : this.HorizontalAlignment);
+                GaugeElementPosition position = this.GetActualViewAlignment(this.Position);
 
-                GaugeAlignment horizontalPosition = this.GetActualViewAlignment(this.Scale.Orientation == GaugeOrientation.Horizontal ?
-                    this.HorizontalAlignment : this.VerticalAlignment);
-                switch (verticalPosition)
+                switch (position)
                 {
-                    case GaugeAlignment.Start:
+                    case GaugeElementPosition.Inside:
                         y += halfHeight;
                         break;
-                    case GaugeAlignment.End:
+                    case GaugeElementPosition.Outside:
                         y -= halfHeight;
                         break;
                 }
 
-                switch (horizontalPosition)
+                switch (Alignment)
                 {
                     case GaugeAlignment.Start:
-                        x += halfWidth;
+                        x -= halfWidth;
                         break;
                     case GaugeAlignment.End:
-                        x -= halfWidth;
+                        x += halfWidth;
                         break;
                 }
 
@@ -198,41 +195,41 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="insidePointerSize">The inside positioned pointer height.</param>
         /// <param name="actualAxisLineThickness">The actual axis line thickness.</param>
         /// <param name="pointerOffset">The pointer offset.</param>
-        /// <param name="pointerPosition">The pointer current position.</param>
         /// <param name="markerSize">The pointer size.</param>
         internal void GetMarkerSizeWithNegativeOffset(ref double outsidePointerSize, ref double insidePointerSize,
-            double actualAxisLineThickness, double pointerOffset, GaugeAlignment pointerPosition, double markerSize)
+            double actualAxisLineThickness, double pointerOffset, double markerSize)
         {
-            switch (pointerPosition)
+            double positiveOffset = Math.Abs(pointerOffset);
+            switch (Position)
             {
-                case GaugeAlignment.Start:
-                    if (actualAxisLineThickness / 2 < Math.Abs(pointerOffset))
+                case GaugeElementPosition.Inside:
+                    if (actualAxisLineThickness < positiveOffset)
                     {
-                        outsidePointerSize = Math.Max(Math.Abs(pointerOffset) - (actualAxisLineThickness / 2), outsidePointerSize);
+                        outsidePointerSize = Math.Max(positiveOffset - actualAxisLineThickness, outsidePointerSize);
                         if (markerSize > actualAxisLineThickness)
                         {
-                            insidePointerSize = Math.Max(Math.Max(markerSize - Math.Abs(pointerOffset) - (actualAxisLineThickness / 2), 0), insidePointerSize);
+                            insidePointerSize = Math.Max(Math.Max(markerSize - positiveOffset, 0), insidePointerSize);
                         }
                     }
                     else
                     {
-                        insidePointerSize = Math.Max(markerSize - (actualAxisLineThickness / 2) + pointerOffset, insidePointerSize);
+                        insidePointerSize = Math.Max(markerSize - pointerOffset, insidePointerSize);
                     }
 
                     break;
-                case GaugeAlignment.Center:
-                    outsidePointerSize = Math.Max(((markerSize - actualAxisLineThickness) / 2) + Math.Abs(pointerOffset), outsidePointerSize);
+                case GaugeElementPosition.Cross:
+                    outsidePointerSize = Math.Max(((markerSize - actualAxisLineThickness) / 2) + positiveOffset, outsidePointerSize);
                     if (markerSize > actualAxisLineThickness)
                     {
-                        if (Math.Abs(pointerOffset) < (markerSize - actualAxisLineThickness))
+                        if (positiveOffset < (markerSize - actualAxisLineThickness))
                         {
                             insidePointerSize = Math.Max(((markerSize - actualAxisLineThickness) / 2) + pointerOffset, insidePointerSize);
                         }
                     }
 
                     break;
-                case GaugeAlignment.End:
-                    outsidePointerSize = Math.Max(markerSize - (actualAxisLineThickness / 2) + Math.Abs(pointerOffset), outsidePointerSize);
+                case GaugeElementPosition.Outside:
+                    outsidePointerSize = Math.Max(markerSize + positiveOffset, outsidePointerSize);
                     break;
             }
         }
@@ -244,17 +241,16 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="insidePointerSize">The inside positioned pointer height.</param>
         /// <param name="actualAxisLineThickness">The actual axis line thickness.</param>
         /// <param name="pointerOffset">The pointer offset.</param>
-        /// <param name="pointerPosition">The pointer current position.</param>
         /// <param name="markerSize">The pointer size.</param>
         internal void GetMarkerSizeWithPositiveOffset(ref double outsidePointerSize, ref double insidePointerSize,
-            double actualAxisLineThickness, double pointerOffset, GaugeAlignment pointerPosition, double markerSize)
+            double actualAxisLineThickness, double pointerOffset, double markerSize)
         {
-            switch (pointerPosition)
+            switch (Position)
             {
-                case GaugeAlignment.Start:
-                    insidePointerSize = Math.Max(markerSize - (actualAxisLineThickness / 2) + pointerOffset, insidePointerSize);
+                case GaugeElementPosition.Inside:
+                    insidePointerSize = Math.Max(markerSize + pointerOffset, insidePointerSize);
                     break;
-                case GaugeAlignment.Center:
+                case GaugeElementPosition.Cross:
                     insidePointerSize = Math.Max(((markerSize - actualAxisLineThickness) / 2) + pointerOffset, insidePointerSize);
                     if (markerSize > actualAxisLineThickness)
                     {
@@ -265,18 +261,18 @@ namespace Syncfusion.Maui.Gauges
                     }
 
                     break;
-                case GaugeAlignment.End:
-                    if (actualAxisLineThickness / 2 < pointerOffset)
+                case GaugeElementPosition.Outside:
+                    if (actualAxisLineThickness < pointerOffset)
                     {
-                        insidePointerSize = Math.Max(pointerOffset - (actualAxisLineThickness / 2), insidePointerSize);
+                        insidePointerSize = Math.Max(pointerOffset - actualAxisLineThickness, insidePointerSize);
                         if (markerSize > actualAxisLineThickness)
                         {
-                            outsidePointerSize = Math.Max(Math.Max(markerSize - pointerOffset - (actualAxisLineThickness / 2), 0), outsidePointerSize);
+                            outsidePointerSize = Math.Max(Math.Max(markerSize - pointerOffset, 0), outsidePointerSize);
                         }
                     }
                     else
                     {
-                        outsidePointerSize = Math.Max(markerSize - (actualAxisLineThickness / 2) - pointerOffset, outsidePointerSize);
+                        outsidePointerSize = Math.Max(markerSize - pointerOffset, outsidePointerSize);
                     }
 
                     break;
@@ -289,22 +285,21 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="outsidePointerSize">The outside positioned pointer height.</param>
         /// <param name="insidePointerSize">The inside positioned pointer height.</param>
         /// <param name="actualAxisLineThickness">The actual axis line thickness.</param>
-        /// <param name="pointerPosition">The pointer current position.</param>
         /// <param name="markerSize">The pointer size.</param>
         internal void GetMarkerSize(ref double outsidePointerSize, ref double insidePointerSize,
-            double actualAxisLineThickness, GaugeAlignment pointerPosition, double markerSize)
+            double actualAxisLineThickness, double markerSize)
         {
-            switch (pointerPosition)
+            switch (Position)
             {
-                case GaugeAlignment.Start:
-                    insidePointerSize = Math.Max(Math.Max(0, markerSize - (actualAxisLineThickness / 2)), insidePointerSize);
+                case GaugeElementPosition.Inside:
+                    insidePointerSize = Math.Max(Math.Max(0, markerSize), insidePointerSize);
                     break;
-                case GaugeAlignment.Center:
+                case GaugeElementPosition.Cross:
                     outsidePointerSize = Math.Max(Math.Max(0, (markerSize / 2) - (actualAxisLineThickness / 2)), outsidePointerSize);
                     insidePointerSize = Math.Max(Math.Max(0, (markerSize / 2) - (actualAxisLineThickness / 2)), insidePointerSize);
                     break;
-                case GaugeAlignment.End:
-                    outsidePointerSize = Math.Max(Math.Max(0, markerSize - (actualAxisLineThickness / 2)), outsidePointerSize);
+                case GaugeElementPosition.Outside:
+                    outsidePointerSize = Math.Max(Math.Max(0, markerSize), outsidePointerSize);
                     break;
             }
         }
@@ -312,22 +307,22 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// To get actual view alignment based on <see cref="SfLinearGauge.IsMirrored"/> property value.
         /// </summary>
-        /// <param name="viewAlignment">The current view alignment.</param>
+        /// <param name="position">The current view alignment.</param>
         /// <returns>Actual view alignment based on <see cref="SfLinearGauge.IsMirrored"/> property value.</returns>
-        private GaugeAlignment GetActualViewAlignment(GaugeAlignment viewAlignment)
+        private GaugeElementPosition GetActualViewAlignment(GaugeElementPosition position)
         {
             if (this.Scale != null && this.Scale.IsMirrored)
             {
-                switch (viewAlignment)
+                switch (position)
                 {
-                    case GaugeAlignment.Start:
-                        return GaugeAlignment.End;
-                    case GaugeAlignment.End:
-                        return GaugeAlignment.Start;
+                    case GaugeElementPosition.Outside:
+                        return GaugeElementPosition.Inside;
+                    case GaugeElementPosition.Inside:
+                        return GaugeElementPosition.Outside;
                 }
             }
 
-            return viewAlignment;
+            return position;
         }
 
         #endregion

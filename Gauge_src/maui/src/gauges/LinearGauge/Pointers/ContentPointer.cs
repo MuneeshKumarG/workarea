@@ -74,14 +74,11 @@ namespace Syncfusion.Maui.Gauges
                 double actualAxisLineThickness = this.Scale.GetActualScaleLineThickness();
                 double x = this.Scale.ScalePosition.X + valuePosition - halfWidth;
                 double y = this.Scale.ScalePosition.Y + (actualAxisLineThickness / 2) - halfHeight;
-                this.GetPointerPosition(halfWidth, halfHeight, ref x, ref y);
+                this.GetPointerPosition(halfWidth, halfHeight + (actualAxisLineThickness / 2), ref x, ref y);
                 if (this.Scale.Orientation == GaugeOrientation.Vertical)
                 {
                     Utility.Swap(ref x, ref y);
                 }
-
-                if (this.Content.Opacity == 0)
-                    this.Content.Opacity = 1;
 
                 Rectangle rectangle = new Rectangle(new Point(x, y), Content.DesiredSize);
                 AbsoluteLayout.SetLayoutBounds(Content, rectangle);

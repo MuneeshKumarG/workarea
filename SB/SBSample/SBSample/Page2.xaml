@@ -1,0 +1,10 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SBSample.Page2"
+               Title="Radial range slider"
+             BackgroundColor="{DynamicResource SecondaryColor}">
+
+    <Grid>
+        <Label Text="Label 2"/>
+    </Grid>
+</ContentPage>

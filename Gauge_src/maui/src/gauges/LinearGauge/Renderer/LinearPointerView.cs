@@ -42,9 +42,7 @@ namespace Syncfusion.Maui.Gauges
         {
             base.Draw(canvas, dirtyRect);
 
-            if (this.linearPointer != null && this.linearPointer.Scale != null
-                && ((!this.linearPointer.Scale.CanAnimateScale && !this.linearPointer.Scale.CanAnimateRange)
-                    || this.linearPointer.Scale.IsScaleAnimationCompleted))
+            if (this.linearPointer != null && this.linearPointer.Scale != null && this.linearPointer.Scale.CanDrawPointer)
             {
                 this.linearPointer.Draw(canvas);
             }
