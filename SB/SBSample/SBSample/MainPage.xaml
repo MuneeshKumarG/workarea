@@ -16,4 +16,11 @@
         <ShellContent ContentTemplate="{DataTemplate local:Page2}"
                        />
     </FlyoutItem>
+
+    <FlyoutItem Title="SfLinearGauge Testbed">
+        <ShellContent ContentTemplate="{DataTemplate local:Page3}"
+                       />
+    </FlyoutItem>
+    
+    
 </Shell>

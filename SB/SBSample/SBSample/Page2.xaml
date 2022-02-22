@@ -2,9 +2,302 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SBSample.Page2"
                Title="Radial range slider"
+              xmlns:gauge="http://schemas.syncfusion.com/maui"
              BackgroundColor="{DynamicResource SecondaryColor}">
 
-    <Grid>
-        <Label Text="Label 2"/>
-    </Grid>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label Text="State" HorizontalOptions="Center" Margin="5"/>
+            <gauge:SfRadialGauge>
+                <gauge:SfRadialGauge.Axes>
+                    <gauge:RadialAxis StartAngle="270" EndAngle="270" ShowTicks="False" ShowLabels="False"
+                                      ShowFirstLabel="False">
+                        <gauge:RadialAxis.AxisLineStyle>
+                            <gauge:RadialLineStyle Fill="#BFD6F5" Thickness="8"/>
+                        </gauge:RadialAxis.AxisLineStyle>
+                        <gauge:RadialAxis.Ranges>
+                            <gauge:RadialRange StartValue="{Binding Source={x:Reference markerPointer1}, Path=Value}" 
+                                               EndValue="{Binding Source={x:Reference markerPointer2}, Path=Value}"
+                                                Fill="#2194f3" StartWidth="8" EndWidth="8"/>
+                        </gauge:RadialAxis.Ranges>
+                        <gauge:RadialAxis.Pointers>
+                            <gauge:MarkerPointer x:Name="markerPointer1" MarkerType="Circle"
+                                                 HasShadow="True" Value="0"
+                                                 IsInteractive="True" MarkerHeight="30" MarkerWidth="30"
+                                                 ValueChanging="markerPointer_ValueChanging1"
+                                                 Fill="#2194f3" AutomationProperties.HelpText="annotationLabel"/>
+                            <gauge:MarkerPointer x:Name="markerPointer2" MarkerType="Circle"
+                                                 HasShadow="True" Value="30"
+                                                 IsInteractive="True" MarkerHeight="30" MarkerWidth="30"
+                                                 ValueChanging="markerPointer_ValueChanging2"
+                                                 Fill="#2194f3" AutomationProperties.HelpText="annotationLabel"/>
+                        </gauge:RadialAxis.Pointers>
+                        <gauge:RadialAxis.Annotations>
+                            <gauge:GaugeAnnotation>
+                                <gauge:GaugeAnnotation.Content>
+                                    <Label x:Name="annotationLabel" Text="0 - 30%"  FontAttributes="Bold"
+                                           FontSize="Medium" TextColor="Black"/>
+                                </gauge:GaugeAnnotation.Content>
+                            </gauge:GaugeAnnotation>
+                        </gauge:RadialAxis.Annotations>
+                    </gauge:RadialAxis>
+                </gauge:SfRadialGauge.Axes>
+            </gauge:SfRadialGauge>
+
+            <Label Text="Labels and Ticks" HorizontalOptions="Center"/>
+            <gauge:SfRadialGauge>
+                <gauge:SfRadialGauge.Axes>
+                    <gauge:RadialAxis StartAngle="270" EndAngle="270"
+                                      Minimum="0" Maximum="12" Interval="3"
+                                      LabelOffset="0.05"
+                                      MinorTicksPerInterval="30"
+                                      TickOffset="0.15"
+                                      OffsetUnit="Factor"
+                                      ShowFirstLabel="False">
+                        <gauge:RadialAxis.AxisLineStyle>
+                            <gauge:RadialLineStyle Fill="#BFD6F5" Thickness="8"/>
+                        </gauge:RadialAxis.AxisLineStyle>
+                        <gauge:RadialAxis.MinorTickStyle>
+                            <gauge:RadialTickStyle Length="0.05" LengthUnit="Factor"/>
+                        </gauge:RadialAxis.MinorTickStyle>
+                        <gauge:RadialAxis.MajorTickStyle>
+                            <gauge:RadialTickStyle Length="0.1" LengthUnit="Factor"/>
+                        </gauge:RadialAxis.MajorTickStyle>
+
+                        <gauge:RadialAxis.Ranges>
+                            <gauge:RadialRange StartValue="{Binding Source={x:Reference clockMarkerPointer1}, Path=Value}" 
+                                               EndValue="{Binding Source={x:Reference clockMarkerPointer2}, Path=Value}"
+                                                Fill="#FF6A6EF6" StartWidth="8" EndWidth="8"/>
+                        </gauge:RadialAxis.Ranges>
+                        
+                        <gauge:RadialAxis.Pointers>
+
+                            <gauge:MarkerPointer x:Name="clockMarkerPointer1" MarkerType="Circle"
+                                                HasShadow="True" Value="0" IsInteractive="True" 
+                                                 MarkerHeight="30" MarkerWidth="30"
+                                                ValueChanging="clockMarkerPointer1_ValueChanging"
+                                                Fill="#FF6A6EF6"/>
+                            <gauge:MarkerPointer x:Name="clockMarkerPointer2" MarkerType="Circle"
+                                                HasShadow="True" Value="9" IsInteractive="True" 
+                                                 MarkerHeight="30" MarkerWidth="30"
+                                                ValueChanging="clockMarkerPointer2_ValueChanging"
+                                                Fill="#FF6A6EF6"/>
+
+                        </gauge:RadialAxis.Pointers>
+                        <gauge:RadialAxis.Annotations>
+                            <gauge:GaugeAnnotation>
+                                <gauge:GaugeAnnotation.Content>
+                                    <Label Text="12 AM - 9 AM" x:Name="clockAnnotationLabel"
+                                           FontSize="Small" TextColor="Black"/>
+                                </gauge:GaugeAnnotation.Content>
+                            </gauge:GaugeAnnotation>
+                        </gauge:RadialAxis.Annotations>
+                    </gauge:RadialAxis>
+                </gauge:SfRadialGauge.Axes>
+            </gauge:SfRadialGauge>
+
+            <Label Text="Angles" HorizontalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" HeightRequest="200" HorizontalOptions="Center">
+
+                <gauge:SfRadialGauge HeightRequest="200" WidthRequest="200">
+                    <gauge:SfRadialGauge.Axes>
+                        <gauge:RadialAxis StartAngle="270" EndAngle="270" ShowTicks="False" ShowLabels="False"
+                                      ShowFirstLabel="False">
+                            <gauge:RadialAxis.AxisLineStyle>
+                                <gauge:RadialLineStyle Fill="#8f58c28f" Thickness="8"/>
+                            </gauge:RadialAxis.AxisLineStyle>
+
+                            <gauge:RadialAxis.Ranges>
+                                <gauge:RadialRange StartValue="{Binding Source={x:Reference angleMarker1}, Path=Value}" 
+                                               EndValue="{Binding Source={x:Reference angleMarker2}, Path=Value}"
+                                                Fill="#58c28f" StartWidth="8" EndWidth="8"/>
+                            </gauge:RadialAxis.Ranges>
+                            
+                            <gauge:RadialAxis.Pointers>
+
+                                <gauge:MarkerPointer x:Name="angleMarker1" MarkerType="Circle"
+                                                     HasShadow="True" Value="0"
+                                                     ValueChanging="angleMarkerPointer1_ValueChanging"
+                                                 IsInteractive="True" MarkerHeight="20" MarkerWidth="20"
+                                                Fill="#58c28f" AutomationProperties.HelpText="angleAnnotationLabel1"/>
+                                <gauge:MarkerPointer x:Name="angleMarker2" MarkerType="Circle"
+                                                HasShadow="True" Value="30"
+                                                      ValueChanging="angleMarkerPointer2_ValueChanging"
+                                                 IsInteractive="True" MarkerHeight="20" MarkerWidth="20"
+                                                Fill="#58c28f" AutomationProperties.HelpText="angleAnnotationLabel1"/>
+                                
+                            </gauge:RadialAxis.Pointers>
+                            <gauge:RadialAxis.Annotations>
+                                <gauge:GaugeAnnotation>
+                                    <gauge:GaugeAnnotation.Content>
+                                        <Label x:Name="angleAnnotationLabel1" Text="0-30"
+                                           FontSize="Small" TextColor="Black"/>
+                                    </gauge:GaugeAnnotation.Content>
+                                </gauge:GaugeAnnotation>
+                            </gauge:RadialAxis.Annotations>
+                        </gauge:RadialAxis>
+                    </gauge:SfRadialGauge.Axes>
+                </gauge:SfRadialGauge>
+
+                <gauge:SfRadialGauge HeightRequest="200" WidthRequest="200">
+                    <gauge:SfRadialGauge.Axes>
+                        <gauge:RadialAxis StartAngle="90" EndAngle="270" ShowTicks="False" ShowLabels="False"
+                                      ShowFirstLabel="False">
+                            <gauge:RadialAxis.AxisLineStyle>
+                                <gauge:RadialLineStyle Fill="#8f58c28f" Thickness="8" CornerStyle="BothCurve"/>
+                            </gauge:RadialAxis.AxisLineStyle>
+                            <gauge:RadialAxis.Ranges>
+                                <gauge:RadialRange StartValue="{Binding Source={x:Reference angleMarker3}, Path=Value}" 
+                                                EndValue="{Binding Source={x:Reference angleMarker4}, Path=Value}"
+                                                Fill="#58c28f" StartWidth="8" EndWidth="8"/>
+                            </gauge:RadialAxis.Ranges>
+                            
+                            <gauge:RadialAxis.Pointers>
+
+                                <gauge:MarkerPointer x:Name="angleMarker3" MarkerType="Circle"
+                                                     ValueChanging="angleMarkerPointer1_ValueChanging"
+                                                     HasShadow="True" Value="0"
+                                                     IsInteractive="True" MarkerHeight="20" MarkerWidth="20"
+                                                     Fill="#58c28f" AutomationProperties.HelpText="angleAnnotationLabel2"/>
+                                <gauge:MarkerPointer x:Name="angleMarker4" MarkerType="Circle"
+                                                     ValueChanging="angleMarkerPointer2_ValueChanging"
+                                                     HasShadow="True" Value="30"
+                                                     IsInteractive="True" MarkerHeight="20" MarkerWidth="20"
+                                                     Fill="#58c28f" AutomationProperties.HelpText="angleAnnotationLabel2"/>
+
+                            </gauge:RadialAxis.Pointers>
+                            <gauge:RadialAxis.Annotations>
+                                <gauge:GaugeAnnotation>
+                                    <gauge:GaugeAnnotation.Content>
+                                        <Label x:Name="angleAnnotationLabel2" Text="0-30"
+                                           FontSize="Small" TextColor="Black"/>
+                                    </gauge:GaugeAnnotation.Content>
+                                </gauge:GaugeAnnotation>
+                            </gauge:RadialAxis.Annotations>
+                        </gauge:RadialAxis>
+                    </gauge:SfRadialGauge.Axes>
+                </gauge:SfRadialGauge>
+
+                <gauge:SfRadialGauge HeightRequest="200" WidthRequest="200">
+                    <gauge:SfRadialGauge.Axes>
+                        <gauge:RadialAxis StartAngle="270" EndAngle="90" ShowTicks="False" ShowLabels="False"
+                                      ShowFirstLabel="False">
+                            <gauge:RadialAxis.AxisLineStyle>
+                                <gauge:RadialLineStyle Fill="#8f58c28f" Thickness="8" CornerStyle="BothCurve"/>
+                            </gauge:RadialAxis.AxisLineStyle>
+                            <gauge:RadialAxis.Ranges>
+                                <gauge:RadialRange StartValue="{Binding Source={x:Reference angleMarker5}, Path=Value}" 
+                                                EndValue="{Binding Source={x:Reference angleMarker6}, Path=Value}"
+                                                Fill="#58c28f" StartWidth="8" EndWidth="8"/>
+                            </gauge:RadialAxis.Ranges>
+                            <gauge:RadialAxis.Pointers>
+
+                                <gauge:MarkerPointer x:Name="angleMarker5" MarkerType="Circle"
+                                                      ValueChanging="angleMarkerPointer1_ValueChanging"
+                                                    HasShadow="True" Value="0"  
+                                                 IsInteractive="True" MarkerHeight="20" MarkerWidth="20"
+                                                Fill="#58c28f" AutomationProperties.HelpText="angleAnnotationLabel3"/>
+                                <gauge:MarkerPointer x:Name="angleMarker6" MarkerType="Circle"
+                                                      ValueChanging="angleMarkerPointer2_ValueChanging"
+                                                    HasShadow="True" Value="30"  
+                                                 IsInteractive="True" MarkerHeight="20" MarkerWidth="20"
+                                                Fill="#58c28f" AutomationProperties.HelpText="angleAnnotationLabel3"/>
+
+                            </gauge:RadialAxis.Pointers>
+                            <gauge:RadialAxis.Annotations>
+                                <gauge:GaugeAnnotation>
+                                    <gauge:GaugeAnnotation.Content>
+                                        <Label x:Name="angleAnnotationLabel3" Text="0-30"
+                                           FontSize="Small" TextColor="Black"/>
+                                    </gauge:GaugeAnnotation.Content>
+                                </gauge:GaugeAnnotation>
+                            </gauge:RadialAxis.Annotations>
+                        </gauge:RadialAxis>
+                    </gauge:SfRadialGauge.Axes>
+                </gauge:SfRadialGauge>
+
+                <gauge:SfRadialGauge HeightRequest="200" WidthRequest="200">
+                    <gauge:SfRadialGauge.Axes>
+                        <gauge:RadialAxis StartAngle="180" EndAngle="360" ShowTicks="False" ShowLabels="False"
+                                      ShowFirstLabel="False" CanScaleToFit="False">
+                            <gauge:RadialAxis.AxisLineStyle>
+                                <gauge:RadialLineStyle Fill="#8f58c28f" Thickness="8" CornerStyle="BothCurve"/>
+                            </gauge:RadialAxis.AxisLineStyle>
+                            <gauge:RadialAxis.Ranges>
+                                <gauge:RadialRange StartValue="{Binding Source={x:Reference angleMarker7}, Path=Value}" 
+                                                EndValue="{Binding Source={x:Reference angleMarker8}, Path=Value}"
+                                                Fill="#58c28f" StartWidth="8" EndWidth="8"/>
+                            </gauge:RadialAxis.Ranges>
+                            <gauge:RadialAxis.Pointers>
+
+                                <gauge:MarkerPointer x:Name="angleMarker7" MarkerType="Circle"
+                                HasShadow="True" Value="0"  
+                                                      ValueChanging="angleMarkerPointer1_ValueChanging"
+                                                 IsInteractive="True" MarkerHeight="20" MarkerWidth="20"
+                                                Fill="#58c28f" AutomationProperties.HelpText="angleAnnotationLabel4"/>
+                                <gauge:MarkerPointer x:Name="angleMarker8" MarkerType="Circle"
+                                HasShadow="True" Value="30"  
+                                                      ValueChanging="angleMarkerPointer2_ValueChanging"
+                                                 IsInteractive="True" MarkerHeight="20" MarkerWidth="20"
+                                                Fill="#58c28f" AutomationProperties.HelpText="angleAnnotationLabel4"/>
+
+                            </gauge:RadialAxis.Pointers>
+                            <gauge:RadialAxis.Annotations>
+                                <gauge:GaugeAnnotation>
+                                    <gauge:GaugeAnnotation.Content>
+                                        <Label x:Name="angleAnnotationLabel4" Text="0-30"
+                                           FontSize="Small" TextColor="Black"/>
+                                    </gauge:GaugeAnnotation.Content>
+                                </gauge:GaugeAnnotation>
+                            </gauge:RadialAxis.Annotations>
+                        </gauge:RadialAxis>
+                    </gauge:SfRadialGauge.Axes>
+                </gauge:SfRadialGauge>
+
+            </StackLayout>
+
+            <Label Text="Custom Text" HorizontalOptions="Center" Margin="0,20,0,10"/>
+            <gauge:SfRadialGauge>
+                <gauge:SfRadialGauge.Axes>
+                    <gauge:RadialAxis x:Name="customTextAxis" ShowTicks="False"
+                                      LabelOffset="0.15" OffsetUnit="Factor">
+                        <gauge:RadialAxis.AxisLineStyle>
+                            <gauge:RadialLineStyle CornerStyle="BothCurve"/>
+                        </gauge:RadialAxis.AxisLineStyle>
+                        <gauge:RadialAxis.Ranges>
+                            <gauge:RadialRange StartValue="{Binding Source={x:Reference customTextMarker1}, Path=Value}" 
+                                               EndValue="{Binding Source={x:Reference customTextMarker2}, Path=Value}"
+                                                Fill="Orange"/>
+                        </gauge:RadialAxis.Ranges>
+                        <gauge:RadialAxis.Pointers>
+                            
+                            <gauge:MarkerPointer Value="0" x:Name="customTextMarker1" Stroke="Orange"
+                                                 OverlayRadius="0"
+                                                  ValueChanging="customTextMarker_ValueChanging1"
+                                                 IsInteractive="True" 
+                                                 MarkerType="Circle" MarkerHeight="30" MarkerWidth="30"
+                                                 BorderWidth="8" Fill="White"/>
+                            <gauge:MarkerPointer Value="60" x:Name="customTextMarker2" Stroke="Orange"
+                                                 OverlayRadius="0"
+                                                    ValueChanging="customTextMarker_ValueChanging2"
+                                                 IsInteractive="True" 
+                                                 MarkerType="Circle" MarkerHeight="30" MarkerWidth="30"
+                                                 BorderWidth="8" Fill="White"/>
+                        </gauge:RadialAxis.Pointers>
+                        <gauge:RadialAxis.Annotations>
+                            <gauge:GaugeAnnotation>
+                                <gauge:GaugeAnnotation.Content>
+                                    <Label x:Name="customTextAnnotation" TextColor="Black"
+                                           Text="In-progress" FontAttributes="Bold" FontSize="Medium"/>
+                                </gauge:GaugeAnnotation.Content>
+                            </gauge:GaugeAnnotation>
+                        </gauge:RadialAxis.Annotations>
+                    </gauge:RadialAxis>
+                </gauge:SfRadialGauge.Axes>
+            </gauge:SfRadialGauge>
+
+            
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

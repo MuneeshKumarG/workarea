@@ -1,0 +1,1028 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SBSample.Page3"
+               Title="Radial range slider"
+              xmlns:gauge="http://schemas.syncfusion.com/maui"
+             BackgroundColor="{DynamicResource SecondaryColor}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="15">
+            <gauge:SfLinearGauge x:Name="gauge" Margin="5" HorizontalOptions="Center" VerticalOptions="Center" 
+                             AnimateAxis="True" IsVisible="false" AnimateRange="True">
+
+                <gauge:SfLinearGauge.Ranges>
+                    <gauge:LinearRange x:Name="range" EndValue="100"
+                                        Fill="#F45656" />
+                </gauge:SfLinearGauge.Ranges>
+
+                <gauge:SfLinearGauge.BarPointers>
+                    <gauge:BarPointer x:Name="barPointer" Value="50" PointerSize="0" />
+                </gauge:SfLinearGauge.BarPointers>
+
+                <gauge:SfLinearGauge.MarkerPointers>
+                    <gauge:ShapePointer x:Name="shapePointer" EnableAnimation="True"  Value="60" 
+                                        Position="Outside" OffsetPoint="0,-10"/>
+
+                    <gauge:ContentPointer x:Name="contentPointer" Value="80"
+                                          AllowClip="True" EnableAnimation="True"
+                                          IsInteractive="True" >
+                        <!--<gauge:ContentPointer.Content>
+                            <Label Text="Text"/>
+                        </gauge:ContentPointer.Content>-->
+                    </gauge:ContentPointer>
+                </gauge:SfLinearGauge.MarkerPointers>
+            </gauge:SfLinearGauge>
+
+        </Grid>
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="IsVisible"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=IsVisible}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Minimum"/>
+                    <Button x:Name="minimumIncrease" Grid.Column="1" Text="+" 
+                            Clicked="MinimumIncrease_Clicked" Margin="5">
+                    </Button>
+                    <Button x:Name="minimumDecrease" Grid.Column="2" Text="-" 
+                            Clicked="MinimumDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Maximum"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="MaximumIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="MaximumDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Interval"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="IntervalIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="IntervalDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="MinorTicksPerInterval"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="MinorTicksPerIntervalIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="MinorTicksPerIntervalDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="MaximumLabelsCount"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="MaximumLabelsCountIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="MaximumLabelsCountDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="LabelFormat"/>
+                    <Entry Background="yellow" x:Name="labelFormatValue" Grid.Column="1" Margin="5"/>
+                    <Button Grid.Column="2" Text="Set" 
+                            Clicked="LabelFormatSet_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Orientation"/>
+                    <Button Grid.Column="1" Text="Horizontal" 
+                            Clicked="OrientationHorizontal_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Vertical" 
+                            Clicked="OrientationVertical_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="LabelPosition"/>
+                    <Button Grid.Column="1" Text="Inside" 
+                            Clicked="LabelPositionInside_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Outside" 
+                            Clicked="LabelPositionOutside_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="LabelsOffset"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="LabelsOffsetIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="LabelsOffsetDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="TickPosition"/>
+                    <Button Grid.Column="1" Text="Inside" 
+                            Clicked="TickPositionInside_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Outside" 
+                            Clicked="TickPositionOutside_Clicked" Margin="5"/>
+                    <Button Grid.Column="3" Text="Cross" 
+                            Clicked="TickPositionCross_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="TickOffset"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="TickOffsetIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="TickOffsetDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="IsMirrored"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=IsMirrored}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="IsInversed"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=IsInversed}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="ShowTicks"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=ShowTicks}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="ShowAxisLine"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=ShowLine}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="ShowLabels"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=ShowLabels}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="UseRangeColorForAxis"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference gauge}, Path=UseRangeColorForAxis}"  Margin="5"/>
+                </Grid>
+
+                <Label Text="AxisLineStyle" FontAttributes="Bold" Margin="0,10,0,10"/>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Fill"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged1"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="GradientStops"/>
+                    <Button Grid.Column="1" Text="Set" 
+                            Clicked="AxisLineGradientStopsSet_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Null" 
+                            Clicked="AxisLineGradientStopsSetNull_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Thickness"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="AxisLineThicknessIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="AxisLineThicknessDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Corner Radius"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding CornerRadiusCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged2"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Corner Style"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding CornerStyles}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged3"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Dash Array"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding DashArrayCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged4"/>
+                </Grid>
+
+                <Label Text="MajorTickStyle" FontAttributes="Bold" Margin="0,10,0,10"/>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Stroke"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="StrokeThickness"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="MajorTickThicknessIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="MajorTickThicknessDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Length"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="MajorTickLengthIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="MajorTickLengthDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Dash Array"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding DashArrayCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged6"/>
+                </Grid>
+
+                <Label Text="MinorTickStyle" FontAttributes="Bold" Margin="0,10,0,10"/>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Stroke"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged7"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="StrokeThickness"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="MinorTickThicknessIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="MinorTickThicknessDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Length"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="MinorTickLengthIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="MinorTickLengthDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Dash Array"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding DashArrayCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged8"/>
+                </Grid>
+
+                <Label Text="AxisLabelStyle" FontAttributes="Bold" Margin="0,10,0,10"/>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="FontSize"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="AxisLabelFontSizeIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="AxisLabelFontSizeDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="TextColor"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged9"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="FontAttribute"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding FontAttributes}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged10"/>
+                </Grid>
+
+                <Label Text="Range" FontAttributes="Bold" Margin="0,10,0,10"/>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Start"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="RangeStartIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="RangeStartDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="End"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="RangeEndIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="RangeEndDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="StartWidth"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="RangeStartWidthIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="RangeStartWidthDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="MidWidth"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="RangeMidWidthIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="RangeMidWidthDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="EndWidth"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="RangeEndWidthIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="RangeEndWidthDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="RangePosition"/>
+                    <Button Grid.Column="1" Text="Inside" 
+                            Clicked="RangePositionInside_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Outside" 
+                            Clicked="RangePositionOutside_Clicked" Margin="5"/>
+                    <Button Grid.Column="3" Text="Cross" 
+                            Clicked="RangePositionCross_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Fill"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged11"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="GradientStops"/>
+                    <Button Grid.Column="1" Text="Set" 
+                            Clicked="RangeGradientStopsSet_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Null" 
+                            Clicked="RangeGradientStopsSetNull_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Child"/>
+                    <Button Grid.Column="1" Text="Image" 
+                            Clicked="RangeChildSet_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Null" 
+                            Clicked="RangeChildSetNull_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Text="Add" 
+                            Clicked="RangeAdd_Clicked" Margin="5"/>
+                    <Button Grid.Column="1" Text="Insert" 
+                            Clicked="RangeInsert_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Clear" 
+                            Clicked="RangeClear_Clicked" Margin="5"/>
+                    <Button Grid.Column="3" Text="Null" 
+                            Clicked="RangeNull_Clicked" Margin="5"/>
+                </Grid>
+
+                <Label Text="Bar Pointer" FontAttributes="Bold" Margin="0,10,0,10"/>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Value"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="BarPointerValueIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="BarPointerValueDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="EnableAnimation"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference barPointer}, 
+                        Path=EnableAnimation}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="IsInteractive"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference barPointer}, 
+                        Path=IsInteractive}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Offset"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="BarPointerOffsetIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="BarPointerOffsetDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Size"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="BarPointerSizeIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="BarPointerSizeDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Corner Style"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding CornerStyles}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged12"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="BarPosition"/>
+                    <Button Grid.Column="1" Text="Inside" 
+                            Clicked="BarPositionInside_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Outside" 
+                            Clicked="BarPositionOutside_Clicked" Margin="5"/>
+                    <Button Grid.Column="3" Text="Cross" 
+                            Clicked="BarPositionCross_Clicked" Margin="5"/>
+                </Grid>
+
+                <!--<Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="BorderWidth"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="BarPointerBorderSizeIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="BarPointerBorderSizeDecrease_Clicked" Margin="5"/>
+                </Grid>-->
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Fill"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged13"/>
+                </Grid>
+
+                <!--<Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Stroke"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged14"/>
+                </Grid>-->
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="GradientStops"/>
+                    <Button Grid.Column="1" Text="Set" 
+                            Clicked="BarPointerGradientStopsSet_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Null" 
+                            Clicked="BarPointerGradientStopsSetNull_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Child"/>
+                    <Button Grid.Column="1" Text="Image" 
+                            Clicked="BarPointerChildSet_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Null" 
+                            Clicked="BarPointerChildSetNull_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Text="Add" 
+                            Clicked="BarPointerAdd_Clicked" Margin="5"/>
+                    <Button Grid.Column="1" Text="Insert" 
+                            Clicked="BarPointerInsert_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Clear" 
+                            Clicked="BarPointerClear_Clicked" Margin="5"/>
+                </Grid>
+
+                <Label Text="Shape Pointer" FontAttributes="Bold" Margin="0,10,0,10"/>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Value"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="ShapePointerValueIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="ShapePointerValueDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="AllowClip"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference shapePointer}, Path=AllowClip}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="EnableAnimation"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference shapePointer}, 
+                        Path=EnableAnimation}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="IsInteractive"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference shapePointer}, 
+                        Path=IsInteractive}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="OffsetLeft"/>
+                    <Button Grid.Column="1" Text="IncreaseLeft" 
+                            Clicked="ShapePointerOffsetLeftIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="DecreaseLeft" 
+                            Clicked="ShapePointerOffseLeftDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="OffsetTop"/>
+                    <Button Grid.Column="1" Text="IncreaseTop" 
+                            Clicked="ShapePointerOffsetTopIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="DecreaseTop" 
+                            Clicked="ShapePointerOffseTopDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Alignment"/>
+                    <Button Grid.Column="1" Text="Start" 
+                            Clicked="BarPositionHAlignmentStart_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Center" 
+                            Clicked="BarPositionHAlignmentCenter_Clicked" Margin="5"/>
+                    <Button Grid.Column="3" Text="End" 
+                            Clicked="BarPositionHAlignmentEnd_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Position"/>
+                    <Button Grid.Column="1" Text="Outside" 
+                            Clicked="BarPositionVAlignmentStart_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Cross" 
+                            Clicked="BarPositionVAlignmentCenter_Clicked" Margin="5"/>
+                    <Button Grid.Column="3" Text="Inside" 
+                            Clicked="BarPositionVAlignmentEnd_Clicked" Margin="5"/>
+
+
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Height"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="ShapePointerHeightIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="ShapePointerHeightDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Width"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="ShapePointerWidthIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="ShapePointerWidthDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Type"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding ShapeTypes}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged15"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Fill"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged16"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Stroke"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding ColorCollection}"
+                            SelectedIndexChanged="Picker_SelectedIndexChanged17"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="StrokeThickness"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="ShapePointerBorderIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="ShapePointerBorderDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Label Text="Content Pointer" FontAttributes="Bold" Margin="0,10,0,10"/>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Value"/>
+                    <Button Grid.Column="1" Text="+" 
+                            Clicked="ContentPointerValueIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="-" 
+                            Clicked="ContentPointerValueDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="AllowClip"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference contentPointer}, Path=AllowClip}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="EnableAnimation"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference contentPointer}, 
+                        Path=EnableAnimation}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="IsInteractive"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference contentPointer}, 
+                        Path=IsInteractive}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="OffsetLeft"/>
+                    <Button Grid.Column="1" Text="IncreaseLeft" 
+                            Clicked="ContentPointerOffsetLeftIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="DecreaseLeft" 
+                            Clicked="ContentPointerOffseLeftDecrease_Clicked" Margin="5"/>
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="OffsetTop"/>
+                    <Button Grid.Column="1" Text="IncreaseTop" 
+                            Clicked="ContentPointerOffsetTopIncrease_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="DecreaseTop" 
+                            Clicked="ContentPointerOffseTopDecrease_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Alignment"/>
+                    <Button Grid.Column="1" Text="Start" 
+                            Clicked="ContentPositionHAlignmentStart_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Center" 
+                            Clicked="ContentPositionHAlignmentCenter_Clicked" Margin="5"/>
+                    <Button Grid.Column="3" Text="End" 
+                            Clicked="ContentPositionHAlignmentEnd_Clicked" Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Position"/>
+                    <Button Grid.Column="1" Text="Outside" 
+                            Clicked="ContentPositionVAlignmentStart_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Cross" 
+                            Clicked="ContentPositionVAlignmentCenter_Clicked" Margin="5"/>
+                    <Button Grid.Column="3" Text="Inside" 
+                            Clicked="ContentPositionVAlignmentEnd_Clicked" Margin="5"/>
+
+
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Content"/>
+                    <Button Grid.Column="1" Text="Image" 
+                            Clicked="ContentPointerChildSet_Clicked" Margin="5"/>
+                    <Button Grid.Column="2" Text="Null" 
+                            Clicked="ContentPointerChildSetNull_Clicked" Margin="5"/>
+                    <Button Grid.Column="3" Text="Text" 
+                            Clicked="ContentPointerChildSetText_Clicked" Margin="5"/>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>
