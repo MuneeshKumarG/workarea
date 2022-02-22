@@ -475,9 +475,7 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// Method used to update pointer to property change. 
         /// </summary>
-        internal virtual void UpdatePointer()
-        {
-        }
+        internal abstract void UpdatePointer();
 
         /// <summary>
         /// Method used to update pointer in pressed state. 
@@ -545,18 +543,13 @@ namespace Syncfusion.Maui.Gauges
         /// <summary>
         /// Method used to create pointer.
         /// </summary>
-        internal virtual void CreatePointer()
-        {
-        }
+        internal abstract void CreatePointer();
 
         /// <summary>
         /// Method used to draw pointer.
         /// </summary>
         /// <param name="canvas">canvas</param>
-        internal virtual void Draw(ICanvas canvas)
-        {
-
-        }
+        internal abstract void Draw(ICanvas canvas);
 
         /// <summary>
         /// Invalidate pointer view.

@@ -764,10 +764,6 @@ namespace Syncfusion.Maui.Gauges
 
             if (this.HasShadow)
             {
-                //TODO : Currently, shadow not showing in WinUI. We reported this problem in below link. 
-                //https://github.com/dotnet/maui/issues/4471
-                //Once the problem resolved, we need to ensure the shadow effect in WinUI.
-
                 canvas.SetShadow(new SizeF(0, 2), 10, Color.FromRgb(148, 148, 148));
             }
 
@@ -788,11 +784,13 @@ namespace Syncfusion.Maui.Gauges
             if (this.OverlayFill == null && this.Fill == null)
                 return;
 
-            float actualOverlayRadius = (float)(double.IsNaN(this.OverlayRadius) ? this.MarkerWidth : this.OverlayRadius);
-            float overlayPositionX = this.markerPosition.X - (actualOverlayRadius - (float)this.MarkerWidth / 2);
-            float overlayPositionY = this.markerPosition.Y - (actualOverlayRadius - (float)this.MarkerHeight / 2);
-            float overlayWidth = actualOverlayRadius * 2;
-            float overlayHeight = actualOverlayRadius * 2;
+            bool isNanOverlayRadius = double.IsNaN(this.OverlayRadius);
+            float actualOverlayWidth = (float)(isNanOverlayRadius ? this.MarkerWidth : this.OverlayRadius)- (float)this.MarkerWidth / 2;
+            float actualOverlayHeight = (float)(isNanOverlayRadius ? this.MarkerHeight : this.OverlayRadius)- (float)this.MarkerHeight / 2;
+            float overlayPositionX = this.markerPosition.X - actualOverlayWidth;
+            float overlayPositionY = this.markerPosition.Y - actualOverlayHeight;
+            float overlayWidth = (2 * actualOverlayWidth) + (float)this.MarkerWidth;
+            float overlayHeight = (2 * actualOverlayHeight) + (float)this.MarkerHeight;
 
             if (this.OverlayFill == null)
             {

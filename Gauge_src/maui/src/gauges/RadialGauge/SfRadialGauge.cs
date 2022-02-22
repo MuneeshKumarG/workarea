@@ -256,9 +256,9 @@ namespace Syncfusion.Maui.Gauges
         /// <returns></returns>
         IReadOnlyList<IVisualTreeElement> IVisualTreeElement.GetVisualChildren()
         {
-            if (this.Axes != null)
+            if (this.parentGrid != null)
             {
-                return this.Axes.ToList().AsReadOnly();
+                return new List<IVisualTreeElement>() { this.parentGrid };
             }
             return new List<IVisualTreeElement>();
         }
@@ -270,57 +270,61 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="e">The NotifyCollectionChangedEventArgs.</param>
         private void Axes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+            e.ApplyCollectionChanges((item, index, _) => Insert(item, index), Remove, Reset);
+        }
+
+        /// <summary>
+        /// Add/insert the axis to the axes collection. 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="index"></param>
+        private void Insert(object obj, int index)
+        {
+            if (obj is RadialAxis axis)
             {
-                case NotifyCollectionChangedAction.Add:
-                case NotifyCollectionChangedAction.Remove:
-                case NotifyCollectionChangedAction.Replace:
-                    if (e.OldItems != null && e.OldItems.Count > 0)
-                    {
-                        foreach (RadialAxis axis in e.OldItems)
-                        {
-                            axis.RangesGrid.Children.Clear();
-                            axis.PointersGrid.Children.Clear();
-                            axis.AnnotationsLayout.Children.Clear();
-                            axis.ParentGrid.Children.Clear();
-                            if (this.parentGrid.Children.Contains(axis))
-                            {
-                                this.parentGrid.Children.Remove(axis);
-                            }
-                        }
-                    }
-
-                    if (e.NewItems != null && e.NewItems.Count > 0)
-                    {
-                        foreach (RadialAxis axis in e.NewItems)
-                        {
-                            if (!this.parentGrid.Children.Contains(axis))
-                            {
-                                axis.RemoveTouchListener(axis);
-                                this.parentGrid.Children.Add(axis);
-                            }
-                        }
-                    }
-                    break;
-
-                case NotifyCollectionChangedAction.Reset:
-
-                    foreach (RadialAxis axis in this.parentGrid.Children)
-                    {
-                        axis.RangesGrid.Children.Clear();
-                        axis.PointersGrid.Children.Clear();
-                        axis.AnnotationsLayout.Children.Clear();
-                        axis.ParentGrid.Children.Clear();
-                    }
-
-                    this.parentGrid.Children.Clear();
-
-                    break;
-                default:
-                    break;
+                if (!this.parentGrid.Children.Contains(axis))
+                {
+                    axis.RemoveTouchListener(axis);
+                    this.parentGrid.Children.Insert(index, axis);
+                }
             }
         }
 
+        /// <summary>
+        ///  Remove the axis from the axes collection. 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="index"></param>
+        private void Remove(object obj, int index)
+        {
+            if (obj is RadialAxis axis)
+            {
+                axis.RangesGrid.Children.Clear();
+                axis.PointersGrid.Children.Clear();
+                axis.AnnotationsLayout.Children.Clear();
+                axis.ParentGrid.Children.Clear();
+                if (this.parentGrid.Children.Contains(axis))
+                {
+                    this.parentGrid.Children.RemoveAt(index);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Clear the axis collection
+        /// </summary>
+        private void Reset()
+        {
+            foreach (RadialAxis axis in this.parentGrid.Children)
+            {
+                axis.RangesGrid.Children.Clear();
+                axis.PointersGrid.Children.Clear();
+                axis.AnnotationsLayout.Children.Clear();
+                axis.ParentGrid.Children.Clear();
+            }
+
+            this.parentGrid.Children.Clear();
+        }
         #endregion
     }
 }

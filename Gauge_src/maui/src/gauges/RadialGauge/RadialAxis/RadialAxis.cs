@@ -1760,37 +1760,13 @@ namespace Syncfusion.Maui.Gauges
         /// <returns>Actual size of given size</returns>
         internal double CalculateActualSize(double size, SizeUnit sizeUnit, bool isOffset)
         {
-            double actualValue = 0;
-            switch (sizeUnit)
+            if(sizeUnit == SizeUnit.Factor)
             {
-                case SizeUnit.Factor:
-                    {
-                        size = size > 1 ? 1 : size;
-                        if (isOffset)
-                        {
-                            actualValue = (1 - size) * this.Radius;
-                            return actualValue;
-                        }
-
-                        size = size < 0 ? 0 : size;
-                        actualValue = size * this.Radius;
-                    }
-
-                    break;
-                case SizeUnit.Pixel:
-                    {
-                        if (isOffset)
-                        {
-                            return this.Radius - size;
-                        }
-
-                        actualValue = size < 0 ? 0 : size;
-                    }
-
-                    break;
+                size = Math.Clamp(size, 0, 1);
+                return (isOffset ? 1 - size : size) * this.Radius;
             }
 
-            return actualValue;
+            return isOffset ? this.Radius - size : size;
         }
 
         /// <summary>
@@ -1832,16 +1808,9 @@ namespace Syncfusion.Maui.Gauges
 
             if (angle >= this.ActualStartAngle && angle <= this.ActualEndAngle)
             {
-                if (this.IsInversed)
-                {
-                    dragValue = this.ActualMaximum - ((angle - this.ActualStartAngle) * ((this.ActualMaximum - this.ActualMinimum) / this.ActualSweepAngle));
-                    return true;
-                }
-                else
-                {
-                    dragValue = this.ActualMinimum + ((angle - this.ActualStartAngle) * ((this.ActualMaximum - this.ActualMinimum) / this.ActualSweepAngle));
-                    return true;
-                }
+                var value = (angle - this.ActualStartAngle) * ((this.ActualMaximum - this.ActualMinimum) / this.ActualSweepAngle);
+                dragValue = this.IsInversed ? this.ActualMaximum - value : this.ActualMinimum + value;
+                return true;
             }
 
             return false;
@@ -2286,7 +2255,7 @@ namespace Syncfusion.Maui.Gauges
                                 pointer.DragPointer(e.TouchPoint);
                             }
 
-                            if (e.PointerDeviceType == PointerDeviceType.Mouse && pointer.IsInteractive && pointer is MarkerPointer markerPointer && 
+                            if (e.PointerDeviceType == PointerDeviceType.Mouse && pointer.IsInteractive && pointer is MarkerPointer markerPointer &&
                                 markerPointer.CanDrawOverlay)
                             {
                                 if (markerPointer.PointerRect.Contains(e.TouchPoint))
@@ -2774,16 +2743,11 @@ namespace Syncfusion.Maui.Gauges
         /// <returns></returns>
         IReadOnlyList<IVisualTreeElement> IVisualTreeElement.GetVisualChildren()
         {
-            {
-                if (this.Annotations != null && Annotations.Count > 0)
+                if (this.ParentGrid != null)
                 {
-                    List<Element> _logicalChildren = new();
-                    foreach (var annotation in this.Annotations)
-                        _logicalChildren.Add(annotation.Content);
-                    return _logicalChildren.AsReadOnly();
+                    return new List<IVisualTreeElement>() { ParentGrid };
                 }
                 return new List<IVisualTreeElement>();
-            }
         }
 
         /// <summary>
@@ -2813,22 +2777,17 @@ namespace Syncfusion.Maui.Gauges
         /// <returns>Returns range color.</returns>
         private Color? GetRangeColor(double value)
         {
-            RadialRange? range = null;
             if (UseRangeColorForAxis && this.Ranges != null && this.Ranges.Count > 0)
             {
-                range = this.Ranges.FirstOrDefault(item => value <= item.ActualEndValue &&
+                RadialRange? range = this.Ranges.FirstOrDefault(item => value <= item.ActualEndValue &&
                     value >= item.ActualStartValue);
+                if (range != null)
+                {
+                    Paint rangeFillPaint = range.Fill;
+                    return rangeFillPaint.ToColor();
+                }
             }
-
-            if (range != null)
-            {
-                Paint rangeFillPaint = range.Fill;
-                return rangeFillPaint.ToColor();
-            }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         #region Calculation methods
@@ -3051,11 +3010,7 @@ namespace Syncfusion.Maui.Gauges
             {
                 double radiusAngle = Utility.CornerRadiusAngle(this.Radius * this.RadiusFactor, this.MajorTickStyle.StrokeThickness / 2);
                 double angle = this.ValueToAngle(tickInfo.Value);
-
-                if (isFirstTick)
-                    vector = Utility.AngleToVector(angle + radiusAngle);
-                else
-                    vector = Utility.AngleToVector(angle - radiusAngle);
+                vector = Utility.AngleToVector(isFirstTick ? angle + radiusAngle : angle - radiusAngle);
             }
             else
                 vector = ValueToPoint(tickInfo.Value);
@@ -4036,52 +3991,58 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="e">The NotifyCollectionChangedEventArgs.</param>
         private void Ranges_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+            e.ApplyCollectionChanges((obj, index, _) => AddRange(obj, index), (obj, index) => RemoveRange(obj, index), ResetRanges);
+        }
+
+        /// <summary>
+        /// Add/insert the axis to the ranges collection. 
+        /// </summary>
+        /// <param name="range"></param>
+        /// <param name="index"></param>
+        private void AddRange(object range,int index)
+        {
+            if(range is RadialRange radialRange)
             {
-                case NotifyCollectionChangedAction.Add:
-                case NotifyCollectionChangedAction.Remove:
-                case NotifyCollectionChangedAction.Replace:
-                    if (e.NewItems != null && e.NewItems.Count > 0)
-                    {
-                        foreach (RadialRange radialRange in e.NewItems)
-                        {
-                            radialRange.RadialAxis = this;
-                            if (!this.RangesGrid.Contains(radialRange.RangeView))
-                                this.RangesGrid.Add(radialRange.RangeView);
+                radialRange.RadialAxis = this;
+                if (!this.RangesGrid.Contains(radialRange.RangeView))
+                    this.RangesGrid.Insert(index,radialRange.RangeView);
 
-                            if (!this.AvailableSize.IsZero)
-                            {
-                                SetInheritedBindingContext(radialRange, this.BindingContext);
-                                radialRange.CreateRangeArc();
-                            }
-                        }
-
-                        if (this.RangesGrid.Children.Count > 0 && !this.ParentGrid.Children.Contains(RangesGrid))
-                        {
-                            this.ParentGrid.Children.Add(RangesGrid);
-                        }
-                    }
-
-                    if (e.OldItems != null && e.OldItems.Count > 0)
-                    {
-                        foreach (RadialRange radialRange in e.OldItems)
-                        {
-                            radialRange.RadialAxis = null;
-
-                            if (this.RangesGrid.Children.Contains(radialRange.RangeView))
-                            {
-                                this.RangesGrid.Children.Remove(radialRange.RangeView);
-                            }
-                        }
-                    }
-                    break;
-
-                case NotifyCollectionChangedAction.Reset:
-                    this.RangesGrid.Children.Clear();
-                    break;
-                default:
-                    break;
+                if (!this.AvailableSize.IsZero)
+                {
+                    SetInheritedBindingContext(radialRange, this.BindingContext);
+                    radialRange.CreateRangeArc();
+                }
+                if (this.RangesGrid.Children.Count > 0 && !this.ParentGrid.Children.Contains(RangesGrid))
+                {
+                    this.ParentGrid.Children.Add(RangesGrid);
+                }
             }
+        }
+
+        /// <summary>
+        /// Remove the range from the ranges collection. 
+        /// </summary>
+        /// <param name="range"></param>
+        /// <param name="index"></param>
+        private void RemoveRange(object range, int index)
+        {
+            if(range is RadialRange radialRange)
+            {
+                radialRange.RadialAxis = null;
+
+                if (this.RangesGrid.Children.Contains(radialRange.RangeView))
+                {
+                    this.RangesGrid.Children.RemoveAt(index);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Clear the ranges collection. 
+        /// </summary>
+        private void ResetRanges()
+        {
+            this.RangesGrid.Children.Clear();
         }
 
         /// <summary>
@@ -4091,70 +4052,77 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="e">The NotifyCollectionChangedEventArgs.</param>
         private void Pointers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+            e.ApplyCollectionChanges((obj, index, _) => AddPointer(obj, index), (obj, index) => RemovePointer(obj, index), ResetPointers);
+        }
+
+        /// <summary>
+        /// Add/insert the pointer to the pointers collection. 
+        /// </summary>
+        /// <param name="pointer"></param>
+        /// <param name="index"></param>
+        private void AddPointer(object pointer, int index)
+        {
+            if (pointer is RadialPointer radialPointer)
             {
-                case NotifyCollectionChangedAction.Add:
-                case NotifyCollectionChangedAction.Remove:
-                case NotifyCollectionChangedAction.Replace:
-                    if (e.NewItems != null && e.NewItems.Count > 0)
+                radialPointer.RadialAxis = this;
+                radialPointer.CanAnimate = true;
+
+                if (!this.PointersGrid.Children.Contains(radialPointer.PointerView))
+                {
+                    this.PointersGrid.Children.Insert(index,radialPointer.PointerView);
+                }
+
+                if (radialPointer is MarkerPointer markerPointer && markerPointer.CustomView != null)
+                {
+                    markerPointer.AddCustomView(markerPointer.CustomView);
+
+                    if (this.AnnotationsLayout.Children.Count > 0 && !this.ParentGrid.Children.Contains(this.AnnotationsLayout))
                     {
-                        foreach (RadialPointer radialPointer in e.NewItems)
-                        {
-                            radialPointer.RadialAxis = this;
-                            radialPointer.CanAnimate = true;
-
-                            if (!this.PointersGrid.Children.Contains(radialPointer.PointerView))
-                            {
-                                this.PointersGrid.Children.Add(radialPointer.PointerView);
-                            }
-
-                            if (radialPointer is MarkerPointer markerPointer && markerPointer.CustomView != null)
-                            {
-                                markerPointer.AddCustomView(markerPointer.CustomView);
-
-                                if (this.AnnotationsLayout.Children.Count > 0 && !this.ParentGrid.Children.Contains(this.AnnotationsLayout))
-                                {
-                                    this.ParentGrid.Children.Add(this.AnnotationsLayout);
-                                }
-                            }
-                            else if (this.PointersGrid.Children.Count > 0 && !this.ParentGrid.Children.Contains(PointersGrid))
-                            {
-                                this.ParentGrid.Children.Add(PointersGrid);
-                            }
-
-                            if (!this.AvailableSize.IsZero)
-                            {
-                                SetInheritedBindingContext(radialPointer, this.BindingContext);
-                                radialPointer.CreatePointer();
-                            }
-                        }
+                        this.ParentGrid.Children.Add(this.AnnotationsLayout);
                     }
+                }
+                else if (this.PointersGrid.Children.Count > 0 && !this.ParentGrid.Children.Contains(PointersGrid))
+                {
+                    this.ParentGrid.Children.Add(PointersGrid);
+                }
 
-                    if (e.OldItems != null && e.OldItems.Count > 0)
-                    {
-                        foreach (RadialPointer radialPointer in e.OldItems)
-                        {
-                            radialPointer.RadialAxis = null;
-
-                            if (this.PointersGrid.Children.Contains(radialPointer.PointerView))
-                            {
-                                this.PointersGrid.Children.Remove(radialPointer.PointerView);
-                            }
-
-                            if (radialPointer is MarkerPointer markerPointer && markerPointer.CustomView != null)
-                            {
-                                markerPointer.RemoveCustomView(markerPointer.CustomView);
-                            }
-                        }
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    this.PointersGrid.Children.Clear();
-                    break;
-                default:
-                    break;
+                if (!this.AvailableSize.IsZero)
+                {
+                    SetInheritedBindingContext(radialPointer, this.BindingContext);
+                    radialPointer.CreatePointer();
+                }
             }
+        }
 
+        /// <summary>
+        /// Remove the pointer from the pointers collection. 
+        /// </summary>
+        /// <param name="pointer"></param>
+        /// <param name="index"></param>
+        private void RemovePointer(object pointer, int index)
+        {
+            if (pointer is RadialPointer radialPointer)
+            {
+                radialPointer.RadialAxis = null;
+
+                if (this.PointersGrid.Children.Contains(radialPointer.PointerView))
+                {
+                    this.PointersGrid.Children.RemoveAt(index);
+                }
+
+                if (radialPointer is MarkerPointer markerPointer && markerPointer.CustomView != null)
+                {
+                    markerPointer.RemoveCustomView(markerPointer.CustomView);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Clear the pointers collections. 
+        /// </summary>
+        private void ResetPointers()
+        {
+            this.PointersGrid.Children.Clear();
         }
 
         /// <summary>
@@ -4164,57 +4132,64 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="e">The NotifyCollectionChangedEventArgs.</param>
         private void Annotations_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+            e.ApplyCollectionChanges((obj, index, _) => AddAnnotation(obj, index), (obj, index) => RemoveAnnotation(obj, index), ResetAnnotations);
+        }
+
+        /// <summary>
+        /// Add/insert the annotation to the annotations collection. 
+        /// </summary>
+        /// <param name="annotation"></param>
+        /// <param name="index"></param>
+        private void AddAnnotation(object annotation, int index)
+        {
+            if (annotation is GaugeAnnotation gaugeAnnotation)
             {
-                case NotifyCollectionChangedAction.Add:
-                case NotifyCollectionChangedAction.Remove:
-                case NotifyCollectionChangedAction.Replace:
-                    if (e.NewItems != null && e.NewItems.Count > 0)
-                    {
-                        foreach (GaugeAnnotation gaugeAnnotation in e.NewItems)
-                        {
-                            gaugeAnnotation.RadialAxis = this;
+                gaugeAnnotation.RadialAxis = this;
 
-                            if (!this.AnnotationsLayout.Children.Contains(gaugeAnnotation.Content))
-                            {
-                                this.AnnotationsLayout.Children.Add(gaugeAnnotation.Content);
-                            }
+                if (!this.AnnotationsLayout.Children.Contains(gaugeAnnotation.Content))
+                {
+                    this.AnnotationsLayout.Children.Insert(index,gaugeAnnotation.Content);
+                }
 
-                            if (!this.AvailableSize.IsZero)
-                            {
-                                SetInheritedBindingContext(gaugeAnnotation, this.BindingContext);
-                                SetInheritedBindingContext(gaugeAnnotation.Content, this.BindingContext);
-                                gaugeAnnotation.CreateAnnotation();
-                            }
+                if (!this.AvailableSize.IsZero)
+                {
+                    SetInheritedBindingContext(gaugeAnnotation, this.BindingContext);
+                    SetInheritedBindingContext(gaugeAnnotation.Content, this.BindingContext);
+                    gaugeAnnotation.CreateAnnotation();
+                }
 
-                            if (this.AnnotationsLayout.Children.Count > 0 && !this.ParentGrid.Children.Contains(this.AnnotationsLayout))
-                            {
-                                this.ParentGrid.Children.Add(this.AnnotationsLayout);
-                            }
-                        }
-                    }
-
-                    if (e.OldItems != null && e.OldItems.Count > 0)
-                    {
-                        foreach (GaugeAnnotation gaugeAnnotation in e.OldItems)
-                        {
-                            gaugeAnnotation.RadialAxis = null;
-
-                            if (this.AnnotationsLayout.Children.Contains(gaugeAnnotation.Content))
-                            {
-                                this.AnnotationsLayout.Children.Remove(gaugeAnnotation.Content);
-                                gaugeAnnotation.UnHookMeasureInvalidated();
-                            }
-                        }
-                    }
-                    break;
-               
-                case NotifyCollectionChangedAction.Reset:
-                    this.AnnotationsLayout.Children.Clear();
-                    break;
-                default:
-                    break;
+                if (this.AnnotationsLayout.Children.Count > 0 && !this.ParentGrid.Children.Contains(this.AnnotationsLayout))
+                {
+                    this.ParentGrid.Children.Add(this.AnnotationsLayout);
+                }
             }
+        }
+
+        /// <summary>
+        /// Remove the annotation from the annotations collection.
+        /// </summary>
+        /// <param name="annotation"></param>
+        /// <param name="index"></param>
+        private void RemoveAnnotation(object annotation, int index)
+        {
+            if (annotation is GaugeAnnotation gaugeAnnotation)
+            {
+                gaugeAnnotation.RadialAxis = null;
+
+                if (this.AnnotationsLayout.Children.Contains(gaugeAnnotation.Content))
+                {
+                    this.AnnotationsLayout.Children.Remove(gaugeAnnotation.Content);
+                    gaugeAnnotation.UnHookMeasureInvalidated();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Clear the annotations collection. 
+        /// </summary>
+        private void ResetAnnotations()
+        {
+            this.AnnotationsLayout.Children.Clear();
         }
 
         /// <summary>
