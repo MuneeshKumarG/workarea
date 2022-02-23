@@ -406,7 +406,7 @@
                 <gauge:SfRadialGauge HeightRequest="200" WidthRequest="200">
                     <gauge:SfRadialGauge.Axes>
                         <gauge:RadialAxis StartAngle="270" EndAngle="270" ShowTicks="False" ShowLabels="False"
-                                      ShowFirstLabel="False" >
+                                      ShowFirstLabel="False">
                             <gauge:RadialAxis.Pointers>
                                
                                 <gauge:RangePointer Value="{Binding Source={x:Reference thumpMarkerPointer1}, Path=Value}"
@@ -432,7 +432,7 @@
                                            FontSize="Small" TextColor="Black"/>
                                     </gauge:GaugeAnnotation.Content>
                                 </gauge:GaugeAnnotation>
-                                <gauge:GaugeAnnotation PositionFactor="1.2" DirectionValue="90" >
+                                <gauge:GaugeAnnotation PositionFactor="1" VerticalAlignment="End" DirectionValue="90" >
                                     <gauge:GaugeAnnotation.Content>
                                         <Label Text="Circle thumb" FontSize="Micro" TextColor="Black"/>
                                     </gauge:GaugeAnnotation.Content>
@@ -471,7 +471,7 @@
                                            FontSize="Small" TextColor="Black"/>
                                     </gauge:GaugeAnnotation.Content>
                                 </gauge:GaugeAnnotation>
-                                <gauge:GaugeAnnotation PositionFactor="1.2" DirectionValue="90" >
+                                <gauge:GaugeAnnotation PositionFactor="1" VerticalAlignment="End" DirectionValue="90" >
                                     <gauge:GaugeAnnotation.Content>
                                         <Label Text="Rectangle thumb" FontSize="Micro" TextColor="Black"/>
                                     </gauge:GaugeAnnotation.Content>
@@ -520,7 +520,7 @@
                                            FontSize="Small" TextColor="Black"/>
                                     </gauge:GaugeAnnotation.Content>
                                 </gauge:GaugeAnnotation>
-                                <gauge:GaugeAnnotation PositionFactor="1.2" DirectionValue="90" >
+                                <gauge:GaugeAnnotation PositionFactor="1" VerticalAlignment="End" DirectionValue="90" >
                                     <gauge:GaugeAnnotation.Content>
                                         <Label Text="Image thumb" FontSize="Micro" TextColor="Black"/>
                                     </gauge:GaugeAnnotation.Content>

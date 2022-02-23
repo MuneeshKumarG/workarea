@@ -685,17 +685,17 @@ public partial class Page3 : ContentPage
 
     private void RangePositionInside_Clicked(object sender, EventArgs e)
     {
-        range.RangePosition = GaugeElementPosition.Inside;
+        range.Position = GaugeElementPosition.Inside;
     }
 
     private void RangePositionOutside_Clicked(object sender, EventArgs e)
     {
-        range.RangePosition = GaugeElementPosition.Outside;
+        range.Position = GaugeElementPosition.Outside;
     }
 
     private void RangePositionCross_Clicked(object sender, EventArgs e)
     {
-        range.RangePosition = GaugeElementPosition.Cross;
+        range.Position = GaugeElementPosition.Cross;
     }
 
     private void RangeGradientStopsSet_Clicked(object sender, EventArgs e)
@@ -914,10 +914,13 @@ public partial class Page3 : ContentPage
 
     private void UpdateOffset(LinearMarkerPointer pointer, double left, double top)
     {
-        if (pointer.OffsetPoint == null)
-            pointer.OffsetPoint = new Point(0, 0);
+        if (pointer.OffsetX == double.NaN)
+            pointer.OffsetX = 0;
+        if (pointer.OffsetY == double.NaN)
+            pointer.OffsetY = 0;
 
-        pointer.OffsetPoint = new Point(pointer.OffsetPoint.X + left, pointer.OffsetPoint.Y + top);
+        pointer.OffsetX = pointer.OffsetX + left;
+        pointer.OffsetY = pointer.OffsetY + top;
     }
 
     private void BarPositionHAlignmentStart_Clicked(object sender, EventArgs e)

@@ -28,6 +28,9 @@ public partial class Page2 : ContentPage, INotifyPropertyChanged
 	public Page2()
 	{
 		InitializeComponent();
+
+		fahrenheitAnnotationLabel.Text = "0°F to 60°F";
+		celsiusAnnotationLabel.Text = "-17.8°C to 15.6°C";
 	}
 
 
@@ -147,21 +150,199 @@ public partial class Page2 : ContentPage, INotifyPropertyChanged
 		}
 	}
 
+	private void styleMarker_ValueChanging1(object sender, Syncfusion.Maui.Gauges.ValueChangingEventArgs e)
+	{
+		string text = string.Empty;
+		if (sender is MarkerPointer markerPointer)
+			text = AutomationProperties.GetHelpText(markerPointer);
+		if (sender is NeedlePointer needlePointer)
+			text = AutomationProperties.GetHelpText(needlePointer);
+
+		if (Math.Abs(e.NewValue - e.OldValue) > 20 ||
+			(text == "styleAnnotationLabel1" && (e.NewValue >= styleMarker2.Value || Math.Abs(e.NewValue - styleMarker1.Value) > 10)) ||
+			(text == "styleAnnotationLabel2" && (e.NewValue >= styleMarker4.Value || Math.Abs(e.NewValue - styleMarker3.Value) > 10)) ||
+			(text == "styleAnnotationLabel3" && (e.NewValue >= styleMarker6.Value || Math.Abs(e.NewValue - styleMarker5.Value) > 10)) ||
+			(text == "styleAnnotationLabel4" && (e.NewValue >= styleMarker8.Value || Math.Abs(e.NewValue - styleMarker7.Value) > 10)) ||
+			(text == "styleAnnotationLabel5" && (e.NewValue >= styleMarker10.Value || Math.Abs(e.NewValue - styleMarker9.Value) > 10)) ||
+			(text == "styleAnnotationLabel6" && (e.NewValue >= styleMarker12.Value || Math.Abs(e.NewValue - styleMarker11.Value) > 10)))
+			e.Cancel = true;
+		else
+		{
+			double value = e.NewValue > 50 ? Math.Ceiling(e.NewValue) : Math.Floor(e.NewValue);
+
+			if (text == "styleAnnotationLabel1")
+				styleAnnotationLabel1.Text = value.ToString() + " - " + (int)styleMarker2.Value + "%";
+			else if (text == "styleAnnotationLabel2")
+				styleAnnotationLabel2.Text = value.ToString() + " - " + (int)styleMarker4.Value + "%";
+			else if (text == "styleAnnotationLabel3")
+				styleAnnotationLabel3.Text = value.ToString() + " - " + (int)styleMarker6.Value + "%";
+			else if (text == "styleAnnotationLabel4")
+				styleAnnotationLabel4.Text = value.ToString() + " - " + (int)styleMarker8.Value + "%";
+			else if (text == "styleAnnotationLabel5")
+				styleAnnotationLabel5.Text = value.ToString() + " - " + (int)styleMarker10.Value + "%";
+			else if (text == "styleAnnotationLabel6")
+				styleAnnotationLabel6.Text = value.ToString() + " - " + (int)styleMarker12.Value;
+		}
+	}
+
+	private void styleMarker_ValueChanging2(object sender, Syncfusion.Maui.Gauges.ValueChangingEventArgs e)
+	{
+		string text = string.Empty;
+		if (sender is MarkerPointer markerPointer)
+			text = AutomationProperties.GetHelpText(markerPointer);
+		if (sender is NeedlePointer needlePointer)
+			text = AutomationProperties.GetHelpText(needlePointer);
+
+		if (Math.Abs(e.NewValue - e.OldValue) > 20 ||
+			(text == "styleAnnotationLabel1" && (e.NewValue <= styleMarker1.Value || Math.Abs(e.NewValue - styleMarker2.Value) > 10)) ||
+			(text == "styleAnnotationLabel2" && (e.NewValue <= styleMarker3.Value || Math.Abs(e.NewValue - styleMarker4.Value) > 10)) ||
+			(text == "styleAnnotationLabel3" && (e.NewValue <= styleMarker5.Value || Math.Abs(e.NewValue - styleMarker6.Value) > 10)) ||
+			(text == "styleAnnotationLabel4" && (e.NewValue <= styleMarker7.Value || Math.Abs(e.NewValue - styleMarker8.Value) > 10)) ||
+			(text == "styleAnnotationLabel5" && (e.NewValue <= styleMarker9.Value || Math.Abs(e.NewValue - styleMarker10.Value) > 10)) ||
+			(text == "styleAnnotationLabel6" && (e.NewValue <= styleMarker11.Value || Math.Abs(e.NewValue - styleMarker12.Value) > 10)))
+			e.Cancel = true;
+		else
+		{
+			double value = e.NewValue > 50 ? Math.Ceiling(e.NewValue) : Math.Floor(e.NewValue);
+
+			if (text == "styleAnnotationLabel1")
+				styleAnnotationLabel1.Text = (int)styleMarker1.Value + " - " + value.ToString() + "%";
+			else if (text == "styleAnnotationLabel2")
+				styleAnnotationLabel2.Text = (int)styleMarker3.Value + " - " + value.ToString() + "%";
+			else if (text == "styleAnnotationLabel3")
+				styleAnnotationLabel3.Text = (int)styleMarker5.Value + " - " + value.ToString() + "%";
+			else if (text == "styleAnnotationLabel4")
+				styleAnnotationLabel4.Text = (int)styleMarker7.Value + " - " + value.ToString() + "%";
+			else if (text == "styleAnnotationLabel5")
+				styleAnnotationLabel5.Text = (int)styleMarker9.Value + " - " + value.ToString() + "%";
+			else if (text == "styleAnnotationLabel6")
+				styleAnnotationLabel6.Text = (int)styleMarker11.Value + " - " + value.ToString();
+		}
+	}
+
+	private void thumpPointer1_ValueChanging(object sender, ValueChangingEventArgs e)
+	{
+		MarkerPointer markerPointer = sender as MarkerPointer;
+		string text = AutomationProperties.GetHelpText(markerPointer);
+
+		if (Math.Abs(e.NewValue - e.OldValue) > 20 ||
+			(text == "thumpAnnotationLabel1" && (e.NewValue >= thumpMarkerPointer2.Value || Math.Abs(e.NewValue - thumpMarkerPointer1.Value) > 10)) ||
+			(text == "thumpAnnotationLabel2" && (e.NewValue >= thumpMarkerPointer4.Value || Math.Abs(e.NewValue - thumpMarkerPointer3.Value) > 10)) ||
+			(text == "thumpAnnotationLabel3" && (e.NewValue >= thumpMarkerPointer6.Value || Math.Abs(e.NewValue - thumpMarkerPointer5.Value) > 10)))
+			e.Cancel = true;
+		else
+		{
+			double value = e.NewValue;
+			value = value > 50 ? Math.Ceiling(value) : Math.Floor(value);
+
+			if (text == "thumpAnnotationLabel1")
+				thumpAnnotationLabel1.Text = value.ToString() + " - " + (int)thumpMarkerPointer2.Value;
+			else if (text == "thumpAnnotationLabel2")
+				thumpAnnotationLabel2.Text = value.ToString() + " - " + (int)thumpMarkerPointer4.Value;
+			else if (text == "thumpAnnotationLabel3")
+				thumpAnnotationLabel3.Text = value.ToString() + " - " + (int)thumpMarkerPointer6.Value;
+		}
+	}
+
+	private void thumpPointer2_ValueChanging(object sender, ValueChangingEventArgs e)
+	{
+		MarkerPointer markerPointer = sender as MarkerPointer;
+		string text = AutomationProperties.GetHelpText(markerPointer);
+
+		if (Math.Abs(e.NewValue - e.OldValue) > 20 ||
+			(text == "thumpAnnotationLabel1" && (e.NewValue <= thumpMarkerPointer1.Value || Math.Abs(e.NewValue - thumpMarkerPointer2.Value) > 10)) ||
+			(text == "thumpAnnotationLabel2" && (e.NewValue <= thumpMarkerPointer3.Value || Math.Abs(e.NewValue - thumpMarkerPointer4.Value) > 10)) ||
+			(text == "thumpAnnotationLabel3" && (e.NewValue <= thumpMarkerPointer5.Value || Math.Abs(e.NewValue - thumpMarkerPointer6.Value) > 10)))
+			e.Cancel = true;
+		else
+		{
+			double value = e.NewValue;
+			value = value > 50 ? Math.Ceiling(value) : Math.Floor(value);
+
+			if (text == "thumpAnnotationLabel1")
+				thumpAnnotationLabel1.Text = (int)thumpMarkerPointer1.Value + " - " + value.ToString();
+			else if (text == "thumpAnnotationLabel2")
+				thumpAnnotationLabel2.Text = (int)thumpMarkerPointer3.Value + " - " + value.ToString();
+			else if (text == "thumpAnnotationLabel3")
+				thumpAnnotationLabel3.Text = (int)thumpMarkerPointer5.Value + " - " + value.ToString();
+		}
+	}
+
 	private void customTextMarker_ValueChanging1(object sender, ValueChangingEventArgs e)
 	{
-		
+		if (e.NewValue >= customTextMarker2.Value || Math.Abs(e.NewValue - customTextMarker1.Value) > 10)
+			e.Cancel = true;
+		else
+			UpdateCustomTextAnnotationLabel(Math.Abs(customTextMarker2.Value - customTextMarker1.Value));
 	}
 
 	private void customTextMarker_ValueChanging2(object sender, ValueChangingEventArgs e)
 	{
-		
+		if (e.NewValue <= customTextMarker1.Value || Math.Abs(e.NewValue - customTextMarker2.Value) > 10)
+			e.Cancel = true;
+		else
+			UpdateCustomTextAnnotationLabel(Math.Abs(customTextMarker2.Value - customTextMarker1.Value));
 	}
 
-	private void gradientMarker_ValueChanging(object sender, ValueChangingEventArgs e)
+	private void UpdateCustomTextAnnotationLabel(double value)
+    {
+		if (value > 99)
+		{
+			Brush brush = new SolidColorBrush(Color.FromRgb(0, 168, 181));
+			customTextAxis.Ranges[0].Fill = brush;
+			(customTextAxis.Pointers[0] as MarkerPointer).Stroke = Color.FromRgb(0, 168, 181);
+			(customTextAxis.Pointers[1] as MarkerPointer).Stroke = Color.FromRgb(0, 168, 181);
+			customTextAnnotation.Text = "Done";
+
+		}
+		else
+		{
+			Brush brush = new SolidColorBrush(Colors.Orange);
+			customTextAxis.Ranges[0].Fill = brush;
+			(customTextAxis.Pointers[0] as MarkerPointer).Stroke = Colors.Orange;
+			(customTextAxis.Pointers[1] as MarkerPointer).Stroke = Colors.Orange;
+			customTextAnnotation.Text = "In-progress";
+		}
+	}
+
+	private void RadialAxis_LabelCreated(object sender, LabelCreatedEventArgs e)
 	{
-		//double value = e.NewValue > 50 ? Math.Ceiling(e.NewValue) : Math.Floor(e.NewValue);
-		//fahrenheitAnnotationLabel.Text = value.ToString() + "°F";
-		//celsiusAnnotationLabel.Text = Math.Round((value - 32) / 1.8, 1).ToString() + "°C";
+		double axisValue = double.Parse(e.Text);
+		double celsiusValue = (axisValue - 32) / 1.8;
+		e.Text = Math.Round(celsiusValue, 1).ToString();
+	}
+
+	private void gradientMarker1_ValueChanging(object sender, ValueChangingEventArgs e)
+	{
+		if (e.NewValue >= gradientMarker2.Value || Math.Abs(e.NewValue - gradientMarker1.Value) > 10)
+			e.Cancel = true;
+		else
+		{
+			double firstMarkerValue = e.NewValue > 50 ? Math.Ceiling(e.NewValue) : Math.Floor(e.NewValue);
+			double secondMarkerValue = (int)gradientMarker2.Value;
+
+			UpdateGradientAnnotationLabel(firstMarkerValue, secondMarkerValue);
+		}
+	}
+
+	private void gradientMarker2_ValueChanging(object sender, ValueChangingEventArgs e)
+	{
+		if (e.NewValue <= gradientMarker1.Value || Math.Abs(e.NewValue - gradientMarker2.Value) > 10)
+			e.Cancel = true;
+		else
+		{
+			double firstMarkerValue = (int)gradientMarker1.Value;
+			double secondMarkerValue = e.NewValue > 50 ? Math.Ceiling(e.NewValue) : Math.Floor(e.NewValue);
+
+			UpdateGradientAnnotationLabel(firstMarkerValue, secondMarkerValue);
+		}
+    }
+
+	private void UpdateGradientAnnotationLabel(double firstMarkerValue, double secondMarkerValue)
+	{
+		fahrenheitAnnotationLabel.Text = firstMarkerValue.ToString() + "°F to " + secondMarkerValue + "°F";
+		celsiusAnnotationLabel.Text = Math.Round((firstMarkerValue - 32) / 1.8, 1) + "°C to " +
+			Math.Round((secondMarkerValue - 32) / 1.8, 1) + "°C";
 	}
 
 
