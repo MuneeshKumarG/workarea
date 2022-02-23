@@ -55,7 +55,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="IsInteractive"/> bindable property.
         /// </value>
         public static readonly BindableProperty IsInteractiveProperty =
-           BindableProperty.Create(nameof(IsInteractive), typeof(bool), typeof(LinearPointer), false);
+           BindableProperty.Create(nameof(IsInteractive), typeof(bool), typeof(LinearPointer), false, propertyChanged: OnPointerPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="StepFrequency"/> bindable property.
@@ -73,7 +73,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="Position"/> bindable property.
         /// </value>
         public static readonly BindableProperty PositionProperty = BindableProperty.Create(nameof(Position),
-            typeof(GaugeElementPosition), typeof(LinearPointer), propertyChanged: OnPositionPropertyChanged, defaultValueCreator: bindable =>
+            typeof(GaugeElementPosition), typeof(LinearPointer), propertyChanged: OnPointerPropertyChanged, defaultValueCreator: bindable =>
              {
                  if (bindable is BarPointer)
                  {
@@ -442,7 +442,7 @@ namespace Syncfusion.Maui.Gauges
         /// <param name="bindable">The BindableObject.</param>
         /// <param name="oldValue">Old value.</param>
         /// <param name="newValue">New value.</param>
-        private static void OnPositionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void OnPointerPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (bindable is LinearPointer linearPointer && linearPointer.Scale != null)
             {

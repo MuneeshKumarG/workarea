@@ -193,22 +193,22 @@ namespace Syncfusion.Maui.Gauges
             BindableProperty.Create(nameof(ShowLabels), typeof(bool), typeof(SfLinearGauge), true, propertyChanged: OnScaleInvalidatePropertyChanged);
 
         /// <summary>
-        /// Identifies the <see cref="AnimateAxis"/> bindable property.
+        /// Identifies the <see cref="EnableAxisAnimation"/> bindable property.
         /// </summary>
         /// <value>
-        /// The identifier for <see cref="AnimateAxis"/> bindable property.
+        /// The identifier for <see cref="EnableAxisAnimation"/> bindable property.
         /// </value>
-        public static readonly BindableProperty AnimateAxisProperty =
-            BindableProperty.Create(nameof(AnimateAxis), typeof(bool), typeof(SfLinearGauge), false, propertyChanged: OnScaleAnimatePropertyChanged);
+        public static readonly BindableProperty EnableAxisAnimationProperty =
+            BindableProperty.Create(nameof(EnableAxisAnimation), typeof(bool), typeof(SfLinearGauge), false, propertyChanged: OnScaleAnimatePropertyChanged);
 
         /// <summary>
-        /// Identifies the <see cref="AnimateRange"/> bindable property.
+        /// Identifies the <see cref="EnableRangeAnimation"/> bindable property.
         /// </summary>
         /// <value>
-        /// The identifier for <see cref="AnimateRange"/> bindable property.
+        /// The identifier for <see cref="EnableRangeAnimation"/> bindable property.
         /// </value>
-        public static readonly BindableProperty AnimateRangeProperty =
-            BindableProperty.Create(nameof(AnimateRange), typeof(bool), typeof(SfLinearGauge), false, propertyChanged: OnScaleAnimatePropertyChanged);
+        public static readonly BindableProperty EnableRangeAnimationProperty =
+            BindableProperty.Create(nameof(EnableRangeAnimation), typeof(bool), typeof(SfLinearGauge), false, propertyChanged: OnScaleAnimatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="AnimationDuration"/> bindable property.
@@ -576,10 +576,10 @@ namespace Syncfusion.Maui.Gauges
         /// <value>
         /// <b>The default value is false</b>.
         /// </value>
-        public bool AnimateAxis
+        public bool EnableAxisAnimation
         {
-            get { return (bool)this.GetValue(AnimateAxisProperty); }
-            set { this.SetValue(AnimateAxisProperty, value); }
+            get { return (bool)this.GetValue(EnableAxisAnimationProperty); }
+            set { this.SetValue(EnableAxisAnimationProperty, value); }
         }
 
         /// <summary>
@@ -588,10 +588,10 @@ namespace Syncfusion.Maui.Gauges
         /// <value>
         /// <b>The default value is false</b>.
         /// </value>
-        public bool AnimateRange
+        public bool EnableRangeAnimation
         {
-            get { return (bool)this.GetValue(AnimateRangeProperty); }
-            set { this.SetValue(AnimateRangeProperty, value); }
+            get { return (bool)this.GetValue(EnableRangeAnimationProperty); }
+            set { this.SetValue(EnableRangeAnimationProperty, value); }
         }
 
         /// <summary>
@@ -725,7 +725,7 @@ namespace Syncfusion.Maui.Gauges
         {
             get
             {
-                return canAnimateScale && AnimateAxis && AnimationDuration > 0;
+                return canAnimateScale && EnableAxisAnimation && AnimationDuration > 0;
             }
             set
             {
@@ -740,7 +740,7 @@ namespace Syncfusion.Maui.Gauges
         {
             get
             {
-                return canAnimateRange && AnimateRange && AnimationDuration > 0;
+                return canAnimateRange && EnableRangeAnimation && AnimationDuration > 0;
             }
             set
             {
@@ -2331,7 +2331,7 @@ namespace Syncfusion.Maui.Gauges
             {
                 foreach (var pointer in MarkerPointers)
                 {
-                    if (!pointer.AllowClip)
+                    if (pointer.IsInteractive)
                     {
                         if (pointer is ShapePointer shapePointer)
                         {
@@ -3059,7 +3059,7 @@ namespace Syncfusion.Maui.Gauges
                         maxRangeWidth = Math.Max(Math.Max(range.StartWidth, range.MidWidth), range.EndWidth);
                     }
 
-                    switch (range.RangePosition)
+                    switch (range.Position)
                     {
                         case GaugeElementPosition.Inside:
                             insideRangesSize = Math.Max(insideRangesSize, maxRangeWidth);
@@ -3169,7 +3169,7 @@ namespace Syncfusion.Maui.Gauges
                 foreach (LinearMarkerPointer markerPointer in this.MarkerPointers)
                 {
                     double pointerOffset = this.Orientation == GaugeOrientation.Horizontal
-                        ? markerPointer.OffsetPoint.Y : markerPointer.OffsetPoint.X;
+                        ? markerPointer.OffsetY : markerPointer.OffsetX;
                   
                     double markerSize = 0d;
 

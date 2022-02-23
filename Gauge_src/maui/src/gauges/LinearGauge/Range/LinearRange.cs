@@ -64,13 +64,13 @@ namespace Syncfusion.Maui.Gauges
             BindableProperty.Create(nameof(EndWidth), typeof(double), typeof(LinearRange), 5d, propertyChanged: OnPropertyChanged);
 
         /// <summary>
-        /// Identifies the <see cref="RangePosition"/> bindable property.
+        /// Identifies the <see cref="Position"/> bindable property.
         /// </summary>
         /// <value>
-        /// The identifier for <see cref="RangePosition"/> bindable property.
+        /// The identifier for <see cref="Position"/> bindable property.
         /// </value>
-        public static readonly BindableProperty RangePositionProperty =
-            BindableProperty.Create(nameof(RangePosition), typeof(GaugeElementPosition), typeof(LinearRange), GaugeElementPosition.Outside, propertyChanged: OnPropertyChanged);
+        public static readonly BindableProperty PositionProperty =
+            BindableProperty.Create(nameof(Position), typeof(GaugeElementPosition), typeof(LinearRange), GaugeElementPosition.Outside, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="Fill"/> bindable property.
@@ -195,10 +195,10 @@ namespace Syncfusion.Maui.Gauges
         /// <value>
         /// The default value is <see cref="GaugeElementPosition.Outside"/>.
         /// </value>
-        public GaugeElementPosition RangePosition
+        public GaugeElementPosition Position
         {
-            get { return (GaugeElementPosition)this.GetValue(RangePositionProperty); }
-            set { this.SetValue(RangePositionProperty, value); }
+            get { return (GaugeElementPosition)this.GetValue(PositionProperty); }
+            set { this.SetValue(PositionProperty, value); }
         }
 
         /// <summary>
@@ -308,7 +308,7 @@ namespace Syncfusion.Maui.Gauges
             float scaleLinePositionY = (float)this.Scale.ScalePosition.Y;
             rangePath = new PathF();
 
-            switch (this.Scale.GetActualElementPosition(this.RangePosition))
+            switch (this.Scale.GetActualElementPosition(this.Position))
             {
                 case GaugeElementPosition.Outside:
                     this.Scale.MoveToPath(rangePath, scaleLinePositionX + rangeStartPosition, scaleLinePositionY);

@@ -13,13 +13,22 @@ namespace Syncfusion.Maui.Gauges
         #region Bindable properties
 
         /// <summary>
-        /// Identifies the <see cref="OffsetPoint"/> bindable property.
+        /// Identifies the <see cref="OffsetX"/> bindable property.
         /// </summary>
         /// <value>
-        /// The identifier for <see cref="OffsetPoint"/> bindable property.
+        /// The identifier for <see cref="OffsetX"/> bindable property.
         /// </value>
-        public static readonly BindableProperty OffsetPointProperty = BindableProperty.Create(nameof(OffsetPoint), typeof(Point), 
-            typeof(LinearMarkerPointer), null, propertyChanged: OnMarkerPropertyChanged);
+        public static readonly BindableProperty OffsetXProperty = BindableProperty.Create(nameof(OffsetX), typeof(double), 
+            typeof(LinearMarkerPointer), 0d, propertyChanged: OnMarkerPropertyChanged);
+
+        /// <summary>
+        /// Identifies the <see cref="OffsetY"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="OffsetY"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty OffsetYProperty = BindableProperty.Create(nameof(OffsetY), typeof(double),
+            typeof(LinearMarkerPointer), 0d, propertyChanged: OnMarkerPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="Alignment"/> bindable property.
@@ -30,33 +39,32 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty AlignmentProperty = BindableProperty.Create(nameof(Alignment), 
             typeof(GaugeAlignment), typeof(LinearMarkerPointer), GaugeAlignment.Center, propertyChanged: OnMarkerPropertyChanged);
 
-        /// <summary>
-        /// Identifies the <see cref="AllowClip"/> bindable property.
-        /// </summary>
-        /// <value>
-        /// The identifier for <see cref="AllowClip"/> bindable property.
-        /// </value>
-        public static readonly BindableProperty AllowClipProperty =
-            BindableProperty.Create(nameof(AllowClip), typeof(bool), typeof(LinearMarkerPointer), false, propertyChanged: OnMarkerPropertyChanged);
-
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// Gets or sets a value that specifies the marker position value. 
+        /// Gets or sets a value that specifies the marker x offset value. 
         /// </summary>
         /// <value>
-        /// Its default value is <c>0,0</c>.
+        /// Its default value is <c>0</c>.
         /// </value>
-        /// <remarks>
-        /// Offset point x defines the left or right distance from the pointer value. 
-        /// Offset point y defines the bottom or top distance from the pointer value. 
-        /// </remarks>
-        public Point OffsetPoint
+        public double OffsetX
         {
-            get { return (Point)this.GetValue(OffsetPointProperty); }
-            set { this.SetValue(OffsetPointProperty, value); }
+            get { return (double)this.GetValue(OffsetXProperty); }
+            set { this.SetValue(OffsetXProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value that specifies the marker y offset value. 
+        /// </summary>
+        /// <value>
+        /// Its default value is <c>0</c>.
+        /// </value>
+        public double OffsetY
+        {
+            get { return (double)this.GetValue(OffsetYProperty); }
+            set { this.SetValue(OffsetYProperty, value); }
         }
 
         /// <summary>
@@ -72,24 +80,12 @@ namespace Syncfusion.Maui.Gauges
             set { this.SetValue(AlignmentProperty, value); }
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether to clip markers in scale edge or not. 
-        /// </summary>
-        /// <value>
-        /// <b>The default value is false</b>.
-        /// </value>
-        public bool AllowClip
-        {
-            get { return (bool)this.GetValue(AllowClipProperty); }
-            set { this.SetValue(AllowClipProperty, value); }
-        }
-
         #endregion
 
         #region Property changed
 
         /// <summary>
-        /// Called when marker pointer <see cref="OffsetPoint"/>, <see cref="AllowClip"/>, or <see cref="Alignment"/> changed.
+        /// Called when marker pointer <see cref="OffsetX"/>, <see cref="OffsetY"/> or <see cref="Alignment"/> changed.
         /// </summary>
         /// <param name="bindable">The BindableObject.</param>
         /// <param name="oldValue">Old value.</param>
@@ -141,26 +137,26 @@ namespace Syncfusion.Maui.Gauges
 
                 if (this.Scale.Orientation == GaugeOrientation.Horizontal)
                 {
-                    x += this.OffsetPoint.X;
+                    x += this.OffsetX;
                     if (this.Scale.IsMirrored)
                     {
-                        y -= this.OffsetPoint.Y;
+                        y -= this.OffsetY;
                     }
                     else
                     {
-                        y += this.OffsetPoint.Y;
+                        y += this.OffsetY;
                     }
                 }
                 else
                 {
-                    x += this.OffsetPoint.Y;
+                    x += this.OffsetY;
                     if (this.Scale.IsMirrored)
                     {
-                        y -= this.OffsetPoint.X;
+                        y -= this.OffsetX;
                     }
                     else
                     {
-                        y += this.OffsetPoint.X;
+                        y += this.OffsetX;
                     }
                 }
             }
