@@ -12,21 +12,18 @@
         </Grid.RowDefinitions>
 
         <Grid Margin="15">
-            <gauge:SfLinearGauge x:Name="gauge" Margin="5" HorizontalOptions="Center" VerticalOptions="Center" 
-                             AnimateAxis="True" IsVisible="false" AnimateRange="True">
+            <gauge:SfLinearGauge x:Name="gauge" Margin="5" HorizontalOptions="Center" VerticalOptions="Center">
 
                 <gauge:SfLinearGauge.Ranges>
-                    <gauge:LinearRange x:Name="range" EndValue="100"
-                                        Fill="#F45656" />
+                    <gauge:LinearRange x:Name="range"/>
                 </gauge:SfLinearGauge.Ranges>
 
                 <gauge:SfLinearGauge.BarPointers>
-                    <gauge:BarPointer x:Name="barPointer" Value="50" PointerSize="0" />
+                    <gauge:BarPointer x:Name="barPointer" Value="50"/>
                 </gauge:SfLinearGauge.BarPointers>
 
                 <gauge:SfLinearGauge.MarkerPointers>
-                    <gauge:ShapePointer x:Name="shapePointer" EnableAnimation="True"  Value="60" 
-                                        Position="Outside" OffsetPoint="0,-10"/>
+                    <gauge:ShapePointer x:Name="shapePointer" EnableAnimation="True"  Value="60"/>
 
                     <gauge:ContentPointer x:Name="contentPointer" Value="80"
                                           AllowClip="True" EnableAnimation="True"
@@ -764,6 +761,16 @@
                     <Label Text="EnableAnimation"/>
                     <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference shapePointer}, 
                         Path=EnableAnimation}"  Margin="5"/>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="HasShadow"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference shapePointer}, 
+                        Path=HasShadow}"  Margin="5"/>
                 </Grid>
 
                 <Grid Margin="5">

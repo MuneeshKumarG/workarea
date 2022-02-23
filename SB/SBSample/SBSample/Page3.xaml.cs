@@ -821,17 +821,17 @@ public partial class Page3 : ContentPage
 
     private void BarPositionInside_Clicked(object sender, EventArgs e)
     {
-        barPointer.BarPosition = GaugeElementPosition.Inside;
+        barPointer.Position = GaugeElementPosition.Inside;
     }
 
     private void BarPositionOutside_Clicked(object sender, EventArgs e)
     {
-        barPointer.BarPosition = GaugeElementPosition.Outside;
+        barPointer.Position = GaugeElementPosition.Outside;
     }
 
     private void BarPositionCross_Clicked(object sender, EventArgs e)
     {
-        barPointer.BarPosition = GaugeElementPosition.Cross;
+        barPointer.Position = GaugeElementPosition.Cross;
     }
 
     private void RangeClear_Clicked(object sender, EventArgs e)
