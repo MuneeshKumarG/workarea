@@ -34,7 +34,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="EndValue"/> bindable property.
         /// </value>
         public static readonly BindableProperty EndValueProperty =
-            BindableProperty.Create(nameof(EndValue), typeof(double), typeof(LinearRange), 0d, propertyChanged: OnStartEndValueChanged);
+            BindableProperty.Create(nameof(EndValue), typeof(double), typeof(LinearRange), 100d, propertyChanged: OnStartEndValueChanged);
 
         /// <summary>
         /// Identifies the <see cref="StartWidth"/> bindable property.
@@ -43,7 +43,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="StartWidth"/> bindable property.
         /// </value>
         public static readonly BindableProperty StartWidthProperty =
-            BindableProperty.Create(nameof(StartWidth), typeof(double), typeof(LinearRange), 10d, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(StartWidth), typeof(double), typeof(LinearRange), 5d, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="MidWidth"/> bindable property.
@@ -61,7 +61,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="EndWidth"/> bindable property.
         /// </value>
         public static readonly BindableProperty EndWidthProperty =
-            BindableProperty.Create(nameof(EndWidth), typeof(double), typeof(LinearRange), 10d, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(EndWidth), typeof(double), typeof(LinearRange), 5d, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="RangePosition"/> bindable property.
@@ -79,7 +79,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="Fill"/> bindable property.
         /// </value>
         public static readonly BindableProperty FillProperty =
-            BindableProperty.Create(nameof(Fill), typeof(Brush), typeof(LinearRange), null, defaultValueCreator: bindable => new SolidColorBrush(Color.FromRgb(67, 160, 71)), propertyChanged: OnFillPropertyChanged);
+            BindableProperty.Create(nameof(Fill), typeof(Brush), typeof(LinearRange), null, defaultValueCreator: bindable => new SolidColorBrush(Color.FromRgb(244, 86, 86)), propertyChanged: OnFillPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="GradientStops"/> bindable property.

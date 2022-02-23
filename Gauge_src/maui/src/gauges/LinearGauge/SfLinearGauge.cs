@@ -3103,9 +3103,9 @@ namespace Syncfusion.Maui.Gauges
                 foreach (BarPointer barPointer in this.BarPointers)
                 {
 
-                    if (barPointer.BarPosition == GaugeElementPosition.Cross)
+                    if (barPointer.Position == GaugeElementPosition.Cross)
                         fillPointersSize = Math.Max(barPointer.PointerSize, fillPointersSize);
-                    else if (barPointer.BarPosition == GaugeElementPosition.Inside)
+                    else if (barPointer.Position == GaugeElementPosition.Inside)
                     {
                         if (barPointer.Offset >= 0)
                         {

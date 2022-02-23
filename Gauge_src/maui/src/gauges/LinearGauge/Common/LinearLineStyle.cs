@@ -19,7 +19,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="Fill"/> bindable property.
         /// </value>
         public static readonly BindableProperty FillProperty =
-           BindableProperty.Create(nameof(Fill), typeof(Brush), typeof(LinearLineStyle), null, defaultValueCreator: bindable => new SolidColorBrush(Color.FromRgba(33, 33, 33, 20)));
+           BindableProperty.Create(nameof(Fill), typeof(Brush), typeof(LinearLineStyle), null, defaultValueCreator: bindable => new SolidColorBrush(Color.FromRgba(0, 0, 0, 31)));
         
         /// <summary>
         /// Identifies the <see cref="GradientStops"/> bindable property.
@@ -37,7 +37,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="Thickness"/> bindable property.
         /// </value>
         public static readonly BindableProperty ThicknessProperty =
-            BindableProperty.Create(nameof(Thickness), typeof(double), typeof(LinearLineStyle), 10d);
+            BindableProperty.Create(nameof(Thickness), typeof(double), typeof(LinearLineStyle), 5d);
 
         /// <summary>
         /// Identifies the <see cref="CornerRadius"/> bindable property.

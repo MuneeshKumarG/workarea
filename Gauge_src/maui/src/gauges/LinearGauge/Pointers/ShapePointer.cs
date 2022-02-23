@@ -50,7 +50,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="Fill"/> bindable property.
         /// </value>
         public static readonly BindableProperty FillProperty = BindableProperty.Create(nameof(Fill), typeof(Brush),
-            typeof(ShapePointer), new SolidColorBrush(Color.FromRgb(73, 89, 99)), propertyChanged: OnInvalidatePropertyChanged);
+            typeof(ShapePointer), new SolidColorBrush(Color.FromRgba(0, 0, 0, 138)), propertyChanged: OnInvalidatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="StrokeThickness"/> bindable property.
@@ -68,7 +68,16 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="Stroke"/> bindable property.
         /// </value>
         public static readonly BindableProperty StrokeProperty =
-            BindableProperty.Create(nameof(Stroke), typeof(Color), typeof(ShapePointer), Color.FromRgb(73, 89, 99), propertyChanged: OnInvalidatePropertyChanged);
+            BindableProperty.Create(nameof(Stroke), typeof(Color), typeof(ShapePointer), Color.FromRgba(0, 0, 0, 138), propertyChanged: OnInvalidatePropertyChanged);
+
+        /// <summary>
+        /// Identifies the <see cref="HasShadow"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="HasShadow"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty HasShadowProperty =
+            BindableProperty.Create(nameof(HasShadow), typeof(bool), typeof(ShapePointer), false, propertyChanged: OnInvalidatePropertyChanged);
 
         #endregion
 
@@ -153,6 +162,18 @@ namespace Syncfusion.Maui.Gauges
             set { this.SetValue(StrokeThicknessProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets a value that specifies the shadow effect for shape pointer. 
+        /// </summary>
+        /// <value>
+        /// It defines the shadow visibility of shape pointer. The default value is <c>False</c>.
+        /// </value>
+        public bool HasShadow
+        {
+            get { return (bool)this.GetValue(HasShadowProperty); }
+            set { this.SetValue(HasShadowProperty, value); }
+        }
+
         #endregion
 
         #region Override methods
@@ -187,6 +208,11 @@ namespace Syncfusion.Maui.Gauges
                     angle += 180;
 
                 canvas.Rotate(angle, shapePosition.X + halfWidth, shapePosition.Y + halfHeight);
+
+                if (this.HasShadow)
+                {
+                    canvas.SetShadow(new SizeF(0, 2), 10, Color.FromRgb(148, 148, 148));
+                }
 
                 canvas.SetFillPaint(this.Fill, new RectangleF(positionX, positionY, width, height));
 

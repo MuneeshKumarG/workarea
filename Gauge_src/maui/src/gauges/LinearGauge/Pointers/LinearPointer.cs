@@ -66,6 +66,25 @@ namespace Syncfusion.Maui.Gauges
         public static readonly BindableProperty StepFrequencyProperty =
             BindableProperty.Create(nameof(StepFrequency), typeof(double), typeof(LinearPointer), 0d);
 
+        /// <summary>
+        /// Identifies the <see cref="Position"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="Position"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty PositionProperty = BindableProperty.Create(nameof(Position),
+            typeof(GaugeElementPosition), typeof(LinearPointer), propertyChanged: OnPositionPropertyChanged, defaultValueCreator: bindable =>
+             {
+                 if (bindable is BarPointer)
+                 {
+                     return GaugeElementPosition.Cross;
+                 }
+                 else
+                 {
+                     return GaugeElementPosition.Outside;
+                 }
+             });
+
         #endregion
 
         #region Fields
@@ -223,6 +242,19 @@ namespace Syncfusion.Maui.Gauges
         {
             get { return (double)this.GetValue(StepFrequencyProperty); }
             set { this.SetValue(StepFrequencyProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the placement (top, center or bottom) of the marker pointer relative to scale. 
+        /// </summary>
+        /// <value>
+        /// One of the enumeration values that specifies the vertical position of marker in the linear gauge.
+        /// The default value of <see cref="BarPointer"/> is <see cref="GaugeElementPosition.Cross"/> and the default value of <see cref="ShapePointer"/> and <see cref="ContentPointer"/> is <see cref="GaugeElementPosition.Outside"/> .
+        /// </value>
+        public GaugeElementPosition Position
+        {
+            get { return (GaugeElementPosition)this.GetValue(PositionProperty); }
+            set { this.SetValue(PositionProperty, value); }
         }
 
         /// <summary>
@@ -401,6 +433,20 @@ namespace Syncfusion.Maui.Gauges
                 }
 
                 linearPointer.InvalidateDrawable();
+            }
+        }
+
+        /// <summary>
+        /// Called when pointer's <see cref="Position"/> changed.
+        /// </summary>
+        /// <param name="bindable">The BindableObject.</param>
+        /// <param name="oldValue">Old value.</param>
+        /// <param name="newValue">New value.</param>
+        private static void OnPositionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is LinearPointer linearPointer && linearPointer.Scale != null)
+            {
+                linearPointer.Scale.ScaleInvalidateMeasureOverride();
             }
         }
 

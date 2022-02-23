@@ -31,15 +31,6 @@ namespace Syncfusion.Maui.Gauges
             typeof(GaugeAlignment), typeof(LinearMarkerPointer), GaugeAlignment.Center, propertyChanged: OnMarkerPropertyChanged);
 
         /// <summary>
-        /// Identifies the <see cref="Position"/> bindable property.
-        /// </summary>
-        /// <value>
-        /// The identifier for <see cref="Position"/> bindable property.
-        /// </value>
-        public static readonly BindableProperty PositionProperty = BindableProperty.Create(nameof(Position), 
-            typeof(GaugeElementPosition), typeof(LinearMarkerPointer), GaugeElementPosition.Outside, propertyChanged: OnMarkerPropertyChanged);
-
-        /// <summary>
         /// Identifies the <see cref="AllowClip"/> bindable property.
         /// </summary>
         /// <value>
@@ -82,19 +73,6 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
-        /// Gets or sets the placement (top, center or bottom) of the marker pointer relative to scale. 
-        /// </summary>
-        /// <value>
-        /// One of the enumeration values that specifies the vertical position of marker in the linear gauge.
-        /// The default is <see cref="GaugeElementPosition.Cross"/>.
-        /// </value>
-        public GaugeElementPosition Position
-        {
-            get { return (GaugeElementPosition)this.GetValue(PositionProperty); }
-            set { this.SetValue(PositionProperty, value); }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether to clip markers in scale edge or not. 
         /// </summary>
         /// <value>
@@ -111,7 +89,7 @@ namespace Syncfusion.Maui.Gauges
         #region Property changed
 
         /// <summary>
-        /// Called when marker pointer <see cref="OffsetPoint"/>, <see cref="HorizontalAlignment"/>, or <see cref="VerticalAlignment"/> changed.
+        /// Called when marker pointer <see cref="OffsetPoint"/>, <see cref="AllowClip"/>, or <see cref="Alignment"/> changed.
         /// </summary>
         /// <param name="bindable">The BindableObject.</param>
         /// <param name="oldValue">Old value.</param>

@@ -31,7 +31,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="PointerSize"/> bindable property.
         /// </value>
         public static readonly BindableProperty PointerSizeProperty =
-            BindableProperty.Create(nameof(PointerSize), typeof(double), typeof(BarPointer), 12d, propertyChanged: OnPropertyChanged);
+            BindableProperty.Create(nameof(PointerSize), typeof(double), typeof(BarPointer), 5d, propertyChanged: OnPropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="CornerStyle"/> bindable property.
@@ -49,7 +49,7 @@ namespace Syncfusion.Maui.Gauges
         /// The identifier for <see cref="Fill"/> bindable property.
         /// </value>
         public static readonly BindableProperty FillProperty =
-            BindableProperty.Create(nameof(Fill), typeof(Brush), typeof(BarPointer), new SolidColorBrush(Color.FromRgb(73, 89, 99)), propertyChanged: OnInvalidatePropertyChanged);
+            BindableProperty.Create(nameof(Fill), typeof(Brush), typeof(BarPointer), new SolidColorBrush(Color.FromRgb(0, 116, 227)), propertyChanged: OnInvalidatePropertyChanged);
 
         /// <summary>
         /// Identifies the <see cref="GradientStops"/> bindable property.
@@ -68,16 +68,6 @@ namespace Syncfusion.Maui.Gauges
         /// </value>
         public static readonly BindableProperty ChildProperty =
           BindableProperty.Create(nameof(Child), typeof(View), typeof(BarPointer), null, propertyChanged: OnChildPropertyChanged);
-
-
-        /// <summary>
-        /// Identifies the <see cref="BarPosition"/> bindable property.
-        /// </summary>
-        /// <value>
-        /// The identifier for <see cref="BarPosition"/> bindable property.
-        /// </value>
-        public static readonly BindableProperty BarPositionProperty =
-            BindableProperty.Create(nameof(BarPosition), typeof(GaugeElementPosition), typeof(BarPointer), GaugeElementPosition.Cross, propertyChanged: OnPropertyChanged);
 
         #endregion
 
@@ -164,18 +154,6 @@ namespace Syncfusion.Maui.Gauges
             set { this.SetValue(ChildProperty, value); }
         }
 
-        /// <summary>
-        /// Gets or sets the value that specifies the bar pointer position. Specify the value in <see cref="GaugeElementPosition"/>.
-        /// </summary>
-        /// <value>
-        /// The default value is <see cref="GaugeElementPosition.Cross"/>.
-        /// </value>
-        public GaugeElementPosition BarPosition
-        {
-            get { return (GaugeElementPosition)this.GetValue(BarPositionProperty); }
-            set { this.SetValue(BarPositionProperty, value); }
-        }
-
         #endregion
 
         #region Override methods
@@ -221,12 +199,12 @@ namespace Syncfusion.Maui.Gauges
                 float pointerEndPosition = (float)this.Scale.GetPositionFromValue(actualEndValue);
                 float halfPointerWidth = (float)this.PointerSize / 2;
                 bool isInversed = false;
-                double actualOffset = this.BarPosition == GaugeElementPosition.Cross ? 0 :
-                    this.BarPosition == GaugeElementPosition.Inside ? this.Offset : -this.Offset;
+                double actualOffset = this.Position == GaugeElementPosition.Cross ? 0 :
+                    this.Position == GaugeElementPosition.Inside ? this.Offset : -this.Offset;
 
-                if (this.BarPosition == GaugeElementPosition.Cross)
+                if (this.Position == GaugeElementPosition.Cross)
                     scaleLinePositionY = (float)this.Scale.ScalePosition.Y + lineThickness / 2;
-                else if ((this.BarPosition == GaugeElementPosition.Inside && !this.Scale.IsMirrored) || (this.BarPosition == GaugeElementPosition.Outside && this.Scale.IsMirrored))
+                else if ((this.Position == GaugeElementPosition.Inside && !this.Scale.IsMirrored) || (this.Position == GaugeElementPosition.Outside && this.Scale.IsMirrored))
                     scaleLinePositionY = (float)this.Scale.ScalePosition.Y + lineThickness + halfWidth;
                 else
                     scaleLinePositionY = (float)this.Scale.ScalePosition.Y - halfWidth;
