@@ -382,7 +382,7 @@ namespace Syncfusion.Maui.Gauges
                 double currentPosition = this.Scale.Orientation == GaugeOrientation.Horizontal
                                         ? currentPoint.X : currentPoint.Y;
 
-                double dragValue = this.Scale.GetValueFromPosition(currentPosition);
+                double dragValue = this.Scale.GetValueFromPosition(currentPosition + Scale.MarkerOffset);
 
                 if (StepFrequency > 0)
                 {

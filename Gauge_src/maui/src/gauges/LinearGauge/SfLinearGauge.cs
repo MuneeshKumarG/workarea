@@ -271,7 +271,7 @@ namespace Syncfusion.Maui.Gauges
         private Grid parentLayout;
         private LinearScaleView linearScaleView;
         private PathF? scaleLinePath;
-        private double scaleLineLength, pointersMaxSize;
+        private double scaleLineLength, pointersLeftMaxSize, pointersRightMaxSize;
         private PointF majorTicksLayoutPosition, minorTicksLayoutPosition, labelsLayoutPosition;
         private Size firstLabelSize, lastLabelSize;
         private bool isTouchHandled, canAnimateScale = true, canAnimateRange = true;
@@ -281,7 +281,7 @@ namespace Syncfusion.Maui.Gauges
         internal Size ScaleAvailableSize, LabelMaximumSize;
         internal List<GaugeLabelInfo>? VisibleLabels;
         internal List<AxisTickInfo> MajorTickPositions, MinorTickPositions;
-        internal double ActualMinimum, ActualMaximum, ActualInterval;
+        internal double ActualMinimum, ActualMaximum, ActualInterval, MarkerOffset;
         internal bool CanDrawPointer = true;
 
         #endregion
@@ -1868,21 +1868,21 @@ namespace Syncfusion.Maui.Gauges
         {
             if (this.Orientation == GaugeOrientation.Horizontal)
             {
-                double firstElementSize = Math.Max(firstLabelSize.Width / 2, pointersMaxSize / 2);
-                double lastElementSize = Math.Max(lastLabelSize.Width / 2, pointersMaxSize / 2);
+                double firstElementSize = Math.Max(firstLabelSize.Width / 2, pointersLeftMaxSize);
+                double lastElementSize = Math.Max(lastLabelSize.Width / 2, pointersRightMaxSize);
 
                 scaleLineLength = this.ShowLabels
                     ? this.ScaleAvailableSize.Width - firstElementSize - lastElementSize
-                    : this.ScaleAvailableSize.Width - pointersMaxSize;
+                    : this.ScaleAvailableSize.Width - (pointersLeftMaxSize+ pointersRightMaxSize);
             }
             else
             {
-                double firstElementSize = Math.Max(firstLabelSize.Height / 2, pointersMaxSize / 2);
-                double lastElementSize = Math.Max(lastLabelSize.Height / 2, pointersMaxSize / 2);
+                double firstElementSize = Math.Max(firstLabelSize.Height / 2, pointersLeftMaxSize);
+                double lastElementSize = Math.Max(lastLabelSize.Height / 2, pointersRightMaxSize);
 
                 scaleLineLength = this.ShowLabels
                     ? this.ScaleAvailableSize.Height - firstElementSize - lastElementSize
-                    : this.ScaleAvailableSize.Height - pointersMaxSize;
+                    : this.ScaleAvailableSize.Height - (pointersLeftMaxSize + pointersRightMaxSize);
             }
 
             float actualScaleLineThickness = (float)this.GetActualScaleLineThickness();
@@ -2136,7 +2136,7 @@ namespace Syncfusion.Maui.Gauges
             double maximumTickLength = this.GetActualMaxTickLength();
             double actualTickOffset = this.GetActualTickOffset();
             double labelMaximumSize = this.GetLabelMaxLength();
-            double edgeElementSize = this.GetScaleEdgeSize();
+            double x = this.GetScaleEdgeSize(), y = 0d;
             double actualLabelOffset = this.GetActualLabelOffset();
             double actualScaleLineThickness = this.GetActualScaleLineThickness();
             GaugeLabelsPosition actualLabelsPosition = this.GetActualLabelPosition();
@@ -2147,7 +2147,6 @@ namespace Syncfusion.Maui.Gauges
             double outsideMarkerPointerHeight = 0d, insideMarkerPointerHeight = 0d;
             this.GetMarkerPointersSize(ref outsideMarkerPointerHeight, ref insideMarkerPointerHeight);
             double outsideScaleHeight = Math.Max(Math.Max(outsideRangeHeight, outsideBarPointerHeight), outsideMarkerPointerHeight);
-            double x = edgeElementSize / 2, y = 0d;
 
             switch (this.GetActualElementPosition(this.TickPosition))
             {
@@ -2322,33 +2321,43 @@ namespace Syncfusion.Maui.Gauges
             double size = 0d;
             if (this.ShowLabels)
             {
-                size = this.Orientation == GaugeOrientation.Horizontal ? this.firstLabelSize.Width :
-                    this.firstLabelSize.Height;
+                size = this.Orientation == GaugeOrientation.Horizontal ? this.firstLabelSize.Width / 2 :
+                    this.firstLabelSize.Height / 2;
             }
 
-            pointersMaxSize = 0;
+            pointersLeftMaxSize = pointersRightMaxSize = 0;
+
             if (this.MarkerPointers != null && this.MarkerPointers.Count > 1)
             {
                 foreach (var pointer in MarkerPointers)
                 {
                     if (pointer.IsInteractive)
                     {
+                        double pointerSize = 0;
                         if (pointer is ShapePointer shapePointer)
                         {
-                            pointersMaxSize = Math.Max(size, this.Orientation == GaugeOrientation.Horizontal ? shapePointer.ShapeWidth :
-                            shapePointer.ShapeHeight);
+                            pointerSize = this.Orientation == GaugeOrientation.Horizontal ? shapePointer.ShapeWidth :
+                            shapePointer.ShapeHeight;
                         }
                         else if (pointer is ContentPointer contentPointer && contentPointer.Content != null)
                         {
                             contentPointer.Content.Measure(this.ScaleAvailableSize.Width, this.ScaleAvailableSize.Height);
 
-                            pointersMaxSize = Math.Max(size, this.Orientation == GaugeOrientation.Horizontal ? contentPointer.Content.DesiredSize.Width :
-                           contentPointer.Content.DesiredSize.Height);
+                            pointerSize = this.Orientation == GaugeOrientation.Horizontal ? contentPointer.Content.DesiredSize.Width :
+                           contentPointer.Content.DesiredSize.Height;
                         }
+
+                        double pointerOffset = this.Orientation == GaugeOrientation.Horizontal
+                        ? pointer.OffsetX : pointer.OffsetY;
+
+                        double leftSize = pointer.GetLeftSize(pointerSize) - pointerOffset;
+                        double rightSize = pointer.GetRightSize(pointerSize) + pointerOffset;
+                        pointersLeftMaxSize = Math.Max(pointersLeftMaxSize, leftSize);
+                        pointersRightMaxSize = Math.Max(pointersRightMaxSize, rightSize);
                     }
                 }
 
-                size = Math.Max(size, pointersMaxSize);
+                size = Math.Max(size, pointersLeftMaxSize);
             }
 
             return size;
@@ -2773,6 +2782,7 @@ namespace Syncfusion.Maui.Gauges
                     case TouchActions.Pressed:
                         if (isMarkerPointersExist)
                         {
+                            this.MarkerOffset = 0;
                             for (int i = MarkerPointers.Count - 1; i >= 0; i--)
                             {
                                 if (MarkerPointers[i] is LinearPointer pointer && pointer.IsInteractive)
@@ -2783,6 +2793,13 @@ namespace Syncfusion.Maui.Gauges
                                     if (pointer.IsPressed)
                                     {
                                         isTouchHandled = true;
+
+                                        double valuePosition = this.GetPositionFromValue(pointer.Value);
+                                        double touchPosition = this.Orientation == GaugeOrientation.Horizontal
+                                            ? e.TouchPoint.X
+                                            : e.TouchPoint.Y;
+                                        this.MarkerOffset = valuePosition - touchPosition;
+
                                         break;
                                     }
                                 }

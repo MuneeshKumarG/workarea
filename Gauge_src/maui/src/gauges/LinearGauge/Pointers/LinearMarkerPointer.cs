@@ -102,6 +102,39 @@ namespace Syncfusion.Maui.Gauges
 
         #region Methods
 
+        internal double GetLeftSize(double size)
+        {
+            switch (Alignment)
+            {
+                case GaugeAlignment.Start:
+                    return size;
+                case GaugeAlignment.Center:
+                    return size / 2;
+                case GaugeAlignment.End:
+                    return 0d;
+                default:
+                    break;
+            }
+            return 0d;
+        }
+
+        internal double GetRightSize(double size)
+        {
+            switch (Alignment)
+            {
+                case GaugeAlignment.Start:
+                    return 0;
+                case GaugeAlignment.Center:
+                    return size / 2;
+                case GaugeAlignment.End:
+                    return size;
+                default:
+                    break;
+            }
+
+            return 0d;
+        }
+
         /// <summary>
         /// To get the pointer position.
         /// </summary>
