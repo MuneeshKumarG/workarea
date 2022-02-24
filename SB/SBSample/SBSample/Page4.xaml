@@ -3,9 +3,262 @@
              x:Class="SBSample.Page4"
                Title="Radial range slider"
               xmlns:gauge="http://schemas.syncfusion.com/maui"
+             xmlns:local="clr-namespace:SBSample"
              BackgroundColor="{DynamicResource SecondaryColor}">
 
     <ScrollView>
-       
+        <VerticalStackLayout>
+            <Label Text="Height Calculator" Margin="0,20,0,0"/>
+            <Grid HeightRequest="300">
+                <gauge:SfLinearGauge x:Name="gauge1" Minimum="0" Maximum="200"
+                                    HorizontalOptions="Center" 
+                                     MinorTicksPerInterval="0"
+                                     Orientation="Vertical" TickPosition="Outside"
+                                     LabelCreated="SfLinearGauge_LabelCreated"
+                                     LabelPosition="Outside">
+                    <gauge:SfLinearGauge.MarkerPointers>
+                        <gauge:ShapePointer Value="{Binding HeightPointerValue}" 
+                                            ValueChanged="Pointer1_ValueChanged"
+                                            ShapeType="Rectangle"
+                                            Position="Outside" IsInteractive="True"
+                                            ShapeHeight="1.5" ShapeWidth="250"
+                                            Fill="#ff0074E3"/>
+                        <gauge:ContentPointer Value="{Binding HeightPointerValue}"
+                                              IsInteractive="True"
+                                               ValueChanged="Pointer1_ValueChanged"
+                                              Position="Cross">
+                            <gauge:ContentPointer.Content>
+                                <Image Source="rectangle_pointer.png" WidthRequest="24" HeightRequest="16"/>
+                            </gauge:ContentPointer.Content>
+                        </gauge:ContentPointer>
+                        <gauge:ContentPointer Value="{Binding HeightPointerValue}"
+                                              IsInteractive="True"
+                                               ValueChanged="Pointer1_ValueChanged"
+                                              OffsetX="-250">
+                            <gauge:ContentPointer.Content>
+                                <Border HorizontalOptions="Center" Background="White" Stroke="White" 
+                                        StrokeThickness="1">
+                                    <Border.Content>
+                                        <Label x:Name="heightAnnotationLabel" Text="130 cm"
+                                               Background="White" Padding="5"
+                                               TextColor="#ff0074E3"/>
+                                    </Border.Content>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5"/>
+                                    </Border.StrokeShape>
+                                    <Border.Shadow>
+                                        <Shadow Brush="Gray" Offset="3,5" Radius="10" Opacity="0.9"/>
+                                    </Border.Shadow>
+
+                                </Border>
+
+                            </gauge:ContentPointer.Content>
+                        </gauge:ContentPointer>
+
+                    </gauge:SfLinearGauge.MarkerPointers>
+                    <gauge:SfLinearGauge.Ranges>
+                        <gauge:LinearRange EndValue="{Binding HeightPointerValue}"
+                                           StartWidth="250" EndWidth="250" Fill="Transparent">
+                            <gauge:LinearRange.Child>
+                                <Image Source="bmi_light.png"/>
+                            </gauge:LinearRange.Child>
+                        </gauge:LinearRange>
+                    </gauge:SfLinearGauge.Ranges>
+                    
+                </gauge:SfLinearGauge>
+            </Grid>
+
+            <Label Text="Water level indicator" Margin="0,20,0,0"/>
+            <Grid HeightRequest="300">
+                <gauge:SfLinearGauge x:Name="gauge2" Minimum="0" Maximum="500" Interval="100"
+                                    HorizontalOptions="Center" 
+                                     MinorTicksPerInterval="0"
+                                     Orientation="Vertical">
+                    <gauge:SfLinearGauge.LineStyle>
+                        <gauge:LinearLineStyle Thickness="2"/>
+                    </gauge:SfLinearGauge.LineStyle>
+                    <gauge:SfLinearGauge.BarPointers>
+                        
+                        <gauge:BarPointer Value="{Binding WaterLavelPointerValue}"
+                                         Position="Outside" Offset="20" PointerSize="50"
+                                          CornerStyle="BothCurve"
+                                          Fill="#ff0074E3"/>
+                    </gauge:SfLinearGauge.BarPointers>
+                    <gauge:SfLinearGauge.MarkerPointers>
+                        <gauge:ShapePointer  Value="{Binding WaterLavelPointerValue}" 
+                                            ValueChanged="Pointer1_ValueChanged1"
+                                            ShapeType="Circle" HasShadow="True"
+                                            Position="Cross" IsInteractive="True"
+                                            ShapeHeight="32" ShapeWidth="32"
+                                            Fill="#ff0074E3"/>
+                        <gauge:ContentPointer Value="{Binding WaterLavelPointerValue}" 
+                                              Position="Outside" OffsetX="-20" Alignment="Start">
+                            <gauge:ContentPointer.Content>
+                                <Label x:Name="waterLevelAnnotationLabel" Text="150 ml" FontAttributes="Bold"
+                                       TextColor="Black"/>
+                            </gauge:ContentPointer.Content>
+                        </gauge:ContentPointer>
+                    </gauge:SfLinearGauge.MarkerPointers>
+                   
+                   
+
+                </gauge:SfLinearGauge>
+            </Grid>
+
+            <Label Text="Volume settings" Margin="0,20,0,0"/>
+            <Grid HeightRequest="300">
+                <gauge:SfLinearGauge x:Name="gauge3" Minimum="0" Maximum="100" 
+                                    HorizontalOptions="Center"  
+                                     ShowLabels="False" ShowLine="False" ShowTicks="False"
+                                     MinorTicksPerInterval="0"
+                                     Orientation="Vertical">
+                   
+                    <gauge:SfLinearGauge.BarPointers>
+
+                        <gauge:BarPointer Value="100" Position="Inside" PointerSize="40"
+                                          CornerStyle="BothCurve" Fill="#d6d6d6"/>
+                        <gauge:BarPointer Value="100" Position="Inside" PointerSize="40"
+                                          CornerStyle="BothCurve" Fill="#4CAEE3" IsInteractive="True"/>
+
+                        <gauge:BarPointer Value="100" Position="Inside" PointerSize="40" Offset="60"
+                                          CornerStyle="BothCurve" Fill="#d6d6d6"/>
+                        <gauge:BarPointer Value="85" Position="Inside" PointerSize="40" Offset="60"
+                                          CornerStyle="BothCurve" Fill="#4CAEE3" IsInteractive="True"/>
+
+                        <gauge:BarPointer Value="100" Position="Inside" PointerSize="40"
+                                          CornerStyle="BothCurve" Fill="#d6d6d6" Offset="120"/>
+                        <gauge:BarPointer Value="65" Position="Inside" PointerSize="40" Offset="120"
+                                          CornerStyle="BothCurve" Fill="#4CAEE3" IsInteractive="True"/>
+                    </gauge:SfLinearGauge.BarPointers>
+
+                </gauge:SfLinearGauge>
+            </Grid>
+
+            <Label Text="Progress bar" Margin="0,20,0,0"/>
+            <StackLayout Orientation="Horizontal" Margin="5">
+                <Label Text="IsVisible : " VerticalOptions="Center" VerticalTextAlignment="Center" TextColor="Black"/>
+                <Switch  IsToggled="{Binding Source={x:Reference gauge4}, Path=IsVisible}"/>
+            </StackLayout>
+            <Grid HeightRequest="100">
+                <gauge:SfLinearGauge x:Name="gauge4" Minimum="0" Maximum="100" 
+                                     WidthRequest="500" EnableAxisAnimation="True"
+                                    HorizontalOptions="Center"  IsVisible="false"
+                                     ShowLabels="False" ShowTicks="False">
+                    <gauge:SfLinearGauge.LineStyle>
+                        <gauge:LinearLineStyle CornerStyle="BothCurve" Fill="#d6d6d6" Thickness="40"/>
+                    </gauge:SfLinearGauge.LineStyle>
+                    <gauge:SfLinearGauge.BarPointers>
+
+                        <gauge:BarPointer Value="41.47" PointerSize="40" EnableAnimation="True"
+                                          CornerStyle="BothCurve" Fill="#4CAEE3"/>
+
+                    </gauge:SfLinearGauge.BarPointers>
+                    <gauge:SfLinearGauge.MarkerPointers>
+                        <gauge:ContentPointer Value="10" Position="Cross">
+                            <gauge:ContentPointer.Content>
+                                <Label Text="41.47%" TextColor="White"/>
+                            </gauge:ContentPointer.Content>
+                        </gauge:ContentPointer>
+                    </gauge:SfLinearGauge.MarkerPointers>
+
+                </gauge:SfLinearGauge>
+            </Grid>
+
+            <Label Text="Task tracker" Margin="0,20,0,0"/>
+            <StackLayout Orientation="Horizontal" Margin="5">
+                <Label Text="IsVisible : " VerticalOptions="Center" VerticalTextAlignment="Center" TextColor="Black"/>
+                <Switch  IsToggled="{Binding Source={x:Reference gauge5}, Path=IsVisible}"/>
+            </StackLayout>
+            <Grid HeightRequest="100">
+                <local:TaskTrackerGauge x:Name="gauge5" Minimum="0" Maximum="100" 
+                                     WidthRequest="500" Interval="20"
+                                        IsMirrored="True" EnableRangeAnimation="True"
+                                        EnableAxisAnimation="True"
+                                    HorizontalOptions="Center"  IsVisible="false"
+                                    ShowLine="False">
+                    <gauge:SfLinearGauge.Ranges>
+                        <gauge:LinearRange Fill="#F45656" StartWidth="16" EndWidth="16"/>
+                        <gauge:LinearRange EndValue="80" Fill="#0DC9AB" StartWidth="16" EndWidth="16"/>
+                    </gauge:SfLinearGauge.Ranges>
+                    <gauge:SfLinearGauge.MarkerPointers>
+                        <gauge:ShapePointer Value="60" EnableAnimation="True" 
+                                            ShapeWidth="24" Fill="#06589C"/>
+                    </gauge:SfLinearGauge.MarkerPointers>
+
+                </local:TaskTrackerGauge>
+            </Grid>
+
+            <Label Text="Sleep watch score" Margin="0,20,0,0"/>
+            <StackLayout Orientation="Horizontal" Margin="5">
+                <Label Text="IsVisible : " VerticalOptions="Center" VerticalTextAlignment="Center" TextColor="Black"/>
+                <Switch  IsToggled="{Binding Source={x:Reference gauge6}, Path=IsVisible}"/>
+            </StackLayout>
+            <Grid HeightRequest="100" >
+                <VerticalStackLayout x:Name="gauge6" IsVisible="false" HorizontalOptions="Center">
+                    <HorizontalStackLayout>
+                        <VerticalStackLayout>
+                            <Label Text="TODAY" TextColor="Black" FontSize="10"/>
+                            <Label Text="280" TextColor="#FFBF00" FontAttributes="Bold"
+                                       FontSize="Medium"/>
+                        </VerticalStackLayout>
+                        <local:SleepWatchScoreGauge  Minimum="100" Maximum="500" 
+                                     WidthRequest="400" EnableRangeAnimation="True"
+                                        EnableAxisAnimation="True" LabelOffset="10"
+                                    HorizontalOptions="Center"  LabelPosition="Outside"
+                                     ShowTicks="False">
+                            <gauge:SfLinearGauge.LineStyle>
+                                <gauge:LinearLineStyle Thickness="15"/>
+                            </gauge:SfLinearGauge.LineStyle>
+                            <gauge:SfLinearGauge.Ranges>
+                                <gauge:LinearRange Fill="#0DC9AB" StartValue="100" Position="Cross" EndValue="500" StartWidth="8" EndWidth="8"/>
+                                <gauge:LinearRange Fill="#FB7D55" StartValue="100" Position="Cross"  EndValue="400" StartWidth="8" EndWidth="8"/>
+                                <gauge:LinearRange Fill="#FFBF00" StartValue="100" Position="Cross"  EndValue="300" StartWidth="8" EndWidth="8"/>
+                                <gauge:LinearRange Fill="Red" StartValue="100" Position="Cross"  EndValue="200" StartWidth="8" EndWidth="8"/>
+                            </gauge:SfLinearGauge.Ranges>
+                            <gauge:SfLinearGauge.MarkerPointers>
+                                <gauge:ShapePointer Value="280" EnableAnimation="True" Position="Cross"
+                                            ShapeType="Circle" Fill="#FFBF00"
+                                            ShapeWidth="20" ShapeHeight="20" />
+                            </gauge:SfLinearGauge.MarkerPointers>
+
+                        </local:SleepWatchScoreGauge>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <VerticalStackLayout>
+                            <Label Text="TODAY" TextColor="Black" FontSize="10"/>
+                            <Label Text="410" TextColor="#0DC9AB" FontAttributes="Bold"
+                                       FontSize="Medium"/>
+                        </VerticalStackLayout>
+                        <local:SleepWatchScoreGauge  Minimum="100" Maximum="500" 
+                                     WidthRequest="400" EnableRangeAnimation="True"
+                                        EnableAxisAnimation="True" LabelOffset="10"
+                                    HorizontalOptions="Center"  LabelPosition="Outside"
+                                    ShowTicks="False">
+                            <gauge:SfLinearGauge.LineStyle>
+                                <gauge:LinearLineStyle Thickness="15"/>
+                            </gauge:SfLinearGauge.LineStyle>
+                            <gauge:SfLinearGauge.Ranges>
+                                <gauge:LinearRange Fill="#0DC9AB" StartValue="100" Position="Cross" EndValue="500" StartWidth="8" EndWidth="8"/>
+                                <gauge:LinearRange Fill="#FB7D55" StartValue="100" Position="Cross"  EndValue="400" StartWidth="8" EndWidth="8"/>
+                                <gauge:LinearRange Fill="#FFBF00" StartValue="100" Position="Cross"  EndValue="300" StartWidth="8" EndWidth="8"/>
+                                <gauge:LinearRange Fill="Red" StartValue="100" Position="Cross"  EndValue="200" StartWidth="8" EndWidth="8"/>
+                            </gauge:SfLinearGauge.Ranges>
+                            <gauge:SfLinearGauge.MarkerPointers>
+                                <gauge:ShapePointer Value="410" EnableAnimation="True" Position="Cross"
+                                            ShapeType="Circle" Fill="#0DC9AB"
+                                            ShapeWidth="20" ShapeHeight="20" />
+                            </gauge:SfLinearGauge.MarkerPointers>
+
+                        </local:SleepWatchScoreGauge>
+                    </HorizontalStackLayout>
+               
+                </VerticalStackLayout>
+
+            </Grid>
+
+            <Label Text="Sleep watch score" Margin="0,20,0,0"/>
+            
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
