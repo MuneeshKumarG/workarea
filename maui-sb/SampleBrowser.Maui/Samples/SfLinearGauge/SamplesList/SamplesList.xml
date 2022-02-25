@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Samples>
+
+	<Sample SearchTags="gauge, linear"  Name="Showcase" Title="Showcase" Description="This sample showcases the linear gauge feature."/>
+
+	<SampleGroup Title="Axis">
+		<Sample SearchTags="linear, scale, axis"  Name="LinearGaugeLabels"  Title="Track"/>
+		<Sample SearchTags="scale, ticks, minor ticks"  Name="LinearGaugeTicks"  Title="Ticks"  />
+		<Sample SearchTags="scale, linear, labels"  Name="LinearGaugeTrack"  Title="Labels" />
+	</SampleGroup>
+	
+	<Sample SearchTags="gauge, linear"  Name="Range" Title="Range" Description="This sample showcases the linear gauge range feature."/>
+
+	<SampleGroup Title="Pointers">
+		<Sample SearchTags="pointer, shape, marker"  Title="Shape pointer" />
+		<Sample SearchTags="pointer, content, custom"  Title="Contet pointer" />
+		<Sample SearchTags="bar, pointer, linear"  Title="Bar pointers" />
+	</SampleGroup>
+
+	<Sample SearchTags="gauge, linear"  Title="Customization" Description="This sample showcases the linear gauge features customization."/>
+
+</Samples>

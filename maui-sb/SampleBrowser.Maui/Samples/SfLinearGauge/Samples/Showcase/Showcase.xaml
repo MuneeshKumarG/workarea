@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<localCore:SampleView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:local="clr-namespace:SampleBrowser.Maui.SfRadialGauge"
+                      xmlns:localCore="clr-namespace:SampleBrowser.Maui.Core;assembly=SampleBrowser.Maui.Core"
+                      x:Class="SampleBrowser.Maui.SfLinearGauge.Showcase"
+                      xmlns:gauge="http://schemas.syncfusion.com/maui"
+                      Background="White">
+    <localCore:SampleView.Content>
+        <localCore:ScrollViewExt>
+            <localCore:WrapLayout Background="White">
+
+                <localCore:CardViewExt HeightRequest="425"
+                                       Title="Thermometer">
+                    <localCore:CardViewExt.MainContent>
+                        <Grid>
+                            
+                        </Grid>
+                    </localCore:CardViewExt.MainContent>
+                </localCore:CardViewExt>
+                
+                <localCore:CardViewExt HeightRequest="425"
+                                       Title="Height calculator">
+                    <localCore:CardViewExt.MainContent>
+                        <Grid>
+
+                        </Grid>
+                    </localCore:CardViewExt.MainContent>
+                </localCore:CardViewExt>
+
+                <localCore:CardViewExt HeightRequest="425"
+                                       Title="Water level indicator">
+                    <localCore:CardViewExt.MainContent>
+                        <Grid>
+
+                        </Grid>
+                    </localCore:CardViewExt.MainContent>
+                </localCore:CardViewExt>
+
+                <localCore:CardViewExt HeightRequest="425"
+                                       Title="Volume settings">
+                    <localCore:CardViewExt.MainContent>
+                        <Grid>
+
+                        </Grid>
+                    </localCore:CardViewExt.MainContent>
+                </localCore:CardViewExt>
+
+                <localCore:CardViewExt HeightRequest="425"
+                                       Title="Progress bar">
+                    <localCore:CardViewExt.MainContent>
+                        <Grid>
+
+                        </Grid>
+                    </localCore:CardViewExt.MainContent>
+                </localCore:CardViewExt>
+
+                <localCore:CardViewExt HeightRequest="425"
+                                       Title="Task tracker">
+                    <localCore:CardViewExt.MainContent>
+                        <Grid>
+
+                        </Grid>
+                    </localCore:CardViewExt.MainContent>
+                </localCore:CardViewExt>
+
+                <localCore:CardViewExt HeightRequest="425"
+                                       Title="Sleep with score">
+                    <localCore:CardViewExt.MainContent>
+                        <Grid>
+
+                        </Grid>
+                    </localCore:CardViewExt.MainContent>
+                </localCore:CardViewExt>
+
+                <localCore:CardViewExt HeightRequest="425"
+                                       Title="Step counter">
+                    <localCore:CardViewExt.MainContent>
+                        <Grid>
+
+                        </Grid>
+                    </localCore:CardViewExt.MainContent>
+                </localCore:CardViewExt>
+
+                <localCore:CardViewExt HeightRequest="425"
+                                       Title="Temperature meter">
+                    <localCore:CardViewExt.MainContent>
+                        <Grid>
+
+                        </Grid>
+                    </localCore:CardViewExt.MainContent>
+                </localCore:CardViewExt>
+
+                <localCore:CardViewExt HeightRequest="425"
+                                       Title="Battery indicator">
+                    <localCore:CardViewExt.MainContent>
+                        <Grid>
+
+                        </Grid>
+                    </localCore:CardViewExt.MainContent>
+                </localCore:CardViewExt>
+
+            </localCore:WrapLayout>
+        </localCore:ScrollViewExt>
+    </localCore:SampleView.Content>
+</localCore:SampleView>
