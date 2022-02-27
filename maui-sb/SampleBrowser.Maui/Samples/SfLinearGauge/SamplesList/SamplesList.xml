@@ -4,9 +4,9 @@
 	<Sample SearchTags="gauge, linear"  Name="Showcase" Title="Showcase" Description="This sample showcases the linear gauge feature."/>
 
 	<SampleGroup Title="Axis">
-		<Sample SearchTags="linear, scale, axis"  Name="LinearGaugeLabels"  Title="Track"/>
+		<Sample SearchTags="linear, scale, axis"  Name="LinearGaugeTrack"  Title="Track"/>
 		<Sample SearchTags="scale, ticks, minor ticks"  Name="LinearGaugeTicks"  Title="Ticks"  />
-		<Sample SearchTags="scale, linear, labels"  Name="LinearGaugeTrack"  Title="Labels" />
+		<Sample SearchTags="scale, linear, labels"  Name="LinearGaugeLabels"  Title="Labels" />
 	</SampleGroup>
 	
 	<Sample SearchTags="gauge, linear"  Name="Range" Title="Range" Description="This sample showcases the linear gauge range feature."/>

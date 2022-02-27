@@ -6,7 +6,39 @@
                       x:Class="SampleBrowser.Maui.SfLinearGauge.LinearGaugeTrack"
                       xmlns:gauge="http://schemas.syncfusion.com/maui"
                       Background="White">
+    <localCore:SampleView.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+    </localCore:SampleView.Resources>
     <localCore:SampleView.Content>
-       
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+            <HorizontalStackLayout HorizontalOptions="Center" Padding="0,20,0,10">
+                <Button x:Name="button1"  Text="Horizontal" 
+                         CornerRadius="0" WidthRequest="100" BorderWidth="2" 
+                        BorderColor="#ff0074E3"  Background="#ff0074E3"
+                         TextColor="White" Clicked="Button_Clicked">
+                    <Button.Shadow>
+                        <Shadow Brush="Transparent"/>
+                    </Button.Shadow>
+                </Button>
+                <Button x:Name="button2" Text="Vertical" BorderWidth="2" 
+                         CornerRadius="0"  WidthRequest="100"
+                         BorderColor="#ff0074E3" 
+                         Clicked="Button_Clicked_1"
+                         Background="White" TextColor="Black">
+                    <Button.Shadow>
+                        <Shadow Brush="Transparent"/>
+                    </Button.Shadow>
+                </Button>
+            </HorizontalStackLayout>
+            <ScrollView x:Name="scrollView" Grid.Row="1"  HorizontalOptions="Center" >
+                
+            </ScrollView>
+        </Grid>
     </localCore:SampleView.Content>
 </localCore:SampleView>
