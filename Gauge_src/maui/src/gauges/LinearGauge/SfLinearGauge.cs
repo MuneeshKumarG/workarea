@@ -883,10 +883,13 @@ namespace Syncfusion.Maui.Gauges
 
         internal void Draw(ICanvas canvas)
         {
-            if (this.CanAnimateScale)
-                this.linearScaleView.Opacity = 0;
-            if (this.CanAnimateRange)
-                this.RangeLayout.Opacity = 0;
+            if (!AnimationExtensions.AnimationIsRunning(this, "GaugeLoadingAnimation"))
+            {
+                if (this.CanAnimateScale)
+                    this.linearScaleView.Opacity = 0;
+                if (this.CanAnimateRange)
+                    this.RangeLayout.Opacity = 0;
+            }
 
             if (this.ShowLine)
             {
@@ -904,10 +907,13 @@ namespace Syncfusion.Maui.Gauges
                 this.DrawScaleLabels(canvas);
             }
 
-            if (this.CanAnimateScale || this.CanAnimateRange)
-                PerformLoadingAnimation();
-            else
-                CanAnimateScale = CanAnimateRange = false;
+            if (!AnimationExtensions.AnimationIsRunning(this, "GaugeLoadingAnimation"))
+            {
+                if (this.CanAnimateScale || this.CanAnimateRange)
+                    PerformLoadingAnimation();
+                else
+                    CanAnimateScale = CanAnimateRange = false;
+            }
         }
 
         /// <summary>
@@ -2327,7 +2333,7 @@ namespace Syncfusion.Maui.Gauges
 
             pointersLeftMaxSize = pointersRightMaxSize = 0;
 
-            if (this.MarkerPointers != null && this.MarkerPointers.Count > 1)
+            if (this.MarkerPointers != null && this.MarkerPointers.Count > 0)
             {
                 foreach (var pointer in MarkerPointers)
                 {

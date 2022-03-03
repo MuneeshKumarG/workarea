@@ -79,6 +79,17 @@ namespace Syncfusion.Maui.Gauges
 
         #endregion
 
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BarPointer"/> class.
+        /// </summary>
+        public BarPointer()
+        {
+            this.GradientStops = new ObservableCollection<GaugeGradientStop>();
+        }
+        #endregion
+
         #region Properties
 
         /// <summary>
