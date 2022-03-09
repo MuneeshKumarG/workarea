@@ -588,6 +588,8 @@ namespace Syncfusion.Maui.Gauges
 
             if (this.ActualStartValue == this.ActualEndValue)
             {
+                this.gradientArcPaths = null;
+                this.rangePath = null;
                 return;
             }
 

@@ -379,6 +379,8 @@ namespace Syncfusion.Maui.Gauges
 
             if (this.RadialAxis.ActualMinimum == actualEndValue)
             {
+                this.rangePointerPath = null;
+                this.gradientArcPaths = null;
                 return;
             }
 

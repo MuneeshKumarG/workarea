@@ -85,6 +85,15 @@ namespace Syncfusion.Maui.Gauges
                  }
              });
 
+        /// <summary>
+        /// Identifies the <see cref="DragOffset"/> bindable property.
+        /// </summary>
+        /// <value>
+        /// The identifier for <see cref="DragOffset"/> bindable property.
+        /// </value>
+        public static readonly BindableProperty DragOffsetProperty =
+            BindableProperty.Create(nameof(DragOffset), typeof(double), typeof(LinearPointer), 15d, propertyChanged: OnOffsetPropertyChanged);
+
         #endregion
 
         #region Fields
@@ -103,11 +112,6 @@ namespace Syncfusion.Maui.Gauges
         /// Represents the pointer dragging rect. 
         /// </summary>
         internal Rectangle PointerRect;
-
-        /// <summary>
-        /// Holds dragging rect offset value. 
-        /// </summary>
-        internal const float DraggingOffset = 15;
 
         #endregion
 
@@ -245,11 +249,23 @@ namespace Syncfusion.Maui.Gauges
         }
 
         /// <summary>
+        /// Gets or sets the value that specifies the dragging offset of the pointer.
+        /// </summary>
+        /// <value>
+        /// The default value is <c>15</c>.
+        /// </value>
+        public double DragOffset
+        {
+            get { return (double)this.GetValue(DragOffsetProperty); }
+            set { this.SetValue(DragOffsetProperty, value); }
+        }
+
+        /// <summary>
         /// Gets or sets the placement (top, center or bottom) of the marker pointer relative to scale. 
         /// </summary>
         /// <value>
         /// One of the enumeration values that specifies the vertical position of marker in the linear gauge.
-        /// The default value of <see cref="BarPointer"/> is <see cref="GaugeElementPosition.Cross"/> and the default value of <see cref="ShapePointer"/> and <see cref="ContentPointer"/> is <see cref="GaugeElementPosition.Outside"/> .
+        /// The default value of <see cref="BarPointer"/> is <see cref="GaugeElementPosition.Cross"/> and the default value of <see cref="LinearShapePointer"/> and <see cref="LinearContentPointer"/> is <see cref="GaugeElementPosition.Outside"/> .
         /// </value>
         public GaugeElementPosition Position
         {
@@ -447,6 +463,20 @@ namespace Syncfusion.Maui.Gauges
             if (bindable is LinearPointer linearPointer && linearPointer.Scale != null)
             {
                 linearPointer.Scale.ScaleInvalidateMeasureOverride();
+            }
+        }
+
+        /// <summary>
+        /// Called when pointer's <see cref="DragOffset"/> changed.
+        /// </summary>
+        /// <param name="bindable">The BindableObject.</param>
+        /// <param name="oldValue">Old value.</param>
+        /// <param name="newValue">New value.</param>
+        private static void OnOffsetPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is LinearPointer linearPointer && linearPointer.Scale != null)
+            {
+                linearPointer.UpdatePointer();
             }
         }
 

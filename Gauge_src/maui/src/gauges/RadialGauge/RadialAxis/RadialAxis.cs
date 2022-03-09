@@ -361,7 +361,7 @@ namespace Syncfusion.Maui.Gauges
         private PathF? axisLinePath;
         private Size arrangeSize = Size.Zero;
         private bool isTouchHandled;
-        private bool canAnimate = true;
+        private bool canAnimate = true, isShapePointerHovered = false;
 
         /// <summary>
         /// Gets or sets double value, that used to customize <see cref="BackgroundContent"/> radius. The default value is <c>1</c>.
@@ -918,7 +918,7 @@ namespace Syncfusion.Maui.Gauges
         ///                <gauge:RadialAxis.Pointers>
         ///                    <gauge:RangePointer Value = "30" PointerOffset="30"/>
         ///                    <gauge:NeedlePointer Value = "80" />
-        ///                    < gauge:MarkerPointer Value = "60" />
+        ///                    < gauge:ShapePointer Value = "60" />
         ///
         ///                 </ gauge:RadialAxis.Pointers>
         ///                <gauge:RadialAxis.Annotations>
@@ -963,7 +963,7 @@ namespace Syncfusion.Maui.Gauges
         ///                <gauge:RadialAxis.Pointers>
         ///                    <gauge:RangePointer Value = "30" PointerOffset="30"/>
         ///                    <gauge:NeedlePointer Value = "80" />
-        ///                    < gauge:MarkerPointer Value = "60" />
+        ///                    < gauge:ShapePointer Value = "60" />
         ///
         ///                 </ gauge:RadialAxis.Pointers>
         ///                <gauge:RadialAxis.Annotations>
@@ -1290,7 +1290,7 @@ namespace Syncfusion.Maui.Gauges
         ///     <gauge:SfRadialGauge.Axes>
         ///         <gauge:RadialAxis>
         ///             <gauge:RadialAxis.Pointers>
-        ///                 <gauge:MarkerPointer Value="50" />
+        ///                 <gauge:ShapePointer Value="50" />
         ///                 <gauge:NeedlePointer Value="60" />
         ///                 <gauge:RangePointer Value="70"/>
         ///             </gauge:RadialAxis.Pointers>
@@ -2255,15 +2255,34 @@ namespace Syncfusion.Maui.Gauges
                                 pointer.DragPointer(e.TouchPoint);
                             }
 
-                            if (e.PointerDeviceType == PointerDeviceType.Mouse && pointer.IsInteractive && pointer is MarkerPointer markerPointer &&
+                            if (e.PointerDeviceType == PointerDeviceType.Mouse && pointer.IsInteractive && pointer is ShapePointer markerPointer &&
                                 markerPointer.CanDrawOverlay)
                             {
-                                if (markerPointer.PointerRect.Contains(e.TouchPoint))
-                                    markerPointer.IsHovered = true;
-                                else
-                                    markerPointer.IsHovered = false;
+                                if (!isTouchHandled)
+                                {
+                                    if (markerPointer.PointerRect.Contains(e.TouchPoint))
+                                    {
+                                        if (!isShapePointerHovered)
+                                            isShapePointerHovered = markerPointer.IsHovered = true;
+                                    }
+                                    else
+                                    {
+                                        if (markerPointer.IsHovered)
+                                            isShapePointerHovered = false;
 
-                                markerPointer.InvalidateDrawable();
+                                        markerPointer.IsHovered = false;
+                                    }
+                                    markerPointer.InvalidateDrawable();
+                                }
+                                else
+                                {
+                                    isShapePointerHovered = false;
+                                    if (markerPointer.IsHovered)
+                                    {
+                                        markerPointer.IsHovered = false;
+                                        markerPointer.InvalidateDrawable();
+                                    }
+                                }
                             }
                         }
                         break;
@@ -2276,6 +2295,7 @@ namespace Syncfusion.Maui.Gauges
                                 isTouchHandled = false;
                             }
                         }
+                        isShapePointerHovered = false;
                         break;
                 }
             }
@@ -3819,8 +3839,8 @@ namespace Syncfusion.Maui.Gauges
         {
             foreach (RadialPointer pointer in this.Pointers)
             {
-                if (CanAnimate && pointer is MarkerPointer markerPointer && markerPointer.CustomView != null)
-                    markerPointer.CustomView.Opacity = 0;
+                if (CanAnimate && pointer is ContentPointer markerPointer && markerPointer.Content != null)
+                    markerPointer.Content.Opacity = 0;
 
                 pointer.CreatePointer();
             }
@@ -4072,9 +4092,9 @@ namespace Syncfusion.Maui.Gauges
                     this.PointersGrid.Children.Insert(index,radialPointer.PointerView);
                 }
 
-                if (radialPointer is MarkerPointer markerPointer && markerPointer.CustomView != null)
+                if (radialPointer is ContentPointer contentPointer && contentPointer.Content != null)
                 {
-                    markerPointer.AddCustomView(markerPointer.CustomView);
+                    contentPointer.AddCustomView(contentPointer.Content);
 
                     if (this.AnnotationsLayout.Children.Count > 0 && !this.ParentGrid.Children.Contains(this.AnnotationsLayout))
                     {
@@ -4110,9 +4130,9 @@ namespace Syncfusion.Maui.Gauges
                     this.PointersGrid.Children.RemoveAt(index);
                 }
 
-                if (radialPointer is MarkerPointer markerPointer && markerPointer.CustomView != null)
+                if (radialPointer is ContentPointer contentPointer && contentPointer.Content != null)
                 {
-                    markerPointer.RemoveCustomView(markerPointer.CustomView);
+                    contentPointer.RemoveCustomView(contentPointer.Content);
                 }
             }
         }

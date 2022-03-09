@@ -283,34 +283,41 @@ namespace Syncfusion.Maui.Gauges
                     x2 = (float)(startPointX1 + halfWidth);
                     float curveX1 = (float)startPointX1;
 
+                    float startAngle, endAngle, difference = 0;
+
+                    if (Scale.Orientation == GaugeOrientation.Horizontal)
+                    {
+                        startAngle = Scale.IsInversed ? 270 : 90;
+                        endAngle = Scale.IsInversed ? 90 : 270;
+                    }
+                    else
+                    {
+                        startAngle = Scale.IsInversed ? 360 : 180;
+                        endAngle = Scale.IsInversed ? 180 : 360;
+                    }
+
                     if ((this.Scale.Orientation == GaugeOrientation.Horizontal && !this.Scale.IsInversed) ||
                         (this.Scale.Orientation == GaugeOrientation.Vertical && this.Scale.IsInversed))
                     {
                         if (startPointX1 > startPointX2)
-                        {
-                            double diff = Math.Abs(startPointX1 - startPointX2);
-                            curveX1 = startPointX2;
-                            x1 = (float)(curveX1 - halfWidth + diff);
-                            x2 = (float)(curveX1 + halfWidth - diff);
-                        }
+                            difference =(float) Math.Abs(startPointX1 - startPointX2);
+                        else
+                            Scale.MoveToPath(barPointerPath, curveX1, y2);
                     }
                     else if (startPointX1 < startPointX2)
-                    {
-                        double diff = Math.Abs(startPointX1 - startPointX2);
-                        curveX1 = startPointX2;
-                        x1 = (float)(curveX1 - halfWidth + diff);
-                        x2 = (float)(curveX1 + halfWidth - diff);
-
-                    }
+                        difference = (float)Math.Abs(startPointX1 - startPointX2);
+                    else
+                        Scale.MoveToPath(barPointerPath, curveX1, y2);
 
                     if (x1 < x2)
                     {
-                        Scale.MoveToPath(barPointerPath, curveX1, y2);
+                        startAngle = startAngle + (difference * 2);
+                        endAngle = endAngle - (difference * 2);
 
                         if (Scale.Orientation == GaugeOrientation.Horizontal)
-                            barPointerPath.AddArc(x1, y1, x2, y2, Scale.IsInversed ? 270 : 90, Scale.IsInversed ? 90 : 270, false);
+                            barPointerPath.AddArc(x1, y1, x2, y2, startAngle, endAngle, false);
                         else
-                            barPointerPath.AddArc(y1, x1, y2, x2, Scale.IsInversed ? 360 : 180, Scale.IsInversed ? 180 : 360, false);
+                            barPointerPath.AddArc(y1, x1, y2, x2, startAngle, endAngle, false);
 
                         barPointerPath.Close();
                     }
@@ -360,15 +367,15 @@ namespace Syncfusion.Maui.Gauges
                 }
 
                 //Calculate interaction pointer rect.
-                float size = DraggingOffset * 2;
+                float size = (float)DragOffset * 2;
 
                 if (this.CornerStyle == CornerStyle.EndCurve || this.CornerStyle == CornerStyle.BothCurve)
                     startPointX2 = startPointX2 + (Scale.Orientation == GaugeOrientation.Vertical ^ this.Scale.IsInversed ? -halfWidth : halfWidth);
 
                 if (Scale.Orientation == GaugeOrientation.Horizontal)
-                    this.PointerRect = new Rectangle(startPointX2 - DraggingOffset, y1 - DraggingOffset, size, size + PointerSize);
+                    this.PointerRect = new Rectangle(startPointX2 - DragOffset, y1 - DragOffset, size, size + PointerSize);
                 else
-                    this.PointerRect = new Rectangle(y1 - DraggingOffset, startPointX2 - DraggingOffset, size + PointerSize, size);
+                    this.PointerRect = new Rectangle(y1 - DragOffset, startPointX2 - DragOffset, size + PointerSize, size);
             }
         }
 

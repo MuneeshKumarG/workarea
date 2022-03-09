@@ -80,32 +80,32 @@
     }
 
     /// <summary>
-    /// Specifies the different marker type for pointer.
+    /// Specifies the different shape type for pointer.
     /// </summary>
-    public enum MarkerType
+    public enum ShapeType
     {
         /// <summary>
-        /// Specifies the circle shape for the marker.
+        /// Specifies the circle shape for the pointer.
         /// </summary>
         Circle,
 
         /// <summary>
-        /// Specifies the diamond shape for the marker.
+        /// Specifies the diamond shape for the pointer.
         /// </summary>
         Diamond,
 
         /// <summary>
-        /// Specifies the inverted triangle shape for the marker.
+        /// Specifies the inverted triangle shape for the pointer.
         /// </summary>
         InvertedTriangle,
 
         /// <summary>
-        /// Specifies the rectangle shape for the marker.
+        /// Specifies the rectangle shape for the pointer.
         /// </summary>
         Rectangle,
 
         /// <summary>
-        /// Specifies the triangle shape for the marker.
+        /// Specifies the triangle shape for the pointer.
         /// </summary>
         Triangle,
     }

@@ -133,7 +133,7 @@ namespace Syncfusion.Maui.Gauges
         ///     <gauge:SfRadialGauge.Axes>
         ///         <gauge:RadialAxis>
         ///             <gauge:RadialAxis.Pointers>
-        ///                 <gauge:MarkerPointer ValueChanged="MarkerPointer_ValueChanged" />
+        ///                 <gauge:ShapePointer ValueChanged="MarkerPointer_ValueChanged" />
         ///             </gauge:RadialAxis.Pointers>
         ///         </gauge:RadialAxis>
         ///     </gauge:SfRadialGauge.Axes>
@@ -162,7 +162,7 @@ namespace Syncfusion.Maui.Gauges
         ///     <gauge:SfRadialGauge.Axes>
         ///         <gauge:RadialAxis>
         ///             <gauge:RadialAxis.Pointers>
-        ///                 <gauge:MarkerPointer ValueChanging="MarkerPointer_ValueChanging" />
+        ///                 <gauge:ShapePointer ValueChanging="MarkerPointer_ValueChanging" />
         ///             </gauge:RadialAxis.Pointers>
         ///         </gauge:RadialAxis>
         ///     </gauge:SfRadialGauge.Axes>
@@ -191,7 +191,7 @@ namespace Syncfusion.Maui.Gauges
         ///     <gauge:SfRadialGauge.Axes>
         ///         <gauge:RadialAxis>
         ///             <gauge:RadialAxis.Pointers>
-        ///                 <gauge:MarkerPointer ValueChangeStarted = "MarkerPointer_ValueChangeStarted" />
+        ///                 <gauge:ShapePointer ValueChangeStarted = "MarkerPointer_ValueChangeStarted" />
         ///             </gauge:RadialAxis.Pointers>
         ///         </gauge:RadialAxis>
         ///     </gauge:SfRadialGauge.Axes>
@@ -218,7 +218,7 @@ namespace Syncfusion.Maui.Gauges
         ///     <gauge:SfRadialGauge.Axes>
         ///         <gauge:RadialAxis>
         ///             <gauge:RadialAxis.Pointers>
-        ///                 <gauge:MarkerPointer ValueChangeCompleted="MarkerPointer_ValueChangeCompleted" />
+        ///                 <gauge:ShapePointer ValueChangeCompleted="MarkerPointer_ValueChangeCompleted" />
         ///             </gauge:RadialAxis.Pointers>
         ///         </gauge:RadialAxis>
         ///     </gauge:SfRadialGauge.Axes>
@@ -252,7 +252,7 @@ namespace Syncfusion.Maui.Gauges
         ///     <gauge:SfRadialGauge.Axes>
         ///         <gauge:RadialAxis>
         ///             <gauge:RadialAxis.Pointers>
-        ///                 <gauge:MarkerPointer Value="50" />
+        ///                 <gauge:ShapePointer Value="50" />
         ///                 <gauge:NeedlePointer Value="30" />
         ///                 <gauge:RangePointer Value="80" />
         ///             </gauge:RadialAxis.Pointers>
@@ -279,7 +279,7 @@ namespace Syncfusion.Maui.Gauges
         ///     <gauge:SfRadialGauge.Axes>
         ///         <gauge:RadialAxis>
         ///             <gauge:RadialAxis.Pointers>
-        ///                 <gauge:MarkerPointer Value="50" IsInteractive="True" StepFrequency="10"/>
+        ///                 <gauge:ShapePointer Value="50" IsInteractive="True" StepFrequency="10"/>
         ///                 <gauge:NeedlePointer Value="30" IsInteractive="True" StepFrequency="10" />
         ///                 <gauge:RangePointer Value="80" IsInteractive="True" StepFrequency="10" />
         ///             </gauge:RadialAxis.Pointers>
@@ -310,7 +310,7 @@ namespace Syncfusion.Maui.Gauges
         ///     <gauge:SfRadialGauge.Axes>
         ///         <gauge:RadialAxis>
         ///             <gauge:RadialAxis.Pointers>
-        ///                 <gauge:MarkerPointer Value="30" EnableAnimation="True" />
+        ///                 <gauge:ShapePointer Value="30" EnableAnimation="True" />
         ///                 <gauge:NeedlePointer Value="30" EnableAnimation="True" />
         ///                 <gauge:RangePointer Value="30" EnableAnimation="True" />
         ///             </gauge:RadialAxis.Pointers>
@@ -341,7 +341,7 @@ namespace Syncfusion.Maui.Gauges
         ///     <gauge:SfRadialGauge.Axes>
         ///         <gauge:RadialAxis>
         ///             <gauge:RadialAxis.Pointers>
-        ///                 <gauge:MarkerPointer IsInteractive="True" />
+        ///                 <gauge:ShapePointer IsInteractive="True" />
         ///                 <gauge:NeedlePointer IsInteractive="True" />
         ///                 <gauge:RangePointer IsInteractive="True" />
         ///             </gauge:RadialAxis.Pointers>
@@ -371,7 +371,7 @@ namespace Syncfusion.Maui.Gauges
         ///     <gauge:SfRadialGauge.Axes>
         ///         <gauge:RadialAxis>
         ///             <gauge:RadialAxis.Pointers>
-        ///                 <gauge:MarkerPointer EnableAnimation="True" AnimationDuration="1500" />
+        ///                 <gauge:ShapePointer EnableAnimation="True" AnimationDuration="1500" />
         ///                 <gauge:NeedlePointer EnableAnimation="True" AnimationDuration="1500" />
         ///                 <gauge:RangePointer EnableAnimation="True" AnimationDuration="1500" />
         ///             </ gauge:RadialAxis.Pointers>
@@ -401,7 +401,7 @@ namespace Syncfusion.Maui.Gauges
         ///     <gauge:SfRadialGauge.Axes>
         ///         <gauge:RadialAxis>
         ///             <gauge:RadialAxis.Pointers>
-        ///                 <gauge:MarkerPointer EnableAnimation="True" AnimationEasing="BounceIn" />
+        ///                 <gauge:ShapePointer EnableAnimation="True" AnimationEasing="BounceIn" />
         ///                 <gauge:NeedlePointer EnableAnimation="True" AnimationEasing="BounceIn" />
         ///                 <gauge:RangePointer EnableAnimation="True" AnimationEasing="BounceIn" />
         ///             </ gauge:RadialAxis.Pointers>

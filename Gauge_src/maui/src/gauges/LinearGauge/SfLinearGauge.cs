@@ -598,7 +598,7 @@ namespace Syncfusion.Maui.Gauges
         /// Gets or sets a value that specifies the loading time animation duration in milliseconds. 
         /// </summary>
         /// <value>
-        /// The default value is <c>1500</c> milliseconds.
+        /// The default value is <c>1000</c> milliseconds.
         /// </value>
         /// <remarks>
         /// It specifies how long the loading time linear gauge animation will take.
@@ -665,7 +665,7 @@ namespace Syncfusion.Maui.Gauges
         /// Gets or sets the <see cref="MarkerPointers"/> collection to the linear gauge.
         /// </summary>
         /// <value>
-        /// The collection of <see cref="MarkerPointers"/> and <see cref="ContentPointer"/> to display the current value of the axis.
+        /// The collection of <see cref="MarkerPointers"/> and <see cref="LinearContentPointer"/> to display the current value of the axis.
         /// The default value is empty collection.
         /// </value>
         public ObservableCollection<LinearMarkerPointer> MarkerPointers
@@ -2340,12 +2340,12 @@ namespace Syncfusion.Maui.Gauges
                     if (pointer.IsInteractive)
                     {
                         double pointerSize = 0;
-                        if (pointer is ShapePointer shapePointer)
+                        if (pointer is LinearShapePointer shapePointer)
                         {
                             pointerSize = this.Orientation == GaugeOrientation.Horizontal ? shapePointer.ShapeWidth :
                             shapePointer.ShapeHeight;
                         }
-                        else if (pointer is ContentPointer contentPointer && contentPointer.Content != null)
+                        else if (pointer is LinearContentPointer contentPointer && contentPointer.Content != null)
                         {
                             contentPointer.Content.Measure(this.ScaleAvailableSize.Width, this.ScaleAvailableSize.Height);
 
@@ -2699,7 +2699,7 @@ namespace Syncfusion.Maui.Gauges
                 markerPointer.Scale = this;
                 markerPointer.CanAnimate = true;
 
-                if (markerPointer is ContentPointer contentPointer && contentPointer.Content != null)
+                if (markerPointer is LinearContentPointer contentPointer && contentPointer.Content != null)
                 {
                     SetInheritedBindingContext(contentPointer.Content, contentPointer);
                     this.MarkerPointerChildUpdate(null, contentPointer.Content);
@@ -2739,7 +2739,7 @@ namespace Syncfusion.Maui.Gauges
                     this.MarkerPointersLayout.Children.RemoveAt(index);
                 }
 
-                if (markerPointer is ContentPointer contentPointer && contentPointer.Content != null)
+                if (markerPointer is LinearContentPointer contentPointer && contentPointer.Content != null)
                     this.MarkerPointerChildUpdate(contentPointer.Content, null);
 
                 this.ScaleInvalidateMeasureOverride();
@@ -3196,13 +3196,14 @@ namespace Syncfusion.Maui.Gauges
                   
                     double markerSize = 0d;
 
-                    if (markerPointer is ShapePointer shapePointer)
+                    if (markerPointer is LinearShapePointer shapePointer)
                     {
+                        double shadowSize = shapePointer.HasShadow ? 10 : 0;
                         markerSize = this.Orientation == GaugeOrientation.Horizontal
-                            ? shapePointer.ShapeHeight
-                            : shapePointer.ShapeWidth;
+                            ? shapePointer.ShapeHeight + shadowSize
+                            : shapePointer.ShapeWidth + shadowSize;
                     }
-                    else if (markerPointer is ContentPointer contentPointer)
+                    else if (markerPointer is LinearContentPointer contentPointer)
                     {
                         if (contentPointer.Content != null)
                         {
@@ -3239,8 +3240,9 @@ namespace Syncfusion.Maui.Gauges
         private void PerformLoadingAnimation()
         {
             this.MarkerPointersLayout.Opacity = 0;
-            AnimationExtensions.Animate(this, "GaugeLoadingAnimation", this.OnAnimationUpdate, 0, 1,
-                    16, (uint)this.AnimationDuration, Easing.CubicInOut, this.OnAnimationFinished, null);
+
+            AnimationExtensions.Animate(this, "GaugeLoadingAnimation", this.OnAnimationUpdate, 0.05, 1,
+                    16, (uint)this.AnimationDuration, Easing.CubicOut, this.OnAnimationFinished, null);
         }
 
         /// <summary>
@@ -3265,6 +3267,7 @@ namespace Syncfusion.Maui.Gauges
             AnimationExtensions.AbortAnimation(this, "GaugeLoadingAnimation");
             this.CanDrawPointer = true;
             this.MarkerPointersLayout.Opacity = 1;
+
             CreateBarPointers();
             CreateMarkerPointers();
             

@@ -5,8 +5,8 @@ using System;
 namespace Syncfusion.Maui.Gauges
 {
     /// <summary>
-    /// Base class for <see cref="ShapePointer"/>.
-    /// It holds the common properties and logics for customizing <see cref="ShapePointer"/> and content pointer.
+    /// Base class for <see cref="LinearShapePointer"/> and <see cref="LinearContentPointer"/>.
+    /// It holds the common properties and logics for customizing <see cref="LinearShapePointer"/> and <see cref="LinearContentPointer"/>.
     /// </summary>
     public abstract class LinearMarkerPointer : LinearPointer
     {
