@@ -1,0 +1,399 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Syncfusion.UI.Xaml.Charts">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Themes/generic.common.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="ErrorBarSeriesStyle" TargetType="local:ErrorBarSeries">
+        <Setter Property="VisibilityOnLegend" Value="Collapsed"></Setter>
+        <Setter Property="HorizontalLineStyle">
+            <Setter.Value>
+                <local:LineStyle></local:LineStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HorizontalCapLineStyle">
+            <Setter.Value>
+               <local:CapLineStyle></local:CapLineStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalLineStyle">
+            <Setter.Value>
+                <local:LineStyle></local:LineStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalCapLineStyle">
+            <Setter.Value>
+                <local:CapLineStyle></local:CapLineStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ErrorBarSeries">
+                       <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource ErrorBarSeriesStyle}" TargetType="local:ErrorBarSeries"></Style>
+
+    <Style x:Key="TrendlineBaseStyle" TargetType="local:TrendlineBase">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:TrendlineBase">
+                        <local:ChartTrendlinePanel x:Name="trendlinePanel"></local:ChartTrendlinePanel>
+                  </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource TrendlineBaseStyle}" TargetType="local:TrendlineBase"></Style>
+
+    <Style x:Key="BoxAndWhiskerSeriesStyle" TargetType="local:BoxAndWhiskerSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:BoxAndWhiskerSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource BoxAndWhiskerSeriesStyle}" TargetType="local:BoxAndWhiskerSeries"></Style>
+
+    <Style x:Key="CandleSeriesStyle" TargetType="local:CandleSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:CandleSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource CandleSeriesStyle}" TargetType="local:CandleSeries"></Style>
+
+    <Style x:Key="FastHiLoBitmapSeriesStyle" TargetType="local:FastHiLoBitmapSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:FastHiLoBitmapSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource FastHiLoBitmapSeriesStyle}" TargetType="local:FastHiLoBitmapSeries"></Style>
+
+    <Style x:Key="FastHiLoOpenCloseBitmapSeriesStyle" TargetType="local:FastHiLoOpenCloseBitmapSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:FastHiLoOpenCloseBitmapSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource FastHiLoOpenCloseBitmapSeriesStyle}" TargetType="local:FastHiLoOpenCloseBitmapSeries"></Style>
+
+    <Style x:Key="FastStackingColumnBitmapSeriesStyle" TargetType="local:FastStackingColumnBitmapSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:FastStackingColumnBitmapSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource FastStackingColumnBitmapSeriesStyle}" TargetType="local:FastStackingColumnBitmapSeries"></Style>
+
+    <Style x:Key="WaterfallSeriesStyle" TargetType="local:WaterfallSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:WaterfallSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource WaterfallSeriesStyle}" TargetType="local:WaterfallSeries"></Style>
+
+    <Style x:Key="FastCandleBitmapSeriesStyle" TargetType="local:FastCandleBitmapSeries">
+        <Setter Property="StrokeThickness" Value="1"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:FastCandleBitmapSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource FastCandleBitmapSeriesStyle}" TargetType="local:FastCandleBitmapSeries"></Style>
+
+    <Style x:Key="FastRangeAreaBitmapSeriesStyle" TargetType="local:FastRangeAreaBitmapSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:FastRangeAreaBitmapSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource FastRangeAreaBitmapSeriesStyle}" TargetType="local:FastRangeAreaBitmapSeries"></Style>
+
+    <Style x:Key="HiLoSeriesStyle" TargetType="local:HiLoSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:HiLoSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource HiLoSeriesStyle}" TargetType="local:HiLoSeries"></Style>
+
+    <Style x:Key="HiLoOpenCloseSeriesStyle" TargetType="local:HiLoOpenCloseSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:HiLoOpenCloseSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource HiLoOpenCloseSeriesStyle}" TargetType="local:HiLoOpenCloseSeries"></Style>
+
+    <Style x:Key="HistogramSeriesStyle" TargetType="local:HistogramSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:HistogramSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource HistogramSeriesStyle}" TargetType="local:HistogramSeries"></Style>
+
+    <Style x:Key="RangeAreaSeriesStyle" TargetType="local:RangeAreaSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RangeAreaSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style  BasedOn="{StaticResource RangeAreaSeriesStyle}" TargetType="local:RangeAreaSeries"></Style>
+
+    <Style x:Key="SplineRangeAreaSeriesStyle" TargetType="local:SplineRangeAreaSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SplineRangeAreaSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource SplineRangeAreaSeriesStyle}" TargetType="local:SplineRangeAreaSeries"></Style>
+
+    <Style x:Key="RangeColumnSeriesStyle" TargetType="local:RangeColumnSeries">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RangeColumnSeries">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource RangeColumnSeriesStyle}" TargetType="local:RangeColumnSeries"></Style>
+
+    <Style x:Key="AccumulationDistributionIndicatorStyle" TargetType="local:AccumulationDistributionIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:AccumulationDistributionIndicator">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource AccumulationDistributionIndicatorStyle}" TargetType="local:AccumulationDistributionIndicator"></Style>
+
+    <Style x:Key="ExponentialAverageIndicatorStyle" TargetType="local:ExponentialAverageIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ExponentialAverageIndicator">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource ExponentialAverageIndicatorStyle}" TargetType="local:ExponentialAverageIndicator"></Style>
+
+    <Style x:Key="AverageTrueRangeIndicatorStyle" TargetType="local:AverageTrueRangeIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:AverageTrueRangeIndicator">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource AverageTrueRangeIndicatorStyle}" TargetType="local:AverageTrueRangeIndicator"></Style>
+
+    <Style x:Key="SimpleAverageIndicatorStyle" TargetType="local:SimpleAverageIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SimpleAverageIndicator">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource SimpleAverageIndicatorStyle}" TargetType="local:SimpleAverageIndicator"></Style>
+
+    <Style x:Key="TriangularAverageIndicatorStyle" TargetType="local:TriangularAverageIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:TriangularAverageIndicator">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource TriangularAverageIndicatorStyle}" TargetType="local:TriangularAverageIndicator"></Style>
+
+    <Style x:Key="MACDTechnicalIndicatorStyle" TargetType="local:MACDTechnicalIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MACDTechnicalIndicator">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource MACDTechnicalIndicatorStyle}" TargetType="local:MACDTechnicalIndicator"></Style>
+
+    <Style x:Key="RSITechnicalIndicatorStyle" TargetType="local:RSITechnicalIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RSITechnicalIndicator">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource RSITechnicalIndicatorStyle}" TargetType="local:RSITechnicalIndicator"></Style>
+
+    <Style x:Key="StochasticTechnicalIndicatorStyle" TargetType="local:StochasticTechnicalIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:StochasticTechnicalIndicator">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+        <Style BasedOn="{StaticResource StochasticTechnicalIndicatorStyle}" TargetType="local:StochasticTechnicalIndicator"></Style>
+
+    <Style x:Key="BollingerBandIndicatorStyle" TargetType="local:BollingerBandIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:BollingerBandIndicator">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style BasedOn="{StaticResource BollingerBandIndicatorStyle}" TargetType="local:BollingerBandIndicator"></Style>
+    
+    <Style x:Key="MomentumTechnicalIndicatorStyle" TargetType="local:MomentumTechnicalIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MomentumTechnicalIndicator">
+                    <Grid>
+                        <local:ChartSeriesPanel x:Name="SyncfusionChartSeriesPanel"></local:ChartSeriesPanel>
+                        <local:ChartDataMarkerPresenter x:Name="SyncfusionChartDataMarkerPresenter"></local:ChartDataMarkerPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource MomentumTechnicalIndicatorStyle}" TargetType="local:MomentumTechnicalIndicator"></Style>
+
+</ResourceDictionary>

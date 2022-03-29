@@ -1,0 +1,99 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts" 
+             xmlns:local="clr-namespace:ChartTestBedSamples"
+             x:Class="ChartTestBedSamples.ChartZoom">
+
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" RowSpacing="10" ColumnSpacing="10" Padding="10" VerticalOptions="FillAndExpand">
+            <!--<Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ScrollView GridLayout.Row="1" GridLayout.Column="0" Orientation="Vertical">
+                <VerticalStackLayout Spacing="0.5">
+                    <Label Text="Selected Axis" HeightRequest="20" FontSize="12" TextColor="Black"/>
+                    <Picker x:Name="axis_picker" FontSize="12">
+                        <Picker.Items>
+                            <x:String>Primary</x:String>
+                            <x:String>Secondary</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Label Text="Zoom Mode" HeightRequest="20" FontSize="12" TextColor="Black"/>
+                    <Picker x:Name="mood_picker" FontSize="12">
+                        <Picker.Items>
+                            <x:String>XY</x:String>
+                            <x:String>X</x:String>
+                            <x:String>Y</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Label Text="ZoomFactor" HeightRequest="20" FontSize="12" TextColor="Black"/>
+                    <Slider x:Name="factor_slider" Minimum="0" Maximum="1" Value="1"/>
+
+                    <Label Text="ZoomPosition" HeightRequest="20" FontSize="12" TextColor="Black"/>
+                    <Slider x:Name="pos_slider" Minimum="0" Maximum="1" Value="0"/>
+
+                    <Button x:Name="Z_in" Text="Zoom In" HeightRequest="40" FontSize="12" TextColor="White"/>
+                    <Button x:Name="Z_out" Text="Zoom Out" HeightRequest="40" FontSize="12" TextColor="White"/>
+                    <Button x:Name="Z_Reset" Text="Reset" HeightRequest="40" FontSize="12" TextColor="White"/>
+                    <Button x:Name="Z_ToFactor" Text="Zoom to Factor" HeightRequest="40" FontSize="12" TextColor="White"/>
+
+                    <Grid HeightRequest="200" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0"  Text="Enable zoom" HeightRequest="20" FontSize="12" TextColor="Black"/>
+                        <Switch x:Name="E_zoom" Grid.Column="1" Grid.Row="0" IsToggled="False" ThumbColor="Yellow"/>
+                        <Label Grid.Column="0" Grid.Row="1" Text="Enable Panning" HeightRequest="20" FontSize="12" TextColor="Black"/>
+                        <Switch x:Name="E_Pann" Grid.Column="1" Grid.Row="1" IsToggled="False" ThumbColor="Yellow"/>
+                        <Label Grid.Column="0" Grid.Row="2" Text="Enable double tap" HeightRequest="20" FontSize="12" TextColor="Black"/>
+                        <Switch x:Name="E_DTap" Grid.Column="1" Grid.Row="2" IsToggled="False" ThumbColor="Yellow"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <Label Text="Status: None" x:Name="header_label" TextColor="Blue" FontSize="20" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" GridLayout.Row="0" GridLayout.Column="0" GridLayout.ColumnSpan="2"/>
+            <chart:SfCartesianChart x:Name="Chart" GridLayout.Row="1" GridLayout.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <chart:SfCartesianChart.BindingContext>
+                    <local:ChartZoomViewModel/>
+                </chart:SfCartesianChart.BindingContext>
+                <chart:SfCartesianChart.PrimaryAxis>
+                    <chart:NumericalAxis x:Name="p_axis" ShowMajorGridLines="True">
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="Ranges"/>
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.PrimaryAxis>
+                <chart:SfCartesianChart.SecondaryAxis>
+                    <chart:NumericalAxis x:Name="s_axis" ShowMajorGridLines="True" Maximum="5">
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="Quantity"/>
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.SecondaryAxis>
+                <chart:SfCartesianChart.Series>
+                    <chart:ColumnSeries Palette="Natural" ItemsSource="{Binding liveData1}" XBindingPath="Value" YBindingPath="Size">
+                    </chart:ColumnSeries>
+                </chart:SfCartesianChart.Series>
+                <chart:SfCartesianChart.ChartBehaviors>
+                    <chart:ChartZoomPanBehavior x:Name="zoomBehavior" EnableDoubleTap="False" EnablePanning="False" EnablePinchZooming="False"/>
+                </chart:SfCartesianChart.ChartBehaviors>
+
+            </chart:SfCartesianChart>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+ 

@@ -1,0 +1,43 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts" 
+             xmlns:local="clr-namespace:ChartTestBedSamples"
+             x:Class="ChartTestBedSamples.DateTimeChart">
+
+    <ContentPage.Content>
+
+        <chart:SfCartesianChart  x:Name="Chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <chart:SfCartesianChart.BindingContext>
+                <local:DateTimeViewModel/>
+            </chart:SfCartesianChart.BindingContext>
+            <chart:SfCartesianChart.Title>
+                <Label Text="Average In/Out temprature" Grid.Row="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HeightRequest="30" FontSize="15" TextColor="Blue" FontAttributes="Bold" HorizontalOptions="FillAndExpand" />
+            </chart:SfCartesianChart.Title>
+            <chart:SfCartesianChart.PrimaryAxis>
+                <chart:DateTimeAxis x:Name="p_axis" >
+                    <chart:DateTimeAxis.Title>
+                        <chart:ChartAxisTitle Text="Months" FontAttributes="Bold"/>
+                    </chart:DateTimeAxis.Title>
+                    <chart:DateTimeAxis.LabelStyle>
+                        <chart:ChartAxisLabelStyle LabelFormat="dd-MMM"/>
+                    </chart:DateTimeAxis.LabelStyle>
+                </chart:DateTimeAxis>
+            </chart:SfCartesianChart.PrimaryAxis>
+            <chart:SfCartesianChart.SecondaryAxis>
+                <chart:NumericalAxis x:Name="s_axis" Minimum="10" Maximum="115" Interval="10" >
+                    <chart:NumericalAxis.LabelStyle>
+                        <chart:ChartAxisLabelStyle LabelFormat="#.##F"/>
+                    </chart:NumericalAxis.LabelStyle>
+                    <chart:NumericalAxis.Title>
+                        <chart:ChartAxisTitle Text="Temperature"/>
+                    </chart:NumericalAxis.Title>
+                </chart:NumericalAxis>
+            </chart:SfCartesianChart.SecondaryAxis>
+            <chart:SfCartesianChart.Series>
+                <chart:LineSeries ItemsSource="{Binding liveData1}" Color="Black" StrokeWidth="2" XBindingPath="Date" YBindingPath="Value">
+                </chart:LineSeries>
+            </chart:SfCartesianChart.Series>
+        </chart:SfCartesianChart>
+    </ContentPage.Content>
+</ContentPage>
+ 

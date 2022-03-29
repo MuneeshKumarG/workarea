@@ -1,0 +1,124 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Syncfusion.UI.Xaml.Charts">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Themes/Chart/sfchart.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/ChartAxis/Themes/ChartAxis.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Themes/ChartAxis/chartaxis.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/ChartSeries/Themes/ChartSeries.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Themes/ChartSeries/chartseries.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <local:ChartTrackballColorConverter x:Key="trackBallColorConverter"></local:ChartTrackballColorConverter>
+
+    <Style x:Key="SyncfusionChartTrackballControl" TargetType="local:ChartTrackballControl">
+        <Setter Property="Height" Value="8"></Setter>
+        <Setter Property="Width" Value="8"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ChartTrackballControl">
+                    <Ellipse Fill="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, 
+                        Converter={StaticResource trackBallColorConverter}}" Stroke="{ThemeResource SyncfusionChartTrackballMarkerStroke}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" StrokeThickness="{TemplateBinding StrokeThickness}"></Ellipse>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style  BasedOn="{StaticResource SyncfusionChartTrackballControl}" TargetType="local:ChartTrackballControl"></Style>
+
+
+    <Style x:Key="SyncfusionChartTooltipStyle"
+           TargetType="local:ChartTooltip">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ChartTooltip">
+                    <Grid RenderTransformOrigin="0.5,1">
+                        <Grid.RenderTransform>
+                            <CompositeTransform ScaleX="1.0" ScaleY="1.0" TranslateX="0" TranslateY="0"/>
+                        </Grid.RenderTransform>
+                        <Path Data="{Binding Series.Area.Tooltip.PolygonPath}" Style="{Binding Series.Area.Tooltip.BackgroundStyle}"></Path>
+                        <ContentPresenter Margin="7.5,5,7.5,5"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}">
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource SyncfusionChartTooltipStyle}"
+           TargetType="local:ChartTooltip" />
+
+    <!--CheckBox default style-->
+    <Style x:Key="SyncfusionChartLegendCheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+        <Setter Property="MinWidth" Value="20"/>
+        <Setter Property="MinHeight" Value="32"/>
+    </Style>
+
+    <Style BasedOn="{StaticResource SyncfusionChartLegendCheckBoxStyle}" x:Key="CheckBoxStyle" TargetType="CheckBox"></Style>
+
+    <Style x:Key="SyncfusionChartLegendStyle" TargetType="local:ChartLegend">
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}"/>
+        <Setter Property="FontSize" Value="{ThemeResource SyncfusionCaptionFontSize}" />
+        <Setter Property="Foreground" Value="{ThemeResource SyncfusionChartLegendForeground}"/>
+        <Setter Property="FontFamily" Value="{ThemeResource SyncfusionControlThemeFontFamily}"/>
+        <Setter Property="local:ChartDockPanel.Dock" Value="Top"/>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"></StackPanel>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Opacity="{Binding Opacity}" Visibility="{Binding VisibilityOnLegend}"
+                                Margin="{Binding ItemMargin}">
+                        <CheckBox Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding IsSeriesVisible,Mode=TwoWay}" 
+                                  VerticalAlignment="Center" RenderTransformOrigin="1,.5" Visibility="{Binding CheckBoxVisibility}">
+                            <CheckBox.RenderTransform>
+                                <ScaleTransform ScaleX="0.488" ScaleY="0.488" />
+                            </CheckBox.RenderTransform>
+                        </CheckBox>
+                        <Grid VerticalAlignment="Center">
+                            <ContentPresenter Width="{Binding IconWidth}" Height="{Binding IconHeight}" Content="{Binding}" 
+                                              Visibility="{Binding IconVisibility}" ContentTemplate="{Binding IconTemplate}" />
+                        </Grid>
+                        <TextBlock Text="{Binding Label}" Margin="2,0,8,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ChartLegend">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  Padding="{TemplateBinding Padding}"
+                  Background="{TemplateBinding Background}">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
+                            <ContentPresenter Content="{TemplateBinding Header}" FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}" FontSize="{ThemeResource SyncfusionBodyFontSize}" ContentTemplate="{TemplateBinding HeaderTemplate}" Margin="0,0,0,5"/>
+                            <ItemsPresenter/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource SyncfusionChartLegendStyle}" TargetType="local:ChartLegend"></Style>
+
+</ResourceDictionary>

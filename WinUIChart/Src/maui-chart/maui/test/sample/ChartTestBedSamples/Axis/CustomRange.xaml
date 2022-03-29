@@ -1,0 +1,41 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts" 
+             xmlns:local="clr-namespace:ChartTestBedSamples"
+             x:Class="ChartTestBedSamples.CustomRange">
+
+    <ContentPage.Resources>
+       
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <GridLayout Padding="20">
+            <GridLayout.RowDefinitions>
+                <RowDefinition Height="9*"/>
+            </GridLayout.RowDefinitions>
+            <chart:SfCartesianChart x:Name="chart" Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <chart:SfCartesianChart.Title>
+                    <Label HeightRequest="30" Text="Custom Range changed at X Axis" TextColor="Blue" FontAttributes="Bold"/>
+                </chart:SfCartesianChart.Title>
+                <chart:SfCartesianChart.BindingContext>
+                    <local:RangeStyleViewModel/>
+                </chart:SfCartesianChart.BindingContext>
+                <chart:SfCartesianChart.PrimaryAxis>
+                    <chart:NumericalAxis >
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="Default"/>
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.PrimaryAxis>
+                <chart:SfCartesianChart.SecondaryAxis>
+                    <local:CustomYAxis/>
+                </chart:SfCartesianChart.SecondaryAxis>
+                <chart:SfCartesianChart.Series>
+                    <chart:LineSeries ItemsSource="{Binding LiveData1}" Color="Blue" XBindingPath="Value" YBindingPath="Size">
+                    </chart:LineSeries>
+                </chart:SfCartesianChart.Series>
+            </chart:SfCartesianChart>
+        </GridLayout>
+    </ContentPage.Content>
+</ContentPage>
+ 

@@ -1,0 +1,45 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts" 
+             xmlns:local="clr-namespace:ChartTestBedSamples"
+             x:Class="ChartTestBedSamples.Category">
+
+    <ContentPage.Resources>
+       
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <Grid Padding="20" HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Text="Mobile Sales Rate" Grid.Row="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HeightRequest="30" FontSize="15" TextColor="Blue" FontAttributes="Bold" HorizontalOptions="FillAndExpand" />
+            <chart:SfCartesianChart Grid.Row="1"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <chart:SfCartesianChart.BindingContext>
+                    <local:CategoryViewModel/>
+                </chart:SfCartesianChart.BindingContext>
+                <chart:SfCartesianChart.PrimaryAxis>
+                    <chart:CategoryAxis LabelPlacement="BetweenTicks" ShowMajorGridLines="False">
+                        <chart:CategoryAxis.Title>
+                            <chart:ChartAxisTitle Text="Month" FontAttributes="Bold"/>
+                        </chart:CategoryAxis.Title>
+                    </chart:CategoryAxis>
+                </chart:SfCartesianChart.PrimaryAxis>
+                <chart:SfCartesianChart.SecondaryAxis>
+                    <chart:NumericalAxis EdgeLabelsDrawingMode="Shift" Minimum="0" Maximum="80" Interval="20">
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="Unit Sold (In Millions)" FontAttributes="Bold"/>
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.SecondaryAxis>
+                <chart:SfCartesianChart.Series>
+                    <chart:LineSeries ItemsSource="{Binding Data1}" Color="#173F5F" StrokeWidth="2" XBindingPath="Name" YBindingPath="Value"/>
+                    <chart:LineSeries ItemsSource="{Binding Data2}" Color="#20639B" StrokeWidth="2" XBindingPath="Name" YBindingPath="Value"/>
+                    <chart:LineSeries ItemsSource="{Binding Data3}" Color="#3CAEA3" StrokeWidth="2" XBindingPath="Name" YBindingPath="Value"/>
+                </chart:SfCartesianChart.Series>
+            </chart:SfCartesianChart>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+ 

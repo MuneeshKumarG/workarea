@@ -1,0 +1,20 @@
+{
+	"Name": "core-winui",
+	"Platforms": [
+		{
+			"Name": "WinUI",
+			"Assemblies": 
+			[
+				{
+					"Name": "Syncfusion.Core.WinUI",
+					"EnableFxCopAnalyzer":true,
+					"TreatWarningsAsErrors": true,
+					"IgnoreColorCodes": ["#FFFFFF", "#D83B01", "#FFB900", "#000000","#107C10","#2B8FA8","#3075DF","#6057EC","#2CACAC","493EB2",
+					"#E56C2D","#3BA2D6","#D43F38","#DD9939", "#79A325", "#CD4873", "#E6E6E6", "#ACACAC", "#545454", "#F54E10", "#0EAF0E", "#0DB5DF",
+					"#3075DF", "#6057EC", "#2CACAC", "#493EB2", "#E56C2D", "#3BA2D6", "#D43F38", "#DD9939", "#79A325", "#CD4873", "#333333", "#666666",
+					"#C9C9C9"]
+				}
+			]
+		}
+	]
+}

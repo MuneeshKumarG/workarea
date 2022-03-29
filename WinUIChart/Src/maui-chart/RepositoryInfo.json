@@ -1,0 +1,16 @@
+{
+  "Name": "maui-charts",
+  "Platforms": [
+    {
+      "Name": "MAUI",
+      "Assemblies": [
+        {
+          "Name": "Syncfusion.Maui.Charts",
+          "EnableFxCopAnalyzer": false,
+          "EnableStyleCopAnalyzer": false,
+          "TreatWarningsAsErrors": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Syncfusion.UI.Xaml.Charts.SfChart3D" Collapsed="true">
+    <Position X="24.5" Y="26" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>LAOk05AlBq1JVsMbljgEyjSYZYBEBIt2ohKyxBMACw0=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartArea\SfChart3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.CategoryAxis3D" Collapsed="true">
+    <Position X="12.5" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAFAAIhEICAgAAgAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartAxis\CategoryAxis3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxisBase3D" Collapsed="true">
+    <Position X="17" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAYCEBAAAAAAAAAAACAAAQAAABAhEAAAAAIAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartAxis\ChartAxisBase3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DateTimeAxis3D" Collapsed="true">
+    <Position X="14.75" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAAAQAgAVAAIBEADAAAEgQABAAJAQAAAAEAgA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartAxis\DateTimeAxis3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LogarithmicAxis3D" Collapsed="true">
+    <Position X="17" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAQAACAAARAAAVAAIBEACAAAUIQQBAABA0AAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartAxis\LogarithmicAxis3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.NumericalAxis3D" Collapsed="true">
+    <Position X="19.25" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAAAQAAAFAsIBEACAAQEAQABAAJAQAAAAAAgA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartAxis\NumericalAxis3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeAxisBase3D" Collapsed="true">
+    <Position X="18.25" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAARAAAAAACAAAAABEAQAAAAIIAAQAgAAAAAAAAgA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartAxis\RangeAxisBase3D.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.TimeSpanAxis3D" Collapsed="true">
+    <Position X="21.5" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAAAQAAAFAAIBEACAAAEAQABAABAQAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartAxis\TimeSpanAxis3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AreaSeries3D" Collapsed="true">
+    <Position X="15.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAIAEAAAIAAIAABAAAEACBQAAAEAAIAAAARARAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\AreaSeries3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.BarSeries3D" Collapsed="true">
+    <Position X="11.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\BarSeries3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.CartesianSeries3D" Collapsed="true">
+    <Position X="12.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAABAAACAAAAAAEARAAAACAAAAAgADAAAABCAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\CartesianSeries3D.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSeries3D" Collapsed="true">
+    <Position X="13.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYIBEAAAoKRAAGAAgIAAABIQECAFiAAEAIBkARJgEAQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\ChartSeries3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.CircularSeriesBase3D" Collapsed="true">
+    <Position X="20.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BCAgLAAMAogAFBgAM4oAAgAAAAAAAAEISECIgIAIAgA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\CircularSeriesBase3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ColumnSeries3D" Collapsed="true">
+    <Position X="11.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAKAAEISAQAAAgAAAAAAAAAAMAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\ColumnSeries3D.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DoughnutSeries3D" Collapsed="true">
+    <Position X="20.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAEEAIEAAAAIACAAAAAAAAIgAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\DoughnutSeries3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LineSeries3D" Collapsed="true">
+    <Position X="18" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAIIEAAAICAIAABAAAEACBQAAAEAAIAAAARABEAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\LineSeries3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PieSeries3D" Collapsed="true">
+    <Position X="20.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIJAAAAAQAIAA4AAIEAKAQAAAADAAAAAQAghBBgEAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\PieSeries3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ScatterSeries3D" Collapsed="true">
+    <Position X="13.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAJAAAAAAEACCQAAAAAAgAAAAAAIAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\ScatterSeries3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackingBar100Series3D" Collapsed="true">
+    <Position X="6.75" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\StackingBar100Series3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackingBarSeries3D" Collapsed="true">
+    <Position X="9" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\StackingBarSeries3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackingColumn100Series3D" Collapsed="true">
+    <Position X="7.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\StackingColumn100Series3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackingColumnSeries3D" Collapsed="true">
+    <Position X="7.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAKAAEICAQAAAgAIAAAAAAAAMAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\StackingColumnSeries3D.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackingSeriesBase3D" Collapsed="true">
+    <Position X="7.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAABAMAAAAAQAAAIAAgAAAAAAAAABCAg=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\StackingSeriesBase3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.XyDataSeries3D" Collapsed="true">
+    <Position X="12.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAIgABQgAAoIAAAAAAAAAIAAAAEIAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\XYDataSeries3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.XyzDataSeries3D" Collapsed="true">
+    <Position X="10" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAAAAAABAgAACBiAIQgQAAAQAgAAEABAgAAoAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\ChartSeries\XYDataSeries3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.BspTreeBuilder" Collapsed="true">
+    <Position X="151" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgIAAAAAAABAAAAACAAABAQAAAgAgAIBAEAAEABAgAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Graphics\BspTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.Vector3DIndexClassification" Collapsed="true">
+    <Position X="149.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QABABAAAAgIABAACBAAAAQQAAAAAAAAAQEEAAUABAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Graphics\BspTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.BspNode" Collapsed="true">
+    <Position X="149.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Graphics\BspTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.Graphics3D" Collapsed="true">
+    <Position X="144" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAIAgAAgBAQAAAAFAAABAAAAAAgAEBA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Graphics\Graphics3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AreaSegment3D" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARACQQBgAADAAAAAAAgAAQCAABBAAEAAoAAAAEAIAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Model\AreaSegment3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ColumnSegment3D" Collapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQQACQgBhAApAAQQ4AAwEEAAAEAIAAEACACAAAEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Model\ColumnSegment3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DoughnutSegment3D" Collapsed="true">
+    <Position X="16.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Model\DoughnutSegment3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LineSegment3D" Collapsed="true">
+    <Position X="14.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARADQCBgAATAAAAAAAAAAAAAIBBAAGAAIAIABEQIAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Model\LineSegment3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PieSegment3D" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACQABiBEBwKIIACAAAQAACABBAAAAAIEAIAEIAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Model\PieSegment3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.Polygon3D" Collapsed="true">
+    <Position X="3" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAoAAAAAAoggAAAAgAAAwAAAoZCAAGAgFCrAEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Model\Polygon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.UIElement3D" Collapsed="true">
+    <Position X="0.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAgQAAAAAAAAIAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Model\Polygon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PolyLine3D" Collapsed="true">
+    <Position X="3" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Model\Polygon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.Line3D" Collapsed="true">
+    <Position X="5.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Model\Polygon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ScatterSegment3D" Collapsed="true">
+    <Position X="18.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IARACQgBgAAJACAAAAAgACQAAAAAAgEAAAAAIAEAYAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Model\ScatterSegment3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackingColumnSegment3D" Collapsed="true">
+    <Position X="12" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Model\StackingColumnSegment3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PolygonRecycler" Collapsed="true">
+    <Position X="135.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAACBAAAAAAAABIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Utils\PolygonRecycler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.Annotation" Collapsed="true">
+    <Position X="9" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gqcQGnmBAi5DkmIAzAgGjggwQJAxSEvgG+iR3AMoFSo=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\Annotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AnnotationDragDeltaEventArgs" Collapsed="true">
+    <Position X="140.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAQAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\Annotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AnnotationDragCompletedEventArgs" Collapsed="true">
+    <Position X="138.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\Annotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.Position" Collapsed="true">
+    <Position X="137" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAADAAAAAIABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\Annotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AnnotationCollection" Collapsed="true">
+    <Position X="137" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\AnnotationCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AnnotationManager" Collapsed="true">
+    <Position X="142.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QMUACQGJaiYBgMQAcARUgIGAYoBAFgZHAgiQICCiEAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\AnnotationManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AnnotationResizer" Collapsed="true">
+    <Position X="10.25" Y="30.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAACAAAAAAAAAAAAEAAAEAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\AnnotationResizer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AxisMarker" Collapsed="true">
+    <Position X="3.5" Y="28.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAgACAAAiACBgAABAEAAAAAAgAAABAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\AxisMarker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.EllipseAnnotation" Collapsed="true">
+    <Position X="12.5" Y="30.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAABAAAAAAACAAAAFAAAAACAAAAAAAAgAAIAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\EllipseAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.HorizontalLineAnnotation" Collapsed="true">
+    <Position X="5.75" Y="31.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\HorizontalLineAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ImageAnnotation" Collapsed="true">
+    <Position X="1.25" Y="27.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQBgAKaAsDAAAAAAAAQkAAAUQAgAgAAhA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\ImageAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LineAnnotation" Collapsed="true">
+    <Position X="6.75" Y="28.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QDoHEAAAAaAEkCAACCKQBIBHAAEAgEAIAmAAgCAihUA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\LineAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RectangleAnnotation" Collapsed="true">
+    <Position X="14.75" Y="30.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\RectangleAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ShapeAnnotation" Collapsed="true">
+    <Position X="9" Y="27.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SMIIABAQACAQQgwi4IpHEBEhHxgsSlAIIA4AgAAABhA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\ShapeAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SingleAnnotation" Collapsed="true">
+    <Position X="9" Y="26" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\SingleAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SolidShapeAnnotation" Collapsed="true">
+    <Position X="12.5" Y="28.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIUAAAAAAAAAAABAAEBEAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\SolidShapeAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StraightLineAnnotation" Collapsed="true">
+    <Position X="6.75" Y="30.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JmAAMAAAQoAAgAgAQAABEIAAQAAAAAAgBAAAACAgAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\StraightLineAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.TextAnnotation" Collapsed="true">
+    <Position X="17" Y="27.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAISAAAAAAAAAAAAAAAAEAAgAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\TextAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.VerticalLineAnnotation" Collapsed="true">
+    <Position X="8" Y="31.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAABAgAAAAAAAAAAAAAAAQAgCECAkA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Annotation\VerticalLineAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartBehavior" Collapsed="true">
+    <Position X="24.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIBAACAAQCSBAAEAEMAAJALBIBKkQCACQJOQwJACEIA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartCrosshairBehavior" Collapsed="true">
+    <Position X="28.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABYBABHgCAAA6CIAoISFCgACQAAQAACABAg=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartCrossHairBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSelectionBehavior" Collapsed="true">
+    <Position X="19.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAQIAAAIQAFmgAACAAAAIAIQEEhAAEAAEQEyIDEAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartSelectionBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSelectionChangedEventArgs" Collapsed="true">
+    <Position X="142.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAEAAAAAAACREAAAAAAAgAAJAACAQQCAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartSelectionBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSelectionChangingEventArgs" Collapsed="true">
+    <Position X="144" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAYAAAEAAAAAAACBAAAAAAAAAAAJAACAAACAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartSelectionBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartTooltipBehavior" Collapsed="true">
+    <Position X="22" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AFAAAAAgQAAAAAAAiAEBACIEAAABFAECJAAAAgAAACA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartTooltipBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartTrackballBehavior" Collapsed="true">
+    <Position X="24.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QHF4BqIACCRHR5HgMBAV6yJC5PXnGqCSUPE4BEYEAIw=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartTrackBallBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartTrackballColorConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="138.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartTrackBallBehavior.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartTrackballControl" Collapsed="true">
+    <Position X="140.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAIAAAAACAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartTrackBallBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PositionChangingEventArgs" Collapsed="true">
+    <Position X="140.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartTrackBallBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PositionChangedEventArgs" Collapsed="true">
+    <Position X="138.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartTrackBallBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartZoomPanBehavior" Collapsed="true">
+    <Position X="26.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAOIClJEC6x0NC2Gu4RENoLtYFqhCkbCCHEXNQhQkgE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ZoomEventArgs" Collapsed="true">
+    <Position X="20.75" Y="27.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAQAAABAAAAAAAAABAgAAAABAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ZoomChangingEventArgs" Collapsed="true">
+    <Position X="19.5" Y="29" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ZoomChangedEventArgs" Collapsed="true">
+    <Position X="21.75" Y="29" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SelectionZoomingEventArgs" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SelectionZoomingStartEventArgs" Collapsed="true">
+    <Position X="0.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SelectionZoomingDeltaEventArgs" Collapsed="true">
+    <Position X="3" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SelectionZoomingEndEventArgs" Collapsed="true">
+    <Position X="5.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PanningEventArgs" Collapsed="true">
+    <Position X="27.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PanChangingEventArgs" Collapsed="true">
+    <Position X="26.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PanChangedEventArgs" Collapsed="true">
+    <Position X="28.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ResetZoomEventArgs" Collapsed="true">
+    <Position X="152.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Behaviors\ChartZoomPanBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SfChart" Collapsed="true">
+    <Position X="26.75" Y="26" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>LZPMNqMxQyTtYBMSHsSDxl+RZ6uvTOBKbJKc+r8r8lE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartArea\ChartArea.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSeriesBoundsEventArgs" Collapsed="true">
+    <Position X="147.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartArea\ChartArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.NamespaceDoc" Collapsed="true">
+    <Position X="149.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartArea\ChartArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartBase" Collapsed="true">
+    <Position X="25.75" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JgaWTk7i7JbLMTlGYcOdBqUBiVOQDLzgaJvg5ORi1/I=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartArea\ChartBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.CategoryAxisHelper" Collapsed="true">
+    <Position X="152.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAFAAABAACAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\Helper\CategoryAxisHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DateTimeAxisHelper" Collapsed="true">
+    <Position X="135.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABEJAAAQAAAAARAACAAAAAAAAAAgASAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\Helper\DateTimeAxisHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LogarithmicAxisHelper" Collapsed="true">
+    <Position X="140.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAABAAAAAAAIAABAAgASAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\Helper\LogarithmicAxisHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.NumericalAxisHelper" Collapsed="true">
+    <Position X="151" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAABAACAAAAAAAAAAgASAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\Helper\NumericalAxisHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeAxisBaseHelper" Collapsed="true">
+    <Position X="145.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\Helper\RangeAxisBaseHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.TimeSpanAxisHelper" Collapsed="true">
+    <Position X="145.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAgACAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\Helper\TimeSpanAxisHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.CategoryAxis" Collapsed="true">
+    <Position X="35" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAFAAIhEICAgAAgAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\CategoryAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxis" Collapsed="true">
+    <Position X="23.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>9mm3q09sa2NWcb/j+P1d3PQHEHtVX5+qoeesP6hjdnw=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\ChartAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxisLabel" Collapsed="true">
+    <Position X="11.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAgAAAAAgAAAAAAAAAIAAAAIQACAAAABBBAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\ChartAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DateTimeAxisLabel" Collapsed="true">
+    <Position X="11.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAEAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\ChartAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxisBoundsEventArgs" Collapsed="true">
+    <Position X="154.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\ChartAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.VisibleRangeChangedEventArgs" Collapsed="true">
+    <Position X="152.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\ChartAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LabelCreatedEventArgs" Collapsed="true">
+    <Position X="154.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\ChartAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ActualRangeChangedEventArgs" Collapsed="true">
+    <Position X="135.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAgAAAAAEAAgAAIIAAgYAAAJAAAgAAEAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\ChartAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxisBase2D" Collapsed="true">
+    <Position X="29.5" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iQCsAJaCbCFF4cAAERnRhIJG4gg6BqCgAiLAFQxAoAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\ChartAxisBase2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AxisLabelClickedEventArgs" Collapsed="true">
+    <Position X="145.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\ChartAxisBase2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxisScaleBreak" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="144" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ECoIAAIAACAAIABBJIBgBAAghAwACAAAEEAAAAAAAIA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\ChartAxisScaleBreak.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartMultiLevelLabel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="149.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCMAADCAACABAQAAJAAgBgAwgBEAAgABEAAACgAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\ChartMultiLevelLabel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DateTimeAxis" Collapsed="true">
+    <Position X="32.75" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAgAgOAAQUAjAVEAoRkgTAJAHgQABAAJiyAIAAkCgA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\DateTimeAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DateTimeCategoryAxis" Collapsed="true">
+    <Position X="23.75" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAVAAIBEABABAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\DateTimeCategoryAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LogarithmicAxis" Collapsed="true">
+    <Position X="26" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAQAAOAAARAAAVAAIBEACgAAUIQQBgABA2AAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\LogarithmicAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.NumericalAxis" Collapsed="true">
+    <Position X="28.25" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEIAkiCAACdAAQtQsMBEQCAAREGSghSCJAWGAAAgAgA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\NumericalAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeAxisBase" Collapsed="true">
+    <Position X="29.5" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgARAAAAAACAAAAABUAQAAAAoIAAQAgAAAAABAAgA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\RangeAxisBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.TimeSpanAxis" Collapsed="true">
+    <Position X="30.5" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAGAAAQAAAFAAIBEACAAAEAQABAABASAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartAxis\TimeSpanAxis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartLegend" Collapsed="true">
+    <Position X="140.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>5AaAAAAFBTAEAoAhBQgYAIVAoMkECQDAUAARBgAQSAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartLegend\ChartLegend.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LegendItem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="137" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAo4ExAAFCIIEQAAYI0oAAAEgKgAAQAAEFFCAgBZQAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartLegend\ChartLegend.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AccumulationSeriesBase" Collapsed="true">
+    <Position X="25.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIIBGAAAIKggBAwAkoIAABIAECADCIIICMDAhBBAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\AccumulationSeriesBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DataMarkerSeries" Collapsed="true">
+    <Position X="66.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAA4IBIAAAAAIIAAAAQAAAgAEAECABkABAAEAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\AdornmentSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DataMarkerLabelCreatedEventArgs" Collapsed="true">
+    <Position X="154.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\AdornmentSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AreaSeries" Collapsed="true">
+    <Position X="72" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABEAAAICAIAAACoAUACIQAECgQCMAgAI5ARAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\AreaSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.BarSeries" Collapsed="true">
+    <Position X="63" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAhAAAAACEIAACKgIwISCQAACgSCBAAAIAIBMhgAhA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\BarSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.BoxAndWhiskerSeries" Collapsed="true">
+    <Position X="78.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABqACAAGmIACg6IIYJABBABD4YCZAFMJABAMgBBQA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\BoxAndWhiskerSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.BubbleSeries" Collapsed="true">
+    <Position X="81" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IKJBEAAAACEJgBACqIYACBQJAKASCAIAAIAABABAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\BubbleSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.CandleSeries" Collapsed="true">
+    <Position X="101.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABAAAAAAAIAAAKgAQIAAAAAKiQCAAAAIAAAMAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\CandleSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.CartesianSeries" Collapsed="true">
+    <Position X="67.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACAABYCBCAAEIAAFAZQAAACAAAAIgADAgAhBCAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\CartesianSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSeries" Collapsed="true">
+    <Position X="77.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAIAgCAACBAAAAAAIEAAAAAAAwQgAIAAACgAQAAAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\ChartSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSeriesBase" Collapsed="true">
+    <Position X="69.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>S8zZX9ZN8z1Pdqnr9d497Hfo/Ou/f/m4ZW7zcf98Cvc=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\ChartSeriesBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDataPointInfo" Collapsed="true">
+    <Position X="95.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACQAAgAABIAAAAgAAAAAAAAgAAAAAAAEAAAGAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\ChartSeriesBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.CircularSeriesBase" Collapsed="true">
+    <Position X="28" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DCAMICAMAkCQFBFgAQoAAgAiQAAggBAAQMAoQIAIAAQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\CircularSeriesBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ColumnSeries" Collapsed="true">
+    <Position X="58.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABAAAAACEIAACKgIwICCQAACgSCBAAAIBIBMhgAhA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\ColumnSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DoughnutSeries" Collapsed="true">
+    <Position X="27" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIcAgAEAECAsMCKmQcUAagSGxQASAEAYgQADJNAAEIA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\DoughnutSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ErrorBarSeries" Collapsed="true">
+    <Position X="42.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAKEiAgJgIgUQgKYYAQIJIEIAQgBAAGwMAABBAjAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\ErrorBarSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastBarBitmapSeries" Collapsed="true">
+    <Position X="47.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAJAAAKAAUIQAAAIAgQgAAAAAAAIMAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FastBarBitmapSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastCandleBitmapSeries" Collapsed="true">
+    <Position X="96.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIAhEAAAIAAIAAAKgAwIAAAAMKgQCAIAgIBAIMAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FastCandleBitmapSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastColumnBitmapSeries" Collapsed="true">
+    <Position X="51.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAJAAAKAIUIAAAAIAgQgAIAAAAAIMAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FastColumnSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastHiLoOpenCloseBitmapSeries" Collapsed="true">
+    <Position X="99" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIABEAAAIAAIAAAKgAQIAAAAMKgQCAAAAIBAIMAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FastHiLoOpenCloseSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastHiLoBitmapSeries" Collapsed="true">
+    <Position X="90" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIABEAAAIAAIAAACgAQAAAAAMKAQCIAAAIBAIAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FastHiLoSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastLineBitmapSeries" Collapsed="true">
+    <Position X="56.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIIBAKAAALAAAAAIUBABAAIAgQwIAAAAYIJAAAQAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FastLineBitmapSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastLineSeries" Collapsed="true">
+    <Position X="69.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACELAAACAIUACJQAAAkSAIAAAAYAAABAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FastLineSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastRangeAreaBitmapSeries" Collapsed="true">
+    <Position X="92.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAJEAAIIAAIAAAQAIQAAAAAMaAQiIIACYRIYAAAQAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FastRangeAreaBitmapSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastScatterBitmapSeries" Collapsed="true">
+    <Position X="74.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAACAAAAAgLAIAhAEUAACQAIAAQgoAAAAAAJIAAAAQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FastScatterBitmapSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastStackingColumnBitmapSeries" Collapsed="true">
+    <Position X="31.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABEAAAIAAJAAAKgIUIAAAAMCgQqAAAAIBAIMAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FastStackingColumnBitmapSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastStepLineBitmapSeries" Collapsed="true">
+    <Position X="83.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAALAAAAAAUAABAAIAgQAIAAAAYIJAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FastStepLineBitmapSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FinancialSeriesBase" Collapsed="true">
+    <Position X="100" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEACAAAAQgApAggAoOBQQAAAQgACIAAANQAAESCAQw=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FinancialSeriesBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FunnelSeries" Collapsed="true">
+    <Position X="24.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAMoAAAAAAAEAAQAAAASAEAAAAASBAAIEIA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\FunnelSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.HiLoOpenCloseSeries" Collapsed="true">
+    <Position X="103.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABAAAAAAAoAAAKgAQIAAAAAKgQCAAAAIAAAMAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\HiLoOpenCloseSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.HiLoSeries" Collapsed="true">
+    <Position X="94.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABAAAAAAAoAACCgAQAAAAAAKAQCIAAAIAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\HiLoSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.HistogramSeries" Collapsed="true">
+    <Position X="105.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQAACAABCKkqAckiIOYASAQAIKARACAgADAiBABCAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\HistogramSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LineSeries" Collapsed="true">
+    <Position X="67.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMABEBAAJCMIEACCgIwACKQAECgSSIEAAKZMRABAAFA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\LineSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PieSeries" Collapsed="true">
+    <Position X="29.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAgEAAACAooAACAIUACAQABAA2AEAAAQAABBBgEAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\PieSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PolarRadarSeriesBase" Collapsed="true">
+    <Position X="109" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACBCBAKgABAgCAocASAQAACpgQEJwAHoCAEBCAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\PolarRadarSeriesBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PolarSeries" Collapsed="true">
+    <Position X="108" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAASAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\PolarSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PyramidSeries" Collapsed="true">
+    <Position X="22.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAogAAAAAAAAAAAADASAEAAAEQAAAAAEIA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\PyramidSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RadarSeries" Collapsed="true">
+    <Position X="110.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAASAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\RadarSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeAreaSeries" Collapsed="true">
+    <Position X="85.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAJEAAAICAIAACSgAYCCIQAEagwiIAACIZAQAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\RangeAreaSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeColumnSeries" Collapsed="true">
+    <Position X="87.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABAEAABCEIAACKgIwICAQAAKgSCBAAAIBABMhgAhA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\RangeColumnSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeSegmentDraggingBase" Collapsed="true">
+    <Position X="87.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCgQAgBXEEQQIouAAAigACQRIAEEEFMQACEQZRgAAMA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\RangeSegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeDragEventArgs" Collapsed="true">
+    <Position X="16.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\RangeSegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeDragEndEventArgs" Collapsed="true">
+    <Position X="16.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAIAAIAAAAAAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\RangeSegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeSegmentEnterEventArgs" Collapsed="true">
+    <Position X="147.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAEAAACAAQA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\RangeSegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeSeriesBase" Collapsed="true">
+    <Position X="90" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAACAAAAQgAhAAgAoMAAQAAAAgAAIAAAEAAAAAAAQw=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\RangeSeriesBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ScatterSeries" Collapsed="true">
+    <Position X="60.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABEAQAACFoAACigIwACCwCACAWChJAAICIJAhgABQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\ScatterSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SplineAreaSeries" Collapsed="true">
+    <Position X="76.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIEBEAAAICAIAAAKoIcgiIQCECgQCMAgAI5ARAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\SplineAreaSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SplineRangeAreaSeries" Collapsed="true">
+    <Position X="85.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEBAAAAAAAIAAAIAAIggAQCAAAQAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\SplineRangeAreaSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SplineSeries" Collapsed="true">
+    <Position X="65.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMEBEBAAJCMIAACKgI4gqIQCECgSSYEAIKZJBABAABA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\SplineSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedArea100Series" Collapsed="true">
+    <Position X="33.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StackingArea100Series.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedAreaSeries" Collapsed="true">
+    <Position X="33.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABEAAAICAIAAACoIUACIQAECgQKMAAII5ARAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StackingAreaSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedBar100Series" Collapsed="true">
+    <Position X="36" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StackingBar100Series.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedBarSeries" Collapsed="true">
+    <Position X="36" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABAAAAACEIAAAKgAQISAQAACgSKAAAAIAAAMBAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StackingBarSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedColumn100Series" Collapsed="true">
+    <Position X="38.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StackingColumn100Series.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedColumnSeries" Collapsed="true">
+    <Position X="38.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABAAAAACEIAAAKgAQICAQAACgSKAAAAIAAAMBAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StackingColumnSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedLine100Series" Collapsed="true">
+    <Position X="40.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StackingLine100Series.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedLineSeries" Collapsed="true">
+    <Position X="40.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABEBAAACAIAAACgAQACIQAECgQaIAAAIAABAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StackingLineSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedSeriesBase" Collapsed="true">
+    <Position X="36" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BABEAAAAAAwABAAAMIAAAQQAQAIAQAAAAAAIAAgBAQk=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StackingSeriesBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackingValues" Collapsed="true">
+    <Position X="138.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StackingSeriesBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StepAreaSeries" Collapsed="true">
+    <Position X="45" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABEAAAICAIAAACoAYACIQAECgwCMAAAI5ARAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StepAreaSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StepLineSeries" Collapsed="true">
+    <Position X="49.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABEAAAICMIAAACgAYACIQAECgyCIAAAIZABABAEAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\StepLineSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.TriangularSeriesBase" Collapsed="true">
+    <Position X="23.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAIAAAABAAAAAQAgYAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\TriangularSeriesBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.WaterfallSeries" Collapsed="true">
+    <Position X="54" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYAJAAkTACkMAIAKhIYJDB4AQCgQCIAAQMEAAcBAgAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\WaterfallSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.WaterfallSegmentCreatedEventArgs" Collapsed="true">
+    <Position X="154.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEACAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\WaterfallSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.XyDataSeries" Collapsed="true">
+    <Position X="57.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAIAAAAKgABAgAAoIAAAAAAAAAAIAAAEBAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XYDataSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.XySegmentDraggingBase" Collapsed="true">
+    <Position X="63" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QClQBkBLEEQQLguQIIsiACJxYAsEERIQACEQdVwAIZA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DragDelta" Collapsed="true">
+    <Position X="1.75" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDragStartEventArgs" Collapsed="true">
+    <Position X="5.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAACAAQAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDragEndEventArgs" Collapsed="true">
+    <Position X="5.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAg=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDragSegmentInfo" Collapsed="true">
+    <Position X="21.75" Y="25.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAEEACAAAAAAAAAAAAEEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDragPointinfo" Collapsed="true">
+    <Position X="20.75" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAABALAIAgAgAwICIAMgAgAAgAAAAAIAAAAAAEABAQA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.XySegmentDragEventArgs" Collapsed="true">
+    <Position X="0.5" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAACAg=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.XyPreviewEndEventArgs" Collapsed="true">
+    <Position X="138.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAg=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartXyDragStartEventArgs" Collapsed="true">
+    <Position X="5.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.XyDeltaDragEventArgs" Collapsed="true">
+    <Position X="0.5" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartXyDragEndEventArgs" Collapsed="true">
+    <Position X="5.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDragTooltipStyle" Collapsed="true">
+    <Position X="135.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgEAEDAAAAAAAgAAAAAAAgAwAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySegmentDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.XySeriesDraggingBase" Collapsed="true">
+    <Position X="66.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAQ0BAEAAAgAAAACICAEABFAACAQABgAABA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySeriesDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.XySeriesDragEventArgs" Collapsed="true">
+    <Position X="2.75" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySeriesDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDragSeriesInfo" Collapsed="true">
+    <Position X="19.5" Y="25.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySeriesDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.XySegmentEnterEventArgs" Collapsed="true">
+    <Position X="140.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAEAAACAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\XySeriesDraggingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartBehaviorsCollection" Collapsed="true">
+    <Position X="147.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAQAAAAAAEAAAAAQAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\ChartBehaviorsCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxisLabelCollection" Collapsed="true">
+    <Position X="137" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\ChartBehaviorsCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartLegendCollection" Collapsed="true">
+    <Position X="142.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxisScaleBreaks" Collapsed="true">
+    <Position X="145.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartStripLines" Collapsed="true">
+    <Position X="154.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartMultiLevelLabels" Collapsed="true">
+    <Position X="151" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxisCollection" Collapsed="true">
+    <Position X="135.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAACAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartTrendLineCollection" Collapsed="true">
+    <Position X="144" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSeriesCollection" Collapsed="true">
+    <Position X="149.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartVisibleSeriesCollection" Collapsed="true">
+    <Position X="147.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSeries3DCollection" Collapsed="true">
+    <Position X="145.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartRowDefinitions" Collapsed="true">
+    <Position X="140.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartColumnDefinitions" Collapsed="true">
+    <Position X="145.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxisRangeStyleCollection" Collapsed="true">
+    <Position X="142.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Collections\Collections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ArrowLine" Collapsed="true">
+    <Position X="144" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAgAAQAAAAIAADAiAARIAJAAAAiQEACAIAACA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ArrowLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartToolBar" Collapsed="true">
+    <Position X="8.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ChartToolBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ZoomingToolBar" Collapsed="true">
+    <Position X="8.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAACAAgABAAAAAQAgBAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ChartToolBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartToolBarItem" Collapsed="true">
+    <Position X="135.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ChartToolBarItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ZoomingToolBarItem" Collapsed="true">
+    <Position X="19.25" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAABAAAQCiABAAICIAEAAoIBogAEAAEAAEAAAAgCAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ChartToolBarItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ZoomIn" Collapsed="true">
+    <Position X="23.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ChartToolBarItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ZoomOut" Collapsed="true">
+    <Position X="14.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ChartToolBarItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ZoomReset" Collapsed="true">
+    <Position X="17" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ChartToolBarItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ZoomPan" Collapsed="true">
+    <Position X="19.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ChartToolBarItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SelectionZoom" Collapsed="true">
+    <Position X="21.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ChartToolBarItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LabelStyle" Collapsed="true">
+    <Position X="135.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAADAAAAAAAAAAAAAAAgAwAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\LabelBarStyle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ResizableScrollBar" Collapsed="true">
+    <Position X="6.75" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>sCAlFcWVSY5MGQ4IQQYkAABWSGAACQkggIABAoCEgqw=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ResizableScrollBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeNavigatorSelector" Collapsed="true">
+    <Position X="5.5" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ResizableScrollBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.Resizer" Collapsed="true">
+    <Position X="154.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAEGAACJYLBAIBAAEBAAAAAHA0AEBgDIAcggAACACkA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\Resizer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SfChartResizableBar" Collapsed="true">
+    <Position X="7.75" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAAgwIACxAQQjWQKFQAkRAAPhhBAEIKAgUBAAAgIA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\SfResizableBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ThemeDictionaries" Collapsed="true">
+    <Position X="142.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAQAAAAEAAAAAAAAgAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\ThemeDictionaries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.Watermark" Collapsed="true">
+    <Position X="135.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Controls\Watermark.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.VisibilityToBooleanConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="151" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.BooleanToVisibilityConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="147.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ConnectorRotationAngleConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="152.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.InteriorConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="145.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SegmentSelectionBrushConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="135.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SeriesSelectionBrushConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="137" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.MultiInteriorConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="145.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DragElementRotateConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="137" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LegendMarginConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="138.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LabelContentPathConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="152.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LabelBackgroundConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="149.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAQAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LabelBorderBrushConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="151" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Converters\ChartConverters.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastReflectionCaches" Collapsed="true">
+    <Position X="140.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.MethodInvokerCache" Collapsed="true">
+    <Position X="0.5" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastReflectionFactories" Collapsed="true">
+    <Position X="142.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.MethodInvokerFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="144" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PropertyAccessorCache" Collapsed="true">
+    <Position X="2.75" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PropertyAccessor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="144" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAICCBAgAgEAAAgQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.MethodInvoker" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="142.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACICAAAAAAAQAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastReflectionCache&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="1.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAEAAAAIAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.WriteableBitmapExtensions" Collapsed="true">
+    <Position X="137" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgQIABAAAIACAAEAgAAAAAAAAABAICAAABAAEE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Drawing Utils\Line Drawing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AreaSegment" Collapsed="true">
+    <Position X="59.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQBCQgBgCABAAAABwAAAADgAAAACgAAAAUAAAEAQAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\AreaSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.BarSegment" Collapsed="true">
+    <Position X="66" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQSACQABhCAhBAQAYAAQgEQAAAAIAAAACgCAAAEQAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\BarSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.BoxAndWhiskerSegment" Collapsed="true">
+    <Position X="72.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ogQASCilACABAAACJAAQAGAAAQEIAAAQCACBAAEoAEQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\BoxAndWhiskerSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.BubbleSegment" Collapsed="true">
+    <Position X="77.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IUQACQBBgCABhAAAIIAAEAAAAAAAAIAAAgAAAQEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\BubbleSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.CandleSegment" Collapsed="true">
+    <Position X="81.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAUACCABALABIBAAJgAAAECAAAgAAACYhIAASAWBAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\CandleSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDataMarkerLabel" Collapsed="true">
+    <Position X="88.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgWAGTARkBEBAgAICBAECghxgAhAhhEBAARoAA0AYAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\ChartAdornment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAdornment3D" Collapsed="true">
+    <Position X="88.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\ChartAdornment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartPieAdornment" Collapsed="true">
+    <Position X="90.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQICAABCAAAAgAAAAAAAAAAAAAABAAAAEAAAABAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\ChartAdornment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.TriangularAdornment" Collapsed="true">
+    <Position X="86.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAABBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\ChartAdornment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartPieAdornment3D" Collapsed="true">
+    <Position X="88.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQICAABCAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\ChartAdornment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSegment" Collapsed="true">
+    <Position X="52.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ZBZJCFADACABAgAAIIQEYCBEgCgAQECAIABAAAGQAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\ChartSegment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSegment3D" Collapsed="true">
+    <Position X="14.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAQAAAAAAABAAAAAAAABAAAAgAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\ChartSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ColumnSegment" Collapsed="true">
+    <Position X="25.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQSACQABhCAhBAQAYAAQAEAAAAAIAAAACgCAABEAAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\ColumnSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DoughnutSegment" Collapsed="true">
+    <Position X="32.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JESBiQAJkLEpADIwiQIBEAAQFgAARAkIgAhIAIEAAok=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\DoughnutSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.EmptyPointSegment" Collapsed="true">
+    <Position X="39" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AISACACBAAEAAAAQAAAAEAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\EmptyPointSegement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ErrorBarSegment" Collapsed="true">
+    <Position X="36.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IwQACAAhAAABAJAQAiAAAAAAAQAAAAACAAAAAAEAhAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\ErrorBarSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastBarBitmapSegment" Collapsed="true">
+    <Position X="41.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>LAQgKgIBAAgBAAQAQAAhoggIEyEIAAEQAACAIAEAAgA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FastBarBitmapSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastCandleBitmapSegment" Collapsed="true">
+    <Position X="43.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEQAKhIBABADIBACJAQBgoAIC2kAAAlEAgCwKAkAAgA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FastCandleBitmapSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastColumnBitmapSegment" Collapsed="true">
+    <Position X="45.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>LAQACgIBAAABAAEAAAAgoAAIESAAAAEwAACAIAEAAgA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FastColumnSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastHiLoOpenCloseSegment" Collapsed="true">
+    <Position X="50.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>OEwAKhJBEBADAAACAQABkAAKAWAAAgBACgCAKAkAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FastHiLoOpenCloseSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastHiLoSegment" Collapsed="true">
+    <Position X="54.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>LAQACgIBEAABAAACAQAAoAAKAWAAAABAAACEIAEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FastHiLoSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastLineBitmapSegment" Collapsed="true">
+    <Position X="57" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IwYRDgIFAAATAAIgBQABggAIA+2AAoIEQMAwIAEAAAU=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FastLineBitmapSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastLineSegment" Collapsed="true">
+    <Position X="61.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAYRCAOFACADhAIEAAABogAAAk2AAoIEQoAwAAEAAAQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FastLineSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastRangeAreaSegment" Collapsed="true">
+    <Position X="68.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AwQADgIBAAgRAhBQAgAAgAAIAagAAAAAAAAAIAEAEAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FastRangeAreaBitmapSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastScatterBitmapSegment" Collapsed="true">
+    <Position X="75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>LAQACgIZABiDAAEAgAAAoAAIAUAAAIIAAACAYBEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FastScatterBitmapSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastStackingColumnSegment" Collapsed="true">
+    <Position X="45.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FastStackingColumnBitmapSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FastStepLineBitmapSegment" Collapsed="true">
+    <Position X="84" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAQACgIBAAADAAACgAAAoAAIAUAAAIBAAACAIAEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FastStepLineBitmapSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FunnelSegment" Collapsed="true">
+    <Position X="93" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQACQABgCABABQAIAAAQAgAAAABAAAAAEAAAAkAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\FunnelSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.HiLoOpenCloseSegment" Collapsed="true">
+    <Position X="97.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAUACAABAKABIQAEIgAAABACEAgAAAAMBIQACAWBQAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\HiLoOpenCloseSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.HiLoSegment" Collapsed="true">
+    <Position X="99.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAABACABABAAAgAAAAAAAQgAAAAAAAAQAAGAAQA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\HiLoSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.HistogramSegment" Collapsed="true">
+    <Position X="23.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\HistogramSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.HistogramDistributionSegment" Collapsed="true">
+    <Position X="5.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQACQAAgAAhgAAAAAAAAAAAAAAAAAAAAAAAAAEAAgA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\HistogramSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LineSegment" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAUACQgBgSABBAAgAAADgAAAI4ADAACAAQAAEAEAACA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\LineSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PieSegment" Collapsed="true">
+    <Position X="21" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAShCQABgDApABAAKAAAAAAABAAABAgIgAAIgIEQAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\PieSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PyramidSegment" Collapsed="true">
+    <Position X="30" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IASACQABgCABABQAIAAAQAAAAAAAAAAAAAAgAAEAAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\PyramidSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeAreaSegment" Collapsed="true">
+    <Position X="34.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQQCAABAKABAAAgYgIAAAAgAIgAhAAACAAAAAEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\RangeAreaSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RangeColumnSegment" Collapsed="true">
+    <Position X="25.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAgAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\RangeColumnSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ScatterSegment" Collapsed="true">
+    <Position X="39" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQSACQABgCABBAAQIAAAAAQAAAAGAoAAAAIAAQEAAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\ScatterSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SplineAreaSegment" Collapsed="true">
+    <Position X="59.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQBCAABACARAAAgBAAAAADgAAAAAAAAAAEAAAEAQAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\SplineAreaSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SplineRangeAreaSegment" Collapsed="true">
+    <Position X="34.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQQCAABACABAAAABAAAAAAgAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\SplineRangeAreaSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SplineSegment" Collapsed="true">
+    <Position X="48" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQACQgBgCABhAAgAAADAwAgIYOBARAAggkQEAEAACA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\SplineSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedAreaSegment" Collapsed="true">
+    <Position X="52.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQBCQgBgCABAAAABwAAAADgAAAAAgAAAAUAAAEAQAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\StackingAreaSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedBarSegment" Collapsed="true">
+    <Position X="66" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\StackingBarSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StackedColumnSegment" Collapsed="true">
+    <Position X="27.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\StackingColumnSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StepAreaSegment" Collapsed="true">
+    <Position X="63.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQBCQgBgCABAAAgBAAAAADgAgAAAAAAAAUAAAEAQAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\StepAreaSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StepLineSegment" Collapsed="true">
+    <Position X="70.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwACQiNgSABhAAgAAIDgAAAI4ABACDAAwAAEIEEACA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\StepLineSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.TrendlineSegment" Collapsed="true">
+    <Position X="48" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\TrendlineSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.WaterfallSegment" Collapsed="true">
+    <Position X="79.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KQQACQABhAAhACUgZAAQIEAAAEAYAAAADACAIAEAAAQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\Segments\WaterfallSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDataMarkerBase" Collapsed="true">
+    <Position X="1.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>5jURFTc4fHjIAnXokZYHD0M+jA1CPxXIIidmASQhI1E=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\ChartAdornmentInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDataMarker" Collapsed="true">
+    <Position X="0.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAQAAAAAAAAUgAEQAAAAIAAAgAgAAAAABACAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\ChartAdornmentInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAdornmentInfo3D" Collapsed="true">
+    <Position X="2.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAgAAAAQgAEAAAAQIwIAAAAABAAAAIAABAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\ChartAdornmentInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxisRangeStyle" Collapsed="true">
+    <Position X="140.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGIAAAAMACAACDAABAAAEAAAAAAAQAAAAAAIAgAAACA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\ChartAxisRangeStyle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartColorModel" Collapsed="true">
+    <Position X="140.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAEAgAAAGBgAIAEKBACACFghKAgAIAAAAIwBWAEAQk=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\ChartColorModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartColumnDefinition" Collapsed="true">
+    <Position X="144" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAgCCIEAACAAAQggIBGIAEIQABBAAABJACAQCAgAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\ChartColumnDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartPointInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="152.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ICIIASAiCAAgIQQIoiUAKgIEgCgCAKAAAKAgBAKAYAU=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\ChartPointInfo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartRowDefinition" Collapsed="true">
+    <Position X="138.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCoCEBAABDAAAQAgIFEAABIQABBQAABJAAAQCAggAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\ChartRowDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartStripLine" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="152.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SAARmgBUMDAAQRiIJBhAjUhAwABAA0AgACIggAQIAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Model\ChartStripLine.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDataMarkerContainer" Collapsed="true">
+    <Position X="147.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAUFAgAIACAADAAAABAAAQAQAAAAIAAAAAAEAAQBwAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartAdornmentContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SymbolControl" Collapsed="true">
+    <Position X="140.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartAdornmentContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDataMarkerPresenter" Collapsed="true">
+    <Position X="149.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAAAAAAAAIAAAgACQAIAAAAAAAEAAAAAAEAAQAAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartAdornmentPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartAxisLayoutPanel" Collapsed="true">
+    <Position X="138.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAQAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartAxisLayoutPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartCartesianAxisElementsPanel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="149.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAIAIAAaGAAQVBgAAEEAAgAAABIAAIDCAAAAAIAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartCartesianAxisElementsPanel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartCartesianAxisLabelsPanel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="151" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACAAgQCAAQVQgAAA0AAAAEAAIgAADCAACQAAAEkQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartCartesianAxisLabelsPanel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AxisLabelLayout" Collapsed="true">
+    <Position X="1.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAECAQAhggABWQgAAEFAAAKAAAYAAFCCAAAAAEpAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartCartesianAxisLabelsPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.HorizontalLabelLayout" Collapsed="true">
+    <Position X="0.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAAQAAAAggAGADCgBBAAAAoAAQAAAgACBAAAgAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartCartesianAxisLabelsPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.VerticalLabelLayout" Collapsed="true">
+    <Position X="2.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAAAAAAgggAGACAgABAAAAIAAQAAAAACAAAAkAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartCartesianAxisLabelsPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartCartesianAxisLayoutPanel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="152.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAIAAAAAAFAkQACkBAgoKQkYAAJTCQAAgQCAgAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartCartesianAxisLayoutPanel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartCartesianAxisPanel" Collapsed="true">
+    <Position X="154.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAABAIAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartCartesianAxisPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartCartesianAxisPanel3D" Collapsed="true">
+    <Position X="135.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAABAIAAAAAQAAAAAAAAAAAAAABCAAAgAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartCartesianAxisPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartCartesianGridLinesPanel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="137" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAkAAEACQAAAAHEgAAAEAgREAAAIAAADCAAAQQAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartCartesianGridLinesPanel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartCircularAxisPanel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="138.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAIAAAAQAQAIVAgAAEECAAAAAAIEABDCAAAAQAIAAQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartCircularAxisPanel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDockPanel" Collapsed="true">
+    <Position X="154.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAEABAgAIAAAAIFEAEAAAAQASAITAIAAIAAAABBCAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartDockPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartPolarAxisLayoutPanel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="154.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAIQAAASIIAAFAgAgAEAAAAAAAIAAADCAEAAQAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartPolarAxisLayoutPanel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartPolarGridLinesPanel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="135.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAmAAAABYCAQAvAiEQAUAEAAAgAIAAITCAAQAQAAAAg=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartPolarGridLinesPanel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartRootPanel" Collapsed="true">
+    <Position X="137" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAQQAAAAAAAAAAAAQAAAEg=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartRootPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartSeriesPanel" Collapsed="true">
+    <Position X="151" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAQAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartSeriesPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartTooltip" Collapsed="true">
+    <Position X="137" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BFgAgAAIALAAAlAAQBSJAGFGAAABAQoIpAgBGgAJCLA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartTooltip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartTrendlinePanel" Collapsed="true">
+    <Position X="145.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartTrendlinePanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.MultiLevelLabelsPanel" Collapsed="true">
+    <Position X="147.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>lQQYAEQiSCYGQ1RiQEASgSqgCQQKRQADAAgAwQASBIA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\MultiLevelLabelsPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartLocalizationResourceAccessor" Collapsed="true">
+    <Position X="144" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Resources\ChartLocalizationResourceAccessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartLocalizationResourceExtension" Collapsed="true">
+    <Position X="145.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Resources\ChartLocalizationResourceAccessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AccumulationDistributionIndicator" Collapsed="true">
+    <Position X="112.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAYAIAAiYAAAQAIIAACAAIICQAAAAIAAAEAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\AccumulationDistributionIndicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.AverageTrueRangeIndicator" Collapsed="true">
+    <Position X="114.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAYAIAAmIACACAIIAAAAAIICQIAAAIEAAEABAAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\AverageTrueRangeIndicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.BollingerBandIndicator" Collapsed="true">
+    <Position X="117" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAoACmJAAACAYIBAAAAIISQEgAAJQIEAACAAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\BollingerBandIndicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ExponentialAverageIndicator" Collapsed="true">
+    <Position X="119.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAiJIAAAAIIBAAAAIICQIAABIBAAAABAAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\ExponentialAverageIndicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.FinancialTechnicalIndicator" Collapsed="true">
+    <Position X="122.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACBABAQNIoAAAA4MARAAAIagCQQAgADIAggDCAIA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\FinancialTechnicalIndicator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.MACDTechnicalIndicator" Collapsed="true">
+    <Position X="121.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAkBAIBACipgEACAYKLEQAAoIGUAAEAIRAQAgFQAgI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\MACDTechnicalIndicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.MomentumTechnicalIndicator" Collapsed="true">
+    <Position X="123.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACEAAAAAAEkJAoAAA4IAAAEAIYCQBAAAABCAAAACAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\MomentumTechnicalIndicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RSITechnicalIndicator" Collapsed="true">
+    <Position X="126" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAIACmJAAAAAYIBAAAAIICQMAAAJQIAAABAAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\RSITechnicalIndicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SimpleAverageIndicator" Collapsed="true">
+    <Position X="128.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAmJIAAAAoIAAAAAIICQIAAAIAAAAABAAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\SimpleAverageIndicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.StochasticTechnicalIndicator" Collapsed="true">
+    <Position X="130.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAggAAICCyZAACSAYIRAAAAIISQUQAAJTIAIQAACQo=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\StochasticTechnicalIndicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.TechnicalIndicatorSegment" Collapsed="true">
+    <Position X="61.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBCAABAAgAAgAAAAAAAABAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\TechnicalIndicatorSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.TriangularAverageIndicator" Collapsed="true">
+    <Position X="132.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAmJIAAAAoIAAAAAIICQIgAAIAAAAABAAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Technical Indicators\TriangularAverageIndicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.TrendlineBase" Collapsed="true">
+    <Position X="8.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SF0IBRAEGGBU0D7ACK+hBkEKQA2AwCAAYSYMAwAEAME=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Trendlines\ChartTrendlineBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.Trendline" Collapsed="true">
+    <Position X="8.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Trendlines\Trendline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.CapLineStyle" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAACAgAAAAAAAAAAgAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ErrorBarLineStyles\CapLineStyle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.LineStyle" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIIABAQACCAAAAggIAAAAABEAgAQkAIAAQAAAAAAAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ErrorBarLineStyles\LineStyle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDataUtils" Collapsed="true">
+    <Position X="151" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAAAAiBAAQAAAAAAAQAMAAAAAAAABACAAAAAAAAQAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartDataUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.PointsSortByXComparer" Collapsed="true">
+    <Position X="154.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartDataUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartColorModifier" Collapsed="true">
+    <Position X="142.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartDataUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartExtensionUtils" Collapsed="true">
+    <Position X="137" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAgAQABAAAAAQAAAQAAAEAoAyACAAAFAAEAAAwAQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartExtensionUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ClearUIElementProperties" Collapsed="true">
+    <Position X="149.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartExtensionUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.KeyTimeExtension" Collapsed="true">
+    <Position X="147.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartExtensionUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.OrientationExtension" Collapsed="true">
+    <Position X="152.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartExtensionUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ThicknessExtension" Collapsed="true">
+    <Position X="144" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartExtensionUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.DurationExtension" Collapsed="true">
+    <Position X="138.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartExtensionUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ColorExtension" Collapsed="true">
+    <Position X="151" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartExtensionUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartMath" Collapsed="true">
+    <Position X="147.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAACEAAw5ANQABA0AECCACQAgIQAgAgAAAACAIAIAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartMath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartLayoutUtils" Collapsed="true">
+    <Position X="138.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAIAAAAGAAAAEAAAAAAAg=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartMath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartTransform" Collapsed="true">
+    <Position X="142.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIAkIAAAAAAABAAAEAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartTransformer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.Printing" Collapsed="true">
+    <Position X="142.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQgAGACAAAAAwAAwEAgAAAIIARYAIACIAAAQCACEAAI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\Printing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RectAnimation" Collapsed="true">
+    <Position X="149.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQEAAIAQAACABIAVZAAAAkIEEAIGABgIAAAAABAECI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\RectAnimation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.RectAnimationCompletedArgs" Collapsed="true">
+    <Position X="151" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\RectAnimation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.ChartDictionaries" Collapsed="true">
+    <Position X="152.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQAAAAEAAAAAAAAAAAACAAAAAgAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ResourceDictionaries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.UIElementsRecycler&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="147.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIgAAAAAAAAAFgCCAAABAQAAQAAAAAFBAAIAQBAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\UIElementsRecycler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Syncfusion.UI.Xaml.Charts.SfCircularChart" Collapsed="true">
+    <Position X="26.75" Y="27.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SfCircularChart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Syncfusion.UI.Xaml.Charts.Matrix3D" Collapsed="true">
+    <Position X="140.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAgQAAAAiAAAA+QACAAQAAAAEAIAAAEAABCIgAiI=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Graphics\Matrix3D.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Syncfusion.UI.Xaml.Charts.Vector3D" Collapsed="true">
+    <Position X="142.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAE9AsCAAAAAAAAAIAAAABgAQAAYAE=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Graphics\Vector3D.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Syncfusion.UI.Xaml.Charts.ChartPoint" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="135.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAYiA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartExtensionUtils.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Struct Name="Syncfusion.UI.Xaml.Charts.DateTimeRange" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="137" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAJAAACAACAAAAAAgAAAAAAAAAAAAIAQAAAAAAAAAiA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\DateTimeRange.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Struct Name="Syncfusion.UI.Xaml.Charts.DoubleRange" Collapsed="true">
+    <Position X="138.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAJAAACAACAAAAAAwIKAAgAAABAAAIAQAAABAQAAgqQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\DoubleRange.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.ISegmentSelectable" Collapsed="true">
+    <Position X="152.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\ChartSeriesBase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.ISegmentSpacing" Collapsed="true">
+    <Position X="154.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\ChartSeries\ChartSeriesBase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.IFastReflectionFactory&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="142.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.IFastReflectionCache&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="140.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.IPropertyAccessor" Collapsed="true">
+    <Position X="147.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIACAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.IMethodInvoker" Collapsed="true">
+    <Position X="145.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Data\FastReflection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.ILayoutCalculator" Collapsed="true">
+    <Position X="144" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAFAgAAAEAAAAAAAIAAADCAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartCartesianAxisPanel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.IChartTransformer" Collapsed="true">
+    <Position X="138.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\ChartTransformer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.IRangeAxis" Collapsed="true">
+    <Position X="149.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.IRangeAxis&lt;T&gt;" Collapsed="true">
+    <Position X="151" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.IChartAxis" Collapsed="true">
+    <Position X="135.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.IChartSeries" Collapsed="true">
+    <Position X="137" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.ISupportAxes" Collapsed="true">
+    <Position X="1.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAgAAAAAAAAAAAQAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.ISupportAxes2D" Collapsed="true">
+    <Position X="0.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Syncfusion.UI.Xaml.Charts.ISupportAxes3D" Collapsed="true">
+    <Position X="2.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ClassifyPointResult" Collapsed="true">
+    <Position X="140.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAgAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Graphics\BspTree.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ClassifyPolyResult" Collapsed="true">
+    <Position X="142.25" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAACBA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\3D\Graphics\BspTree.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartDock" Collapsed="true">
+    <Position X="142.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAUAAAAAAAIAAAACACAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Panels\ChartDockPanel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.TooltipPosition" Collapsed="true">
+    <Position X="152.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.HorizontalPosition" Collapsed="true">
+    <Position X="137" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAIAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.VerticalPosition" Collapsed="true">
+    <Position X="142.25" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartAutoScrollingMode" Collapsed="true">
+    <Position X="138.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.DoughnutCapStyle" Collapsed="true">
+    <Position X="138.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAEAAAAAABA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.EmptyStroke" Collapsed="true">
+    <Position X="149.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAACACAAAEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.DragType" Collapsed="true">
+    <Position X="140.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.BoxPlotMode" Collapsed="true">
+    <Position X="151" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAACAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ScaleBreakPosition" Collapsed="true">
+    <Position X="137" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAASAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.PieGroupMode" Collapsed="true">
+    <Position X="154.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAEAgAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.BreakLineType" Collapsed="true">
+    <Position X="152.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABCAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.UIElementLeftShift" Collapsed="true">
+    <Position X="137" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAIAAAAAAAIAAACAAAAAAAAQA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.UIElementTopShift" Collapsed="true">
+    <Position X="138.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAEAAAAAQAAAAAIAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.AxisPosition3D" Collapsed="true">
+    <Position X="145.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAEAAAAAAAAAAAACAIAABEBIAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.SelectionMode" Collapsed="true">
+    <Position X="138.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.SnapToPoint" Collapsed="true">
+    <Position X="144" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAABAAAAAAAAAAAAAAAAAAAMAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.DateTimeRangePadding" Collapsed="true">
+    <Position X="154.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAEAAAAAAAAAAACAAAAAAAACMCAEA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.MACDType" Collapsed="true">
+    <Position X="147.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAIAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.SelectionType" Collapsed="true">
+    <Position X="142.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.SelectionStyle3D" Collapsed="true">
+    <Position X="140.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.BarPosition" Collapsed="true">
+    <Position X="147.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.Day" Collapsed="true">
+    <Position X="135.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAACAAAAAAAAAAACAAIACAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ZoomToolBarItems" Collapsed="true">
+    <Position X="147.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAABAAAAAAAEAAAAAAAAACAAIAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.NumericalPadding" Collapsed="true">
+    <Position X="152.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAEAAAAAAAAAAICAAAAAAAACMCAEA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ErrorBarType" Collapsed="true">
+    <Position X="154.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAABAgAAAAAQAAAAABAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ErrorBarMode" Collapsed="true">
+    <Position X="152.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ErrorBarDirection" Collapsed="true">
+    <Position X="151" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAABAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.LegendPosition" Collapsed="true">
+    <Position X="144" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.TrendlineType" Collapsed="true">
+    <Position X="135.25" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAgAAAAABAAAAAAAAAAAAAAAAABAAAAAABAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.DateTimeIntervalType" Collapsed="true">
+    <Position X="152.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACQAAAAQAAAAAAAAAAAIAAEQAABACAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartValueType" Collapsed="true">
+    <Position X="137" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAQAAAAAAAAAACAAQAAAQAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.RenderingMode" Collapsed="true">
+    <Position X="135.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartLegendIcon" Collapsed="true">
+    <Position X="145.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAABAAAAAgAAEAghAgAEACCAACEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.TrackballLabelDisplayMode" Collapsed="true">
+    <Position X="154.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.Direction" Collapsed="true">
+    <Position X="137" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.SortingAxis" Collapsed="true">
+    <Position X="145.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartSymbol" Collapsed="true">
+    <Position X="154.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAiAAAAAAABAAAAAgAAEAAAAgAEACKgACAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.LabelPlacement" Collapsed="true">
+    <Position X="142.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ActualLabelPosition" Collapsed="true">
+    <Position X="135.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAACACAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.LabelAlignment" Collapsed="true">
+    <Position X="138.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.BorderType" Collapsed="true">
+    <Position X="149.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAQAAAAgAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartPolarAngle" Collapsed="true">
+    <Position X="149.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAIAAAAAAAIAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.AxisElementPosition" Collapsed="true">
+    <Position X="138.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.AxisHeaderPosition" Collapsed="true">
+    <Position X="140.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.AggregateFunctions" Collapsed="true">
+    <Position X="137" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAABAAAAAAEAAAAAQAAAAAAAAAAAAAAAEAAAQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.EdgeLabelsDrawingMode" Collapsed="true">
+    <Position X="142.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAiAEAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.EdgeLabelsVisibilityMode" Collapsed="true">
+    <Position X="144" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAABAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.AxisLabelIntersectAction" Collapsed="true">
+    <Position X="142.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAEAAAAAAAAAAAAEAAAAAAACEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartColorPalette" Collapsed="true">
+    <Position X="140.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgEQAAAAAIAEgAAIAAAAEgAAABAAAAAEEEAAg=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartAlignment" Collapsed="true">
+    <Position X="135.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAACAIAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartSeriesDrawType" Collapsed="true">
+    <Position X="152.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQABAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartOrientation" Collapsed="true">
+    <Position X="147.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAIAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartAreaType" Collapsed="true">
+    <Position X="137" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAgAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartUnitType" Collapsed="true">
+    <Position X="135.25" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ZoomMode" Collapsed="true">
+    <Position X="145.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.CircularSeriesLabelPosition" Collapsed="true">
+    <Position X="138.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ConnectorMode" Collapsed="true">
+    <Position X="145.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAgAAAAAABAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ConnectorLinePosition" Collapsed="true">
+    <Position X="144" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAIAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.DataMarkerLabelPosition" Collapsed="true">
+    <Position X="149.25" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAIAAAAAAAAAAAgAAAACAIAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.DataMarkerPosition" Collapsed="true">
+    <Position X="151" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAQAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.LabelContent" Collapsed="true">
+    <Position X="140.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAACAAAAAAAAAAAAAgAAAQAAAAAAACAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.EmptyPointStyle" Collapsed="true">
+    <Position X="145.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIACAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.EmptyPointValue" Collapsed="true">
+    <Position X="147.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartFunnelMode" Collapsed="true">
+    <Position X="144" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ChartPyramidMode" Collapsed="true">
+    <Position X="151" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.NavigatorIntervalType" Collapsed="true">
+    <Position X="149.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAJAAAAAAAAAAAAAAAAAEAAAIEAAAAAIAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.NavigatorRangePadding" Collapsed="true">
+    <Position X="151" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.CoordinateUnit" Collapsed="true">
+    <Position X="147.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.AxisMode" Collapsed="true">
+    <Position X="144" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAIAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.LineCap" Collapsed="true">
+    <Position X="145.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAEAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.ToolTipLabelPlacement" Collapsed="true">
+    <Position X="151" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAACACAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.UpdateAction" Collapsed="true">
+    <Position X="140.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAEAoABAABAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.SurfaceType" Collapsed="true">
+    <Position X="149.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAgAAACAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.CameraProjection" Collapsed="true">
+    <Position X="154.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.FinancialPrice" Collapsed="true">
+    <Position X="135.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAgAAAAAAAAgAAAAAAAAAAAGAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.WaterfallSegmentType" Collapsed="true">
+    <Position X="144" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAQ=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Syncfusion.UI.Xaml.Charts.SplineType" Collapsed="true">
+    <Position X="147.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAAAAAAAEBAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\enum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="Syncfusion.UI.Xaml.Charts.RectAnimationCompletedHandler" Collapsed="true">
+    <Position X="135.25" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\chart\source\UWP\SfChart.UWP\Src\Utils\RectAnimation.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

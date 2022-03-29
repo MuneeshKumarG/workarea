@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- iOS, Android, MacCatalyst, Windows -->
+	<TargetFrameworks>net6.0;net6.0-ios;net6.0-android;net6.0-maccatalyst;net6.0-windows10.0.19041</TargetFrameworks>
+    <UseMaui>true</UseMaui>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Syncfusion.Maui.Charts</AssemblyName>
+    <RootNamespace>Syncfusion.Maui.Charts</RootNamespace>
+	<TargetOS>none</TargetOS> 
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisLevelSecurity>latest-recommended</AnalysisLevelSecurity>
+    <Configurations>Debug;Release;Release-Xml</Configurations>
+    <Platforms>AnyCPU</Platforms>
+    <Version>19.3.0.1-pre</Version>
+	<AssemblyVersion>19.3600.0.1</AssemblyVersion>
+	<FileVersion>19.3600.0.1</FileVersion>
+	<Company>Syncfusion Inc</Company>
+	<Copyright>Copyright 2001 - 2021 Syncfusion Inc.</Copyright>
+	<SingleProject>true</SingleProject>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<DebugType>portable</DebugType>
+	<OutputType>Library</OutputType>  
+	<Authors>Syncfusion Inc</Authors>
+	<PackageProjectUrl>https://www.syncfusion.com/?utm_source=nuget&amp;amp;utm_medium=listing</PackageProjectUrl>
+	<PackageReleaseNotes>https://help.syncfusion.com/maui/release-notes/v19.2.0.56?utm_source=nuget&amp;amp;utm_medium=listing</PackageReleaseNotes>
+	<Description>This package provides the functionality to utilize the features of Syncfusion Maui Charts controls and more.</Description>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageIcon>syncfusion_logo.png</PackageIcon>
+	<PackageTags>syncfusion;maui;ios;android;maccatalyst;dotnet-maui;maui-chart;circular-chart;cartesian-chart</PackageTags>
+	<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+	<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-ios'">14.2</SupportedOSPlatformVersion>
+	<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">14.0</SupportedOSPlatformVersion>
+	<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-android'">21.0</SupportedOSPlatformVersion>
+	<SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.18362.0</SupportedOSPlatformVersion>
+	<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.18362.0</TargetPlatformMinVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Xml|AnyCPU' ">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+  <Import Project="..\targets\MultiTargeting.targets" />
+  <ItemGroup>
+    <None Remove="docfx.json" />
+    <None Remove="NuGet.Config" />
+	<None Remove="Syncfusion.Maui.Charts.nuspec" />
+  <None Remove="Syncfusion.Maui.Charts.CI.nuspec" />
+	<None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+	<None Include="syncfusion_logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\maui-core-release\maui\src\core\Syncfusion.Maui.Core.csproj" />
+  </ItemGroup>
+</Project>

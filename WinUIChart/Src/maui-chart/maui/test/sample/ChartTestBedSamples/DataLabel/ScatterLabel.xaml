@@ -1,0 +1,34 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ChartTestBedSamples"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             x:Class="ChartTestBedSamples.ScatterLabel">
+
+    <ContentPage.Content>
+        <chart:SfCartesianChart HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+
+            <chart:SfCartesianChart.BindingContext>
+                <local:ViewModelDataLabel x:Name="viewmodel"/>
+            </chart:SfCartesianChart.BindingContext>
+
+            <chart:SfCartesianChart.PrimaryAxis>
+                <chart:CategoryAxis LabelPlacement="BetweenTicks" ShowMajorGridLines="False"/>
+            </chart:SfCartesianChart.PrimaryAxis>
+
+            <chart:SfCartesianChart.SecondaryAxis>
+                <chart:NumericalAxis Minimum="0" Interval="10"  Maximum="100"/>
+            </chart:SfCartesianChart.SecondaryAxis>
+
+            <chart:SfCartesianChart.Series>
+                <chart:ScatterSeries Palette="Natural" x:Name="series" Height="35" Width="35" ShowDataLabels="True" ItemsSource="{Binding ScatterData}" XBindingPath="XValue" YBindingPath="YValue">
+                    <chart:ScatterSeries.DataLabelSettings>
+                        <chart:CartesianDataLabelSettings UseSeriesPalette="True" LabelPlacement="Center">
+                        </chart:CartesianDataLabelSettings>
+                    </chart:ScatterSeries.DataLabelSettings>
+                </chart:ScatterSeries>
+            </chart:SfCartesianChart.Series>
+            
+        </chart:SfCartesianChart>
+    </ContentPage.Content>
+</ContentPage>
+ 
