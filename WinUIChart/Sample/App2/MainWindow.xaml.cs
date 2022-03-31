@@ -64,11 +64,14 @@ namespace App2
             //grid.Children.Add(chart);
 
 
-            WinUIChart chart = new WinUIChart() { Height = 300, Width = 500 };
+            SfCartesianChart chart = new SfCartesianChart() { Height = 300, Width = 500 };
             chart.Background = new SolidColorBrush(Colors.Yellow);
-            chart.Legend = new ChartLegend() { Height=30, Background = new SolidColorBrush(Colors.Blue) };
-            chart.Header = "Syncfusion";
+            chart.Header = "Chart Header";
+            chart.Legend = new ChartLegend();
             grid.Children.Add(chart);
+
+            TextBlock textBlock = new TextBlock();
+            textBlock.FontWeight= Microsoft.UI.Text.FontWeights.Normal;
         }
 
     }

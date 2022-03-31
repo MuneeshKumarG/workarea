@@ -8,99 +8,9 @@
         <ResourceDictionary Source="ms-appx:///Syncfusion.Core.WinUI/Themes/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="SyncfusionWinUIChartStyle" TargetType="local:WinUIChart">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:WinUIChart">
-                    <Grid>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                  Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
-                            <Grid Background="Transparent">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" 
-                                                      Foreground="{ThemeResource SyncfusionChartHeaderForeground}" 
-                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" 
-                                                      VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" 
-                                                      Margin="0,0,0,5" FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
-                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}" Background="AliceBlue"/>
-                                
-                                <local:ChartDockPanel x:Name="SyncfusionChartDockPanel" LastChildFill="False" Grid.Row="1">
-                                    <Rectangle Height="25" Width="300" Fill="Aqua" local:ChartDockPanel.Dock="Top" />
-                                    <local:ChartDockPanel.RootElement>
-                                        <local:ChartRootPanel x:Name="SyncfusionChartRootPanel" Background="Orange">
-                                            <Canvas x:Name="SyncfusionChartBottomAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Grid x:Name="SyncfusionChartInternalCanvas" 
-                                                   local:ChartRootPanel.MeasurePriorityIndex="1"  >
-                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
-                                                <Border>
-                                                    <Grid x:Name="SyncfusionChartSeriesPresenter" />
-                                                </Border>
-                                            </Grid>
-                                        </local:ChartRootPanel>
-                                    </local:ChartDockPanel.RootElement>
-                                </local:ChartDockPanel>
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style BasedOn="{StaticResource SyncfusionWinUIChartStyle}" TargetType="local:WinUIChart"></Style>
     
-    <Style x:Key="SyncfusionChartStyle" TargetType="local:SfChart">
-        <Setter Property="PlotAreaBorderBrush" Value="{ThemeResource SyncfusionChartAreaBorderBrush}"></Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:SfChart">
-                    <Grid>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                  Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
-                            <Grid Background="Transparent">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="25*"/>
-                                    <RowDefinition Height="75*"/>
-                                </Grid.RowDefinitions>
-
-                                <local:ChartDockPanel x:Name="SyncfusionChartDockPanel" LastChildFill="False" Grid.Row="1" Grid.RowSpan="2">
-                                    <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" Foreground="{ThemeResource SyncfusionChartHeaderForeground}" local:ChartDockPanel.Dock="Top" 
-                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" Margin="0,0,0,5" FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
-                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
-                                    <local:ChartDockPanel.RootElement>
-                                        <local:ChartRootPanel x:Name="SyncfusionChartRootPanel">
-                                            <Canvas x:Name="SyncfusionChartBottomAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Grid x:Name="SyncfusionChartInternalCanvas" Background="{TemplateBinding PlotAreaBackground}" local:ChartRootPanel.MeasurePriorityIndex="1" 
-                                                  Margin="{TemplateBinding AxisThickness}">
-                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
-                                                <Border BorderBrush="{TemplateBinding PlotAreaBorderBrush}"  BorderThickness="{TemplateBinding PlotAreaBorderThickness}">
-                                                    <Grid x:Name="SyncfusionChartSeriesPresenter" />
-                                                </Border>
-                                            </Grid>
-                                            <Canvas x:Name="SyncfusionChartAxisPanel" local:ChartRootPanel.MeasurePriorityIndex="0"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartSeriesAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartToolkitCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                        </local:ChartRootPanel>
-                                    </local:ChartDockPanel.RootElement>
-                                </local:ChartDockPanel>
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style BasedOn="{StaticResource SyncfusionChartStyle}" TargetType="local:SfChart"></Style>
 
     <Style x:Key="SyncfusionCartesianChartStyle" TargetType="local:SfCartesianChart">
-        <Setter Property="PlotAreaBorderBrush" Value="{ThemeResource SyncfusionChartAreaBorderBrush}"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:SfCartesianChart">
@@ -109,33 +19,21 @@
                   Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
                             <Grid Background="Transparent">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="25*"/>
-                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-
-                                <local:ChartDockPanel x:Name="SyncfusionChartDockPanel" LastChildFill="False" Grid.Row="1" Grid.RowSpan="2">
-                                    <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" Foreground="{ThemeResource SyncfusionChartHeaderForeground}" local:ChartDockPanel.Dock="Top" 
-                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" Margin="0,0,0,5" FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
-                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
-                                    <local:ChartDockPanel.RootElement>
-                                        <local:ChartRootPanel x:Name="SyncfusionChartRootPanel">
-                                            <Canvas x:Name="SyncfusionChartBottomAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Grid x:Name="SyncfusionChartInternalCanvas" Background="{TemplateBinding PlotAreaBackground}" local:ChartRootPanel.MeasurePriorityIndex="1" 
-                                                  Margin="{TemplateBinding AxisThickness}">
-                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
-                                                <Border BorderBrush="{TemplateBinding PlotAreaBorderBrush}"  BorderThickness="{TemplateBinding PlotAreaBorderThickness}">
-                                                    <Grid x:Name="SyncfusionChartSeriesPresenter" />
-                                                </Border>
-                                            </Grid>
-                                            <Canvas x:Name="SyncfusionChartAxisPanel" local:ChartRootPanel.MeasurePriorityIndex="0"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartSeriesAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartToolkitCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                        </local:ChartRootPanel>
-                                    </local:ChartDockPanel.RootElement>
-                                </local:ChartDockPanel>
+                                <ContentPresenter x:Name="SyncfusionChartHeader"
+                                                  Content="{TemplateBinding Header}" 
+                                                  HorizontalAlignment="Center" Margin="0,0,0,5" 
+                                                  Foreground="{ThemeResource SyncfusionChartHeaderForeground}" 
+                                                  FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
+                                                  FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
+                                
+                                <local:LegendDockPanel Grid.Row="1" x:Name="LegendDockPanel">
+                                    <local:LegendDockPanel.PlotArea>
+                                        <Grid Background="orange"/>
+                                    </local:LegendDockPanel.PlotArea>
+                                </local:LegendDockPanel>
                             </Grid>
                         </Border>
                     </Grid>
@@ -146,188 +44,6 @@
 
     <Style BasedOn="{StaticResource SyncfusionCartesianChartStyle}" TargetType="local:SfCartesianChart"></Style>
 
-    <Style x:Key="SyncfusionCircularChartStyle" TargetType="local:SfCircularChart">
-       <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:SfCircularChart">
-                    <Grid>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                  Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
-                            <Grid Background="Transparent">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="25*"/>
-                                    <RowDefinition Height="75*"/>
-                                </Grid.RowDefinitions>
-
-                                <local:ChartDockPanel x:Name="SyncfusionChartDockPanel" LastChildFill="False" Grid.Row="1" Grid.RowSpan="2">
-                                    <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" Foreground="{ThemeResource SyncfusionChartHeaderForeground}" local:ChartDockPanel.Dock="Top" 
-                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" Margin="0,0,0,5" FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
-                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
-                                    <local:ChartDockPanel.RootElement>
-                                        <local:ChartRootPanel x:Name="SyncfusionChartRootPanel">
-                                            <Canvas x:Name="SyncfusionChartBottomAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Grid x:Name="SyncfusionChartInternalCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"  
-                                                 >
-                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
-                                                <Border>
-                                                    <Grid x:Name="SyncfusionChartSeriesPresenter" />
-                                                </Border>
-                                            </Grid>
-                                            <Canvas x:Name="SyncfusionChartAxisPanel" local:ChartRootPanel.MeasurePriorityIndex="0"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartSeriesAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartToolkitCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                        </local:ChartRootPanel>
-                                    </local:ChartDockPanel.RootElement>
-                                </local:ChartDockPanel>
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style BasedOn="{StaticResource SyncfusionCircularChartStyle}" TargetType="local:SfCircularChart"></Style>
-
-    <Style x:Key="SyncfusionPyramidChartStyle" TargetType="local:SfPyramidChart">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:SfPyramidChart">
-                    <Grid>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                  Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
-                            <Grid Background="Transparent">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="25*"/>
-                                    <RowDefinition Height="75*"/>
-                                </Grid.RowDefinitions>
-
-                                <local:ChartDockPanel x:Name="SyncfusionChartDockPanel" LastChildFill="False" Grid.Row="1" Grid.RowSpan="2">
-                                    <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" Foreground="{ThemeResource SyncfusionChartHeaderForeground}" local:ChartDockPanel.Dock="Top" 
-                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" Margin="0,0,0,5" FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
-                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
-                                    <local:ChartDockPanel.RootElement>
-                                        <local:ChartRootPanel x:Name="SyncfusionChartRootPanel">
-                                            <Canvas x:Name="SyncfusionChartBottomAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Grid x:Name="SyncfusionChartInternalCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"
-                                                 >
-                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
-                                                <Border>
-                                                    <Grid x:Name="SyncfusionChartSeriesPresenter" />
-                                                </Border>
-                                            </Grid>
-                                            <Canvas x:Name="SyncfusionChartAxisPanel" local:ChartRootPanel.MeasurePriorityIndex="0"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartSeriesAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartToolkitCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                        </local:ChartRootPanel>
-                                    </local:ChartDockPanel.RootElement>
-                                </local:ChartDockPanel>
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style BasedOn="{StaticResource SyncfusionPyramidChartStyle}" TargetType="local:SfPyramidChart"></Style>
-
-    <Style x:Key="SyncfusionFunnelChartStyle" TargetType="local:SfFunnelChart">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:SfFunnelChart">
-                    <Grid>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                  Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
-                            <Grid Background="Transparent">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="25*"/>
-                                    <RowDefinition Height="75*"/>
-                                </Grid.RowDefinitions>
-
-                                <local:ChartDockPanel x:Name="SyncfusionChartDockPanel" LastChildFill="False" Grid.Row="1" Grid.RowSpan="2">
-                                    <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" Foreground="{ThemeResource SyncfusionChartHeaderForeground}" local:ChartDockPanel.Dock="Top" 
-                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" Margin="0,0,0,5" FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
-                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
-                                    <local:ChartDockPanel.RootElement>
-                                        <local:ChartRootPanel x:Name="SyncfusionChartRootPanel">
-                                            <Canvas x:Name="SyncfusionChartBottomAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Grid x:Name="SyncfusionChartInternalCanvas" local:ChartRootPanel.MeasurePriorityIndex="1" 
-                                                 >
-                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
-                                                <Border>
-                                                    <Grid x:Name="SyncfusionChartSeriesPresenter" />
-                                                </Border>
-                                            </Grid>
-                                            <Canvas x:Name="SyncfusionChartAxisPanel" local:ChartRootPanel.MeasurePriorityIndex="0"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartSeriesAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartToolkitCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                        </local:ChartRootPanel>
-                                    </local:ChartDockPanel.RootElement>
-                                </local:ChartDockPanel>
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style BasedOn="{StaticResource SyncfusionFunnelChartStyle}" TargetType="local:SfFunnelChart"></Style>
-
-    <Style x:Key="SyncfusionPolarChartStyle" TargetType="local:SfPolarChart">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:SfPolarChart">
-                    <Grid>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                  Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
-                            <Grid Background="Transparent">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="25*"/>
-                                    <RowDefinition Height="75*"/>
-                                </Grid.RowDefinitions>
-
-                                <local:ChartDockPanel x:Name="SyncfusionChartDockPanel" LastChildFill="False" Grid.Row="1" Grid.RowSpan="2">
-                                    <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" Foreground="{ThemeResource SyncfusionChartHeaderForeground}" local:ChartDockPanel.Dock="Top" 
-                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" Margin="0,0,0,5" FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
-                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
-                                    <local:ChartDockPanel.RootElement>
-                                        <local:ChartRootPanel x:Name="SyncfusionChartRootPanel">
-                                            <Canvas x:Name="SyncfusionChartBottomAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Grid x:Name="SyncfusionChartInternalCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"  Margin="{TemplateBinding AxisThickness}"
-                                                 >
-                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
-                                                <Border>
-                                                    <Grid x:Name="SyncfusionChartSeriesPresenter" />
-                                                </Border>
-                                            </Grid>
-                                            <Canvas x:Name="SyncfusionChartAxisPanel" local:ChartRootPanel.MeasurePriorityIndex="0"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartSeriesAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAnnotationCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                            <Canvas x:Name="SyncfusionChartAdorningCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"></Canvas>
-                                            <Canvas x:Name="SyncfusionChartToolkitCanvas" local:ChartRootPanel.MeasurePriorityIndex="1"/>
-                                        </local:ChartRootPanel>
-                                    </local:ChartDockPanel.RootElement>
-                                </local:ChartDockPanel>
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style BasedOn="{StaticResource SyncfusionPolarChartStyle}" TargetType="local:SfPolarChart"></Style>
+   
 
 </ResourceDictionary>

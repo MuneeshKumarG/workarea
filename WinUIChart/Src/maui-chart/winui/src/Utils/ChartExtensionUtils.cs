@@ -14,7 +14,6 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Rect = Windows.Foundation.Rect;
 using NativeColor = Windows.UI.Color;
 using NativeKeyTime = Microsoft.UI.Xaml.Media.Animation.KeyTime;
-using ChartAdornmentContainer = Syncfusion.UI.Xaml.Charts.ChartDataMarkerContainer;
 using Microsoft.UI;
 
 namespace Syncfusion.UI.Xaml.Charts
@@ -145,118 +144,7 @@ namespace Syncfusion.UI.Xaml.Charts
 
 #endif
 
-        /// <summary>
-        /// Returns sum of DoubleRange
-        /// </summary>
-        /// <param name="ranges">Collection of DoubleRange</param>
-        /// <returns></returns>
-        public static DoubleRange Sum(this IEnumerable<DoubleRange> ranges)
-        {
-            var sum = DoubleRange.Empty;
-            IEnumerator<DoubleRange> enumerator = ranges.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                sum += enumerator.Current;
-            }
-            return sum;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="selector"></param>
-        /// <returns></returns>
-        public static ChartSeriesBase Max(this IEnumerable<ChartSeriesBase> source, Func<ChartSeriesBase, double> selector)
-        {
-            var chartSeries = source as ChartSeriesBase[] ?? source.ToArray();
-            if (chartSeries.Any())
-            {
-                ChartSeriesBase maxObject = chartSeries[0];
-                double maxVal = selector(maxObject);
-                for (int i = 0; i < chartSeries.Count(); i++)
-                {
-                    double value = selector(chartSeries[i]);
-                    if (value > maxVal)
-                    {
-                        maxVal = value;
-                        maxObject = chartSeries[i];
-                    }
-                }
-
-                return maxObject;
-            }
-            return null;
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-        internal static int GetAdornmentIndex(object source)
-        {
-            var element = source as FrameworkElement;
-            int index = -1;
-
-            var chartAdornmentContainer = element.DataContext as ChartAdornmentContainer;
-            if (chartAdornmentContainer != null)
-                index = (int)chartAdornmentContainer.Tag;
-            else
-            {
-                while (!(element is ChartAdornmentContainer) && element != null)
-                {
-                    element = VisualTreeHelper.GetParent(element) as FrameworkElement;
-                    //Get the Adornment index when set the Content control for LabelTemplate. 
-                    if (element is ContentControl && (element as ContentControl).Tag is int)
-                    {
-                        index = (int)(element as ContentControl).Tag;
-                        return index;
-                    }
-                    //Get the Adornment index when set the SymbolTemplate for Adornments. 
-                    else if (element is ChartAdornmentContainer)
-                        index = (int)(element as ChartAdornmentContainer).Tag;
-                }
-            }
-            return index;
-        }
         
-        //StrokeDashArray applied only for the first line element when it is applied through style. 
-        //It is bug in the framework.
-        //And hence manually setting stroke dash array for each and every line.
-        public static void SetStrokeDashArray(UIElementsRecycler<Line> lineRecycler)
-        {
-            if (lineRecycler.Count > 0)
-            {
-                DoubleCollection collection = lineRecycler[0].StrokeDashArray;
-                if (collection != null && collection.Count > 0)
-                {
-                    foreach (Line line in lineRecycler)
-                    {
-                        DoubleCollection doubleCollection = new DoubleCollection();
-                        foreach (double value in collection)
-                        {
-                            doubleCollection.Add(value);
-                        }
-                        line.StrokeDashArray = doubleCollection;
-                    }
-                }
-            }            
-        }
-
-        /// <summary>
-        /// Get the bool value for current series is draggable or not
-        /// </summary>
-        /// <param name="chartSeries">Current Series</param>
-        /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-        internal static bool IsDraggable(ChartSeriesBase chartSeries)
-        {
-            if ((chartSeries is RangeSegmentDraggingBase && (chartSeries as RangeSegmentDraggingBase).EnableSegmentDragging)
-                || (chartSeries is XySegmentDraggingBase && (chartSeries as XySegmentDraggingBase).EnableSegmentDragging)
-                || (chartSeries is XySeriesDraggingBase && (chartSeries as XySeriesDraggingBase).EnableSeriesDragging))
-            {
-                return true;
-            }
-            else
-                return false;
-        }
 
         internal static int BinarySearch(List<double> xValues, double touchValue, int min, int max)
         {
@@ -292,98 +180,7 @@ namespace Syncfusion.UI.Xaml.Charts
             return closerIndex;
         }
 
-        internal static Brush GetInterior(ChartSeriesBase series, int segmentIndex)
-        {
-            ChartSeriesBase serObj = series;
-
-            if (serObj != null)
-            {
-                if (serObj.Interior != null)
-                    return serObj.Interior;
-                else if (serObj.SegmentColorPath != null && serObj.ColorValues.Count > 0)
-                {
-                    if (segmentIndex != -1 && segmentIndex < serObj.ActualData.Count)
-                    {
-                        if (!(serObj.ColorValues[segmentIndex] == null))
-                            return serObj.ColorValues[segmentIndex];
-                        else if (serObj.Palette != ChartColorPalette.None && (serObj.ColorValues[segmentIndex] == null))
-                        {
-                            serObj.ColorValues[segmentIndex] = serObj.ColorModel.GetBrush(segmentIndex);
-                            return serObj.ColorModel.GetBrush(segmentIndex);
-                        }
-                        else
-                        {
-                            int serIndex = serObj.ActualArea.GetSeriesIndex(serObj);
-                            serObj.ColorValues[segmentIndex] = serObj.ActualArea.ColorModel.GetBrush(serIndex);
-                            return serObj.ActualArea.ColorModel.GetBrush(serIndex);
-                        }
-                    }
-                }
-                else if (serObj.Palette != ChartColorPalette.None)
-                {
-                    if (segmentIndex != -1 && serObj.ColorModel != null)
-                        return serObj.ColorModel.GetBrush(segmentIndex);
-                }
-                else if (serObj.ActualArea != null
-                    && serObj.ActualArea.Palette != ChartColorPalette.None && serObj.ActualArea.ColorModel != null)
-                {
-                    int serIndex = serObj.ActualArea.GetSeriesIndex(serObj);
-                    ChartBase chart = serObj.ActualArea as ChartBase;
-                    if (serIndex >= 0)
-                        return serObj.ActualArea.ColorModel.GetBrush(serIndex);
-                    else if (chart != null && chart.TechnicalIndicators != null && chart.TechnicalIndicators.Count > 0)
-                    {
-                        serIndex = chart.TechnicalIndicators.IndexOf(serObj as ChartSeries);
-                        return serObj.ActualArea.ColorModel.GetBrush(serIndex);
-                    }
-                }
-            }
-
-#if WinUI_UWP
-            return new SolidColorBrush(Windows.UI.Colors.Transparent);
-#else
-            return new SolidColorBrush(Colors.Transparent);
-#endif
-        }
-
-        /// <summary>
-        /// Gets the multiple area rectangle of the provided mouse point.
-        /// Also returns a <see cref="bool"/> value indicating whether the point is inside rect. 
-        /// This bool is used since the <see cref="Rect"/> is value type and the null conditions for the outcoming rect cannot be checked.
-        /// </summary>
-        /// <param name="mousePoint">The mouse point.</param>
-        /// <param name="axis">The axis to be checked.</param>
-        /// <param name="isPointInsideRect">The property indicates whether the point is inside the axis area rectangle.</param>
-        /// <returns>Returns the point captured <see cref="Rect"/>.</returns>
-        internal static Rect GetAxisArrangeRect(Point mousePoint, ChartAxis axis, out bool isPointInsideRect)
-        {
-            Rect clipRect = new Rect();
-            double left = axis.ArrangeRect.Left;
-            double top = axis.ArrangeRect.Top;
-
-            foreach (var supportAxis in axis.AssociatedAxes)
-            {
-                if (axis.Orientation == Orientation.Horizontal)
-                {
-                    top = supportAxis.ArrangeRect.Top;
-                    clipRect = new Rect(left, top, axis.ArrangeRect.Width, supportAxis.ArrangeRect.Height);
-                }
-                else
-                {
-                    left = supportAxis.ArrangeRect.Left;
-                    clipRect = new Rect(left, top, supportAxis.ArrangeRect.Width, axis.ArrangeRect.Height);
-                }
-
-                if (clipRect.Contains(mousePoint))
-                {
-                    isPointInsideRect = true;
-                    return clipRect;
-                }
-            }
-
-            isPointInsideRect = false;
-            return clipRect;
-        }
+       
     }
 
 
