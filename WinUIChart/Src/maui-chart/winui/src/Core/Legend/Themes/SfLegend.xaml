@@ -45,10 +45,12 @@
                                 <ScaleTransform ScaleX="0.488" ScaleY="0.488" />
                             </CheckBox.RenderTransform>
                         </CheckBox>
-                        <!--<Grid VerticalAlignment="Center" >
-                            <ContentPresenter Width="{Binding IconWidth}" Height="{Binding IconHeight}" Content="{Binding}" 
-                                              Visibility="{Binding IconVisibility}" ContentTemplate="{Binding IconTemplate}" />
-                        </Grid>-->
+                        <Grid VerticalAlignment="Center" Background="yellow">
+                            <ContentPresenter Width="{Binding IconWidth}" Height="{Binding IconHeight}" 
+                                              Content="{Binding}" VerticalContentAlignment="Center"
+                                              Visibility="{Binding IconVisibility}" 
+                                              ContentTemplate="{Binding IconTemplate}" />
+                        </Grid>
                         <TextBlock Text="{Binding Text}" Margin="2,0,8,0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </DataTemplate>
@@ -60,16 +62,7 @@
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}" Padding="{TemplateBinding Padding}"
                             Background="{TemplateBinding Background}">
-                        <StackPanel Orientation="Vertical" 
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
-                            <ContentPresenter Content="Legend Header" Background="Orange" HorizontalContentAlignment="Center"
-                                              FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}" 
-                                              FontSize="{ThemeResource SyncfusionBodyFontSize}" 
-                                               Margin="0,0,0,5"/>
-
-                            <ItemsPresenter/>
-                        </StackPanel>
+                        <ItemsPresenter/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

@@ -32,12 +32,6 @@ namespace Syncfusion.UI.Xaml.Charts
         public static readonly DependencyProperty IsVisibleProperty = 
             DependencyProperty.Register(nameof(IsVisible), typeof(bool), typeof(ChartLegend), new PropertyMetadata(true));
 
-        /// <summary>
-        /// The DependencyProperty for <see cref="Header"/> property.
-        /// </summary>
-        public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header), typeof(object), typeof(ChartLegend), new PropertyMetadata(null));
-
         #endregion
 
         #region Constructor
@@ -102,21 +96,12 @@ namespace Syncfusion.UI.Xaml.Charts
             set { SetValue(LegendItemsProperty, value); }
         }
 
-        /// <summary>
-        /// Gets or sets the header for the legend.
-        /// </summary>
-        public object Header
-        {
-            get { return GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
-        }
-
         bool ILegend.ToggleVisibility { get => ToggleSeriesVisibility; set => ToggleSeriesVisibility = value; }
         LegendOrientation ILegend.Orientation { get => Orientation; set => Orientation = value; }
 
         #endregion
 
-
+        #region Methods
         private static void OnLegendItemsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var area = d as ChartLegend;
@@ -125,5 +110,7 @@ namespace Syncfusion.UI.Xaml.Charts
                 
             }
         }
+
+        #endregion
     }
 }

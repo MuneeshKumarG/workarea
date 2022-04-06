@@ -27,13 +27,17 @@
   <ItemGroup>
     <Compile Include="ChartArea\ChartBase.cs" />
     <Compile Include="ChartArea\SfCartesianChart.cs" />
+    <Compile Include="ChartArea\IPlotArea.cs" />
     <Compile Include="Core\Legend\Enums.cs" />
     <Compile Include="Core\Legend\Interface.cs" />
     <Compile Include="Core\Legend\LegendItem.cs" />
+    <Compile Include="Core\Legend\LegendItemEventArgs.cs" />
+    <Compile Include="Core\Legend\LegendItemClickedEventArgs.cs" />
     <Compile Include="Core\Legend\SfLegend.cs" />
-    <Compile Include="Core\Legend\LegendDockPanel.cs" />
+    <Compile Include="Legend\LegendDockPanel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Legend\ChartLegend.cs" />
+    <Compile Include="Panels\ChartRootPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ChartLocalizationResourceAccessor.cs" />
     <Compile Include="Utils\ChartExtensionUtils.cs" />

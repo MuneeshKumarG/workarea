@@ -32,8 +32,6 @@ namespace Syncfusion.UI.Xaml.Charts
         LegendOrientation Orientation { get; set; }
 
         bool IsVisible { get; set; }
-
-        object Header { get; set; }
     }
 
     /// <summary>

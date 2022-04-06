@@ -27,8 +27,9 @@ namespace Syncfusion.UI.Xaml.Charts
     /// <see cref="ChartBase"/> is a base class for chart. Which represents a chart control with basic presentation characteristics. 
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1805: Do not initialize unnecessarily")]
-    public abstract partial class ChartBase : Control
+    public abstract partial class ChartBase : Control, IPlotArea
     {
+        #region Dependency properties
         /// <summary>
         /// The DependencyProperty for <see cref="Header"/> property.
         /// </summary>
@@ -41,7 +42,19 @@ namespace Syncfusion.UI.Xaml.Charts
         public static readonly DependencyProperty LegendProperty =
             DependencyProperty.Register(nameof(Legend), typeof(ChartLegend), typeof(ChartBase), new PropertyMetadata(null, OnLegendPropertyChanged));
 
-        internal LegendDockPanel LegendDockPanel { get; set; }
+        #endregion
+        
+        #region Fields
+
+        private Size? rootPanelDesiredSize;
+        internal Size AvailableSize;
+        private EventHandler<LegendItemEventArgs> legendItemsToggled;
+
+        internal bool isUpdateDispatched = false;
+        internal LegendDockPanel LegendDockPanel;
+        internal Panel SyncfusionPlotArea;
+
+        #endregion
 
         #region Constructor
 
@@ -51,16 +64,12 @@ namespace Syncfusion.UI.Xaml.Charts
 
         public ChartBase()
         {
+            SizeChanged += OnSizeChanged;
         }
 
         #endregion
 
-        protected override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-            LegendDockPanel = GetTemplateChild("LegendDockPanel") as LegendDockPanel;
-        }
+        #region Properties
 
         /// <summary>
         /// Gets or sets title for the chart.
@@ -83,6 +92,110 @@ namespace Syncfusion.UI.Xaml.Charts
             set { SetValue(LegendProperty, value); }
         }
 
+
+        internal Size? RootPanelDesiredSize
+        {
+            get { return rootPanelDesiredSize; }
+            set
+            {
+                if (rootPanelDesiredSize == value) return;
+                rootPanelDesiredSize = value;
+
+                OnRootPanelSizeChanged(value != null ? value.Value : new Size());
+            }
+        }
+
+        #endregion
+
+        #region Legend
+
+        ObservableCollection<ILegendItem> IPlotArea.LegendItems
+        {
+            get
+            {
+                if (Legend != null)
+                    return Legend.LegendItems;
+                else return null;
+            }
+        }
+
+        Rect IPlotArea.PlotAreaBounds
+        {
+            get
+            {
+                if (SyncfusionPlotArea != null)
+                    return new Rect(new Point(0, 0), SyncfusionPlotArea.DesiredSize);
+                return Rect.Empty;
+            }
+        }
+
+        event EventHandler<LegendItemEventArgs> IPlotArea.LegendItemToggled { add { legendItemsToggled += value; } remove { legendItemsToggled -= value; } }
+
+        void IPlotArea.UpdateLegendItems()
+        {
+
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            LegendDockPanel = GetTemplateChild("LegendDockPanel") as LegendDockPanel;
+            SyncfusionPlotArea = GetTemplateChild("SyncfusionPlotArea") as Panel;
+        }
+
+        /// <summary>
+        /// Provides the behavior for the Measure pass of Silverlight layout. Classes can override this method to define their own Measure pass behavior.
+        /// </summary>
+        /// <returns>
+        /// The size that this object determines it needs during layout, based on its calculations of the allocated sizes for child objects; or based on other considerations, such as a fixed container size.
+        /// </returns>
+        /// <param name="availableSize">The size value.</param>
+        protected override Size MeasureOverride(Size availableSize)
+        {
+            bool needForceSizeChanged = false;
+            double width = availableSize.Width, height = availableSize.Height;
+
+            if (double.IsInfinity(width))
+            {
+                width = ActualWidth == 0d ? 500d : ActualWidth;
+                needForceSizeChanged = true;
+            }
+            if (double.IsInfinity(height))
+            {
+                height = ActualHeight == 0d ? 300d : ActualHeight;
+                needForceSizeChanged = true;
+            }
+            if (needForceSizeChanged)
+                AvailableSize = new Size(width, height);
+            else
+                AvailableSize = availableSize;
+
+            return base.MeasureOverride(AvailableSize);
+        }
+
+        protected override Size ArrangeOverride(Size finalSize)
+        {
+            return base.ArrangeOverride(finalSize);
+        }
+
+        #region Protected Virtual Methods
+
+        /// <summary>
+        /// Called when root panel size changed.
+        /// </summary>
+        /// <param name="size">The size.</param>
+        internal virtual void OnRootPanelSizeChanged(Size size)
+        {
+            ScheduleUpdate();
+        }
+
+        #endregion
+
         private static void OnLegendPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var area = d as ChartBase;
@@ -94,5 +207,43 @@ namespace Syncfusion.UI.Xaml.Charts
                     area.LegendDockPanel.Legend = null;
             }
         }
+
+        void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize != AvailableSize)
+                InvalidateMeasure();
+        }
+
+        void ToggleLegendItem(ILegendItem legendItem)
+        {
+           
+        }
+
+        internal void ScheduleUpdate()
+        {
+            var _isInDesignMode = DesignMode.DesignModeEnabled;
+
+            if (!isUpdateDispatched && !_isInDesignMode)
+            {
+                DispatcherQueue.TryEnqueue(() => { UpdateArea(); });
+                isUpdateDispatched = true;
+            }
+            else if (_isInDesignMode)
+                UpdateArea(true);
+        }
+
+        internal void UpdateArea()
+        {
+            UpdateArea(false);
+        }
+
+        internal virtual void UpdateArea(bool forceUpdate)
+        {
+            LegendDockPanel.Legend = Legend;
+        }
+
+       
+
+        #endregion
     }
 }

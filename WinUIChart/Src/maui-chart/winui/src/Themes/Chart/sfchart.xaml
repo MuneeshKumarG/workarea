@@ -8,15 +8,15 @@
         <ResourceDictionary Source="ms-appx:///Syncfusion.Core.WinUI/Themes/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    
-
     <Style x:Key="SyncfusionCartesianChartStyle" TargetType="local:SfCartesianChart">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:SfCartesianChart">
                     <Grid>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                  Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" 
+                                Margin="{TemplateBinding Margin}">
                             <Grid Background="Transparent">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -24,15 +24,24 @@
                                 </Grid.RowDefinitions>
                                 <ContentPresenter x:Name="SyncfusionChartHeader"
                                                   Content="{TemplateBinding Header}" 
-                                                  HorizontalAlignment="Center" Margin="0,0,0,5" 
+                                                  HorizontalAlignment="Center" Background="Aqua"
+                                                  Margin="0,0,0,5" 
                                                   Foreground="{ThemeResource SyncfusionChartHeaderForeground}" 
                                                   FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
                                                   FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
                                 
                                 <local:LegendDockPanel Grid.Row="1" x:Name="LegendDockPanel">
-                                    <local:LegendDockPanel.PlotArea>
-                                        <Grid Background="orange"/>
-                                    </local:LegendDockPanel.PlotArea>
+                                    <local:LegendDockPanel.Area>
+                                        <local:ChartRootPanel x:Name="SyncfusionPlotArea" Background="Aqua">
+                                            <Grid x:Name="SyncfusionChartInternalCanvas" local:ChartRootPanel.MeasurePriorityIndex="1">
+                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
+                                                <Border>
+                                                    <Grid x:Name="SyncfusionChartSeriesPresenter" />
+                                                </Border>
+                                            </Grid>
+                                            <Canvas x:Name="SyncfusionChartAxisPanel" local:ChartRootPanel.MeasurePriorityIndex="0"></Canvas>
+                                        </local:ChartRootPanel>
+                                    </local:LegendDockPanel.Area>
                                 </local:LegendDockPanel>
                             </Grid>
                         </Border>

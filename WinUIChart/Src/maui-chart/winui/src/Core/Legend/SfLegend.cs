@@ -34,12 +34,6 @@ namespace Syncfusion.UI.Xaml.Charts
         internal static readonly DependencyProperty LegendItemsProperty =
             DependencyProperty.Register(nameof(LegendItems), typeof(ObservableCollection<ILegendItem>), typeof(SfLegend), new PropertyMetadata(null));
 
-        /// <summary>
-        /// The DependencyProperty for <see cref="Header"/> property.
-        /// </summary>
-        public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header), typeof(object), typeof(SfLegend), new PropertyMetadata(null));
-
         #endregion
 
         #region Constructor
@@ -70,15 +64,6 @@ namespace Syncfusion.UI.Xaml.Charts
         {
             get { return (bool)GetValue(ToggleVisibilityProperty); }
             set { SetValue(ToggleVisibilityProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the header for the legend.
-        /// </summary>
-        public object Header
-        {
-            get { return GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
         }
 
         /// <summary>

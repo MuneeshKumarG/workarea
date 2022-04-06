@@ -11,6 +11,7 @@ namespace Syncfusion.UI.Xaml.Charts
     using Microsoft.UI.Xaml;
     using Microsoft.UI.Xaml.Controls;
     using Microsoft.UI.Xaml.Media;
+    using Syncfusion.UI.Xaml.Charts;
     using System.Collections.ObjectModel;
     using Windows.Foundation;
     using Rect = Windows.Foundation.Rect;
@@ -31,10 +32,10 @@ namespace Syncfusion.UI.Xaml.Charts
             DependencyProperty.RegisterAttached(nameof(DockProperty), typeof(LegendDock), typeof(LegendDockPanel), new PropertyMetadata(LegendDock.Top));
 
         /// <summary>
-        /// The DependencyProperty for <see cref="PlotArea"/> property.
+        /// The DependencyProperty for <see cref="Area"/> property.
         /// </summary>
-        public static readonly DependencyProperty PlotAreaProperty =
-          DependencyProperty.Register(nameof(PlotArea), typeof(UIElement), typeof(LegendDockPanel), new PropertyMetadata(null, new PropertyChangedCallback(OnRootElementChanged)));
+        public static readonly DependencyProperty AreaProperty =
+          DependencyProperty.Register(nameof(Area), typeof(UIElement), typeof(LegendDockPanel), new PropertyMetadata(null, new PropertyChangedCallback(OnRootElementChanged)));
 
         #endregion
 
@@ -51,7 +52,7 @@ namespace Syncfusion.UI.Xaml.Charts
 
         public LegendDockPanel()
         {
-            CreateLegend();
+            
         }
 
         #endregion
@@ -64,7 +65,7 @@ namespace Syncfusion.UI.Xaml.Charts
         /// Gets or sets the root element. This is a dependency property.
         /// </summary>
         /// <value>The root element.</value>
-        public UIElement PlotArea
+        public UIElement Area
         {
             get
             {
@@ -75,7 +76,7 @@ namespace Syncfusion.UI.Xaml.Charts
             {
                 if (plotArea == null && plotArea != value)
                 {
-                    SetValue(PlotAreaProperty, value);
+                    SetValue(AreaProperty, value);
                     plotArea = value;
                 }
             }
@@ -206,14 +207,14 @@ namespace Syncfusion.UI.Xaml.Charts
             ObservableCollection<ILegendItem> LegendItems = new ObservableCollection<ILegendItem>();
             LegendItems.Add(new LegendItem()
             {
-                Text="Item 1"
+                Text = "Item 1"
             });
             LegendItems.Add(new LegendItem()
             {
                 Text = "Item 2"
             });
             SfLegend.ItemsSource = LegendItems;
-            this.Children.Add(SfLegend);
+            Children.Add(SfLegend);
         }
 
 
