@@ -64,8 +64,21 @@ namespace App2
             //grid.Children.Add(chart);
 
 
-            SfCartesianChart chart = new SfCartesianChart() { Height = 300, Width = 500 };
+            SfCartesianChart chart = new SfCartesianChart() { Width=500,Height=350};
             chart.Background = new SolidColorBrush(Colors.Yellow);
+            chart.BackgroundContent = new Border()
+            {
+                BorderBrush = new SolidColorBrush(Colors.Red),
+                BorderThickness=new Thickness(2),
+                Child = new TextBlock()
+                {
+                    Text = "Syncfusion",
+                    FontSize = 32,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                }
+            };
+        
             chart.Header = "Chart Header";
             chart.Legend = new ChartLegend();
             grid.Children.Add(chart);

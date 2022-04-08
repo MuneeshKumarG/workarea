@@ -11,7 +11,7 @@ namespace Syncfusion.UI.Xaml.Charts
 {
     internal interface IPlotArea
     {
-        ObservableCollection<ILegendItem> LegendItems { get; }
+        ObservableCollection<ILegendItem> LegendItems { get; set; }
 
         Rect PlotAreaBounds { get; }
 

@@ -12,40 +12,43 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:SfCartesianChart">
-                    <Grid>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" 
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding Background}" 
                                 Margin="{TemplateBinding Margin}">
-                            <Grid Background="Transparent">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <ContentPresenter x:Name="SyncfusionChartHeader"
+                        <Grid Background="Transparent">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <ContentPresenter x:Name="SyncfusionChartHeader"
                                                   Content="{TemplateBinding Header}" 
                                                   HorizontalAlignment="Center" Background="Aqua"
                                                   Margin="0,0,0,5" 
                                                   Foreground="{ThemeResource SyncfusionChartHeaderForeground}" 
                                                   FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
                                                   FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
-                                
-                                <local:LegendDockPanel Grid.Row="1" x:Name="LegendDockPanel">
-                                    <local:LegendDockPanel.Area>
-                                        <local:ChartRootPanel x:Name="SyncfusionPlotArea" Background="Aqua">
-                                            <Grid x:Name="SyncfusionChartInternalCanvas" local:ChartRootPanel.MeasurePriorityIndex="1">
-                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
-                                                <Border>
-                                                    <Grid x:Name="SyncfusionChartSeriesPresenter" />
-                                                </Border>
-                                            </Grid>
-                                            <Canvas x:Name="SyncfusionChartAxisPanel" local:ChartRootPanel.MeasurePriorityIndex="0"></Canvas>
-                                        </local:ChartRootPanel>
-                                    </local:LegendDockPanel.Area>
-                                </local:LegendDockPanel>
-                            </Grid>
-                        </Border>
-                    </Grid>
+
+                            <local:LegendDockPanel Grid.Row="1" x:Name="LegendDockPanel">
+                                <local:LegendDockPanel.AreaPanel>
+                                    <local:CartessianAreaPanel x:Name="CartessianAreaPanel" Background="Aqua">
+                                        <local:CartesianPlotArea x:Name="CartesianPlotArea" 
+                                                  local:AreaPanel.MeasurePriorityIndex="1" 
+                                                  Margin="{TemplateBinding PlotAreaMargin}">
+                                            <Border x:Name="BackgroundContentLayout"
+                                                    Margin="{TemplateBinding PlotAreaMargin}"
+                                                    Child="{TemplateBinding BackgroundContent}">
+                                            </Border>
+                                            <Canvas x:Name="SyncfusionChartGridLinesPanel" />
+                                            <Grid x:Name="SyncfusionChartSeriesPresenter" />
+                                        </local:CartesianPlotArea>
+
+                                        <Canvas x:Name="SyncfusionChartAxisPanel" local:AreaPanel.MeasurePriorityIndex="0"></Canvas>
+                                    </local:CartessianAreaPanel>
+                                </local:LegendDockPanel.AreaPanel>
+                            </local:LegendDockPanel>
+                        </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

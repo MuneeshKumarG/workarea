@@ -27,14 +27,16 @@ namespace Syncfusion.UI.Xaml.Charts
     /// <see cref="ChartBase"/> is a base class for chart. Which represents a chart control with basic presentation characteristics. 
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1805: Do not initialize unnecessarily")]
-    public abstract partial class ChartBase : Control, IPlotArea
+    public abstract partial class ChartBase : Control
     {
         #region Dependency properties
+
         /// <summary>
         /// The DependencyProperty for <see cref="Header"/> property.
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register(nameof(Header), typeof(object), typeof(ChartBase), new PropertyMetadata(null));
+
 
         /// <summary>
         /// The DependencyProperty for <see cref="Legend"/> property.
@@ -46,13 +48,10 @@ namespace Syncfusion.UI.Xaml.Charts
         
         #region Fields
 
-        private Size? rootPanelDesiredSize;
         internal Size AvailableSize;
-        private EventHandler<LegendItemEventArgs> legendItemsToggled;
-
-        internal bool isUpdateDispatched = false;
         internal LegendDockPanel LegendDockPanel;
-        internal Panel SyncfusionPlotArea;
+        internal CartessianAreaPanel CartessianAreaPanel;
+        //internal Panel SyncfusionPlotArea;
 
         #endregion
 
@@ -64,7 +63,7 @@ namespace Syncfusion.UI.Xaml.Charts
 
         public ChartBase()
         {
-            SizeChanged += OnSizeChanged;
+            LegendItems = new ObservableCollection<LegendItem>();
         }
 
         #endregion
@@ -92,51 +91,10 @@ namespace Syncfusion.UI.Xaml.Charts
             set { SetValue(LegendProperty, value); }
         }
 
-
-        internal Size? RootPanelDesiredSize
-        {
-            get { return rootPanelDesiredSize; }
-            set
-            {
-                if (rootPanelDesiredSize == value) return;
-                rootPanelDesiredSize = value;
-
-                OnRootPanelSizeChanged(value != null ? value.Value : new Size());
-            }
-        }
+        internal ObservableCollection<LegendItem> LegendItems;
 
         #endregion
 
-        #region Legend
-
-        ObservableCollection<ILegendItem> IPlotArea.LegendItems
-        {
-            get
-            {
-                if (Legend != null)
-                    return Legend.LegendItems;
-                else return null;
-            }
-        }
-
-        Rect IPlotArea.PlotAreaBounds
-        {
-            get
-            {
-                if (SyncfusionPlotArea != null)
-                    return new Rect(new Point(0, 0), SyncfusionPlotArea.DesiredSize);
-                return Rect.Empty;
-            }
-        }
-
-        event EventHandler<LegendItemEventArgs> IPlotArea.LegendItemToggled { add { legendItemsToggled += value; } remove { legendItemsToggled -= value; } }
-
-        void IPlotArea.UpdateLegendItems()
-        {
-
-        }
-
-        #endregion
 
         #region Methods
 
@@ -145,7 +103,7 @@ namespace Syncfusion.UI.Xaml.Charts
             base.OnApplyTemplate();
 
             LegendDockPanel = GetTemplateChild("LegendDockPanel") as LegendDockPanel;
-            SyncfusionPlotArea = GetTemplateChild("SyncfusionPlotArea") as Panel;
+            CartessianAreaPanel = GetTemplateChild("CartessianAreaPanel") as CartessianAreaPanel;
         }
 
         /// <summary>
@@ -157,21 +115,12 @@ namespace Syncfusion.UI.Xaml.Charts
         /// <param name="availableSize">The size value.</param>
         protected override Size MeasureOverride(Size availableSize)
         {
-            bool needForceSizeChanged = false;
-            double width = availableSize.Width, height = availableSize.Height;
+            bool isHeightNotContains = double.IsPositiveInfinity(availableSize.Height);
+            bool isWidthNotContains = double.IsPositiveInfinity(availableSize.Width);
 
-            if (double.IsInfinity(width))
-            {
-                width = ActualWidth == 0d ? 500d : ActualWidth;
-                needForceSizeChanged = true;
-            }
-            if (double.IsInfinity(height))
-            {
-                height = ActualHeight == 0d ? 300d : ActualHeight;
-                needForceSizeChanged = true;
-            }
-            if (needForceSizeChanged)
-                AvailableSize = new Size(width, height);
+            if (isHeightNotContains || isWidthNotContains)
+                AvailableSize = new Size(isWidthNotContains ? ActualWidth == 0d ? 500d : ActualWidth : availableSize.Width,
+                    isHeightNotContains ? ActualHeight == 0d ? 300d : ActualHeight : availableSize.Height);
             else
                 AvailableSize = availableSize;
 
@@ -182,19 +131,6 @@ namespace Syncfusion.UI.Xaml.Charts
         {
             return base.ArrangeOverride(finalSize);
         }
-
-        #region Protected Virtual Methods
-
-        /// <summary>
-        /// Called when root panel size changed.
-        /// </summary>
-        /// <param name="size">The size.</param>
-        internal virtual void OnRootPanelSizeChanged(Size size)
-        {
-            ScheduleUpdate();
-        }
-
-        #endregion
 
         private static void OnLegendPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -207,42 +143,6 @@ namespace Syncfusion.UI.Xaml.Charts
                     area.LegendDockPanel.Legend = null;
             }
         }
-
-        void OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (e.NewSize != AvailableSize)
-                InvalidateMeasure();
-        }
-
-        void ToggleLegendItem(ILegendItem legendItem)
-        {
-           
-        }
-
-        internal void ScheduleUpdate()
-        {
-            var _isInDesignMode = DesignMode.DesignModeEnabled;
-
-            if (!isUpdateDispatched && !_isInDesignMode)
-            {
-                DispatcherQueue.TryEnqueue(() => { UpdateArea(); });
-                isUpdateDispatched = true;
-            }
-            else if (_isInDesignMode)
-                UpdateArea(true);
-        }
-
-        internal void UpdateArea()
-        {
-            UpdateArea(false);
-        }
-
-        internal virtual void UpdateArea(bool forceUpdate)
-        {
-            LegendDockPanel.Legend = Legend;
-        }
-
-       
 
         #endregion
     }

@@ -12,12 +12,14 @@ namespace Syncfusion.UI.Xaml.Charts
     using System.Linq;
     using Microsoft.UI.Xaml;
     using Microsoft.UI.Xaml.Controls;
+    using Syncfusion.UI.Xaml.Charts;
+    using Windows.ApplicationModel;
     using Windows.Foundation;
 
     /// <summary>
     /// Represents the panel where all the child elements of Chart will be arranged.
     /// </summary>
-    public class ChartRootPanel : Panel
+    public class AreaPanel : Panel
     {
         #region Dependency Property Registration
 
@@ -25,20 +27,13 @@ namespace Syncfusion.UI.Xaml.Charts
         /// The DependencyProperty for MeasurePriorityIndex property.
         /// </summary>
         public static readonly DependencyProperty MeasurePriorityIndexProperty =
-            DependencyProperty.RegisterAttached(
-                "MeasurePriorityIndex",
-                typeof(int),
-                typeof(ChartRootPanel),
-                new PropertyMetadata(0));
+            DependencyProperty.RegisterAttached("MeasurePriorityIndex", typeof(int), typeof(AreaPanel), new PropertyMetadata(0));
 
         #endregion
 
-        #region Properties
+        #region Fields
 
-        /// <summary>
-        /// Gets or sets the chart area.
-        /// </summary>
-        internal ChartBase Area { get; set; }
+        internal bool isUpdateDispatched = false;
 
         #endregion
 
@@ -81,11 +76,6 @@ namespace Syncfusion.UI.Xaml.Charts
 
             Size size = ChartLayoutUtils.CheckSize(availableSize);
 
-            if (Area != null)
-            {
-                Area.RootPanelDesiredSize = size;
-            }
-
             foreach (UIElement element in Children)
             {
                 elements.Add(element);
@@ -115,7 +105,32 @@ namespace Syncfusion.UI.Xaml.Charts
                 Children[i].Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
             }
 
+            ScheduleUpdate();
+
             return finalSize;
+        }
+
+        internal void ScheduleUpdate()
+        {
+            var _isInDesignMode = DesignMode.DesignModeEnabled;
+
+            if (!isUpdateDispatched && !_isInDesignMode)
+            {
+                DispatcherQueue.TryEnqueue(() => { UpdateArea(); });
+                isUpdateDispatched = true;
+            }
+            else if (_isInDesignMode)
+                UpdateArea(true);
+        }
+
+        internal void UpdateArea()
+        {
+            UpdateArea(false);
+        }
+
+        internal virtual void UpdateArea(bool forceUpdate)
+        {
+
         }
 
         #endregion

@@ -11,7 +11,6 @@ namespace Syncfusion.UI.Xaml.Charts
     using Microsoft.UI.Xaml;
     using Microsoft.UI.Xaml.Controls;
     using Microsoft.UI.Xaml.Media;
-    using Syncfusion.UI.Xaml.Charts;
     using System.Collections.ObjectModel;
     using Windows.Foundation;
     using Rect = Windows.Foundation.Rect;
@@ -32,18 +31,18 @@ namespace Syncfusion.UI.Xaml.Charts
             DependencyProperty.RegisterAttached(nameof(DockProperty), typeof(LegendDock), typeof(LegendDockPanel), new PropertyMetadata(LegendDock.Top));
 
         /// <summary>
-        /// The DependencyProperty for <see cref="Area"/> property.
+        /// The DependencyProperty for <see cref="AreaPanel"/> property.
         /// </summary>
-        public static readonly DependencyProperty AreaProperty =
-          DependencyProperty.Register(nameof(Area), typeof(UIElement), typeof(LegendDockPanel), new PropertyMetadata(null, new PropertyChangedCallback(OnRootElementChanged)));
+        public static readonly DependencyProperty AreaPanelProperty =
+          DependencyProperty.Register(nameof(AreaPanel), typeof(AreaPanel), typeof(LegendDockPanel), new PropertyMetadata(null, new PropertyChangedCallback(OnRootElementChanged)));
 
         #endregion
 
         #region Fields
 
-        private UIElement plotArea;
+        private AreaPanel areaPanel;
         private ILegend legend;
-
+        private Size legendSize;
         internal SfLegend SfLegend;
 
         #endregion
@@ -52,7 +51,7 @@ namespace Syncfusion.UI.Xaml.Charts
 
         public LegendDockPanel()
         {
-            
+
         }
 
         #endregion
@@ -65,19 +64,19 @@ namespace Syncfusion.UI.Xaml.Charts
         /// Gets or sets the root element. This is a dependency property.
         /// </summary>
         /// <value>The root element.</value>
-        public UIElement Area
+        public AreaPanel AreaPanel
         {
             get
             {
-                return plotArea;
+                return areaPanel;
             }
 
             set
             {
-                if (plotArea == null && plotArea != value)
+                if (areaPanel == null && areaPanel != value)
                 {
-                    SetValue(AreaProperty, value);
-                    plotArea = value;
+                    SetValue(AreaPanelProperty, value);
+                    areaPanel = value;
                 }
             }
         }
@@ -114,7 +113,17 @@ namespace Syncfusion.UI.Xaml.Charts
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            SfLegend?.Measure(availableSize);
+            if (SfLegend != null)
+            {
+                SfLegend.Measure(availableSize);
+                legendSize = SfLegend.DesiredSize;
+
+                if (SfLegend.Placement == LegendDock.Top)
+                {
+                    areaPanel?.Measure(new Size(availableSize.Width, availableSize.Height - legendSize.Height));
+                }
+            }
+
             return base.MeasureOverride(availableSize);
         }
 
@@ -130,8 +139,6 @@ namespace Syncfusion.UI.Xaml.Charts
 
             if (SfLegend != null)
             {
-                var legendSize = SfLegend.DesiredSize;
-
                 if (SfLegend.Placement == LegendDock.Top)
                 {
                     SfLegend.Arrange(new Rect(0, 0, finalSize.Width, legendSize.Height));
@@ -140,7 +147,7 @@ namespace Syncfusion.UI.Xaml.Charts
                 }
             }
 
-            plotArea?.Arrange(areaBounds);
+            areaPanel?.Arrange(areaBounds);
 
             return base.ArrangeOverride(finalSize);
         }
@@ -163,39 +170,15 @@ namespace Syncfusion.UI.Xaml.Charts
             {
                 if (e.OldValue != null)
                 {
-                    dockPanel.Children.Remove(e.OldValue as UIElement);
+                    dockPanel.Children.Remove(e.OldValue as AreaPanel);
                 }
 
                 if (e.NewValue != null)
                 {
-                    dockPanel.Children.Add(e.NewValue as UIElement);
+                    dockPanel.Children.Add(e.NewValue as AreaPanel);
                 }
             }
         }
-
-        /// <summary>
-        /// Called when legend element is changed.
-        /// </summary>
-        /// <param name="dpObj">The dependency object.</param>
-        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
-        private static void OnLegendChanged(DependencyObject dpObj, DependencyPropertyChangedEventArgs e)
-        {
-            LegendDockPanel dockPanel = dpObj as LegendDockPanel;
-
-            if (dockPanel != null)
-            {
-                if (e.OldValue != null)
-                {
-                    dockPanel.Children.Remove(e.OldValue as UIElement);
-                }
-
-                if (e.NewValue != null)
-                {
-                    dockPanel.Children.Add(e.NewValue as UIElement);
-                }
-            }
-        }
-
 
         #endregion
 
