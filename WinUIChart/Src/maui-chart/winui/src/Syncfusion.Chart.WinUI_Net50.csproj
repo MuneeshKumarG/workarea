@@ -41,6 +41,9 @@
     <Compile Include="Legend\ChartLegend.cs" />
     <Compile Include="CartesianChart\CartessianAreaPanel.cs" />
     <Compile Include="Core\AreaPanel.cs" />
+    <Compile Include="Panels\ChartSeriesPresenter.cs" />
+    <Compile Include="Panels\ChartDataMarkerSymbolPresenter.cs" />
+    <Compile Include="Panels\ChartDataMarkerLabelPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ChartLocalizationResourceAccessor.cs" />
     <Compile Include="Utils\ChartExtensionUtils.cs" />
@@ -73,9 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Resources\en-US\Syncfusion.Chart.WinUI.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Panels\" />
   </ItemGroup>
   
 </Project>

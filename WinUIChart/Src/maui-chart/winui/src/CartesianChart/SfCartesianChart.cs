@@ -19,10 +19,10 @@ namespace Syncfusion.UI.Xaml.Charts
         #region Dependency properties
 
         /// <summary>
-        /// The DependencyProperty for <see cref="BackgroundContent"/> property.
+        /// The DependencyProperty for <see cref="PlotAreaBackground"/> property.
         /// </summary>
-        public static readonly DependencyProperty BackgroundContentProperty =
-            DependencyProperty.Register(nameof(BackgroundContent), typeof(UIElement), typeof(SfCartesianChart), new PropertyMetadata(null));
+        public static readonly DependencyProperty PlotAreaBackgroundProperty =
+            DependencyProperty.Register(nameof(PlotAreaBackground), typeof(UIElement), typeof(SfCartesianChart), new PropertyMetadata(null));
 
         /// <summary>
         /// The DependencyProperty for <see cref="PlotAreaMargin"/> property.
@@ -55,10 +55,10 @@ namespace Syncfusion.UI.Xaml.Charts
 
         #region Properties
 
-        public UIElement BackgroundContent
+        public UIElement PlotAreaBackground
         {
-            get { return (UIElement)GetValue(BackgroundContentProperty); }
-            set { SetValue(BackgroundContentProperty, value); }
+            get { return (UIElement)GetValue(PlotAreaBackgroundProperty); }
+            set { SetValue(PlotAreaBackgroundProperty, value); }
         }
 
         internal Thickness PlotAreaMargin
@@ -75,7 +75,6 @@ namespace Syncfusion.UI.Xaml.Charts
         {
             base.OnApplyTemplate();
 
-            CartessianAreaPanel.Area = this;
             SyncfusionChartAxisPanel = GetTemplateChild("SyncfusionChartAxisPanel") as Canvas;
         }
 

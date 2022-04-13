@@ -117,7 +117,7 @@ namespace Syncfusion.UI.Xaml.Charts
             if (!isUpdateDispatched && !_isInDesignMode)
             {
                 DispatcherQueue.TryEnqueue(() => { UpdateArea(); });
-                isUpdateDispatched = true;
+                isUpdateDispatched = true; 
             }
             else if (_isInDesignMode)
                 UpdateArea(true);

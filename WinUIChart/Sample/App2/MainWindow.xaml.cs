@@ -66,7 +66,7 @@ namespace App2
 
             SfCartesianChart chart = new SfCartesianChart() { Width=500,Height=350};
             chart.Background = new SolidColorBrush(Colors.Yellow);
-            chart.BackgroundContent = new Border()
+            chart.PlotAreaBackground = new Border()
             {
                 BorderBrush = new SolidColorBrush(Colors.Red),
                 BorderThickness=new Thickness(2),

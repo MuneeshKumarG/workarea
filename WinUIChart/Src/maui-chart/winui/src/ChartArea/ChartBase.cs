@@ -104,6 +104,7 @@ namespace Syncfusion.UI.Xaml.Charts
 
             LegendDockPanel = GetTemplateChild("LegendDockPanel") as LegendDockPanel;
             CartessianAreaPanel = GetTemplateChild("CartessianAreaPanel") as CartessianAreaPanel;
+            LegendDockPanel.Legend = Legend;
         }
 
         /// <summary>
