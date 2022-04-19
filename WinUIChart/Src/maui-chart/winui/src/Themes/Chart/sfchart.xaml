@@ -23,7 +23,7 @@
                             </Grid.RowDefinitions>
                             <ContentPresenter x:Name="SyncfusionChartHeader" Margin="0,0,0,5" 
                                                   Content="{TemplateBinding Header}" 
-                                                  HorizontalAlignment="Center" Background="Aqua"
+                                                  HorizontalAlignment="Center"
                                                   Foreground="{ThemeResource SyncfusionChartHeaderForeground}" 
                                                   FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
                                                   FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
@@ -32,16 +32,15 @@
                             <local:LegendDockPanel Grid.Row="1" x:Name="LegendDockPanel">
                                 <local:LegendDockPanel.AreaPanel>
                                     <!--Cartesian area panel-->
-                                    <local:CartessianAreaPanel x:Name="CartessianAreaPanel" Background="Aqua">
+                                    <local:CartessianAreaPanel x:Name="CartessianAreaPanel">
                                         <!--Cartesian plot area-->
-                                        <local:CartesianPlotArea x:Name="CartesianPlotArea" 
-                                                  local:AreaPanel.MeasurePriorityIndex="1" 
-                                                  Margin="{TemplateBinding PlotAreaMargin}">
+                                        <local:CartesianPlotArea x:Name="CartesianPlotArea" Margin="{TemplateBinding PlotAreaMargin}"
+                                                  local:AreaPanel.MeasurePriorityIndex="1">
                                             <Border x:Name="BackgroundContentLayout" Child="{TemplateBinding PlotAreaBackground}"/>
                                             <Canvas x:Name="ChartGridLinesPanel" />
                                             <local:ChartSeriesPresenter x:Name="ChartSeriesPresenter" />
-                                            <local:ChartDataMarkerLabelPresenter x:Name="ChartDataMarkerLabelPresenter" />
-                                            <local:ChartDataMarkerSymbolPresenter x:Name="ChartDataMarkerSymbolPresenter" />
+                                            <local:ChartDataLabelPresenter x:Name="ChartDataLabelPresenter" />
+                                            <local:ChartDataMarkerPresenter x:Name="ChartDataMarkerPresenter" />
                                         </local:CartesianPlotArea>
 
                                         <Canvas x:Name="SyncfusionChartAxisPanel" local:AreaPanel.MeasurePriorityIndex="0"></Canvas>

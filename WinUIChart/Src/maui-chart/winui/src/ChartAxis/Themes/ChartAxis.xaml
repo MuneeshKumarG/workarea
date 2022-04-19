@@ -1,0 +1,40 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Syncfusion.UI.Xaml.Charts">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Themes/generic.common.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Core.WinUI/Themes/Common.xaml" />
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Themes/themeresources.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="SyncfusionChartNumericalAxisStyle" TargetType="local:NumericalAxis">
+        <Setter Property="MajorTickLineStyle" Value="{StaticResource SyncfusionChartAxisMajorTickLineStyle}"></Setter>
+        <Setter Property="MinorTickLineStyle" Value="{StaticResource SyncfusionChartAxisMinorTickLineStyle}"></Setter>
+        <Setter Property="MajorGridLineStyle" Value="{StaticResource SyncfusionChartAxisMajorGridLineStyle}"></Setter>
+        <Setter Property="MinorGridLineStyle" Value="{StaticResource SyncfusionChartAxisMinorGridLineStyle}"></Setter>
+        <Setter Property="OriginLineStyle" Value="{StaticResource SyncfusionChartAxisOriginLineStyle}"/>
+        <Setter Property="AxisLineStyle" Value="{StaticResource SyncfusionChartAxisLineStyle}"></Setter>
+        <Setter Property="CrosshairLabelTemplate" Value="{StaticResource SyncfusionChartAxisCrosshairLabelTemplate}"></Setter>
+        <Setter Property="Foreground" Value="{ThemeResource SyncfusionChartAxisLabelForeground}"></Setter>
+        <Setter Property="LabelBorderBrush" Value="{ThemeResource SyncfusionChartAxisLabelBorderBrush}"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:NumericalAxis">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <local:ChartCartesianAxisPanel x:Name="SyncfusionChartCartesianAxisPanel">
+                            <ContentControl x:Name="SyncfusionChartAxisHeaderContent" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" RenderTransformOrigin="0.5,0.5"></ContentControl>
+                            <Canvas x:Name="SyncfusionChartAxisMultiLevelLabelsPanels"/>
+                            <Canvas x:Name="SyncfusionChartAxisLabelsPanel"></Canvas>
+                            <Canvas x:Name="SyncfusionChartAxisElementPanel"></Canvas>
+                        </local:ChartCartesianAxisPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource SyncfusionChartNumericalAxisStyle}" TargetType="local:NumericalAxis"></Style>
+
+    
+</ResourceDictionary>

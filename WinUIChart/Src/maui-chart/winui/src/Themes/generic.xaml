@@ -6,6 +6,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Themes/Chart/sfchart.xaml"/>
         <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Core/Legend/Themes/SfLegend.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/ChartAxis/Themes/ChartAxis.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
     

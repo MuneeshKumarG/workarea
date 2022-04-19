@@ -21,9 +21,9 @@ namespace Syncfusion.UI.Xaml.Charts
     using Microsoft.UI.Xaml.Shapes;
 
     /// <summary>
-    /// Represents <see cref="ChartDataMarkerLabelPresenter"/> class.
+    /// Represents <see cref="ChartDataLabelPresenter"/> class.
     /// </summary>
-    public class ChartDataMarkerLabelPresenter : Canvas
+    public class ChartDataLabelPresenter : Canvas
     {
        
     }
