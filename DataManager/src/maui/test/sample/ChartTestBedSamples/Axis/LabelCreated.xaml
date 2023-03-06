@@ -1,0 +1,30 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts" 
+             xmlns:local="clr-namespace:ChartTestBedSamples"
+             x:Class="ChartTestBedSamples.LabelCreated">
+
+    <ContentPage.Content>
+        <Grid Padding="20" VerticalOptions="FillAndExpand" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+            <chart:SfCartesianChart Grid.Row="0"  x:Name="Chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <chart:SfCartesianChart.BindingContext>
+                    <local:RangeStyleViewModel/>
+                </chart:SfCartesianChart.BindingContext>
+                <chart:SfCartesianChart.PrimaryAxis>
+                    <local:CustomPrimaryAxis x:Name="p_axis"/>
+                </chart:SfCartesianChart.PrimaryAxis>
+                <chart:SfCartesianChart.SecondaryAxis>
+                    <chart:NumericalAxis x:Name="s_axis" />
+                </chart:SfCartesianChart.SecondaryAxis>
+                <chart:SfCartesianChart.Series>
+                    <chart:LineSeries ItemsSource="{Binding liveData1}" Color="Black" StrokeWidth="2" XBindingPath="Value" YBindingPath="Size">
+                    </chart:LineSeries>
+                </chart:SfCartesianChart.Series>
+            </chart:SfCartesianChart>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+ 

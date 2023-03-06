@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+<Import Project="syncfusion.common.desktop.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>   
+    <RootNamespace>Syncfusion.Chart.WinUI</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+    <Platforms>AnyCPU;x86;x64</Platforms>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;WinUI;WinUI_Desktop;$(SyncfusionLicensing)</DefineConstants>
+    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+	<UseWinUI>true</UseWinUI>
+    <AssemblyName>Syncfusion.Chart.WinUI</AssemblyName>
+	<Configurations>Debug;Release;Release-Xml</Configurations>
+    <NoWarn>CA1416</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Xml|AnyCPU'">
+    <DocumentationFile>bin\Release-Xml\Syncfusion.Chart.WinUI.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Core\Legend\Themes\SfLegend.xaml" />
+    <None Remove="docfx.json" />
+    <None Remove="Properties\Syncfusion.Chart.WinUI.rd.xml" />
+    <None Remove="Syncfusion.Chart.WinUI.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\maui\src\charts\Chart\Utils\NotifyCollectionChangedEventArgsExtensions.cs" Link="Utils\NotifyCollectionChangedEventArgsExtensions.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Utils\Enum.cs" Link="Utils\Enum.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Utils\FastReflection.cs" Link="Utils\FastReflection.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Utils\ChartDataUtils.cs" Link="Utils\ChartDataUtils.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Axis\CategoryAxis.cs" Link="ChartAxis\CategoryAxis.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Axis\ChartAxis.cs" Link="ChartAxis\ChartAxis.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Axis\DateTimeAxis.cs" Link="ChartAxis\DateTimeAxis.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Axis\NumericalAxis.cs" Link="ChartAxis\NumericalAxis.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Axis\RangeAxisBase.cs" Link="ChartAxis\RangeAxisBase.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Axis\ChartAxisLabel.cs" Link="ChartAxis\ChartAxisLabel.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Events\ActualRangeChangedEventArgs.cs" Link="ChartAxis\ActualRangeChangedEventArgs.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Events\ChartAxisLabelEventArgs.cs" Link="ChartAxis\ChartAxisLabelEventArgs.cs" />
+    <Compile Include="..\..\..\maui\src\charts\Chart\Series\ChartSeriesPartial.cs" Link="ChartSeries\ChartSeriesPartial.cs" />
+    <Compile Include="Behaviors\ChartBehavior.cs" />
+    <Compile Include="Behaviors\ChartCrosshairBehavior.cs" />
+    <Compile Include="Behaviors\DataPointSelectionBehavior.cs" />
+    <Compile Include="Behaviors\SeriesSelectionBehavior.cs" />
+    <Compile Include="Behaviors\ChartSelectionBehavior.cs" />
+    <Compile Include="Behaviors\ChartTooltipBehavior.cs" />
+    <Compile Include="Behaviors\ChartTrackballBehavior.cs" />
+    <Compile Include="Behaviors\ChartZoomPanBehavior.cs" />
+    <Compile Include="ChartArea\ChartBase.cs" />
+    <Compile Include="ChartArea\PlotArea\CartesianPlotArea.cs" />
+    <Compile Include="ChartArea\PlotArea\ChartPlotArea.cs" />
+    <Compile Include="ChartArea\PlotArea\CircularPlotArea.cs" />
+    <Compile Include="ChartArea\PlotArea\FunnelPlotArea.cs" />
+    <Compile Include="ChartArea\PlotArea\PolarPlotArea.cs" />
+    <Compile Include="ChartArea\PlotArea\PyramidPlotArea.cs" />
+    <Compile Include="ChartArea\SfCartesianChart.cs" />
+    <Compile Include="ChartArea\SfCircularChart.cs" />
+    <Compile Include="ChartArea\SfFunnelChart.cs" />
+    <Compile Include="ChartArea\SfPolarChart.cs" />
+    <Compile Include="ChartArea\SfPyramidChart.cs" />
+    <Compile Include="ChartAxis\ChartAxisPartial\CategoryAxis.cs" />
+    <Compile Include="ChartAxis\ChartAxisPartial\ChartAxis.cs" />
+    <Compile Include="ChartAxis\ChartAxisPartial\DateTimeAxis.cs" />
+    <Compile Include="ChartAxis\ChartAxisPartial\NumericalAxis.cs" />
+    <Compile Include="ChartAxis\ChartAxisPartial\RangeAxisBase.cs" />
+    <Compile Include="ChartAxis\LabelBarStyle.cs" />
+    <Compile Include="ChartLegend\ChartLegendItem.cs" />
+    <Compile Include="ChartSeries\CartesianSeries.cs" />
+    <Compile Include="ChartSeries\ChartSeriesPartial\ChartSeries.cs" />
+    <Compile Include="ChartSeries\CircularSeries.cs" />
+    <Compile Include="ChartSeries\FastColumnSeries.cs" />
+    <Compile Include="ChartSeries\FastScatterBitmapSeries.cs" />
+    <Compile Include="ChartSeries\FastStepLineBitmapSeries.cs" />
+    <Compile Include="ChartSeries\StackingArea100Series.cs" />
+    <Compile Include="ChartSeries\StackingColumn100Series.cs" />
+    <Compile Include="ChartSeries\StackingLine100Series.cs" />
+    <Compile Include="ChartSeries\StackingLineSeries.cs" />
+    <Compile Include="ChartSeries\StackingSeriesBase.cs" />
+    <Compile Include="ChartSeries\TriangularSeriesBase.cs" />
+    <Compile Include="ChartSeries\XyDataSeries.cs" />
+    <Compile Include="Core\Legend\Interface.cs" />
+    <Compile Include="Core\Legend\LegendItem.cs" />
+    <Compile Include="Core\Legend\LegendPanel.cs" />
+    <Compile Include="Core\Legend\SfLegend.cs" />
+    <Compile Include="Model\ChartAxisRangeStyle.cs" />
+    <Compile Include="Model\Segments\FastBarBitmapSegment.cs" />
+    <Compile Include="Model\Segments\FastColumnSegment.cs" />
+    <Compile Include="Model\Segments\FastScatterBitmapSegment.cs" />
+    <Compile Include="Model\Segments\FastStepLineBitmapSegment.cs" />
+    <Compile Include="Panels\AreaPanels\CartesianAreaPanel.cs" />
+    <Compile Include="Panels\AreaPanels\CircularAreaPanel.cs" />
+    <Compile Include="Panels\AreaPanels\FunnelAreaPanel.cs" />
+    <Compile Include="Panels\AreaPanels\PolarAreaPanel.cs" />
+    <Compile Include="Panels\AreaPanels\PyramidAreaPanel.cs" />
+    <Compile Include="Panels\ChartTooltip.cs" />
+    <Compile Include="Utils\Interfaces.cs" />
+    <Compile Include="ChartLegend\ChartLegend.cs" />
+    <Compile Include="ChartSeries\AreaSeries.cs" />
+    <Compile Include="ChartSeries\BubbleSeries.cs" />
+    <Compile Include="ChartSeries\ColumnSeries.cs" />
+    <Compile Include="ChartSeries\DoughnutSeries.cs" />
+    <Compile Include="ChartSeries\FastLineBitmapSeries.cs" />
+    <Compile Include="ChartSeries\FastLineSeries.cs" />
+    <Compile Include="ChartSeries\FunnelSeries.cs" />
+    <Compile Include="ChartSeries\PyramidSeries.cs" />
+    <Compile Include="ChartSeries\StepAreaSeries.cs" />
+    <Compile Include="ChartSeries\StepLineSeries.cs" />
+    <Compile Include="Model\Segments\DoughnutSegment.cs" />
+    <Compile Include="Model\Segments\FastLineBitmapSegment.cs" />
+    <Compile Include="Model\Segments\FunnelSegment.cs" />
+    <Compile Include="Model\Segments\PyramidSegment.cs" />
+    <Compile Include="Model\Segments\StepAreaSegment.cs" />
+    <Compile Include="Model\Segments\StepLineSegment.cs" />
+    <Compile Include="ChartSeries\LineSeries.cs" />
+    <Compile Include="ChartSeries\PieSeries.cs" />
+    <Compile Include="ChartSeries\PolarSeries.cs" />
+    <Compile Include="ChartSeries\ScatterSeries.cs" />
+    <Compile Include="ChartSeries\SplineAreaSeries.cs" />
+    <Compile Include="ChartSeries\SplineSeries.cs" />
+    <Compile Include="ChartSeries\StackingAreaSeries.cs" />
+    <Compile Include="ChartSeries\StackingColumnSeries.cs" />
+    <Compile Include="Collections\ChartBehaviorsCollection.cs" />
+    <Compile Include="Collections\Collections.cs" />
+    <Compile Include="Converters\ChartConverters.cs" />
+    <Compile Include="Drawing Utils\Line Drawing.cs" />
+    <Compile Include="Model\ChartAdornmentInfo.cs" />
+    <Compile Include="Model\ChartColumnDefinition.cs" />
+    <Compile Include="Model\ChartPointInfo.cs" />
+    <Compile Include="Model\ChartRowDefinition.cs" />
+    <Compile Include="Model\ChartColorModel.cs" />
+    <Compile Include="Model\Segments\AreaSegment.cs" />
+    <Compile Include="Model\Segments\BubbleSegment.cs" />
+    <Compile Include="Model\Segments\ChartAdornment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\Segments\ChartSegment.cs" />
+    <Compile Include="Model\Segments\ColumnSegment.cs" />
+    <Compile Include="Model\Segments\FastLineSegment.cs" />
+    <Compile Include="Model\Segments\LineSegment.cs" />
+    <Compile Include="Model\Segments\PieSegment.cs" />
+    <Compile Include="Model\Segments\ScatterSegment.cs" />
+    <Compile Include="Model\Segments\SplineAreaSegment.cs" />
+    <Compile Include="Model\Segments\SplineSegment.cs" />
+    <Compile Include="Model\Segments\StackingAreaSegment.cs" />
+    <Compile Include="Model\Segments\StackingColumnSegment.cs" />
+    <Compile Include="Panels\ChartAdornmentPresenter.cs" />
+    <Compile Include="Panels\ChartAxisLayoutPanel.cs" />
+    <Compile Include="Panels\ChartCartesianAxisLayoutPanel.cs" />
+    <Compile Include="Panels\ChartCartesianAxisElementsPanel.cs" />
+    <Compile Include="Panels\ChartCartesianAxisLabelsPanel.cs" />
+    <Compile Include="Panels\ChartCartesianAxisPanel.cs" />
+    <Compile Include="Panels\ChartCartesianGridLinesPanel.cs" />
+    <Compile Include="Panels\ChartCircularAxisPanel.cs" />
+    <Compile Include="Panels\ChartPolarAxisLayoutPanel.cs" />
+    <Compile Include="Panels\ChartPolarGridLinesPanel.cs" />
+    <Compile Include="Core\AreaPanel.cs" />
+    <Compile Include="Panels\ChartSeriesPanel.cs" />
+    <Compile Include="Panels\ChartAdornmentContainer.cs" />
+    <Compile Include="Utils\ChartExtensionUtils.cs" />
+    <Compile Include="Utils\ChartUtils.cs" />
+    <Compile Include="Utils\ChartMath.cs" />
+    <Compile Include="Utils\ChartTransformer.cs" />
+    <Compile Include="Utils\DateTimeRange.cs" />
+    <Compile Include="Utils\DoubleRange.cs" />
+    <Compile Include="Utils\EnumPartial.cs" />
+    <Compile Include="Utils\RectAnimation.cs" />
+    <Compile Include="Utils\ResourceDictionaries.cs" />
+    <Compile Include="Utils\UIElementsRecycler.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ChartLocalizationResourceAccessor.cs" />
+    <EmbeddedResource Include="Properties\Syncfusion.Chart.WinUI.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Core.WinUI" Version="*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Core\Legend\Themes\LegendSymbols.xaml" />
+    <Page Include="Core\Legend\Themes\SfLegend.xaml" />
+    <Page Include="Themes\Chart\sfchart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ChartAxis\Themes\ChartAxis.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ChartSeries\Themes\ChartSeries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+	<Page Include="Themes\ChartAxis\chartaxis.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ChartSeries\chartseries.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\generic.common.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ChartSeries\Themes\Generic.Legend.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ChartSeries\Themes\Generic.Symbol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+	<Page Include="Themes\themeresources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Resources\en-US\Syncfusion.Chart.WinUI.resw" />
+  </ItemGroup>
+  
+</Project>

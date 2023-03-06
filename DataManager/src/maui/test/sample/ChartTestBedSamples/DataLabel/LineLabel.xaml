@@ -1,0 +1,30 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ChartTestBedSamples"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             x:Class="ChartTestBedSamples.LineLabel">
+
+    <ContentPage.Content>
+        <chart:SfCartesianChart HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+
+            <chart:SfCartesianChart.BindingContext>
+                <local:ViewModelDataLabel x:Name="viewmodel"/>
+            </chart:SfCartesianChart.BindingContext>
+
+            <chart:SfCartesianChart.PrimaryAxis>
+                <chart:NumericalAxis ShowMajorGridLines="False"/>
+            </chart:SfCartesianChart.PrimaryAxis>
+
+            <chart:SfCartesianChart.SecondaryAxis>
+                <chart:NumericalAxis Minimum="10" Maximum="100" Interval="10"/>
+            </chart:SfCartesianChart.SecondaryAxis>
+
+            <chart:SfCartesianChart.Series>
+                <chart:LineSeries ShowDataLabels="True" StrokeWidth="2" ItemsSource="{Binding LineData}" XBindingPath="Value1" YBindingPath="Size">
+                </chart:LineSeries>
+            </chart:SfCartesianChart.Series>
+
+        </chart:SfCartesianChart>
+    </ContentPage.Content>
+</ContentPage>
+ 

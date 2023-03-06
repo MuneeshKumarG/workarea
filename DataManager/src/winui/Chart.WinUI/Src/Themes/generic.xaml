@@ -1,0 +1,57 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Syncfusion.UI.Xaml.Charts">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Themes/Chart/sfchart.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/ChartAxis/Themes/ChartAxis.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Themes/ChartAxis/chartaxis.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/ChartSeries/Themes/ChartSeries.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Themes/ChartSeries/chartseries.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Core/Legend/Themes/SfLegend.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <local:ChartTrackballColorConverter x:Key="trackBallColorConverter"></local:ChartTrackballColorConverter>
+
+    <Style x:Key="SyncfusionChartTrackballControl" TargetType="local:ChartTrackballControl">
+        <Setter Property="Height" Value="8"></Setter>
+        <Setter Property="Width" Value="8"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ChartTrackballControl">
+                    <Ellipse Fill="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, 
+                        Converter={StaticResource trackBallColorConverter}}" Stroke="{ThemeResource SyncfusionChartTrackballMarkerStroke}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" StrokeThickness="{TemplateBinding StrokeThickness}"></Ellipse>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style  BasedOn="{StaticResource SyncfusionChartTrackballControl}" TargetType="local:ChartTrackballControl"></Style>
+
+
+    <Style x:Key="SyncfusionChartTooltipStyle"
+           TargetType="local:ChartTooltip">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ChartTooltip">
+                    <Grid RenderTransformOrigin="0.5,1">
+                        <Grid.RenderTransform>
+                            <CompositeTransform ScaleX="1.0" ScaleY="1.0" TranslateX="0" TranslateY="0"/>
+                        </Grid.RenderTransform>
+                        <Path Data="{Binding Series.Chart.Tooltip.PolygonPath}" Style="{Binding Series.Chart.Tooltip.BackgroundStyle}"></Path>
+                        <ContentPresenter Margin="7.5,5,7.5,5"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}">
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource SyncfusionChartTooltipStyle}"
+           TargetType="local:ChartTooltip" />
+
+</ResourceDictionary>

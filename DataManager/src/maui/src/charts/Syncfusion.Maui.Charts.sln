@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syncfusion.Maui.Charts", "Syncfusion.Maui.Charts.csproj", "{D840D1E7-7BAE-4141-AFC9-27ED3092A7E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Release-Xml|Any CPU = Release-Xml|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D840D1E7-7BAE-4141-AFC9-27ED3092A7E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D840D1E7-7BAE-4141-AFC9-27ED3092A7E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D840D1E7-7BAE-4141-AFC9-27ED3092A7E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D840D1E7-7BAE-4141-AFC9-27ED3092A7E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D840D1E7-7BAE-4141-AFC9-27ED3092A7E6}.Release-Xml|Any CPU.ActiveCfg = Release-Xml|Any CPU
+		{D840D1E7-7BAE-4141-AFC9-27ED3092A7E6}.Release-Xml|Any CPU.Build.0 = Release-Xml|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
+	EndGlobalSection
+EndGlobal

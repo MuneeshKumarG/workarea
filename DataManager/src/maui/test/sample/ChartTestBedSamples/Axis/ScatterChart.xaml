@@ -1,0 +1,45 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts" 
+             xmlns:local="clr-namespace:ChartTestBedSamples.Axis"
+             x:Class="ChartTestBedSamples.ScatterChart">
+
+    <ContentPage.Content>
+        <Grid Padding="20" HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <chart:SfCartesianChart Grid.Row="0" x:Name="Chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <chart:SfCartesianChart.BindingContext>
+                    <local:LiveUpdateViewModel/>
+                </chart:SfCartesianChart.BindingContext>
+                <chart:SfCartesianChart.Title>
+                    <Label Text="Height vs Weight" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HeightRequest="30" FontSize="15" TextColor="Blue" FontAttributes="Bold" HorizontalOptions="FillAndExpand" />
+                </chart:SfCartesianChart.Title>
+                <chart:SfCartesianChart.PrimaryAxis>
+                    <chart:NumericalAxis x:Name="p_axis">
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="Height in Inches">
+                            </chart:ChartAxisTitle>
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.PrimaryAxis>
+                <chart:SfCartesianChart.SecondaryAxis>
+                    <chart:NumericalAxis x:Name="s_axis">
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="Weight in Pounds">
+                            </chart:ChartAxisTitle>
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.SecondaryAxis>
+                <chart:SfCartesianChart.Series>
+                    <chart:ScatterSeries ItemsSource="{Binding ScatterData}" Type="InvertedTriangle" XBindingPath="Value" YBindingPath="Size">
+                    </chart:ScatterSeries>
+                    <chart:ScatterSeries ItemsSource="{Binding ScatterData2}" Type="Triangle" XBindingPath="Value" YBindingPath="Size">
+                    </chart:ScatterSeries>
+                </chart:SfCartesianChart.Series>
+            </chart:SfCartesianChart>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+ 

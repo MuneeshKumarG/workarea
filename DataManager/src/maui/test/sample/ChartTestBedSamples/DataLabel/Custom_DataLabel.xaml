@@ -1,0 +1,37 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ChartTestBedSamples"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             x:Class="ChartTestBedSamples.Custom_DataLabel">
+   
+    <ContentPage.Content>
+        <chart:SfCartesianChart HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+
+            <chart:SfCartesianChart.BindingContext>
+                <local:ViewModelDataLabel x:Name="viewmodel"/>
+            </chart:SfCartesianChart.BindingContext>
+
+            <chart:SfCartesianChart.PrimaryAxis>
+                <chart:NumericalAxis PlotOffsetEnd="10" PlotOffsetStart="10" ShowMajorGridLines="False"/>
+            </chart:SfCartesianChart.PrimaryAxis>
+
+            <chart:SfCartesianChart.SecondaryAxis>
+                <local:NumericalAxisExt Minimum="10" Maximum="100" Interval="10"/>
+            </chart:SfCartesianChart.SecondaryAxis>
+
+            <chart:SfCartesianChart.Series>
+                <local:SplineSeriesExt ShowDataLabels="True" StrokeWidth="2" ItemsSource="{Binding SplineData}" XBindingPath="XValue" YBindingPath="YValue">
+                    <chart:SplineSeries.DataLabelSettings>
+                        <chart:CartesianDataLabelSettings>
+                            <chart:CartesianDataLabelSettings.LabelStyle>
+                                <chart:ChartDataLabelStyle Margin="5" FontSize="14"/>
+                            </chart:CartesianDataLabelSettings.LabelStyle>
+                        </chart:CartesianDataLabelSettings>
+                    </chart:SplineSeries.DataLabelSettings>
+                </local:SplineSeriesExt>
+            </chart:SfCartesianChart.Series>
+
+        </chart:SfCartesianChart>
+    </ContentPage.Content>
+</ContentPage>
+ 

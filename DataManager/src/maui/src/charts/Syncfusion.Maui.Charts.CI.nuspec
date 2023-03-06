@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Syncfusion.Maui.Charts</id>
+    <version>19.3.35-preview</version>
+    <title>Syncfusion Charts for .Net MAUI</title>
+    <authors>Syncfusion Inc.</authors>
+    <licenseUrl>http://www.syncfusion.com/nuget/license</licenseUrl>
+    <iconUrl>https://www.syncfusion.com/content/images/nuget/sync_logo_icon.png</iconUrl>
+    <projectUrl>https://www.syncfusion.com/maui/?utm_source=nuget&amp;utm_medium=listing</projectUrl>
+    <description>Syncfusion MAUI Charts provides a perfect way to visualize data with a high level of user interactivity that focuses on development, productivity and simplicity of use. Its rich feature set will include functionalities like data binding, multiple axes, animations, data labels, tooltips, selection, and zooming.</description>
+    <releaseNotes>https://help.syncfusion.com/maui/release-notes/v19.2.0.56?utm_source=nuget&amp;amp;utm_medium=listing</releaseNotes>
+    <copyright>Copyright 2001 - 2021 Syncfusion Inc.</copyright>
+    <tags>syncfusion maui ios android maccatalyst windows dot-net charts charting graphs syncfusion-chart cartesian-charts circular-charts funnel-charts pyramid-charts charting-library data-visualization graphing-library charting-tool charting-plugin</tags>
+     <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="Syncfusion.Maui.Core" version="*" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net6.0-android">
+        <dependency id="Syncfusion.Maui.Core" version="*" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net6.0-ios">
+        <dependency id="Syncfusion.Maui.Core" version="*" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net6.0-maccatalyst">
+        <dependency id="Syncfusion.Maui.Core" version="*" exclude="Build,Analyzers" />
+      </group>
+	  <group targetFramework="net6.0-windows10.0.19041">
+		<dependency id="Syncfusion.Maui.Core" version="*" exclude="Build,Analyzers" />
+      </group>
+	  <group targetFramework="net7.0">
+        <dependency id="Syncfusion.Maui.Core" version="*" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net7.0-android">
+        <dependency id="Syncfusion.Maui.Core" version="*" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net7.0-ios">
+        <dependency id="Syncfusion.Maui.Core" version="*" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net7.0-maccatalyst">
+        <dependency id="Syncfusion.Maui.Core" version="*" exclude="Build,Analyzers" />
+      </group>
+	  <group targetFramework="net7.0-windows10.0.19041">
+		<dependency id="Syncfusion.Maui.Core" version="*" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

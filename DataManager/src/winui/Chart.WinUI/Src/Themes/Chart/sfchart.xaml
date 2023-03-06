@@ -1,0 +1,240 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Syncfusion.UI.Xaml.Charts">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Chart.WinUI/Themes/themeresources.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Core.WinUI/Themes/Common.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="SyncfusionCartesianChartStyle" TargetType="local:SfCartesianChart">
+        <Setter Property="PlotAreaBorderBrush" Value="{ThemeResource SyncfusionChartAreaBorderBrush}"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SfCartesianChart">
+                    <Grid Background="Transparent">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" 
+                                                      Foreground="{ThemeResource SyncfusionChartHeaderForeground}" 
+                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" 
+                                                      VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" 
+                                                      Margin="0,0,0,5" 
+                                                      FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
+                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
+
+                                <local:LegendPanel x:Name="SyncfusionLegendPanel"  Grid.Row="1">
+                                    <local:LegendPanel.AreaPanel>
+                                        <local:CartesianAreaPanel x:Name="AreaPanel">
+                                            <local:CartesianPlotArea x:Name="CartesianPlotArea" 
+                                                                    Background="{TemplateBinding PlotAreaBackground}" 
+                                                                    local:AreaPanel.MeasurePriorityIndex="1" 
+                                                                    Margin="{TemplateBinding AxisThickness}">
+                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
+                                                <Border BorderBrush="{TemplateBinding PlotAreaBorderBrush}"  
+                                                        BorderThickness="{TemplateBinding PlotAreaBorderThickness}"/>
+                                                <Grid x:Name="SyncfusionChartSeriesPresenter" />                                                    
+                                                <Canvas x:Name="DataLabelPresenter"/>
+                                            </local:CartesianPlotArea>
+                                            <Canvas x:Name="SyncfusionChartAxisPanel" local:AreaPanel.MeasurePriorityIndex="0"></Canvas>
+                                            <Canvas x:Name="SyncfusionChartAdorningCanvas" local:AreaPanel.MeasurePriorityIndex="1"></Canvas>
+                                        </local:CartesianAreaPanel>
+                                    </local:LegendPanel.AreaPanel>
+                                </local:LegendPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource SyncfusionCartesianChartStyle}" TargetType="local:SfCartesianChart"></Style>
+
+    <Style x:Key="SyncfusionCircularChartStyle" TargetType="local:SfCircularChart">
+       <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SfCircularChart">
+                    <Grid Background="Transparent">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" 
+                                                      Foreground="{ThemeResource SyncfusionChartHeaderForeground}" 
+                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" 
+                                                      VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" 
+                                                      Margin="0,0,0,5" 
+                                                      FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
+                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
+
+                                <local:LegendPanel x:Name="SyncfusionLegendPanel" Grid.Row="1">
+                                    <local:LegendPanel.AreaPanel>
+                                        <local:CircularAreaPanel x:Name="AreaPanel">
+                                            <local:CircularPlotArea x:Name="CircularPlotArea">
+                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
+                                                <Grid x:Name="SyncfusionChartSeriesPresenter" />
+                                                <Canvas x:Name="DataLabelPresenter"/>
+                                            </local:CircularPlotArea>
+                                            <Canvas x:Name="SyncfusionChartAdorningCanvas"></Canvas>
+                                        </local:CircularAreaPanel>
+                                    </local:LegendPanel.AreaPanel>
+                                </local:LegendPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource SyncfusionCircularChartStyle}" TargetType="local:SfCircularChart"></Style>
+
+    <Style x:Key="SyncfusionPyramidChartStyle" TargetType="local:SfPyramidChart">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SfPyramidChart">
+                    <Grid Background="Transparent">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" 
+                                                      Foreground="{ThemeResource SyncfusionChartHeaderForeground}" 
+                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" 
+                                                      VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" 
+                                                      Margin="0,0,0,5" 
+                                                      FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
+                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
+
+                                <local:LegendPanel x:Name="SyncfusionLegendPanel"  Grid.Row="1">
+                                    <local:LegendPanel.AreaPanel>
+                                        <local:PyramidAreaPanel x:Name="AreaPanel">
+                                            <local:PyramidPlotArea x:Name="PyramidPlotArea">
+                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
+                                                <Grid x:Name="SyncfusionChartSeriesPresenter" />
+                                                <Canvas x:Name="DataLabelPresenter"/>
+                                            </local:PyramidPlotArea>
+                                            <Canvas x:Name="SyncfusionChartAdorningCanvas"></Canvas>
+                                        </local:PyramidAreaPanel>
+                                    </local:LegendPanel.AreaPanel>
+                                </local:LegendPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource SyncfusionPyramidChartStyle}" TargetType="local:SfPyramidChart"></Style>
+
+    <Style x:Key="SyncfusionFunnelChartStyle" TargetType="local:SfFunnelChart">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SfFunnelChart">
+                    <Grid Background="Transparent">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" 
+                                                      Foreground="{ThemeResource SyncfusionChartHeaderForeground}" 
+                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" 
+                                                      VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" 
+                                                      Margin="0,0,0,5" 
+                                                      FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
+                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
+
+                                <local:LegendPanel x:Name="SyncfusionLegendPanel" Grid.Row="1">
+                                    <local:LegendPanel.AreaPanel>
+                                        <local:FunnelAreaPanel x:Name="AreaPanel">
+                                            <local:FunnelPlotArea x:Name="FunnelPlotArea">
+                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
+                                                <Grid x:Name="SyncfusionChartSeriesPresenter" />
+                                                <Canvas x:Name="DataLabelPresenter"/>
+                                            </local:FunnelPlotArea>
+                                            <Canvas x:Name="SyncfusionChartAdorningCanvas" ></Canvas>
+                                        </local:FunnelAreaPanel>
+                                    </local:LegendPanel.AreaPanel>
+                                </local:LegendPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource SyncfusionFunnelChartStyle}" TargetType="local:SfFunnelChart"></Style>
+
+    <Style x:Key="SyncfusionPolarChartStyle" TargetType="local:SfPolarChart">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SfPolarChart">
+                    <Grid Background="Transparent">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <ContentPresenter x:Name="SyncfusionChartHeader" Content="{TemplateBinding Header}" 
+                                                      Foreground="{ThemeResource SyncfusionChartHeaderForeground}" 
+                                                      HorizontalAlignment="{TemplateBinding HorizontalHeaderAlignment}" 
+                                                      VerticalAlignment="{TemplateBinding VerticalHeaderAlignment}" 
+                                                      Margin="0,0,0,5" 
+                                                      FontFamily="{ThemeResource SyncfusionControlThemeFontFamily}"
+                                                      FontSize="{ThemeResource SyncfusionBodyLargeFontSize}"/>
+
+                                <local:LegendPanel x:Name="SyncfusionLegendPanel" Grid.Row="1">
+                                    <local:LegendPanel.AreaPanel>
+                                        <local:PolarAreaPanel x:Name="AreaPanel">
+                                            <local:PolarPlotArea x:Name="PolarPlotArea"
+                                                                    local:AreaPanel.MeasurePriorityIndex="1"
+                                                  Margin="{TemplateBinding AxisThickness}">
+                                                <Canvas x:Name="SyncfusionChartGridLinesPanel" />
+                                                <Grid x:Name="SyncfusionChartSeriesPresenter" />
+                                                <Canvas x:Name="DataLabelPresenter"/>
+                                            </local:PolarPlotArea>
+                                            <Canvas x:Name="SyncfusionChartAxisPanel" local:AreaPanel.MeasurePriorityIndex="0"></Canvas>
+                                            <Canvas x:Name="SyncfusionChartAdorningCanvas" local:AreaPanel.MeasurePriorityIndex="1"></Canvas>
+                                        </local:PolarAreaPanel>
+                                    </local:LegendPanel.AreaPanel>
+                                </local:LegendPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource SyncfusionPolarChartStyle}" TargetType="local:SfPolarChart"></Style>
+
+</ResourceDictionary>

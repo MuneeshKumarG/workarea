@@ -1,0 +1,36 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ChartTestBedSamples"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             x:Class="ChartTestBedSamples.SplineAreaLabel">
+
+    <ContentPage.Content>
+        <chart:SfCartesianChart HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+
+            <chart:SfCartesianChart.BindingContext>
+                <local:ViewModelDataLabel x:Name="viewmodel"/>
+            </chart:SfCartesianChart.BindingContext>
+
+            <chart:SfCartesianChart.PrimaryAxis>
+                <chart:CategoryAxis LabelPlacement="BetweenTicks" ShowMajorGridLines="False" />
+            </chart:SfCartesianChart.PrimaryAxis>
+
+            <chart:SfCartesianChart.SecondaryAxis>
+                <chart:NumericalAxis
+                                Maximum="80"
+                                Minimum="0"/>
+            </chart:SfCartesianChart.SecondaryAxis>
+
+            <chart:SfCartesianChart.Series>
+                <chart:SplineAreaSeries ShowDataLabels="True" x:Name="series"
+                            Opacity="0.4"
+                            ItemsSource="{Binding AreaData}"
+                            XBindingPath="Date"
+                            YBindingPath="Automation" >
+                </chart:SplineAreaSeries>
+            </chart:SfCartesianChart.Series>
+
+        </chart:SfCartesianChart>
+    </ContentPage.Content>
+</ContentPage>
+ 

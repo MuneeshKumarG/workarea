@@ -1,0 +1,39 @@
+{
+  "Name": "maui-charts",
+  "Platforms": [
+    {
+      "Name": "MAUI",
+      "Assemblies": [
+        {
+          "Name": "Syncfusion.Maui.Charts",
+          "EnableFxCopAnalyzer": false,
+          "EnableStyleCopAnalyzer": false,
+          "TreatWarningsAsErrors": false
+        }
+      ],
+      "SampleBrowsers": [
+        {
+			"Name": "SampleBrowser.Maui.CartesianChart"
+        },
+		{
+			"Name": "SampleBrowser.Maui.CircularChart"
+    },
+    {
+			"Name": "SampleBrowser.Maui.PyramidChart"
+    },
+    {
+			"Name": "SampleBrowser.Maui.FunnelChart"
+    }
+	  ]
+  },
+  {
+	"Name": "WinUI",
+	"Assemblies": [{
+	"Name": "Syncfusion.Chart.WinUI",
+	"EnableFxCopAnalyzer": true,
+	"TreatWarningsAsErrors": false,
+	"IgnoreColorCodes": ["#FFB7B7", "#FF6868", "#FF3333", "#FFFFFF", "#FF6DBD", "#FF3F3F", "#FFAAAA", "#000000", "#dc2727", "#424242", "#FA0C9E", "#4d4d4d", "#FAB3B3", "#FFEBFF","#FFCAF5", "#FFD1F8", "#FFEAFF", "#FFA3B9", "#FFA4DF", "#FF777F", "#1E90FF"]
+        }]
+   }
+  ]
+}

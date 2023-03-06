@@ -1,0 +1,29 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ChartTestBedSamples"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             x:Class="ChartTestBedSamples.DoughnutLabelOutSide">
+
+    <ContentPage.Content>
+        <chart:SfCircularChart HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+
+            <chart:SfCircularChart.BindingContext>
+                <local:ViewModelDataLabel x:Name="viewmodel"/>
+            </chart:SfCircularChart.BindingContext>
+
+            <chart:SfCircularChart.Series>
+                <chart:DoughnutSeries ShowDataLabels="True" ItemsSource="{Binding ColumnData}" XBindingPath="Name" YBindingPath="Value">
+                    <chart:DoughnutSeries.DataLabelSettings>
+                        <chart:CircularDataLabelSettings LabelPlacement="Outer">
+                            <chart:CircularDataLabelSettings.LabelStyle>
+                                <chart:ChartDataLabelStyle Margin="7" FontSize="14"/>
+                            </chart:CircularDataLabelSettings.LabelStyle>
+                        </chart:CircularDataLabelSettings>
+                    </chart:DoughnutSeries.DataLabelSettings>
+                </chart:DoughnutSeries>
+            </chart:SfCircularChart.Series>
+
+        </chart:SfCircularChart>
+    </ContentPage.Content>
+</ContentPage>
+ 
