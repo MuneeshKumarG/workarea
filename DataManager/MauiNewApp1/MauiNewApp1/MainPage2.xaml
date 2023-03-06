@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="http://schemas.syncfusion.com/maui"
+             xmlns:local="clr-namespace:MauiNewApp1"
+             x:Class="MauiNewApp1.MainPage2">
+
+    <Grid>
+        <Grid.BindingContext>
+            <local:ViewModel x:Name="viewModel"/>
+        </Grid.BindingContext>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <chart:SfCartesianChart>
+                <chart:SfCartesianChart.XAxes>
+                    <chart:NumericalAxis/>
+                </chart:SfCartesianChart.XAxes>
+                <chart:SfCartesianChart.YAxes>
+                    <chart:NumericalAxis/>
+                </chart:SfCartesianChart.YAxes>
+                <chart:FastLineSeries XBindingPath="XValue"
+                                      YBindingPath="YValue"
+                                      ItemsSource="{Binding Data}"/>
+                <chart:ColumnSeries YBindingPath="YValue" x:Name="series2"
+                                    ItemsSource="{Binding Data}"/>
+            </chart:SfCartesianChart>
+        </Grid>
+        <VerticalStackLayout Grid.Column="1">
+            <Button Text="Click" Clicked="Button_Clicked" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </Grid>
+    
+</ContentPage>
