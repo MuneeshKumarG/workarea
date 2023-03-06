@@ -54,7 +54,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\maui-charts\maui\src\charts\Syncfusion.Maui.Charts.csproj" />
+	  <ProjectReference Include="..\..\src\maui\src\charts\Syncfusion.Maui.Charts.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

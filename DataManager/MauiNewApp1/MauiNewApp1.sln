@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiNewApp1", "MauiNewApp1\MauiNewApp1.csproj", "{7AEC78C7-45FC-4251-8E71-EB258328C0A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syncfusion.Maui.Charts", "..\maui-charts\maui\src\charts\Syncfusion.Maui.Charts.csproj", "{11FF48EC-A487-45A7-9FEC-1D188982584F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syncfusion.Maui.Charts", "..\src\maui\src\charts\Syncfusion.Maui.Charts.csproj", "{D382AA8D-E295-49BD-9327-E72592B1D629}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +23,12 @@ Global
 		{7AEC78C7-45FC-4251-8E71-EB258328C0A1}.Release-Xml|Any CPU.ActiveCfg = Release|Any CPU
 		{7AEC78C7-45FC-4251-8E71-EB258328C0A1}.Release-Xml|Any CPU.Build.0 = Release|Any CPU
 		{7AEC78C7-45FC-4251-8E71-EB258328C0A1}.Release-Xml|Any CPU.Deploy.0 = Release|Any CPU
-		{11FF48EC-A487-45A7-9FEC-1D188982584F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11FF48EC-A487-45A7-9FEC-1D188982584F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11FF48EC-A487-45A7-9FEC-1D188982584F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11FF48EC-A487-45A7-9FEC-1D188982584F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11FF48EC-A487-45A7-9FEC-1D188982584F}.Release-Xml|Any CPU.ActiveCfg = Release-Xml|Any CPU
-		{11FF48EC-A487-45A7-9FEC-1D188982584F}.Release-Xml|Any CPU.Build.0 = Release-Xml|Any CPU
+		{D382AA8D-E295-49BD-9327-E72592B1D629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D382AA8D-E295-49BD-9327-E72592B1D629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D382AA8D-E295-49BD-9327-E72592B1D629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D382AA8D-E295-49BD-9327-E72592B1D629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D382AA8D-E295-49BD-9327-E72592B1D629}.Release-Xml|Any CPU.ActiveCfg = Release-Xml|Any CPU
+		{D382AA8D-E295-49BD-9327-E72592B1D629}.Release-Xml|Any CPU.Build.0 = Release-Xml|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
