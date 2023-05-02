@@ -96,12 +96,12 @@ const DependencyMappingLayout = ({}) => {
                 alt='Dependency Mapping Icon'
                 height={25} width={25}/>
             </div>
-            <ChildMappingComponent isChild={isChild} 
+            <ChildMappingContainer isChild={isChild} 
                                    onChange={onChange}
                                    comboBoxDataSource={comboBoxDataSource} 
                                    childMappingDataSource={childMappingDataSource}
                                    comboBoxRef={comboBoxRef}/>
-            <SummaryComponent/>
+            <SummaryContainer/>
         </div>
         <hr className={styles.horizontalLine}/>
         <div className={styles.footerContainer}>
@@ -142,22 +142,30 @@ const DependencyMappingLayout = ({}) => {
     );
   }
 
-  function ChildMappingComponent({ isChild , onChange, comboBoxRef, comboBoxDataSource, childMappingDataSource}) {
-
+  function ChildMappingContainer({ isChild , onChange, comboBoxRef, comboBoxDataSource, childMappingDataSource}) {
     return (
         <div className={styles.childMappingContainer}>
             <MappingHeaderComponent headerLabel="Child" isChild={isChild} 
                                 onChange={onChange}
                                 comboBoxRef={comboBoxRef} 
                                 comboBoxDataSource={comboBoxDataSource}/>
-            <ListViewComponent dataSource={childMappingDataSource} template={template2}
+            <ListViewComponent dataSource={childMappingDataSource} template={childMappingListViewItemTemplate}
              cssClass='e-list-template'/>
         </div>
     );
   }
 
-  function MappingHeaderComponent({headerLabel, isChild , onChange, comboBoxRef, comboBoxDataSource}) {
+  function SummaryContainer() {
+    return (
+        <div className={styles.summaryContainer}>
+            <div>
+                <label className={styles.summaryContainerHeader}>Summary</label>
+            </div>
+        </div>
+    );
+  }
 
+  function MappingHeaderComponent({headerLabel, isChild , onChange, comboBoxRef, comboBoxDataSource}) {
     return (
         <div>
         <div className={styles.mappingHeaderContainer}>
@@ -182,22 +190,19 @@ const DependencyMappingLayout = ({}) => {
                 )
             }
             </div>
-            <TextBoxComponent  type="text"  cssClass={styles.mappingSearchTextBox}
-                   placeholder=" Search" title="Type in a name"/>
-                   <hr className={styles.mappingHeaderHorizontalLine}/>
-                   </div>
-    );
-  }
-  function SummaryComponent() {
-    return (
-        <div className={styles.summaryContainer}>
-            <div>
-                <label className={styles.summaryContainerHeader}>Summary</label>
+           <DependencyMappingSearchBoxComponent/>
+            <hr className={styles.mappingHeaderHorizontalLine}/>
             </div>
-        </div>
     );
   }
   
+  function DependencyMappingSearchBoxComponent(){
+    return(
+        <TextBoxComponent  type="text"  cssClass={styles.mappingSearchTextBox}
+        placeholder=" Search" title="Type in a name"/>
+    );
+  }
+
   function parentMappingListViewItemTemplate(data) {
     return (
          <div className={styles.parentMappingListViewItem} >
@@ -207,7 +212,7 @@ const DependencyMappingLayout = ({}) => {
         );
     }
 
-    function template2(data) {
+    function childMappingListViewItemTemplate(data) {
         return (
             <div className={styles.childListViewItem}>
                 <input type='checkbox'/>
