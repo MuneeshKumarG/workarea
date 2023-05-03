@@ -4,55 +4,9 @@
   margin-left: 28px;
 }
 
-.resetAllButton {
-  position: relative;
-  top: 40px;
-  left: 40%;
-  font-size: 14px;
-}
-
-.mappingGridContainer {
-  display: grid;
-  grid-template-columns: 22% 2% 24% 3% 24% 21%;
-  margin-top: 40px;
-}
-
-.mappingActionContainer, .childMappingContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-.mappingActionContainer {
-  margin-left: 10px;
-}
-
-.mappingActionAddParentButton, .mappingActionAddChildButton {
-  text-align: left;
-  border-width: 0;
-  margin: 22px 22px;
-  color: #6941C6;
-  font-size: 14px;
-}
-
 .mappingActionLabel {
   color: #475467;
   font-size: 12px;
-}
-
-.verticalLine {
-  border-left: 1px solid #D0D5DD;
-  height: 370px;
-}
-
-.parentMappingConatiner, .childMappingContainer {
-  border-radius: 8px;
-  border: 1px solid #EAECF0;
-}
-
-.mappingHeaderContainer {
-  background-color: #F2F4F7;
-  border-radius: 8px 8px 0px 0px;
-  min-height: 90px;
 }
 
 .mappingHeaderLabel {
@@ -62,62 +16,28 @@
   font-weight: 500;
 }
 
-.mappingHeaderRoundedContainer {
-  border-radius: 8px;
-  min-height: 44px;
-  border: 1px solid #D0D5DD;
-  background-color: white;
-  margin: 8px 70px 16px 16px;
-  display: flex;
-  align-items: center;
-}
-
-.mappingHeaderIconContainer {
-  margin-left: 18px;
-}
-
 .mappingHeaderFieldLabel {
   margin-left: 11px;
 }
 
-.mappingHeaderComboBox {
-  border: 1px solid #D0D5DD;
-  background-color: white;
-  margin: 8px 0px 0px 16px;
-  min-height: 44px;
-  max-width: 70%;
-  display: flex;
-  align-items: center;
+.parentMappingItemRoundedLabel {
+  border-radius: 11px;
+  margin: 5px;
+  border: 1px solid #d0d5dd;
+  background-color: #ecfdf3;
+  color: #027a48;
+  font-size: 12px;
+  padding: 2px 15px;
 }
 
-.mappingSearchTextBox {
-  margin: 2%;
-  max-width: 96%;
+.parentMappingListViewItemLabel {
+  margin-left: 50px;
+  font-size: 14px;
 }
 
-.mappingHeaderHorizontalLine {
-  background-color: #EAECF0;
-  height: 1px;
-  border: none;
-  margin-top: 2%;
-}
-
-.mappingIconContainer {
-  display: flex;
-  align-items: center; /* center vertically */
-  justify-content: center; /* center horizontally */
-}
-
-.doubleArrowIcon {
-  max-height: 100%;
-  max-width: 100%;
-}
-
-.summaryContainer {
-  border-radius: 14px;
-  border: 1px solid #D6BBFB;
+.childMappingListViewItemLabel {
   margin-left: 10px;
-  background-color: #F9F5FF;
+  font-size: 14px;
 }
 
 .summaryContainerHeader {
@@ -125,6 +45,131 @@
   font-size: 14px;
   margin-left: 10px;
   font-weight: 700;
+}
+
+.resetAllButton {
+  position: relative;
+  top: 30px;
+  left: 40%;
+  font-size: 14px;
+  border-width: 0;
+  color: #6941c6;
+}
+
+.mappingActionButton {
+  text-align: left;
+  border-width: 0;
+  margin: 22px 22px;
+  color: #6941c6;
+  font-size: 14px;
+}
+
+.saveButton {
+  margin-left: 10px;
+  margin-right: 28px;
+  background-color: #6941c6;
+  color: white;
+}
+
+.mappingGridContainer {
+  display: grid;
+  grid-template-columns: 23% 2% 24% 3% 24% 21%;
+  margin-top: 40px;
+}
+
+.mappingActionContainer,
+.childMappingContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.mappingActionContainer {
+  margin-left: 10px;
+}
+
+.parentMappingConatiner,
+.childMappingContainer {
+  border-radius: 8px;
+  border: 1px solid #eaecf0;
+}
+
+.mappingHeaderContainer {
+  background-color: #f2f4f7;
+  border-radius: 8px 8px 0px 0px;
+  min-height: 90px;
+}
+
+.mappingHeaderRoundedContainer {
+  border-radius: 8px;
+  min-height: 44px;
+  border: 1px solid #d0d5dd;
+  background-color: white;
+  margin: 8px 70px 16px 16px;
+  display: flex;
+  align-items: center;
+}
+
+.mappingIconContainer {
+  display: flex;
+  align-items: center; /* center vertically */
+  justify-content: left; /* center horizontally */
+}
+
+.summaryContainer {
+  border-radius: 14px;
+  border: 1px solid #d6bbfb;
+  margin-left: 10px;
+  background-color: #f9f5ff;
+}
+
+.footerContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.verticalLine {
+  border-left: 1px solid #d0d5dd;
+  height: 370px;
+}
+
+.horizontalLine {
+  background-color: #eaecf0;
+  height: 1px;
+  border: none;
+  margin: 28px 28px 28px 20px;
+}
+
+.mappingHeaderHorizontalLine {
+  background-color: #eaecf0;
+  height: 1px;
+  border: none;
+  margin-top: 2%;
+}
+
+.mappingHeaderComboBox {
+  border: 1px solid #d0d5dd;
+  background-color: white;
+  margin: 8px 0px 0px 16px;
+  min-height: 44px;
+  max-width: 70%;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.mappingHeaderFieldIcon {
+  margin-top: 3px;
+  margin-left: 18px;
+}
+
+.mappingSearchTextBox {
+  margin: 2%;
+  max-width: 96%;
+}
+
+.doubleArrowIcon {
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .parentMappingListViewItem {
@@ -136,47 +181,8 @@
   padding: 0px;
 }
 
-.parentMappingItemRoundedLabel {
-  border-radius: 11px;
-  margin: 5px;
-  border: 1px solid #D0D5DD;
-  background-color: #ECFDF3;
-  color: #027A48;
-  font-size: 12px;
-  padding: 2px 15px;
-}
-
-.parentMappingListViewItemLabel {
-  margin-left: 50px;
-  font-size: 14px;
-}
-
-.childListViewItem {
-  margin: 13px 0px 13px 40px;
+.childMappingListViewItem {
+  padding: 13px 0px 13px 40px;
   display: flex;
   align-items: center;
-}
-
-.childMappingListViewItemLabel {
-  margin-left: 10px;
-  font-size: 14px;
-}
-
-.horizontalLine {
-  background-color: #EAECF0;
-  height: 1px;
-  border: none;
-  margin: 28px 28px 28px 20px;
-}
-
-.footerContainer {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.saveButton {
-  margin-left: 10px;
-  margin-right: 28px;
-  background-color: #6941C6;
-  color: white;
 }/*# sourceMappingURL=DependencyMapping.module.css.map */
