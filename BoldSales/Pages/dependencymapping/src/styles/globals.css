@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  margin-top: 28px;
-}
-
-.e-listview .e-list-item.e-hover {
-    color:#344054;
-}
-
 .e-listview .e-list-item.e-active {
-    color:#344054;
     background-color: #d6bbfb;
 }

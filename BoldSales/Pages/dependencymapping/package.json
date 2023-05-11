@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@syncfusion/ej2-react-buttons": "^21.1.37",
+    "@syncfusion/ej2-react-buttons": "^21.2.3",
     "@syncfusion/ej2-react-dropdowns": "^21.1.41",
     "@syncfusion/ej2-react-inputs": "^21.1.39",
     "@syncfusion/ej2-react-lists": "^21.1.41",

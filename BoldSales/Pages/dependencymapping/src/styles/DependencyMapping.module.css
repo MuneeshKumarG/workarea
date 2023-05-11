@@ -1,7 +1,6 @@
 .headerLabel {
-  color: #475467;
-  font-size: 16px;
-  margin-left: 28px;
+  color: #101828;
+  font-size: 30px;
 }
 
 .mappingActionLabel {
@@ -12,6 +11,7 @@
 .mappingHeaderLabel {
   color: #475467;
   margin-left: 16px;
+  margin-top: 12px;
   font-size: 14px;
   font-weight: 500;
 }
@@ -27,11 +27,12 @@
   background-color: #ecfdf3;
   color: #027a48;
   font-size: 12px;
-  padding: 2px 15px;
+  padding: 2px 0px 2px 0px;
+  text-align: center;
 }
 
 .parentMappingListViewItemLabel {
-  margin-left: 50px;
+  margin-left: 15px;
   font-size: 14px;
 }
 
@@ -40,27 +41,38 @@
   font-size: 14px;
 }
 
-.summaryContainerHeader {
+.summaryContainerHeader,
+.summaryListItemHeader {
   color: #475467;
   font-size: 14px;
-  margin-left: 10px;
   font-weight: 700;
 }
 
-.resetAllButton {
-  position: relative;
-  top: 30px;
-  left: 40%;
-  font-size: 14px;
-  border-width: 0;
-  color: #6941c6;
+.summaryList {
+  background-color: aqua;
 }
 
-.mappingActionButton {
-  text-align: left;
-  border-width: 0;
-  margin: 22px 22px;
-  color: #6941c6;
+.childFieldButton {
+  border-color: #d6bbfb;
+  font-size: 14px;
+}
+
+.parentFieldButton {
+  margin: 5px 0px 20px 0px;
+  background-color: #d6bbfb;
+  font-size: 14px;
+  border-radius: 20px;
+}
+
+.resetAllButton {
+  align-self: flex-end;
+  font-size: 14px;
+}
+
+.mappingActionAddChildButton,
+.mappingActionAddParentButton {
+  padding: 0px 10px 10px 0px;
+  margin-top: 8px;
   font-size: 14px;
 }
 
@@ -71,20 +83,35 @@
   color: white;
 }
 
+.summaryListItemContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+
+.dependencyMappingParentLayout {
+  margin: 30px 0px 30px 28px;
+}
+
 .mappingGridContainer {
   display: grid;
-  grid-template-columns: 23% 2% 24% 3% 24% 21%;
+  grid-template-columns: 32% 4% 32% 32%;
   margin-top: 40px;
 }
 
-.mappingActionContainer,
+.emptyContainer {
+  height: 100px;
+}
+
 .childMappingContainer {
   display: flex;
   flex-direction: column;
 }
 
 .mappingActionContainer {
-  margin-left: 10px;
+  display: grid;
+  grid-template-columns: 20% 80%;
 }
 
 .parentMappingConatiner,
@@ -96,7 +123,7 @@
 .mappingHeaderContainer {
   background-color: #f2f4f7;
   border-radius: 8px 8px 0px 0px;
-  min-height: 90px;
+  min-height: 100px;
 }
 
 .mappingHeaderRoundedContainer {
@@ -104,22 +131,34 @@
   min-height: 44px;
   border: 1px solid #d0d5dd;
   background-color: white;
-  margin: 8px 70px 16px 16px;
+  margin: 8px 3% 16px 3%;
   display: flex;
   align-items: center;
+  max-width: 94%;
 }
 
 .mappingIconContainer {
   display: flex;
   align-items: center; /* center vertically */
-  justify-content: left; /* center horizontally */
+  justify-content: center; /* center horizontally */
+}
+
+.comboBoxValueTemplateContainer {
+  display: flex;
+  align-items: center;
+  justify-content: left;
 }
 
 .summaryContainer {
   border-radius: 14px;
   border: 1px solid #d6bbfb;
   margin-left: 10px;
+  padding: 10px;
   background-color: #f9f5ff;
+}
+
+.summaryListItemRootContainer {
+  margin-top: 5px;
 }
 
 .footerContainer {
@@ -136,7 +175,7 @@
   background-color: #eaecf0;
   height: 1px;
   border: none;
-  margin: 28px 28px 28px 20px;
+  margin: 20px 28px 20px 0px;
 }
 
 .mappingHeaderHorizontalLine {
@@ -149,12 +188,10 @@
 .mappingHeaderComboBox {
   border: 1px solid #d0d5dd;
   background-color: white;
-  margin: 8px 0px 0px 16px;
+  margin: 8px 0px 0px 3%;
   min-height: 44px;
-  max-width: 70%;
-  display: flex;
   align-items: center;
-  border-radius: 20px;
+  max-width: 94%;
 }
 
 .mappingHeaderFieldIcon {
@@ -163,8 +200,10 @@
 }
 
 .mappingSearchTextBox {
-  margin: 2%;
-  max-width: 96%;
+  margin: 2% 3% 2% 3%;
+  max-width: 94%;
+  height: 34px;
+  align-items: center;
 }
 
 .doubleArrowIcon {
@@ -172,17 +211,32 @@
   max-width: 100%;
 }
 
+.comma {
+  margin-right: 5px; /* Adjust the margin as needed */
+}
+
 .parentMappingListViewItem {
   display: grid;
   grid-template-columns: 70% 30%;
-  margin: 2px;
   min-height: 36px;
   align-items: center;
-  padding: 0px;
+  margin: 13px 5px 13px 5px;
+}
+
+.parentMappingListViewItemRoot:active {
+  /* Active/Pressed styles */
+  background-color: #d6bbfb;
+}
+
+.parentMappingListViewItem:active .parentMappingItemRoundedLabel {
+  /* Active/Pressed styles */
+  background-color: white;
+  color: #7f56d9;
 }
 
 .childMappingListViewItem {
-  padding: 13px 0px 13px 40px;
+  padding: 13px 3% 13px 3%;
   display: flex;
   align-items: center;
+  margin: 0px 10px 0px 10px;
 }/*# sourceMappingURL=DependencyMapping.module.css.map */
