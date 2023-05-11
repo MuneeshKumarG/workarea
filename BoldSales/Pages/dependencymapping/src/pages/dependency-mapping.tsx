@@ -186,13 +186,7 @@ let existingFields: any[] = [
   },
 ];
 
-let summaryContainerList: any[] = [
-  {
-    field: "",
-    childrenGroupFieldName: "",
-    childre: [],
-  },
-];
+let summaryContainerList: any[] = [];
 
 const DependencyMappingLayout = ({}) => {
   const [currentFieldIsParent, setCurrentFieldIsParent] = useState(false);
@@ -212,11 +206,13 @@ const DependencyMappingLayout = ({}) => {
   const [parentListViewSelectedIndex, setParentListViewSelectedIndex] =
     useState(-1);
   const [selectAllCheckBoxState, setSelectAllCheckBoxState] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const addParent = () => {
     setIsLoaded(true);
     setCurrentFieldIsParent(false);
     setParentMappingdDataSource([]);
+    setSummaryContainerDataSource([]);
     setChildMappingDataSource(fieldValues);
   };
 
@@ -225,6 +221,7 @@ const DependencyMappingLayout = ({}) => {
     setCurrentFieldIsParent(true);
     setParentMappingdDataSource(fieldValues);
     setChildMappingDataSource([]);
+    setSummaryContainerDataSource([]);
     const updatedChildren = [...fieldChildren];
     updatedChildren.push("Not Choosen");
     setFieldChildren(updatedChildren);
@@ -331,9 +328,24 @@ const DependencyMappingLayout = ({}) => {
     } else parentListViewSelectedItem.isMapped = false;
   };
 
-  const UpdateSummaryListViewUpdate = (parentListViewSelectedItem) => {
-    const updatedDataSource = [...summaryContainerDataSource];
+  function handleSearch(event, isChildContainer) {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
 
+    if (isChildContainer) {
+      const filteredValues = childMappingDataSource.filter((item) =>
+        item.name.toLowerCase().includes(query)
+      );
+      setChildMappingDataSource(filteredValues);
+    } else {
+      const filteredValues = parentMappingdDataSource.filter((item) =>
+        item.name.toLowerCase().includes(query)
+      );
+      setParentMappingdDataSource(filteredValues);
+    }
+  }
+
+  const UpdateSummaryListViewUpdate = (parentListViewSelectedItem) => {
     const existingItem = summaryContainerDataSource.find(
       (item) =>
         item.childrenGroupFieldName === comboBoxSelectedFieldName &&
@@ -351,18 +363,6 @@ const DependencyMappingLayout = ({}) => {
 
       setSummaryContainerDataSource((list) => [...list, newItem]);
     }
-
-    // setSummaryContainerDataSource([]);
-    // for (let i = 0; i < parentMappingdDataSource.length; i++) {
-    //   if (parentMappingdDataSource[i].isMapped) {
-    //     const newItem = {
-    //       field: parentListViewSelectedItem.name,
-    //       childrenGroupFieldName: comboBoxSelectedFieldName,
-    //       children: parentListViewSelectedItem.children,
-    //     };
-    //     setSummaryContainerDataSource((list) => [...list, newItem]);
-    //   }
-    // }
   };
 
   return (
@@ -388,6 +388,8 @@ const DependencyMappingLayout = ({}) => {
             comboBoxDataSource={comboBoxDataSource}
             onParentListViewSelect={onParentListViewSelect}
             fieldName={fieldName}
+            handleSearch={handleSearch}
+            searchQuery={searchQuery}
           />
           <div className={styles.mappingIconContainer}>
             <Image
@@ -409,6 +411,8 @@ const DependencyMappingLayout = ({}) => {
             onChildListViewResetAllClick={onChildListViewResetAllClick}
             onChildListViewSelectAllClick={onChildListViewSelectAllClick}
             selectAllCheckBoxState={selectAllCheckBoxState}
+            handleSearch={handleSearch}
+            searchQuery={searchQuery}
           />
           <SummaryContainer
             summaryContainerDataSource={summaryContainerDataSource}
@@ -514,6 +518,8 @@ function ParentMappingContainer({
   comboBoxDataSource,
   onParentListViewSelect,
   fieldName,
+  handleSearch,
+  searchQuery,
 }) {
   return (
     <div className={styles.parentMappingConatiner}>
@@ -528,6 +534,8 @@ function ParentMappingContainer({
         fieldName={fieldName}
         isChildContainer={false}
         onChildListViewResetAllClick={() => {}}
+        handleSearch={handleSearch}
+        searchQuery={searchQuery}
       />
       <ul>
         {parentMappingdDataSource.map((item, index) => (
@@ -549,6 +557,8 @@ function ChildMappingContainer({
   onChildListViewResetAllClick,
   onChildListViewSelectAllClick,
   selectAllCheckBoxState,
+  handleSearch,
+  searchQuery,
 }) {
   return (
     <div className={styles.childMappingContainer}>
@@ -563,6 +573,8 @@ function ChildMappingContainer({
         fieldName={fieldName}
         isChildContainer={true}
         onChildListViewResetAllClick={onChildListViewResetAllClick}
+        handleSearch={handleSearch}
+        searchQuery={searchQuery}
       />
       {childMappingDataSource.length > 0 && (
         <div className={styles.childMappingListViewItem}>
@@ -591,10 +603,26 @@ function SummaryContainer({ summaryContainerDataSource }) {
   return (
     <div className={styles.summaryContainer}>
       <label className={styles.summaryContainerHeader}>Summary</label>
-      <ListViewComponent
-        dataSource={summaryContainerDataSource}
-        template={summaryListItemTemplate}
-      />
+      <ul>
+        {summaryContainerDataSource.map((item) => (
+          <li>
+            <label className={styles.summaryListItemHeader}>
+              {item.field} :{" "}
+            </label>
+
+            <ul className={styles.summaryListItemContainer}>
+              {item.children.map((data, index) => (
+                <>
+                  <label className={styles.summaryListItemLabel}>{data}</label>
+                  {index !== item.children.length - 1 && (
+                    <span className={styles.comma}>, </span>
+                  )}
+                </>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -608,6 +636,8 @@ function MappingHeaderComponent({
   fieldName,
   isChildContainer,
   onChildListViewResetAllClick,
+  handleSearch,
+  searchQuery,
 }) {
   return (
     <div>
@@ -653,18 +683,27 @@ function MappingHeaderComponent({
           />
         )}
       </div>
-      <DependencyMappingSearchBoxComponent />
+      <DependencyMappingSearchBoxComponent
+        handleSearch={handleSearch}
+        searchQuery={searchQuery}
+        isChildContainer={isChildContainer}
+      />
     </div>
   );
 }
 
-function DependencyMappingSearchBoxComponent() {
+function DependencyMappingSearchBoxComponent(
+  handleSearch,
+  searchQuery,
+  isChildContainer
+) {
   return (
-    <TextBoxComponent
+    <input
       type="text"
-      cssClass={styles.mappingSearchTextBox}
+      className={styles.mappingSearchTextBox}
       placeholder=" Search"
       title="Type in a name"
+      onChange={(event) => handleSearch(event, isChildContainer)}
     />
   );
 }
@@ -715,29 +754,6 @@ function comboBoxValueTemplate(data) {
         width={13}
       />
       <label className={styles.mappingHeaderFieldLabel}>{data.name}</label>
-    </div>
-  );
-}
-
-function summaryListItemTemplate(data) {
-  return (
-    <div className={styles.summaryListItemRootContainer}>
-      <label className={styles.summaryListItemHeader}>{data.field} : </label>
-
-      <ListViewComponent
-        id="list"
-        dataSource={data.children}
-      ></ListViewComponent>
-      {/* <ul className={styles.summaryListItemContainer}>
-        {data.children.map((item, index) => (
-          <React.Fragment key={item}>
-            <label>{item}</label>
-            {index !== data.children.length - 1 && (
-              <span className={styles.comma}>, </span>
-            )}
-          </React.Fragment>
-        ))}
-      </ul> */}
     </div>
   );
 }

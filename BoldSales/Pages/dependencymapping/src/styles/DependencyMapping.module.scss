@@ -52,8 +52,8 @@ $button-color: #6941c6;
   font-weight: 700;
 }
 
-.summaryList {
-  background-color: aqua;
+.summaryListItemLabel {
+  font-size: 14px;
 }
 
 //Button styles
@@ -165,10 +165,6 @@ $button-color: #6941c6;
   background-color: #f9f5ff;
 }
 
-.summaryListItemRootContainer {
-  margin-top: 5px;
-}
-
 .footerContainer {
   display: flex;
   justify-content: flex-end;
@@ -210,9 +206,12 @@ $button-color: #6941c6;
 
 .mappingSearchTextBox {
   margin: 2% 3% 2% 3%;
-  max-width: 94%;
+  width: 94%;
   height: 34px;
   align-items: center;
+  border-width: 1px;
+  border-color: #d0d5dd;
+  border-radius: 8px;
 }
 
 .doubleArrowIcon {
