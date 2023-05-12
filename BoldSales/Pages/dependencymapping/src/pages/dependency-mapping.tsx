@@ -191,9 +191,8 @@ const DependencyMappingLayout = ({}) => {
   const [parentListViewDataSource, setParentListViewDataSource] = useState({
     parentListData: fieldValues,
   });
-  const [summaryContainerDataSource, setSummaryContainerDataSource] = useState({
-    summaryListData: summaryContainerList,
-  });
+  const [summaryContainerDataSource, setSummaryContainerDataSource] =
+    useState(summaryContainerList);
   const [childListViewDataSource, setChildListViewDataSource] = useState({
     childListData: fieldValues,
   });
@@ -212,15 +211,14 @@ const DependencyMappingLayout = ({}) => {
     setIsLoaded(true);
     setCurrentFieldIsParent(false);
     setParentListViewDataSource({ parentListData: [] });
-    setSummaryContainerDataSource({ summaryListData: [] });
+    setSummaryContainerDataSource([]);
     setChildListViewDataSource({ childListData: fieldValues });
   };
 
   const addChild = () => {
     setIsLoaded(true);
 
-    if (!currentFieldIsParent)
-      setSummaryContainerDataSource({ summaryListData: [] });
+    if (!currentFieldIsParent) setSummaryContainerDataSource([]);
 
     setCurrentFieldIsParent(true);
     setParentListViewDataSource({ parentListData: fieldValues });
@@ -324,32 +322,25 @@ const DependencyMappingLayout = ({}) => {
   }
 
   const UpdateSummaryListViewUpdate = (parentListViewSelectedItem: any) => {
-    //TODO : Need to revamp this.
-    const updatedList = summaryContainerDataSource.summaryListData.filter(
+    const updatedSummaryContainerDataSource = [...summaryContainerDataSource];
+    const existingItem = updatedSummaryContainerDataSource.find(
       (item) =>
-        !(
-          item.childrenGroupFieldName === comboBoxSelectedFieldName &&
-          item.field === parentListViewSelectedItem.name
-        )
+        item.childrenGroupFieldName === comboBoxSelectedFieldName &&
+        item.field === parentListViewSelectedItem.name
     );
 
-    setSummaryContainerDataSource((prevState) => ({
-      ...prevState,
-      summaryListData: updatedList,
-    }));
-
-    const newItem = {
-      field: parentListViewSelectedItem.name,
-      childrenGroupFieldName: comboBoxSelectedFieldName,
-      children: parentListViewSelectedItem.children,
-    };
-
-    setSummaryContainerDataSource((prevState) => {
-      return {
-        ...prevState,
-        summaryListData: [...prevState.summaryListData, newItem],
+    if (existingItem != null) {
+      existingItem.children = parentListViewSelectedItem.children;
+      setSummaryContainerDataSource(updatedSummaryContainerDataSource);
+    } else {
+      const newItem = {
+        field: parentListViewSelectedItem.name,
+        childrenGroupFieldName: comboBoxSelectedFieldName,
+        children: parentListViewSelectedItem.children,
       };
-    });
+
+      setSummaryContainerDataSource((list) => [...list, newItem]);
+    }
   };
 
   const UpdateSummaryListDataSource = (isSelectAll: boolean) => {
@@ -425,9 +416,7 @@ const DependencyMappingLayout = ({}) => {
             handleSearch={handleSearch}
           />
           <SummaryContainer
-            summaryContainerDataSource={
-              summaryContainerDataSource.summaryListData
-            }
+            summaryContainerDataSource={summaryContainerDataSource}
           />
         </div>
       )}
