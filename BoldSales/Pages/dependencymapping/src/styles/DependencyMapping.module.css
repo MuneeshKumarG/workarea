@@ -78,16 +78,18 @@
 
 .childFieldButton {
   border-color: #d6bbfb;
+  border-width: 1px;
   font-size: 14px;
+  padding: 5px 10px 5px 10px;
 }
 
 .parentFieldButton {
   margin: 5px 0px 20px;
-  background-color: #f9f5ff;
   border-color: #d6bbfb;
   border-width: 1px;
   font-size: 14px;
   border-radius: 20px;
+  padding: 5px 10px 5px 10px;
 }
 
 .resetAllButton {
@@ -194,10 +196,13 @@
   margin: 20px 28px 20px 0px;
 }
 
+.mappingHeaderComboBoxPanel {
+  margin: 8px 0px 0px 3%;
+}
+
 .mappingHeaderComboBox {
   border: 1px solid #d0d5dd;
   background-color: white;
-  margin: 8px 0px 0px 3%;
   min-height: 44px;
   align-items: center;
   max-width: 94%;

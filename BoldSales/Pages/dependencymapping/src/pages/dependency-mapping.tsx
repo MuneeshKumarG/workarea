@@ -1,6 +1,6 @@
 import styles from "@/styles/DependencyMapping.module.css";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
-import { ComboBoxComponent } from "@syncfusion/ej2-react-dropdowns";
+import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
 import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
 import { CheckBoxComponent } from "@syncfusion/ej2-react-buttons";
 import { DataManager, Query } from "@syncfusion/ej2-data";
@@ -196,23 +196,29 @@ const DependencyMappingLayout = ({}) => {
   const [childListViewDataSource, setChildListViewDataSource] = useState({
     childListData: fieldValues,
   });
+  const [comboBoxSelectedData, setComboBoxSelectedData] = useState([]);
   const [comboBoxDataSource, setcomboBoxDataSource] = useState(existingFields);
   const [fieldChildren, setFieldChildren] = useState(fieldChildrenGroupNames);
   const [comboBoxSelectedFieldName, setComboBoxSelectedFieldName] =
     useState("");
-  const [parentFieldName, setParentFieldName] = useState("Not Choosen");
-  const [parentListViewSelectedIndex, setParentListViewSelectedIndex] =
-    useState(-1);
+  const [parentFieldName, setParentFieldName] = useState("");
+  const [parentListViewSelectedItem, setParentListViewSelectedItem] = useState(
+    fieldValues[0]
+  );
   const [selectAllCheckBoxState, setSelectAllCheckBoxState] = useState(false);
   const [currentFieldIsParent, setCurrentFieldIsParent] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [fieldDependencyButtonId, setFieldDependencyButtonId] = useState(-1);
+  const [comboBoxSelectedIndex, setComboBoxSelectedIndex] = useState(null);
 
   const addParent = () => {
     setIsLoaded(true);
     setCurrentFieldIsParent(false);
+    setParentFieldName("Not Choosen");
     setParentListViewDataSource({ parentListData: [] });
     setSummaryContainerDataSource([]);
     setChildListViewDataSource({ childListData: fieldValues });
+    setFieldDependencyButtonId(0);
   };
 
   const addChild = () => {
@@ -226,24 +232,37 @@ const DependencyMappingLayout = ({}) => {
     const updatedChildren = [...fieldChildren];
     updatedChildren.push("Not Choosen");
     setFieldChildren(updatedChildren);
+    setFieldDependencyButtonId(updatedChildren.length);
+    setParentListViewSelectedItem(fieldValues[0]);
+    setComboBoxSelectedIndex(null);
   };
 
   const onComboBoxChange = (args: any) => {
     if (args.value == null) return;
 
     setComboBoxSelectedFieldName(args.value);
-
-    const values = existingFields.find(
+    setComboBoxSelectedIndex(args.target.activeIndex);
+    const selectedValues = existingFields.find(
       (field) => field.name === args.value
     ).values;
 
+    if (!selectedValues) {
+      // Handle the case where the selected field is not found
+      return;
+    }
+
+    setComboBoxSelectedData(selectedValues);
+
     if (currentFieldIsParent) {
-      setChildListViewDataSource({ childListData: values });
-      const updatedFieldChildren = [...fieldChildren];
-      updatedFieldChildren[updatedFieldChildren.length - 1] = args.value;
-      setFieldChildren(updatedFieldChildren);
+      setChildListViewDataSource({ childListData: selectedValues });
+      setFieldChildren((prevFieldChildren) => {
+        const copyFieldChildren = [...prevFieldChildren];
+        copyFieldChildren[copyFieldChildren.length - 1] = args.value;
+        return copyFieldChildren;
+      });
     } else {
-      setParentListViewDataSource({ parentListData: values });
+      setParentListViewSelectedItem(selectedValues[0]);
+      setParentListViewDataSource({ parentListData: selectedValues });
       setParentFieldName(args.value);
     }
   };
@@ -256,36 +275,32 @@ const DependencyMappingLayout = ({}) => {
     UpdateSummaryListDataSource(args.target.checked);
   };
 
-  const onParentListViewSelect = (index: number, args: MouseEventHandler) => {
-    // Get the selected item from the ListView
-    if (index >= 0) setParentListViewSelectedIndex(index);
-    const selectedItem = parentListViewDataSource.parentListData[index];
-    const updatedChildMappingDataSource = [
-      ...childListViewDataSource.childListData,
-    ];
-    for (let i = 0; i < updatedChildMappingDataSource.length; i++) {
-      updatedChildMappingDataSource[i].isChecked = false;
+  const onParentListViewSelect = (item: any) => {
+    setParentListViewSelectedItem(item);
+
+    const childNamesSet = new Set(item?.children);
+
+    const updatedChildListData = childListViewDataSource.childListData.map(
+      (childItem) => ({
+        ...childItem,
+        isChecked: childNamesSet.has(childItem.name),
+      })
+    );
+
+    setChildListViewDataSource({ childListData: updatedChildListData });
+
+    const allChildrenSelected =
+      item?.children.length === updatedChildListData.length;
+
+    if (allChildrenSelected !== selectAllCheckBoxState) {
+      setSelectAllCheckBoxState(allChildrenSelected);
     }
-    if (selectedItem != null && selectedItem.children.length > 0) {
-      for (let i = 0; i < selectedItem.children.length; i++) {
-        const childItem = updatedChildMappingDataSource.find(
-          (item) => item.name === selectedItem.children[i]
-        );
-        if (childItem != null) childItem.isChecked = true;
-      }
-    }
-    setChildListViewDataSource({
-      childListData: updatedChildMappingDataSource,
-    });
   };
 
   const handleCheckboxChange = (event: any, item: any) => {
     item.isChecked = event.target.checked;
 
-    if (parentListViewSelectedIndex < 0) return;
-
-    const parentListViewSelectedItem =
-      parentListViewDataSource.parentListData[parentListViewSelectedIndex];
+    if (parentListViewSelectedItem == null) return;
 
     if (item.isChecked) {
       parentListViewSelectedItem.children.push(item.name);
@@ -304,20 +319,32 @@ const DependencyMappingLayout = ({}) => {
 
   function handleSearch(event: any, isChildContainer: boolean) {
     let value = event.value;
+    const query = new Query().where("name", "startswith", value, true);
 
     if (isChildContainer) {
       let data = new DataManager(
         childListViewDataSource.childListData
-      ).executeLocal(new Query().where("name", "startswith", value, true));
-      if (!value) {
-        setChildListViewDataSource({
-          childListData: fieldValues,
-        });
-      } else {
-        setChildListViewDataSource({
-          childListData: data,
-        });
-      }
+      ).executeLocal(query);
+
+      setChildListViewDataSource({
+        childListData: !value
+          ? currentFieldIsParent
+            ? comboBoxSelectedData
+            : fieldValues
+          : data,
+      });
+    } else {
+      let data = new DataManager(
+        parentListViewDataSource.parentListData
+      ).executeLocal(query);
+
+      setParentListViewDataSource({
+        parentListData: !value
+          ? currentFieldIsParent
+            ? fieldValues
+            : comboBoxSelectedData
+          : data,
+      });
     }
   }
 
@@ -344,22 +371,20 @@ const DependencyMappingLayout = ({}) => {
   };
 
   const UpdateSummaryListDataSource = (isSelectAll: boolean) => {
-    if (parentListViewSelectedIndex < 0) return;
-
     const updatedChildMappingDataSource = [
       ...childListViewDataSource.childListData,
     ];
-    const parentListViewSelectedItem =
-      parentListViewDataSource.parentListData[parentListViewSelectedIndex];
 
     for (let i = 0; i < updatedChildMappingDataSource.length; i++) {
       updatedChildMappingDataSource[i].isChecked = isSelectAll;
-      if (isSelectAll)
-        parentListViewSelectedItem.children.push(
-          updatedChildMappingDataSource[i].name
-        );
     }
+
     if (!isSelectAll) parentListViewSelectedItem.children = [];
+    else
+      parentListViewSelectedItem.children = updatedChildMappingDataSource.map(
+        (item) => item.name
+      );
+
     setChildListViewDataSource({
       childListData: updatedChildMappingDataSource,
     });
@@ -368,6 +393,39 @@ const DependencyMappingLayout = ({}) => {
     setSelectAllCheckBoxState(isSelectAll);
 
     UpdateSummaryListViewUpdate(parentListViewSelectedItem);
+  };
+
+  const fieldDependencyClick = (isParent: boolean, index: number) => {
+    setFieldDependencyButtonId(index);
+
+    if (isParent) {
+      setCurrentFieldIsParent(false);
+      setSummaryContainerDataSource([]);
+      setChildListViewDataSource({ childListData: fieldValues });
+
+      const selectedIndex: any = existingFields.findIndex(
+        (field) => field.name === parentFieldName
+      );
+      setComboBoxSelectedIndex(selectedIndex);
+      setParentListViewDataSource({
+        parentListData: existingFields[selectedIndex].values,
+      });
+      setParentListViewSelectedItem(existingFields[selectedIndex].values[0]);
+    } else {
+      if (!currentFieldIsParent) {
+        setCurrentFieldIsParent(true);
+        setSummaryContainerDataSource([]);
+        setParentListViewDataSource({ parentListData: fieldValues });
+        setParentListViewSelectedItem(fieldValues[0]);
+      }
+      const selectedIndex: any = existingFields.findIndex(
+        (field) => field.name === fieldChildren[index - 1]
+      );
+      setComboBoxSelectedIndex(selectedIndex);
+      setChildListViewDataSource({
+        childListData: existingFields[selectedIndex].values,
+      });
+    }
   };
 
   return (
@@ -382,6 +440,8 @@ const DependencyMappingLayout = ({}) => {
         fieldChildren={fieldChildren}
         currentFieldIsChild={!currentFieldIsParent}
         isLoaded={isLoaded}
+        fieldDependencyClick={fieldDependencyClick}
+        fieldDependencyButtonId={fieldDependencyButtonId}
       />
       {isLoaded && (
         <div className={styles.mappingGridContainer}>
@@ -393,14 +453,16 @@ const DependencyMappingLayout = ({}) => {
             onParentListViewSelect={onParentListViewSelect}
             fieldName={fieldName}
             handleSearch={handleSearch}
+            parentListViewSelectedItem={parentListViewSelectedItem}
+            comboBoxSelectedIndex={comboBoxSelectedIndex}
           />
           <div className={styles.mappingIconContainer}>
             <Image
               src="/mapping_double_arrow_icon.png"
               className={styles.doubleArrowIcon}
               alt="Dependency Mapping Icon"
-              height={25}
-              width={25}
+              height={40}
+              width={40}
             />
           </div>
           <ChildMappingContainer
@@ -414,6 +476,7 @@ const DependencyMappingLayout = ({}) => {
             onChildListViewSelectAllClick={onChildListViewSelectAllClick}
             selectAllCheckBoxState={selectAllCheckBoxState}
             handleSearch={handleSearch}
+            comboBoxSelectedIndex={comboBoxSelectedIndex}
           />
           <SummaryContainer
             summaryContainerDataSource={summaryContainerDataSource}
@@ -440,6 +503,8 @@ function MappingActionContainer({
   fieldChildren,
   currentFieldIsChild,
   isLoaded,
+  fieldDependencyClick,
+  fieldDependencyButtonId,
 }: {
   addParent: MouseEventHandler;
   parentFieldName: string;
@@ -448,6 +513,8 @@ function MappingActionContainer({
   fieldChildren: string[];
   currentFieldIsChild: boolean;
   isLoaded: boolean;
+  fieldDependencyClick: (isParent: boolean, index: number) => void;
+  fieldDependencyButtonId: number;
 }) {
   return (
     <div className={styles.mappingActionContainer}>
@@ -458,21 +525,26 @@ function MappingActionContainer({
           </label>
         </div>
         <div>
-          {(!isLoaded || !currentFieldIsChild) &&
-            parentFieldName == "Not Choosen" && (
-              <ButtonComponent
-                cssClass="e-link"
-                className={styles.mappingActionAddButton}
-                onClick={addParent}
-              >
-                +Add a Parent
-              </ButtonComponent>
-            )}
-          {((isLoaded && currentFieldIsChild) ||
-            parentFieldName != "Not Choosen") && (
-            <ButtonComponent className={styles.parentFieldButton}>
-              {parentFieldName}
+          {parentFieldName == "" && (
+            <ButtonComponent
+              cssClass="e-link"
+              className={styles.mappingActionAddButton}
+              onClick={addParent}
+            >
+              +Add a Parent
             </ButtonComponent>
+          )}
+          {parentFieldName != "" && (
+            <button
+              className={styles.parentFieldButton}
+              onClick={() => fieldDependencyClick(true, 0)}
+              style={{
+                backgroundColor:
+                  fieldDependencyButtonId === 0 ? "#f9f5ff" : "#ffffff",
+              }}
+            >
+              {parentFieldName}
+            </button>
           )}
         </div>
       </div>
@@ -485,8 +557,9 @@ function MappingActionContainer({
         <div>
           <>
             {fieldChildren.map((child, index) => (
-              <ButtonComponent
+              <button
                 className={styles.childFieldButton}
+                onClick={() => fieldDependencyClick(false, index + 1)}
                 key={index}
                 style={{
                   borderRadius:
@@ -498,10 +571,14 @@ function MappingActionContainer({
                       ? "0px 20px 20px 0px"
                       : "0px",
                   marginRight: index === fieldChildren.length - 1 ? "10px" : 0,
+                  backgroundColor:
+                    index === fieldDependencyButtonId - 1
+                      ? "#f9f5ff"
+                      : "#ffffff",
                 }}
               >
                 Child {index + 1}: {child}
-              </ButtonComponent>
+              </button>
             ))}
           </>
           {fieldChildren.length < 4 && (
@@ -527,6 +604,8 @@ function ParentMappingContainer({
   onParentListViewSelect,
   fieldName,
   handleSearch,
+  parentListViewSelectedItem,
+  comboBoxSelectedIndex,
 }: {
   isParent: boolean;
   onComboBoxChange: any;
@@ -535,11 +614,9 @@ function ParentMappingContainer({
   onParentListViewSelect: any;
   fieldName: string;
   handleSearch: any;
+  parentListViewSelectedItem: any;
+  comboBoxSelectedIndex: any;
 }) {
-  const [selectedItem, setSelectedItem] = useState(null);
-  const handleItemClick = (item: any) => {
-    setSelectedItem(item);
-  };
   return (
     <div className={styles.parentMappingConatiner}>
       <MappingHeaderComponent
@@ -553,29 +630,27 @@ function ParentMappingContainer({
         isChildContainer={false}
         onChildListViewResetAllClick={() => {}}
         handleSearch={handleSearch}
+        comboBoxSelectedIndex={comboBoxSelectedIndex}
       />
       <ul>
         {parentListViewDataSource.map((item: any) => (
           <li
             key={item}
-            onClick={() => handleItemClick(item)}
+            onClick={() => onParentListViewSelect(item)}
             className={`${styles.parentMappingListViewRootItem} ${
-              selectedItem === item
+              parentListViewSelectedItem === item
                 ? styles.selectedParentMappingListViewItem
                 : ""
             }`}
           >
-            <div
-              className={styles.parentMappingListViewItem}
-              onClick={onParentListViewSelect.bind(null, item.index)}
-            >
+            <div className={styles.parentMappingListViewItem}>
               <label className={styles.parentMappingListViewItemLabel}>
                 {item.name}
               </label>
               {item.isMapped && (
                 <label
                   className={`${styles.parentMappingItemRoundedLabel} ${
-                    selectedItem === item
+                    parentListViewSelectedItem === item
                       ? styles.selectedParentMappingItemRoundedLabel
                       : ""
                   }`}
@@ -602,6 +677,7 @@ function ChildMappingContainer({
   onChildListViewSelectAllClick,
   selectAllCheckBoxState,
   handleSearch,
+  comboBoxSelectedIndex,
 }: {
   isChild: boolean;
   onComboBoxChange: any;
@@ -613,6 +689,7 @@ function ChildMappingContainer({
   onChildListViewSelectAllClick: any;
   selectAllCheckBoxState: boolean;
   handleSearch: any;
+  comboBoxSelectedIndex: any;
 }) {
   return (
     <div className={styles.childMappingContainer}>
@@ -627,6 +704,7 @@ function ChildMappingContainer({
         isChildContainer={true}
         onChildListViewResetAllClick={onChildListViewResetAllClick}
         handleSearch={handleSearch}
+        comboBoxSelectedIndex={comboBoxSelectedIndex}
       />
       {childListViewDataSource.length > 0 && (
         <div className={styles.childMappingListViewItem}>
@@ -692,6 +770,7 @@ function MappingHeaderComponent({
   isChildContainer,
   onChildListViewResetAllClick,
   handleSearch,
+  comboBoxSelectedIndex,
 }: {
   headerLabel: string;
   isChild: boolean;
@@ -701,6 +780,7 @@ function MappingHeaderComponent({
   isChildContainer: boolean;
   onChildListViewResetAllClick: any;
   handleSearch: any;
+  comboBoxSelectedIndex: any;
 }) {
   return (
     <div>
@@ -735,14 +815,17 @@ function MappingHeaderComponent({
           </div>
         )}
         {!isChild && (
-          <ComboBoxComponent
-            cssClass={styles.mappingHeaderComboBox}
-            dataSource={comboBoxDataSource}
-            fields={{ text: "name", value: "name" }}
-            onChange={onComboBoxChange}
-            valueTemplate={comboBoxValueTemplate}
-            placeholder="Select a Field"
-          />
+          <div className={styles.mappingHeaderComboBoxPanel}>
+            <DropDownListComponent
+              cssClass={styles.mappingHeaderComboBox}
+              dataSource={comboBoxDataSource}
+              fields={{ text: "name", value: "name" }}
+              onChange={onComboBoxChange}
+              valueTemplate={comboBoxValueTemplate}
+              placeholder="Select a Field"
+              index={comboBoxSelectedIndex}
+            />
+          </div>
         )}
       </div>
       <DependencyMappingSearchBoxComponent

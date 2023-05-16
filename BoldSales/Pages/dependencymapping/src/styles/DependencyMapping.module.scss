@@ -92,16 +92,18 @@ $lightGreen-color: #ecfdf3;
 // Button styles
 .childFieldButton {
   border-color: $pink-color;
+  border-width: 1px;
   font-size: 14px;
+  padding: 5px 10px 5px 10px;
 }
 
 .parentFieldButton {
   margin: 5px 0px 20px;
-  background-color: $lightPink-color;
   border-color: $pink-color;
   border-width: 1px;
   font-size: 14px;
   border-radius: 20px;
+  padding: 5px 10px 5px 10px;
 }
 
 .resetAllButton {
@@ -211,10 +213,12 @@ $lightGreen-color: #ecfdf3;
 }
 
 //ComboBox styles
+.mappingHeaderComboBoxPanel {
+  margin: 8px 0px 0px 3%;
+}
 .mappingHeaderComboBox {
   border: 1px solid $grey-color;
   background-color: white;
-  margin: 8px 0px 0px 3%;
   min-height: 44px;
   align-items: center;
   max-width: 94%;
